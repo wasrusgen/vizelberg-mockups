@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Прототипы</title>
+<style>
+  :root{--sage:#7C9070;--herbal:#2F4A3C;--cream:#F5EFE6;--terra:#E8A87C;--gold:#C9A24B;--line:rgba(47,74,60,.12)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;background:var(--cream);color:#23302a;min-height:100vh}
+  .hero{background:var(--herbal);color:var(--cream);padding:60px 24px 70px;text-align:center}
+  .hero .lg{width:64px;height:64px;border-radius:20px;background:var(--gold);color:var(--herbal);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .hero h1{font-family:Georgia,serif;font-size:30px}
+  .hero .sl{color:var(--sage);letter-spacing:4px;font-size:13px;text-transform:uppercase;margin-top:8px}
+  .hero p{color:rgba(245,239,230,.8);margin-top:14px;font-size:14px}
+  .wrap{max-width:1000px;margin:-40px auto 0;padding:0 24px 60px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  a.card{display:block;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;text-decoration:none;color:inherit;box-shadow:0 8px 26px rgba(47,74,60,.08);transition:.15s}
+  a.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(47,74,60,.14)}
+  .card .ico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:14px}
+  .card h3{color:var(--herbal);font-size:17px;margin-bottom:6px}
+  .card p{color:#6c7a71;font-size:13px}
+  .card .tag{display:inline-block;margin-top:12px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
+  .ic{width:24px;height:24px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  footer{text-align:center;color:#6c7a71;font-size:12px;padding:24px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z"/><path d="M5 19c4-1 7-4 9-8"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-1.5-7-1v13c2-.5 5-.5 7 1 2-1.5 5-1.5 7-1V5c-2-.5-5-.5-7 1z"/><path d="M12 6v13"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-5 6-5s6 1.5 6 5"/><path d="M16 5.5a3 3 0 0 1 0 5.5M21 20c0-3-1.5-4.5-4-4.8"/></symbol>
+</svg>
+
+<div class="hero">
+  <div class="lg"><svg class="ic" style="width:32px;height:32px"><use href="#i-leaf"/></svg></div>
+  <h1>VIZELBERG</h1>
+  <div class="sl">нутрициология здоровья</div>
+  <p>Прототипы бренда и продукта · кликабельные макеты</p>
+</div>
+
+<div class="wrap"><div class="grid">
+  <a class="card" href="app_interactive.html">
+    <div class="ico" style="background:var(--sage)"><svg class="ic"><use href="#i-phone"/></svg></div>
+    <h3>Кабинет клиента</h3>
+    <p>Интерактивное мини-приложение (Telegram / MAX): меню, трекинг, чат, подписка. Всё кликается.</p>
+    <span class="tag">интерактив →</span>
+  </a>
+  <a class="card" href="app_admin.html">
+    <div class="ico" style="background:var(--herbal)"><svg class="ic"><use href="#i-users"/></svg></div>
+    <h3>Кабинет администратора</h3>
+    <p>Рабочий стол нутрициолога: клиенты, конструктор меню, чек-ины, биллинг, аналитика.</p>
+    <span class="tag">интерактив →</span>
+  </a>
+  <a class="card" href="brandbook.html">
+    <div class="ico" style="background:var(--gold)"><svg class="ic"><use href="#i-book"/></svg></div>
+    <h3>Брендбук</h3>
+    <p>Логотип, охранное поле, палитра, типографика, иконка приложения, tone of voice.</p>
+    <span class="tag">смотреть →</span>
+  </a>
+  <a class="card" href="logo_concepts.html">
+    <div class="ico" style="background:var(--terra)"><svg class="ic"><use href="#i-grid"/></svg></div>
+    <h3>10 концепций логотипа</h3>
+    <p>Варианты знака на светлом и тёмном фоне. Выбранная концепция — №6.</p>
+    <span class="tag">смотреть →</span>
+  </a>
+  <a class="card" href="assets_kit.html">
+    <div class="ico" style="background:var(--sage)"><svg class="ic"><use href="#i-card"/></svg></div>
+    <h3>Визитки · кнопки</h3>
+    <p>Варианты визиток, экраны приложения и библиотека UI-кнопок для сайта.</p>
+    <span class="tag">смотреть →</span>
+  </a>
+  <a class="card" href="miniapp_mockup.html">
+    <div class="ico" style="background:var(--herbal)"><svg class="ic"><use href="#i-phone"/></svg></div>
+    <h3>Мини-приложение (8 экранов)</h3>
+    <p>Статичный обзор всех экранов клиентского приложения + монохромный icon-set.</p>
+    <span class="tag">смотреть →</span>
+  </a>
+</div></div>
+
+<footer>VIZELBERG · Prototype Gallery · 2026</footer>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Мини-приложение · мокап-проект</title>
+<style>
+  :root{
+    --sage:#7C9070; --herbal:#2F4A3C; --cream:#F5EFE6;
+    --terra:#E8A87C; --gold:#C9A24B; --ink:#23302a;
+    --line:rgba(47,74,60,.12); --soft:#8a978d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;color:var(--ink);background:#ede6db;line-height:1.55}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+  header{background:var(--herbal);color:var(--cream);padding:48px 0;text-align:center}
+  header .k{font-size:12px;letter-spacing:6px;color:var(--gold);text-transform:uppercase}
+  header h1{font-family:Georgia,serif;font-size:25px;margin-top:10px}
+  header p{color:var(--sage);font-size:14px;margin-top:6px}
+  .sec{padding:46px 0}
+  .sec h2{font-family:Georgia,serif;font-size:22px;color:var(--herbal);margin-bottom:6px}
+  .sec .d{color:#5d6b62;margin-bottom:26px;max-width:680px;font-size:14px}
+
+  /* icon system */
+  .ic{width:22px;height:22px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;display:block}
+  .ic-sm{width:16px;height:16px}
+  .ic-lg{width:30px;height:30px}
+
+  /* phones grid */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .col .cap{text-align:center;font-size:12px;color:#5d6b62;margin-top:10px;letter-spacing:.3px}
+  .phone{background:#1b251f;border-radius:34px;padding:9px;box-shadow:0 18px 40px rgba(27,37,31,.28)}
+  .screen{background:var(--cream);border-radius:26px;overflow:hidden;aspect-ratio:9/19.3;display:flex;flex-direction:column;position:relative}
+  .notch{height:22px;display:flex;align-items:center;justify-content:center}
+  .notch i{width:46px;height:5px;border-radius:3px;background:rgba(0,0,0,.12)}
+
+  .top{padding:6px 16px 10px;display:flex;align-items:center;gap:9px;color:var(--herbal)}
+  .top .logo{width:24px;height:24px;border-radius:8px;background:var(--herbal);color:var(--cream);display:flex;align-items:center;justify-content:center}
+  .top .ti{font-weight:600;font-size:12px}
+  .top .sp{margin-left:auto;color:var(--soft)}
+
+  .body{flex:1;overflow:hidden;padding:4px 14px 12px;display:flex;flex-direction:column;gap:9px;font-size:11px}
+  .h{font-weight:600;color:var(--herbal);font-size:12px}
+  .muted{color:var(--soft);font-size:10px}
+  .tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px;display:flex;flex-direction:column;gap:5px}
+  .row{display:flex;align-items:center;gap:9px}
+  .row .ico{color:var(--sage);flex:none}
+  .row .tx{flex:1}
+  .row .tx b{color:var(--herbal);font-weight:600;font-size:11px;display:block}
+  .pill{display:inline-flex;align-items:center;gap:4px;background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:3px 9px;font-size:9.5px;color:var(--herbal)}
+  .bar{height:7px;background:#e9e2d6;border-radius:5px;overflow:hidden}
+  .bar i{display:block;height:7px;border-radius:5px;background:var(--gold)}
+  .bar.green i{background:var(--sage)}
+  .ring{display:flex;align-items:center;justify-content:center}
+  .btn{background:var(--herbal);color:#fff;border-radius:12px;padding:11px;text-align:center;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+  .btn.gold{background:var(--gold);color:#3a2e10}
+  .btn.outline{background:transparent;color:var(--herbal);border:1.5px solid var(--herbal)}
+
+  .tabbar{display:flex;justify-content:space-around;align-items:center;padding:9px 0 12px;background:#fff;border-top:1px solid var(--line);position:relative}
+  .tabbar a{color:var(--soft);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:8px;text-decoration:none}
+  .tabbar a.on{color:var(--herbal)}
+  .tabbar .fab{width:42px;height:42px;border-radius:50%;background:var(--gold);color:#3a2e10;display:flex;align-items:center;justify-content:center;margin-top:-26px;box-shadow:0 8px 16px rgba(201,162,75,.4)}
+
+  /* chat */
+  .chat{background:#e7e0d3;flex:1;padding:12px 12px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+  .msg{max-width:80%;padding:7px 10px;border-radius:13px;font-size:10px;line-height:1.4}
+  .in{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+  .out{background:var(--sage);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+  .inputbar{display:flex;gap:7px;align-items:center;padding:9px 12px;background:#fff;border-top:1px solid var(--line)}
+  .inputbar .f{flex:1;background:var(--cream);border-radius:16px;padding:7px 11px;color:var(--soft);font-size:10px}
+  .inputbar .snd{width:30px;height:30px;border-radius:50%;background:var(--herbal);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+
+  /* onboarding */
+  .ob{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:14px;background:linear-gradient(180deg,#fbf7f0,#efe7da)}
+  .ob .badge{width:78px;height:78px;border-radius:24px;background:var(--herbal);color:var(--cream);display:flex;align-items:center;justify-content:center}
+  .ob h3{font-family:Georgia,serif;color:var(--herbal);font-size:18px}
+  .ob p{color:#5d6b62;font-size:11px;max-width:200px}
+  .dots{display:flex;gap:6px}.dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}.dots i.on{background:var(--gold);width:18px;border-radius:4px}
+
+  .legend{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+  .legend h3{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .icons{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+  .icons .it{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--herbal);font-size:10px;text-align:center}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.icons{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- ===== SVG ICON SYMBOLS (monochrome line set) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z"/><path d="M5 19c4-1 7-4 9-8"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V4"/><path d="M5 20h15"/><path d="M9 20v-6"/><path d="M13 20v-9"/><path d="M17 20v-4"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 5h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H10l-4 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-4 3-6 6.5-6s6.5 2 6.5 6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></symbol>
+  <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M2 11h20"/><path d="M9 7c0-1.5 1-2 1-3M13 7c0-1.5 1-2 1-3"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M12 8c-1.5-1.5-5-1.5-6 1.5s1 9 3.5 9c1 0 1.5-.6 2.5-.6s1.5.6 2.5.6c2.5 0 4.5-6 3.5-9s-4.5-3-6-1.5z"/><path d="M12 8c0-2 1-3 3-3.5"/></symbol>
+  <symbol id="i-fish" viewBox="0 0 24 24"><path d="M3 12c3-5 11-5 15 0-4 5-12 5-15 0z"/><path d="M18 12l3-3v6z"/><circle cx="8" cy="11" r=".8" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 12 8 12 3z"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13l4-4"/><path d="M12 5V3"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2H4.5z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M12 6l6 6-6 6"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-1.5-7-1v13c2-.5 5-.5 7 1 2-1.5 5-1.5 7-1V5c-2-.5-5-.5-7 1z"/><path d="M12 6v13"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S4 14.5 4 9a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 5.5-8 11-8 11z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-7-7 16-2-7-7-2z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="9" rx="1"/><path d="M3 10h18M12 10v9M12 10c-1-3-5-3-5-1s4 1 5 1zM12 10c1-3 5-3 5-1s-4 1-5 1z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+</svg>
+
+<header>
+  <div class="k">VIZELBERG · Mini-App Project</div>
+  <h1>Клиентское мини-приложение</h1>
+  <p>Telegram & MAX · 8 экранов · монохромный icon-set</p>
+</header>
+
+<div class="sec"><div class="wrap">
+  <h2>Поток экранов</h2>
+  <div class="d">Полный клиентский путь: онбординг → главный экран дня → меню/рецепт → прогресс → чат → подписка → знания → профиль. Все пиктограммы — единый линейный монохром (stroke в фирменном цвете), без эмодзи.</div>
+
+  <div class="grid">
+
+    <!-- 1 ONBOARDING -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="ob">
+          <div class="badge"><svg class="ic ic-lg"><use href="#i-leaf"/></svg></div>
+          <h3>Добро пожаловать<br>в VIZELBERG</h3>
+          <p>Персональное питание как система. Меню, контроль и поддержка — в одном месте.</p>
+          <div class="dots"><i class="on"></i><i></i><i></i></div>
+          <div class="btn gold" style="width:100%">Начать <svg class="ic ic-sm"><use href="#i-arrow"/></svg></div>
+          <div class="muted">Уже есть аккаунт? Войти</div>
+        </div>
+      </div></div>
+      <div class="cap">1 · Онбординг</div>
+    </div>
+
+    <!-- 2 HOME / TODAY -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="top"><div class="logo"><svg class="ic ic-sm"><use href="#i-leaf"/></svg></div><div class="ti">Сегодня</div><div class="sp"><svg class="ic"><use href="#i-bell"/></svg></div></div>
+        <div class="body">
+          <div class="tile" style="background:var(--herbal);color:var(--cream);border:none">
+            <div class="muted" style="color:var(--sage)">Среда, 27 мая</div>
+            <div class="row"><div class="ico" style="color:var(--gold)"><svg class="ic"><use href="#i-fire"/></svg></div><div class="tx"><b style="color:#fff">1400 / 1900 ккал</b></div></div>
+            <div class="bar"><i style="width:74%"></i></div>
+          </div>
+          <div class="h">План питания</div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-sun"/></svg></div><div class="tx"><b>Завтрак</b><span class="muted">Овсянка с ягодами · 320 ккал</span></div><svg class="ic ic-sm" style="color:var(--sage)"><use href="#i-check"/></svg></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-bowl"/></svg></div><div class="tx"><b>Обед</b><span class="muted">Гречка + индейка · 480 ккал</span></div></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-apple"/></svg></div><div class="tx"><b>Перекус</b><span class="muted">Яблоко + орехи · 180 ккал</span></div></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-fish"/></svg></div><div class="tx"><b>Ужин</b><span class="muted">Лосось + овощи · 420 ккал</span></div></div></div>
+        </div>
+        <div class="tabbar">
+          <a class="on"><svg class="ic"><use href="#i-home"/></svg>Сегодня</a>
+          <a><svg class="ic"><use href="#i-chart"/></svg>Прогресс</a>
+          <div class="fab"><svg class="ic"><use href="#i-plus"/></svg></div>
+          <a><svg class="ic"><use href="#i-chat"/></svg>Чат</a>
+          <a><svg class="ic"><use href="#i-user"/></svg>Профиль</a>
+        </div>
+      </div></div>
+      <div class="cap">2 · Главный экран</div>
+    </div>
+
+    <!-- 3 RECIPE -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="top"><div class="sp" style="margin:0;color:var(--herbal);transform:rotate(180deg)"><svg class="ic"><use href="#i-arrow"/></svg></div><div class="ti">Обед</div><div class="sp"><svg class="ic"><use href="#i-heart"/></svg></div></div>
+        <div class="body">
+          <div class="tile" style="align-items:center;background:var(--sage);border:none;padding:22px"><svg class="ic" style="width:54px;height:54px;color:#fff"><use href="#i-bowl"/></svg></div>
+          <div class="h">Гречка с индейкой и салатом</div>
+          <div class="row" style="gap:6px;flex-wrap:wrap">
+            <span class="pill"><svg class="ic ic-sm"><use href="#i-fire"/></svg> 480 ккал</span>
+            <span class="pill"><svg class="ic ic-sm"><use href="#i-clock"/></svg> 25 мин</span>
+            <span class="pill">Б 38 · Ж 14 · У 52</span>
+          </div>
+          <div class="h" style="margin-top:4px">Состав</div>
+          <div class="tile"><div class="muted" style="line-height:1.7">Гречка 60 г · Индейка 150 г<br>Огурец, помидор, зелень<br>Оливковое масло 1 ч.л.</div></div>
+          <div class="btn outline"><svg class="ic ic-sm"><use href="#i-doc"/></svg> Рецепт пошагово</div>
+          <div class="btn"><svg class="ic ic-sm"><use href="#i-check"/></svg> Отметить съеденным</div>
+        </div>
+      </div></div>
+      <div class="cap">3 · Рецепт / блюдо</div>
+    </div>
+
+    <!-- 4 PROGRESS -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="top"><div class="logo"><svg class="ic ic-sm"><use href="#i-leaf"/></svg></div><div class="ti">Прогресс</div><div class="sp"><svg class="ic"><use href="#i-cal"/></svg></div></div>
+        <div class="body">
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-scale"/></svg></div><div class="tx"><b>Вес · 68,4 кг</b><span class="muted">−2,1 кг за месяц</span></div></div>
+            <svg viewBox="0 0 200 46" style="width:100%;height:46px"><polyline points="0,36 35,33 70,26 105,24 140,16 175,12 200,8" fill="none" stroke="#7C9070" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-drop"/></svg></div><div class="tx"><b>Вода</b></div><span class="muted">1,5 / 2,5 л</span></div><div class="bar green"><i style="width:60%"></i></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-target"/></svg></div><div class="tx"><b>Цель недели</b></div><span class="muted">5/7 дней</span></div><div class="bar"><i style="width:71%"></i></div></div>
+          <div class="h">Самочувствие</div>
+          <div class="row" style="flex-wrap:wrap;gap:6px">
+            <span class="pill"><svg class="ic ic-sm"><use href="#i-clock"/></svg> Сон 7ч</span>
+            <span class="pill"><svg class="ic ic-sm"><use href="#i-fire"/></svg> Энергия ↑</span>
+            <span class="pill"><svg class="ic ic-sm"><use href="#i-heart"/></svg> ЖКТ ОК</span>
+          </div>
+          <div class="btn outline"><svg class="ic ic-sm"><use href="#i-camera"/></svg> Чек-ин фото</div>
+        </div>
+        <div class="tabbar">
+          <a><svg class="ic"><use href="#i-home"/></svg>Сегодня</a>
+          <a class="on"><svg class="ic"><use href="#i-chart"/></svg>Прогресс</a>
+          <div class="fab"><svg class="ic"><use href="#i-plus"/></svg></div>
+          <a><svg class="ic"><use href="#i-chat"/></svg>Чат</a>
+          <a><svg class="ic"><use href="#i-user"/></svg>Профиль</a>
+        </div>
+      </div></div>
+      <div class="cap">4 · Прогресс / трекинг</div>
+    </div>
+
+    <!-- 5 CHAT -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="top"><div class="logo"><svg class="ic ic-sm"><use href="#i-leaf"/></svg></div><div class="ti">Нутрициолог</div><div class="sp"><span class="pill" style="font-size:8px;color:var(--sage)">онлайн</span></div></div>
+        <div class="chat">
+          <div class="msg in">Доброе утро! Как самочувствие на новом меню?</div>
+          <div class="msg out">Лучше! Энергии больше, не тянет на сладкое</div>
+          <div class="msg in">Отлично — работают сложные углеводы. Держим курс</div>
+          <div class="msg out">А можно заменить гречку на булгур?</div>
+          <div class="msg in">Да, по КБЖУ почти то же. Уже заменил в меню</div>
+          <div class="msg in" style="display:flex;align-items:center;gap:6px"><svg class="ic ic-sm" style="color:var(--sage)"><use href="#i-doc"/></svg> Меню_неделя_22.pdf</div>
+        </div>
+        <div class="inputbar"><div class="f">Сообщение…</div><div class="snd"><svg class="ic ic-sm"><use href="#i-send"/></svg></div></div>
+      </div></div>
+      <div class="cap">5 · Чат с экспертом</div>
+    </div>
+
+    <!-- 6 SUBSCRIPTION -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="top"><div class="ti">Тарифы</div><div class="sp"></div></div>
+        <div class="body">
+          <div class="tile" style="border:2px solid var(--gold)">
+            <div class="row"><div class="tx"><b>Сопровождение · 3 мес</b><span class="muted">меню + чат + контроль</span></div><span class="pill" style="background:var(--gold);color:#3a2e10;border:none">хит</span></div>
+            <div class="row"><div class="tx" style="font-size:16px;font-weight:700;color:var(--herbal)">24 900 ₽</div><span class="muted" style="text-decoration:line-through">29 000</span></div>
+          </div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-leaf"/></svg></div><div class="tx"><b>Поддержка · 1 мес</b><span class="muted">меню + чек-ины</span></div><b style="color:var(--herbal)">4 900</b></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-doc"/></svg></div><div class="tx"><b>Разовый разбор</b><span class="muted">анализы + рекомендации</span></div><b style="color:var(--herbal)">3 500</b></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-gift"/></svg></div><div class="tx"><b>Пригласи подругу</b><span class="muted">−500 ₽ вам обеим</span></div></div></div>
+          <div class="btn gold"><svg class="ic ic-sm"><use href="#i-card"/></svg> Оформить · СБП</div>
+          <div class="muted" style="text-align:center">Оплата картой или СБП. Отмена в любой момент</div>
+        </div>
+      </div></div>
+      <div class="cap">6 · Подписка / оплата</div>
+    </div>
+
+    <!-- 7 KNOWLEDGE -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="top"><div class="logo"><svg class="ic ic-sm"><use href="#i-leaf"/></svg></div><div class="ti">База знаний</div><div class="sp"></div></div>
+        <div class="body">
+          <div class="row" style="gap:6px;flex-wrap:wrap">
+            <span class="pill">Все</span><span class="pill">Питание</span><span class="pill">Привычки</span><span class="pill">Анализы</span>
+          </div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-book"/></svg></div><div class="tx"><b>Как читать состав на этикетке</b><span class="muted">5 мин чтения</span></div></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-drop"/></svg></div><div class="tx"><b>Сколько воды реально нужно</b><span class="muted">3 мин</span></div></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-clock"/></svg></div><div class="tx"><b>Интервальное питание: за и против</b><span class="muted">7 мин</span></div></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-fire"/></svg></div><div class="tx"><b>Белок: нормы и источники</b><span class="muted">6 мин</span></div></div></div>
+          <div class="tile" style="background:var(--cream)"><div class="row"><div class="ico" style="color:var(--gold)"><svg class="ic"><use href="#i-target"/></svg></div><div class="tx"><b>Видео-урок недели</b><span class="muted">Завтрак за 10 минут</span></div></div></div>
+        </div>
+        <div class="tabbar">
+          <a><svg class="ic"><use href="#i-home"/></svg>Сегодня</a>
+          <a><svg class="ic"><use href="#i-chart"/></svg>Прогресс</a>
+          <div class="fab"><svg class="ic"><use href="#i-plus"/></svg></div>
+          <a><svg class="ic"><use href="#i-chat"/></svg>Чат</a>
+          <a><svg class="ic"><use href="#i-user"/></svg>Профиль</a>
+        </div>
+      </div></div>
+      <div class="cap">7 · База знаний</div>
+    </div>
+
+    <!-- 8 PROFILE -->
+    <div class="col">
+      <div class="phone"><div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="top"><div class="ti">Профиль</div><div class="sp"></div></div>
+        <div class="body">
+          <div class="tile" style="align-items:center;gap:8px"><div class="logo" style="width:54px;height:54px;border-radius:50%;background:var(--sage)"><svg class="ic ic-lg"><use href="#i-user"/></svg></div><div class="h">Анна</div><span class="muted">Цель: −5 кг · здоровые привычки</span></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-target"/></svg></div><div class="tx"><b>Моя цель и параметры</b></div><svg class="ic ic-sm" style="color:var(--soft)"><use href="#i-arrow"/></svg></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-doc"/></svg></div><div class="tx"><b>Мои анализы</b></div><svg class="ic ic-sm" style="color:var(--soft)"><use href="#i-arrow"/></svg></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-card"/></svg></div><div class="tx"><b>Подписка и платежи</b><span class="muted">Активна до 27 авг</span></div><svg class="ic ic-sm" style="color:var(--soft)"><use href="#i-arrow"/></svg></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-bell"/></svg></div><div class="tx"><b>Напоминания</b></div><svg class="ic ic-sm" style="color:var(--soft)"><use href="#i-arrow"/></svg></div></div>
+          <div class="tile"><div class="row"><div class="ico"><svg class="ic"><use href="#i-gift"/></svg></div><div class="tx"><b>Пригласить друзей</b></div><svg class="ic ic-sm" style="color:var(--soft)"><use href="#i-arrow"/></svg></div></div>
+        </div>
+        <div class="tabbar">
+          <a><svg class="ic"><use href="#i-home"/></svg>Сегодня</a>
+          <a><svg class="ic"><use href="#i-chart"/></svg>Прогресс</a>
+          <div class="fab"><svg class="ic"><use href="#i-plus"/></svg></div>
+          <a><svg class="ic"><use href="#i-chat"/></svg>Чат</a>
+          <a class="on"><svg class="ic"><use href="#i-user"/></svg>Профиль</a>
+        </div>
+      </div></div>
+      <div class="cap">8 · Профиль</div>
+    </div>
+
+  </div>
+
+  <!-- ICON LEGEND -->
+  <div class="legend">
+    <h3>Монохромный icon-set</h3>
+    <div class="icons">
+      <div class="it"><svg class="ic"><use href="#i-leaf"/></svg>лого</div>
+      <div class="it"><svg class="ic"><use href="#i-home"/></svg>дом</div>
+      <div class="it"><svg class="ic"><use href="#i-chart"/></svg>прогресс</div>
+      <div class="it"><svg class="ic"><use href="#i-chat"/></svg>чат</div>
+      <div class="it"><svg class="ic"><use href="#i-user"/></svg>профиль</div>
+      <div class="it"><svg class="ic"><use href="#i-sun"/></svg>завтрак</div>
+      <div class="it"><svg class="ic"><use href="#i-bowl"/></svg>обед</div>
+      <div class="it"><svg class="ic"><use href="#i-apple"/></svg>перекус</div>
+      <div class="it"><svg class="ic"><use href="#i-fish"/></svg>ужин</div>
+      <div class="it"><svg class="ic"><use href="#i-fire"/></svg>калории</div>
+      <div class="it"><svg class="ic"><use href="#i-drop"/></svg>вода</div>
+      <div class="it"><svg class="ic"><use href="#i-scale"/></svg>вес</div>
+      <div class="it"><svg class="ic"><use href="#i-target"/></svg>цель</div>
+      <div class="it"><svg class="ic"><use href="#i-camera"/></svg>фото</div>
+      <div class="it"><svg class="ic"><use href="#i-bell"/></svg>напоминания</div>
+      <div class="it"><svg class="ic"><use href="#i-cal"/></svg>календарь</div>
+      <div class="it"><svg class="ic"><use href="#i-clock"/></svg>время</div>
+      <div class="it"><svg class="ic"><use href="#i-heart"/></svg>избранное</div>
+      <div class="it"><svg class="ic"><use href="#i-book"/></svg>знания</div>
+      <div class="it"><svg class="ic"><use href="#i-doc"/></svg>документ</div>
+      <div class="it"><svg class="ic"><use href="#i-card"/></svg>оплата</div>
+      <div class="it"><svg class="ic"><use href="#i-gift"/></svg>реферал</div>
+      <div class="it"><svg class="ic"><use href="#i-check"/></svg>готово</div>
+      <div class="it"><svg class="ic"><use href="#i-send"/></svg>отправить</div>
+    </div>
+  </div>
+
+</div></div>
+
+<div style="padding:40px 0;text-align:center;color:#5d6b62;font-size:13px">
+  VIZELBERG · Mini-App Project · 2026 — иконки на чистом SVG (stroke, единый стиль). Системные шрифты в превью.
+</div>
+
+</body>
+</html>

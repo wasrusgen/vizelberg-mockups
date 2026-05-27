@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Визитки · Мини-приложение · Кнопки</title>
+<style>
+  :root{
+    --sage:#7C9070; --herbal:#2F4A3C; --cream:#F5EFE6;
+    --terra:#E8A87C; --gold:#C9A24B; --ink:#23302a;
+    --line:rgba(47,74,60,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  nav{position:sticky;top:0;background:rgba(245,239,230,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
+  nav .wrap{display:flex;gap:20px;padding:14px 28px;font-size:13px}
+  nav a{color:var(--herbal);text-decoration:none;font-weight:600;opacity:.7}
+  nav a:hover{opacity:1}
+  header{background:var(--herbal);color:var(--cream);padding:54px 0;text-align:center}
+  header .k{font-size:12px;letter-spacing:6px;color:var(--gold);text-transform:uppercase}
+  header h1{font-family:Georgia,serif;font-size:26px;margin-top:10px}
+  section{padding:60px 0;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:700}
+  h2{font-family:Georgia,serif;font-size:28px;color:var(--herbal);margin:8px 0 6px}
+  .sub{color:#5d6b62;max-width:660px;margin-bottom:28px}
+  h3{font-size:14px;color:var(--herbal);margin:30px 0 14px;letter-spacing:.4px;text-transform:uppercase;font-size:12px;letter-spacing:3px;color:#6c7a71}
+
+  /* ===== business cards ===== */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .bc{aspect-ratio:1.75/1;border-radius:16px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 30px rgba(47,74,60,.14);position:relative;overflow:hidden}
+  .bc .leaf-bg{position:absolute;right:-30px;bottom:-40px;opacity:.12}
+  .bc .nm{font-size:15px;font-weight:600}
+  .bc .role{font-size:11px;letter-spacing:1px;opacity:.85}
+  .bc .contacts{font-size:11px;line-height:1.7;opacity:.9}
+  .lbl{font-size:12px;color:#6c7a71;margin-top:10px;text-align:center}
+
+  /* ===== phones ===== */
+  .phones{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .phone{background:#1c2620;border-radius:30px;padding:10px;box-shadow:0 14px 34px rgba(47,74,60,.2)}
+  .screen{background:var(--cream);border-radius:22px;overflow:hidden;aspect-ratio:9/19;display:flex;flex-direction:column;font-size:11px}
+  .tg-bar{background:var(--herbal);color:var(--cream);padding:10px 12px;display:flex;align-items:center;gap:8px;font-size:11px}
+  .tg-bar .dot{width:20px;height:20px;border-radius:6px;background:var(--sage);display:flex;align-items:center;justify-content:center}
+  .scr-body{padding:12px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:9px}
+  .tile{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}
+  .tile b{color:var(--herbal);font-size:11px}
+  .muted{color:#8a978d;font-size:10px}
+  .bar{height:6px;background:#eee;border-radius:4px;margin-top:6px;overflow:hidden}
+  .bar i{display:block;height:6px;border-radius:4px;background:var(--gold)}
+  .btn-mini{background:var(--herbal);color:#fff;border-radius:10px;padding:8px;text-align:center;font-size:11px;font-weight:600}
+  .tabbar{display:flex;justify-content:space-around;padding:8px 0;background:#fff;border-top:1px solid var(--line);font-size:14px}
+  .tabbar span{opacity:.4}.tabbar span.on{opacity:1}
+  .chip{display:inline-block;background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:3px 9px;font-size:9.5px;color:var(--herbal);margin:2px 2px 0 0}
+  .msg{max-width:78%;padding:7px 10px;border-radius:12px;font-size:10px}
+  .msg.in{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+  .msg.out{background:var(--sage);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+
+  /* ===== buttons ===== */
+  .btn{font-family:inherit;border:none;cursor:pointer;border-radius:12px;font-weight:600;font-size:14px;padding:12px 24px;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--herbal);color:#fff}
+  .btn-primary:hover{background:#26402f}
+  .btn-accent{background:var(--gold);color:#3a2e10}
+  .btn-accent:hover{background:#b8923f}
+  .btn-sage{background:var(--sage);color:#fff}
+  .btn-sage:hover{background:#6c8061}
+  .btn-secondary{background:transparent;color:var(--herbal);border:1.5px solid var(--herbal)}
+  .btn-secondary:hover{background:var(--herbal);color:#fff}
+  .btn-ghost{background:var(--cream);color:var(--herbal)}
+  .btn-ghost:hover{background:#ece3d4}
+  .btn-pill{border-radius:30px}
+  .btn-lg{padding:16px 32px;font-size:16px}
+  .btn-sm{padding:8px 16px;font-size:12px}
+  .btn-block{display:flex;width:100%;justify-content:center}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btnrow{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+  .panel{border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:18px;background:#fff}
+  .panel .t{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:700}
+  .panel.dark{background:var(--herbal)}
+  .code{font-family:Consolas,monospace;font-size:11px;color:#8a978d}
+  @media(max-width:840px){.cards{grid-template-columns:1fr}.phones{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="#cards">Визитки</a>
+  <a href="#app">Мини-приложение</a>
+  <a href="#buttons">Кнопки сайта</a>
+</div></nav>
+
+<header>
+  <div class="k">VIZELBERG · Asset Kit</div>
+  <h1>Визитки · Мини-приложение · Кнопки</h1>
+</header>
+
+<!-- ============ BUSINESS CARDS ============ -->
+<section id="cards"><div class="wrap">
+  <div class="kicker">01 · Визитки</div>
+  <h2>Варианты визиток</h2>
+  <p class="sub">Лицо и оборот в фирменной палитре. Формат 90×50 мм. Имя — плейсхолдер, заменим на реальное.</p>
+
+  <h3>Вариант A · тёмная (премиум)</h3>
+  <div class="cards">
+    <div>
+      <div class="bc" style="background:var(--herbal);color:var(--cream)">
+        <svg class="leaf-bg" width="160" height="160" viewBox="0 0 120 120"><path d="M20 80 C20 40 50 14 100 14 C90 64 60 90 20 80 Z" fill="#C9A24B"/></svg>
+        <svg width="150" height="40" viewBox="0 0 240 56" style="position:relative">
+          <circle cx="20" cy="28" r="14" fill="#C9A24B"/><path d="M12 24 C12 18 17 14 24 14 C22 21 18 26 12 28 Z" fill="#2F4A3C"/>
+          <text x="42" y="28" font-family="'Segoe UI',sans-serif" font-weight="600" font-size="22" fill="#F5EFE6">vizelberg</text>
+          <text x="44" y="46" font-family="'Segoe UI',sans-serif" font-size="7.5" letter-spacing="1" fill="#E8A87C">НУТРИЦИОЛОГИЯ ЗДОРОВЬЯ</text>
+        </svg>
+        <div style="position:relative">
+          <div class="nm">Имя Фамилия</div>
+          <div class="role">нутрициолог</div>
+        </div>
+      </div>
+      <div class="lbl">Лицо</div>
+    </div>
+    <div>
+      <div class="bc" style="background:var(--herbal);color:var(--cream);align-items:flex-end;justify-content:center;text-align:right">
+        <div class="contacts">
+          @vizelberg<br>
+          +7 ··· ··· ·· ··<br>
+          hello@vizelberg.ru<br>
+          vizelberg.ru
+        </div>
+      </div>
+      <div class="lbl">Оборот</div>
+    </div>
+  </div>
+
+  <h3>Вариант B · кремовая (мягкая)</h3>
+  <div class="cards">
+    <div>
+      <div class="bc" style="background:var(--cream);color:var(--herbal)">
+        <svg class="leaf-bg" width="160" height="160" viewBox="0 0 120 120"><path d="M20 80 C20 40 50 14 100 14 C90 64 60 90 20 80 Z" fill="#7C9070"/></svg>
+        <svg width="150" height="40" viewBox="0 0 240 56" style="position:relative">
+          <circle cx="20" cy="28" r="14" fill="#7C9070"/><path d="M12 24 C12 18 17 14 24 14 C22 21 18 26 12 28 Z" fill="#F5EFE6"/>
+          <text x="42" y="28" font-family="'Segoe UI',sans-serif" font-weight="600" font-size="22" fill="#2F4A3C">vizelberg</text>
+          <text x="44" y="46" font-family="'Segoe UI',sans-serif" font-size="7.5" letter-spacing="1" fill="#7C9070">НУТРИЦИОЛОГИЯ ЗДОРОВЬЯ</text>
+        </svg>
+        <div style="position:relative">
+          <div class="nm">Имя Фамилия</div>
+          <div class="role" style="color:var(--sage)">нутрициолог · нутрициолог-консультант</div>
+        </div>
+      </div>
+      <div class="lbl">Лицо</div>
+    </div>
+    <div>
+      <div class="bc" style="background:var(--sage);color:#fff;align-items:center;justify-content:center;text-align:center">
+        <svg width="60" height="60" viewBox="0 0 120 120"><circle cx="60" cy="60" r="40" fill="#F5EFE6"/><path d="M44 52 C44 40 52 32 66 32 C62 46 56 54 44 60 Z" fill="#7C9070"/></svg>
+        <div style="font-family:Georgia,serif;font-size:14px;margin-top:8px">нутрициология здоровья</div>
+      </div>
+      <div class="lbl">Оборот (знак)</div>
+    </div>
+  </div>
+
+  <h3>Вариант C · золотой акцент (вертикальная)</h3>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr)">
+    <div>
+      <div class="bc" style="aspect-ratio:1/1.75;background:var(--cream);color:var(--herbal);align-items:center;text-align:center;justify-content:space-between">
+        <svg width="46" height="46" viewBox="0 0 120 120"><circle cx="60" cy="60" r="40" fill="#C9A24B"/><path d="M44 52 C44 40 52 32 66 32 C62 46 56 54 44 60 Z" fill="#2F4A3C"/></svg>
+        <div>
+          <div style="font-family:Georgia,serif;font-size:18px">vizelberg</div>
+          <div style="font-size:7px;letter-spacing:0.5px;color:var(--sage)">НУТРИЦИОЛОГИЯ ЗДОРОВЬЯ</div>
+        </div>
+        <div style="font-size:10px;line-height:1.6">Имя Фамилия<br><span style="color:var(--sage)">нутрициолог</span></div>
+      </div>
+      <div class="lbl">Вертикальная</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ MINI APP ============ -->
+<section id="app"><div class="wrap">
+  <div class="kicker">02 · Мини-приложение</div>
+  <h2>Экраны Telegram / MAX mini-app</h2>
+  <p class="sub">Клиентская часть: меню дня, трекинг, чат с нутрициологом, оплата подписки. Единый бэкенд — общий вид в обоих мессенджерах.</p>
+  <div class="phones">
+
+    <!-- screen 1: меню дня -->
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="tg-bar"><div class="dot"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12 C4 6 9 2 16 2 C14 11 9 14 4 12 Z" fill="#F5EFE6"/></svg></div>vizelberg · Меню</div>
+        <div class="scr-body">
+          <div style="font-weight:600;color:var(--herbal)">Среда, 27 мая</div>
+          <div class="tile"><b>🍳 Завтрак</b><div class="muted">Овсянка с ягодами · 320 ккал</div></div>
+          <div class="tile"><b>🥗 Обед</b><div class="muted">Гречка + индейка + салат · 480 ккал</div></div>
+          <div class="tile"><b>🍎 Перекус</b><div class="muted">Яблоко + орехи · 180 ккал</div></div>
+          <div class="tile"><b>🐟 Ужин</b><div class="muted">Лосось + овощи · 420 ккал</div>
+            <div class="bar"><i style="width:74%"></i></div>
+            <div class="muted" style="margin-top:4px">1400 / 1900 ккал</div>
+          </div>
+        </div>
+        <div class="tabbar"><span class="on">🍽️</span><span>📊</span><span>💬</span><span>👤</span></div>
+      </div></div>
+      <div class="lbl">Меню дня</div>
+    </div>
+
+    <!-- screen 2: трекинг -->
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="tg-bar"><div class="dot"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12 C4 6 9 2 16 2 C14 11 9 14 4 12 Z" fill="#F5EFE6"/></svg></div>Прогресс</div>
+        <div class="scr-body">
+          <div class="tile"><b>Вес</b><div class="muted">68,4 кг · −2,1 кг за месяц</div>
+            <svg width="100%" height="40" viewBox="0 0 200 40"><polyline points="0,30 40,28 80,22 120,20 160,14 200,10" fill="none" stroke="#7C9070" stroke-width="3"/></svg>
+          </div>
+          <div class="tile"><b>Вода</b><div class="bar"><i style="width:60%;background:#7C9070"></i></div><div class="muted" style="margin-top:4px">1,5 / 2,5 л</div></div>
+          <div class="tile"><b>Самочувствие</b><div style="margin-top:4px"><span class="chip">сон 😴</span><span class="chip">энергия ⚡</span><span class="chip">ЖКТ 👍</span></div></div>
+          <div class="tile"><b>Чек-ин фото</b><div class="muted">+ добавить фото блюда</div></div>
+        </div>
+        <div class="tabbar"><span>🍽️</span><span class="on">📊</span><span>💬</span><span>👤</span></div>
+      </div></div>
+      <div class="lbl">Трекинг прогресса</div>
+    </div>
+
+    <!-- screen 3: чат -->
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="tg-bar"><div class="dot"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12 C4 6 9 2 16 2 C14 11 9 14 4 12 Z" fill="#F5EFE6"/></svg></div>Нутрициолог</div>
+        <div class="scr-body" style="background:#efe7da">
+          <div class="msg in">Доброе утро! Как самочувствие после нового меню? 🌿</div>
+          <div class="msg out">Лучше! Энергии больше, не тянет на сладкое</div>
+          <div class="msg in">Отлично 👏 Это работают сложные углеводы. Держим курс</div>
+          <div class="msg out">А можно заменить гречку на булгур?</div>
+          <div class="msg in">Да, по КБЖУ почти то же. Заменю в меню ✅</div>
+          <div style="margin-top:auto;display:flex;gap:6px"><div style="flex:1;background:#fff;border-radius:14px;padding:7px 10px;color:#8a978d;font-size:10px">Сообщение…</div><div class="dot" style="background:var(--herbal)"><span style="color:#fff">➤</span></div></div>
+        </div>
+        <div class="tabbar"><span>🍽️</span><span>📊</span><span class="on">💬</span><span>👤</span></div>
+      </div></div>
+      <div class="lbl">Чат с экспертом</div>
+    </div>
+
+    <!-- screen 4: подписка/оплата -->
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="tg-bar"><div class="dot"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12 C4 6 9 2 16 2 C14 11 9 14 4 12 Z" fill="#F5EFE6"/></svg></div>Подписка</div>
+        <div class="scr-body">
+          <div class="tile" style="border:2px solid var(--gold)"><b>Сопровождение · 3 мес</b><div class="muted">персональное меню + чат + контроль</div><div style="font-size:16px;font-weight:700;color:var(--herbal);margin-top:6px">24 900 ₽</div><span class="chip" style="background:var(--gold);color:#3a2e10;border:none">−15% хит</span></div>
+          <div class="tile"><b>Поддержка · 1 мес</b><div class="muted">меню + чек-ины</div><div style="font-weight:700;color:var(--herbal);margin-top:4px">4 900 ₽/мес</div></div>
+          <div class="tile"><b>Разовый разбор</b><div class="muted">анализы + рекомендации</div><div style="font-weight:700;color:var(--herbal);margin-top:4px">3 500 ₽</div></div>
+          <div class="btn-mini">Оформить подписку →</div>
+          <div class="muted" style="text-align:center">Оплата картой · СБП</div>
+        </div>
+        <div class="tabbar"><span>🍽️</span><span>📊</span><span>💬</span><span class="on">👤</span></div>
+      </div></div>
+      <div class="lbl">Подписка / оплата</div>
+    </div>
+
+  </div>
+</div></section>
+
+<!-- ============ BUTTONS ============ -->
+<section id="buttons"><div class="wrap">
+  <div class="kicker">03 · Кнопки сайта</div>
+  <h2>UI-кнопки для сайта</h2>
+  <p class="sub">Готовая библиотека кнопок в палитре бренда: иерархия, размеры, состояния. Скруглённые формы, мягкие hover-переходы.</p>
+
+  <div class="panel">
+    <div class="t">Иерархия</div>
+    <div class="btnrow">
+      <button class="btn btn-primary">Записаться на консультацию</button>
+      <button class="btn btn-accent">Оформить подписку</button>
+      <button class="btn btn-sage">Скачать меню</button>
+    </div>
+    <div class="btnrow">
+      <button class="btn btn-secondary">Узнать подробнее</button>
+      <button class="btn btn-ghost">Бесплатный разбор</button>
+    </div>
+    <div class="code">.btn-primary (травяной) · .btn-accent (золото, главный CTA) · .btn-sage · .btn-secondary (контур) · .btn-ghost (крем)</div>
+  </div>
+
+  <div class="panel">
+    <div class="t">Размеры</div>
+    <div class="btnrow">
+      <button class="btn btn-primary btn-sm">Маленькая</button>
+      <button class="btn btn-primary">Обычная</button>
+      <button class="btn btn-primary btn-lg">Крупная (Hero)</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="t">Скруглённые (pill) · с иконкой · во всю ширину</div>
+    <div class="btnrow">
+      <button class="btn btn-accent btn-pill">Начать путь к здоровью</button>
+      <button class="btn btn-primary btn-pill">🌿 Получить меню</button>
+      <button class="btn btn-secondary btn-pill">Задать вопрос →</button>
+    </div>
+    <button class="btn btn-accent btn-block btn-lg btn-pill">Оформить сопровождение — 24 900 ₽</button>
+  </div>
+
+  <div class="panel">
+    <div class="t">Состояния</div>
+    <div class="btnrow">
+      <button class="btn btn-primary">Активна</button>
+      <button class="btn btn-primary" style="background:#26402f">Наведение (hover)</button>
+      <button class="btn btn-primary" disabled>Недоступна</button>
+      <button class="btn btn-sage">✓ Готово</button>
+    </div>
+  </div>
+
+  <div class="panel dark">
+    <div class="t" style="color:var(--gold)">На тёмном фоне</div>
+    <div class="btnrow">
+      <button class="btn btn-accent">Записаться</button>
+      <button class="btn" style="background:var(--cream);color:var(--herbal)">Подробнее</button>
+      <button class="btn" style="background:transparent;color:var(--cream);border:1.5px solid var(--cream)">Контур</button>
+    </div>
+  </div>
+</div></section>
+
+<div style="padding:46px 0;text-align:center;color:#6c7a71;font-size:13px;background:var(--cream)">
+  VIZELBERG · Asset Kit · 2026 — Превью на системных шрифтах. Концепция №6.
+</div>
+
+</body>
+</html>

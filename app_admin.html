@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Кабинет администратора</title>
+<style>
+  :root{
+    --sage:#7C9070; --herbal:#2F4A3C; --cream:#F5EFE6;
+    --terra:#E8A87C; --gold:#C9A24B; --ink:#23302a;
+    --line:rgba(47,74,60,.12); --soft:#8a978d; --bg:#f3eee5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;color:var(--ink);background:var(--bg);height:100vh;overflow:hidden}
+  .ic{width:20px;height:20px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;display:block;flex:none}
+  .ic-sm{width:15px;height:15px}.ic-lg{width:26px;height:26px}
+
+  .app{display:grid;grid-template-columns:240px 1fr;height:100vh}
+
+  /* sidebar */
+  .side{background:var(--herbal);color:var(--cream);display:flex;flex-direction:column;padding:20px 14px}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 8px 20px}
+  .brand .lg{width:34px;height:34px;border-radius:11px;background:var(--gold);color:var(--herbal);display:flex;align-items:center;justify-content:center}
+  .brand .nm{font-weight:600;font-size:16px}
+  .brand .sb{font-size:9px;letter-spacing:2px;color:var(--sage);text-transform:uppercase}
+  .nav{display:flex;flex-direction:column;gap:3px;flex:1}
+  .nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:11px;color:rgba(245,239,230,.72);cursor:pointer;font-size:13.5px;transition:.12s}
+  .nav a:hover{background:rgba(255,255,255,.06);color:#fff}
+  .nav a.on{background:var(--sage);color:#fff}
+  .nav .badge{margin-left:auto;background:var(--gold);color:var(--herbal);font-size:10px;font-weight:700;border-radius:10px;padding:1px 7px}
+  .side .me{display:flex;align-items:center;gap:10px;padding:10px 8px;border-top:1px solid rgba(255,255,255,.1);margin-top:10px}
+  .side .me .av{width:34px;height:34px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center}
+  .side .me .nm{font-size:13px}.side .me .rl{font-size:10px;color:var(--sage)}
+
+  /* main */
+  .main{display:flex;flex-direction:column;overflow:hidden}
+  .topbar{height:62px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 26px;flex:none}
+  .topbar h1{font-family:Georgia,serif;font-size:20px;color:var(--herbal)}
+  .search{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:11px;padding:8px 13px;width:260px;color:var(--soft)}
+  .search input{border:none;background:none;outline:none;font-family:inherit;font-size:13px;width:100%;color:var(--ink)}
+  .tb-ic{width:38px;height:38px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--herbal);cursor:pointer;position:relative}
+  .tb-ic .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+  .view{flex:1;overflow-y:auto;padding:26px}
+  .view{display:none}.view.on{display:block;animation:fade .2s}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* generic */
+  .h2{font-family:Georgia,serif;font-size:18px;color:var(--herbal);margin:4px 0 14px}
+  .muted{color:var(--soft);font-size:12px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+
+  /* KPI */
+  .kpi{display:flex;flex-direction:column;gap:8px}
+  .kpi .ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff}
+  .kpi .val{font-size:26px;font-weight:700;color:var(--herbal);font-family:Georgia,serif}
+  .kpi .lbl{font-size:12px;color:var(--soft)}
+  .kpi .tr{font-size:11px;font-weight:600}
+  .up{color:var(--sage)}.down{color:#c0584f}
+
+  /* table */
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line)}
+  td{padding:12px;border-bottom:1px solid var(--line);font-size:13px}
+  tr.clk{cursor:pointer;transition:.1s}
+  tr.clk:hover td{background:var(--cream)}
+  .who{display:flex;align-items:center;gap:10px}
+  .who .av{width:34px;height:34px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+  .tag{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600}
+  .t-act{background:rgba(124,144,112,.18);color:#4d6249}
+  .t-warn{background:rgba(201,162,75,.2);color:#8a6d1f}
+  .t-end{background:rgba(192,88,79,.16);color:#a8453c}
+  .mini-bar{height:7px;width:90px;background:#e9e2d6;border-radius:5px;overflow:hidden;display:inline-block;vertical-align:middle}
+  .mini-bar i{display:block;height:7px;background:var(--sage);border-radius:5px}
+
+  .btn{background:var(--herbal);color:#fff;border:none;font-family:inherit;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:.12s}
+  .btn:active{transform:scale(.98)}
+  .btn.gold{background:var(--gold);color:#3a2e10}
+  .btn.outline{background:transparent;color:var(--herbal);border:1.5px solid var(--herbal)}
+  .btn.sm{padding:7px 12px;font-size:12px}
+
+  .head-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .head-row .sp{margin-left:auto;display:flex;gap:10px}
+
+  /* client detail */
+  .back{display:inline-flex;align-items:center;gap:6px;color:var(--herbal);cursor:pointer;font-size:13px;margin-bottom:12px}
+  .back svg{transform:rotate(180deg)}
+  .prof{display:flex;align-items:center;gap:16px}
+  .prof .av{width:64px;height:64px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600}
+  .prof .nm{font-size:20px;font-weight:600;color:var(--herbal)}
+  .tabs{display:flex;gap:6px;margin:18px 0;border-bottom:1px solid var(--line)}
+  .tabs a{padding:9px 14px;font-size:13px;color:var(--soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tabs a.on{color:var(--herbal);border-color:var(--gold);font-weight:600}
+  .ctab{display:none}.ctab.on{display:block;animation:fade .2s}
+  .field{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px}
+  .field b{color:var(--herbal)}
+
+  /* menu builder */
+  .mb{display:grid;grid-template-columns:260px 1fr;gap:16px}
+  .dish{display:flex;align-items:center;gap:10px;padding:9px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px;cursor:grab;font-size:12.5px;background:#fff}
+  .dish .ico{color:var(--sage)}
+  .day{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}
+  .day h4{font-size:12px;color:var(--herbal);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .slot{font-size:11.5px;color:var(--soft);padding:7px 9px;border:1px dashed var(--line);border-radius:9px;margin-bottom:6px}
+  .slot b{color:var(--ink);font-weight:600;display:block}
+
+  /* checkins */
+  .ci{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:13px;margin-bottom:10px;background:#fff}
+  .ci.flag{border-color:rgba(201,162,75,.5);background:rgba(201,162,75,.06)}
+  .ci .av{width:38px;height:38px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+
+  /* messages */
+  .msglist{display:flex;flex-direction:column;gap:2px}
+  .mrow{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;cursor:pointer}
+  .mrow:hover{background:#fff}
+  .mrow .av{width:40px;height:40px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;flex:none}
+  .mrow .unread{width:9px;height:9px;border-radius:50%;background:var(--gold);margin-left:auto;flex:none}
+
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--herbal);color:#fff;padding:12px 20px;border-radius:13px;font-size:13px;opacity:0;pointer-events:none;transition:.3s;z-index:50;display:flex;align-items:center;gap:9px}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .legend-note{margin-top:8px;color:var(--soft);font-size:12px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z"/><path d="M5 19c4-1 7-4 9-8"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-5 6-5s6 1.5 6 5"/><path d="M16 5.5a3 3 0 0 1 0 5.5M21 20c0-3-1.5-4.5-4-4.8"/></symbol>
+  <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M2 11h20"/><path d="M9 7c0-1.5 1-2 1-3M13 7c0-1.5 1-2 1-3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 11h6M9 15h4"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 5h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H10l-4 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M5 19h14"/><path d="M14 5l5 5-9 9H5v-5z"/></symbol>
+  <symbol id="i-ruble" viewBox="0 0 24 24"><path d="M8 20V4h5a4 4 0 0 1 0 8H8"/><path d="M5 14h8M5 17h6"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M4 16l5-5 4 4 7-7"/><path d="M16 8h4v4"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2H4.5z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-4 3-6 6.5-6s6.5 2 6.5 6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M12 6l6 6-6 6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4h12l-3 4 3 4H6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 12 8 12 3z"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13l4-4M12 5V3"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4H6v16h8"/><path d="M10 12h10M17 9l3 3-3 3"/></symbol>
+</svg>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="brand"><div class="lg"><svg class="ic ic-lg"><use href="#i-leaf"/></svg></div><div><div class="nm">vizelberg</div><div class="sb">admin</div></div></div>
+    <nav class="nav" id="nav">
+      <a class="on" data-v="dash"><svg class="ic"><use href="#i-grid"/></svg> Дашборд</a>
+      <a data-v="clients"><svg class="ic"><use href="#i-users"/></svg> Клиенты <span class="badge">42</span></a>
+      <a data-v="menu"><svg class="ic"><use href="#i-bowl"/></svg> Конструктор меню</a>
+      <a data-v="checkins"><svg class="ic"><use href="#i-clip"/></svg> Чек-ины <span class="badge">3</span></a>
+      <a data-v="messages"><svg class="ic"><use href="#i-chat"/></svg> Сообщения <span class="badge">5</span></a>
+      <a data-v="content"><svg class="ic"><use href="#i-edit"/></svg> Контент</a>
+      <a data-v="billing"><svg class="ic"><use href="#i-ruble"/></svg> Подписки</a>
+      <a data-v="analytics"><svg class="ic"><use href="#i-trend"/></svg> Аналитика</a>
+      <a data-v="settings"><svg class="ic"><use href="#i-gear"/></svg> Настройки</a>
+    </nav>
+    <div class="me"><div class="av"><svg class="ic ic-sm"><use href="#i-user"/></svg></div><div><div class="nm">Имя Фамилия</div><div class="rl">нутрициолог</div></div></div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <h1 id="title">Дашборд</h1>
+      <div class="search"><svg class="ic ic-sm"><use href="#i-search"/></svg><input placeholder="Поиск клиента, блюда, документа…" oninput="searchClients(this.value)"></div>
+      <div class="tb-ic" onclick="toast('5 новых сообщений')"><svg class="ic"><use href="#i-bell"/></svg><span class="dot"></span></div>
+      <div class="tb-ic" onclick="show('settings')"><svg class="ic"><use href="#i-gear"/></svg></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="view on" id="v-dash">
+      <div class="grid4">
+        <div class="card kpi"><div class="ico" style="background:var(--sage)"><svg class="ic"><use href="#i-users"/></svg></div><div class="val">42</div><div class="lbl">Активных клиентов</div><div class="tr up">▲ +6 за месяц</div></div>
+        <div class="card kpi"><div class="ico" style="background:var(--gold)"><svg class="ic"><use href="#i-ruble"/></svg></div><div class="val">418k ₽</div><div class="lbl">Выручка (MRR)</div><div class="tr up">▲ +14%</div></div>
+        <div class="card kpi"><div class="ico" style="background:var(--herbal)"><svg class="ic"><use href="#i-clip"/></svg></div><div class="val">38</div><div class="lbl">Чек-инов сегодня</div><div class="tr"><span class="muted">3 требуют внимания</span></div></div>
+        <div class="card kpi"><div class="ico" style="background:var(--terra)"><svg class="ic"><use href="#i-trend"/></svg></div><div class="val">87%</div><div class="lbl">Удержание</div><div class="tr up">▲ +3%</div></div>
+      </div>
+
+      <div class="grid2" style="margin-top:16px">
+        <div class="card">
+          <div class="head-row"><b style="color:var(--herbal)">Требуют внимания сегодня</b><div class="sp"><button class="btn outline sm" onclick="show('checkins')">Все чек-ины</button></div></div>
+          <div class="ci flag"><div class="av">АП</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Анна П.</b><div class="muted">Пропустила ужин 2 дня · вес встал</div></div><button class="btn sm" onclick="toast('Открываю карточку Анны')">Разобрать</button></div>
+          <div class="ci flag"><div class="av">МК</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Мария К.</b><div class="muted">Жалуется на тягу к сладкому вечером</div></div><button class="btn sm" onclick="toast('Открываю карточку Марии')">Разобрать</button></div>
+          <div class="ci flag"><div class="av">ЕС</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Елена С.</b><div class="muted">Подписка истекает через 2 дня</div></div><button class="btn sm gold" onclick="toast('Отправлено напоминание о продлении')">Напомнить</button></div>
+        </div>
+        <div class="card">
+          <div class="head-row"><b style="color:var(--herbal)">Задачи на сегодня</b></div>
+          <div class="field"><span>Составить меню — 3 клиента</span><button class="btn sm gold" onclick="show('menu')"><svg class="ic ic-sm"><use href="#i-spark"/></svg> ИИ</button></div>
+          <div class="field"><span>Ответить в чате — 5 сообщений</span><button class="btn sm outline" onclick="show('messages')">Открыть</button></div>
+          <div class="field"><span>Опубликовать пост недели</span><button class="btn sm outline" onclick="show('content')">Контент</button></div>
+          <div class="field" style="border:none"><span>Разбор анализов — Ольга Т.</span><button class="btn sm outline" onclick="toast('Открываю анализы')">Открыть</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENTS -->
+    <div class="view" id="v-clients">
+      <div class="head-row">
+        <span class="muted">42 клиента · 38 активных</span>
+        <div class="sp"><button class="btn outline sm"><svg class="ic ic-sm"><use href="#i-clip"/></svg> Фильтр</button><button class="btn sm" onclick="toast('Форма добавления клиента')"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Добавить</button></div>
+      </div>
+      <div class="card" style="padding:6px">
+        <table id="clientsTable">
+          <thead><tr><th>Клиент</th><th>Тариф</th><th>Прогресс к цели</th><th>Последний чек-ин</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr class="clk" onclick="show('client')"><td><div class="who"><div class="av">АП</div><div><b>Анна Петрова</b><div class="muted">Цель: −5 кг</div></div></div></td><td>Сопровождение 3 мес</td><td><span class="mini-bar"><i style="width:62%"></i></span> 62%</td><td class="muted">сегодня</td><td><span class="tag t-warn"><svg class="ic ic-sm"><use href="#i-flag"/></svg> внимание</span></td></tr>
+            <tr class="clk" onclick="show('client')"><td><div class="who"><div class="av">МК</div><div><b>Мария Кузнецова</b><div class="muted">Цель: ЖКТ</div></div></div></td><td>Поддержка</td><td><span class="mini-bar"><i style="width:45%"></i></span> 45%</td><td class="muted">вчера</td><td><span class="tag t-warn"><svg class="ic ic-sm"><use href="#i-flag"/></svg> внимание</span></td></tr>
+            <tr class="clk" onclick="show('client')"><td><div class="who"><div class="av">ОТ</div><div><b>Ольга Титова</b><div class="muted">Цель: набор массы</div></div></div></td><td>Сопровождение 3 мес</td><td><span class="mini-bar"><i style="width:78%"></i></span> 78%</td><td class="muted">сегодня</td><td><span class="tag t-act">активна</span></td></tr>
+            <tr class="clk" onclick="show('client')"><td><div class="who"><div class="av">ЕС</div><div><b>Елена Смирнова</b><div class="muted">Цель: −8 кг</div></div></div></td><td>Поддержка</td><td><span class="mini-bar"><i style="width:90%"></i></span> 90%</td><td class="muted">2 дня</td><td><span class="tag t-end">истекает</span></td></tr>
+            <tr class="clk" onclick="show('client')"><td><div class="who"><div class="av">ДВ</div><div><b>Дарья Волкова</b><div class="muted">Цель: энергия</div></div></div></td><td>Сопровождение 3 мес</td><td><span class="mini-bar"><i style="width:33%"></i></span> 33%</td><td class="muted">сегодня</td><td><span class="tag t-act">активна</span></td></tr>
+            <tr class="clk" onclick="show('client')"><td><div class="who"><div class="av">НИ</div><div><b>Наталья Иванова</b><div class="muted">Цель: −3 кг</div></div></div></td><td>Разовый разбор</td><td><span class="mini-bar"><i style="width:15%"></i></span> 15%</td><td class="muted">3 дня</td><td><span class="tag t-act">активна</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CLIENT DETAIL -->
+    <div class="view" id="v-client">
+      <div class="back" onclick="show('clients')"><svg class="ic ic-sm"><use href="#i-arrow"/></svg> К списку клиентов</div>
+      <div class="card">
+        <div class="head-row" style="margin:0">
+          <div class="prof"><div class="av">АП</div><div><div class="nm">Анна Петрова</div><div class="muted">32 года · цель: −5 кг · на сопровождении 2 мес</div></div></div>
+          <div class="sp"><button class="btn outline sm" onclick="toast('Открываю чат с Анной')"><svg class="ic ic-sm"><use href="#i-chat"/></svg> Чат</button><button class="btn sm gold" onclick="show('menu')"><svg class="ic ic-sm"><use href="#i-spark"/></svg> Сгенерировать меню</button></div>
+        </div>
+        <div class="tabs" id="ctabs">
+          <a class="on" data-c="ov">Обзор</a><a data-c="menu">Меню</a><a data-c="prog">Прогресс</a><a data-c="anal">Анализы</a>
+        </div>
+        <div class="ctab on" id="c-ov">
+          <div class="grid3">
+            <div class="card" style="background:var(--cream)"><div class="muted">Текущий вес</div><div class="kpi val" style="font-size:22px">68,4 кг</div><div class="tr up">−2,1 кг</div></div>
+            <div class="card" style="background:var(--cream)"><div class="muted">Калорийность</div><div class="kpi val" style="font-size:22px">1900</div><div class="muted">Б150 Ж63 У190</div></div>
+            <div class="card" style="background:var(--cream)"><div class="muted">Дисциплина</div><div class="kpi val" style="font-size:22px">82%</div><div class="muted">чек-ины 23/28</div></div>
+          </div>
+          <h4 style="margin:16px 0 8px;color:var(--herbal)">Заметки нутрициолога</h4>
+          <div class="card">Хорошо реагирует на сложные углеводы. Сложности с вечерними перекусами — добавить белковый перекус в 17:00. Контролировать сон.</div>
+        </div>
+        <div class="ctab" id="c-menu"><div class="card">Текущее меню на неделю · <a style="color:var(--gold);cursor:pointer" onclick="show('menu')">открыть в конструкторе →</a><div class="field" style="margin-top:8px"><span>Пн · Завтрак</span><b>Овсянка с ягодами</b></div><div class="field"><span>Пн · Обед</span><b>Гречка с индейкой</b></div><div class="field"><span>Пн · Ужин</span><b>Лосось с овощами</b></div></div></div>
+        <div class="ctab" id="c-prog"><div class="card"><h4 style="color:var(--herbal);margin-bottom:8px">Динамика веса</h4><svg viewBox="0 0 500 120" style="width:100%;height:140px"><polyline points="0,90 80,84 160,66 240,60 320,40 400,30 500,20" fill="none" stroke="#7C9070" stroke-width="3" stroke-linecap="round"/><line x1="0" y1="110" x2="500" y2="110" stroke="rgba(0,0,0,.1)"/></svg></div></div>
+        <div class="ctab" id="c-anal"><div class="card"><div class="field"><span>Ферритин</span><b style="color:var(--sage)">норма · 45</b></div><div class="field"><span>Витамин D</span><b style="color:#c0584f">низкий · 18</b></div><div class="field"><span>Глюкоза</span><b style="color:var(--sage)">норма · 4.9</b></div><button class="btn outline sm" style="margin-top:10px" onclick="toast('Загрузка нового результата')"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Добавить анализ</button></div></div>
+      </div>
+    </div>
+
+    <!-- MENU BUILDER -->
+    <div class="view" id="v-menu">
+      <div class="head-row">
+        <span class="muted">Конструктор меню · клиент: <b style="color:var(--herbal)">Анна Петрова</b> (1900 ккал)</span>
+        <div class="sp"><button class="btn gold sm" onclick="aiMenu()"><svg class="ic ic-sm"><use href="#i-spark"/></svg> ИИ: собрать неделю</button><button class="btn sm" onclick="toast('Меню отправлено клиенту')"><svg class="ic ic-sm"><use href="#i-check"/></svg> Отправить клиенту</button></div>
+      </div>
+      <div class="mb">
+        <div class="card">
+          <b style="color:var(--herbal);font-size:13px">База блюд</b>
+          <div class="muted" style="margin-bottom:10px">перетащи в день</div>
+          <div class="dish"><div class="ico"><svg class="ic ic-sm"><use href="#i-bowl"/></svg></div>Овсянка с ягодами · 320</div>
+          <div class="dish"><div class="ico"><svg class="ic ic-sm"><use href="#i-bowl"/></svg></div>Гречка с индейкой · 480</div>
+          <div class="dish"><div class="ico"><svg class="ic ic-sm"><use href="#i-bowl"/></svg></div>Лосось с овощами · 420</div>
+          <div class="dish"><div class="ico"><svg class="ic ic-sm"><use href="#i-bowl"/></svg></div>Творог с орехами · 240</div>
+          <div class="dish"><div class="ico"><svg class="ic ic-sm"><use href="#i-bowl"/></svg></div>Куриный суп · 310</div>
+          <button class="btn outline sm" style="width:100%;margin-top:6px" onclick="toast('Добавить новое блюдо в базу')"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Новое блюдо</button>
+        </div>
+        <div class="grid3" id="weekGrid">
+          <div class="day"><h4><svg class="ic ic-sm"><use href="#i-fire"/></svg> Понедельник <span class="muted" style="margin-left:auto;font-weight:400">1900</span></h4><div class="slot"><b>Завтрак</b>Овсянка с ягодами</div><div class="slot"><b>Обед</b>Гречка с индейкой</div><div class="slot"><b>Ужин</b>Лосось с овощами</div></div>
+          <div class="day"><h4>Вторник <span class="muted" style="margin-left:auto;font-weight:400">—</span></h4><div class="slot">+ завтрак</div><div class="slot">+ обед</div><div class="slot">+ ужин</div></div>
+          <div class="day"><h4>Среда <span class="muted" style="margin-left:auto;font-weight:400">—</span></h4><div class="slot">+ завтрак</div><div class="slot">+ обед</div><div class="slot">+ ужин</div></div>
+        </div>
+      </div>
+      <div class="legend-note">В рабочей версии: drag-and-drop блюд, авто-подсчёт КБЖУ по дню, ИИ-генерация под цель и ограничения клиента, сохранение шаблонов меню.</div>
+    </div>
+
+    <!-- CHECKINS -->
+    <div class="view" id="v-checkins">
+      <div class="head-row"><span class="muted">38 чек-инов сегодня · 3 требуют внимания</span></div>
+      <div class="ci flag"><div class="av">АП</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Анна Петрова <span class="tag t-warn" style="margin-left:6px"><svg class="ic ic-sm"><use href="#i-flag"/></svg> флаг</span></b><div class="muted">Пропустила ужин 2 дня подряд · вес не снижается 5 дней</div></div><button class="btn sm" onclick="resolveCi(this)">Разобрать</button></div>
+      <div class="ci flag"><div class="av">МК</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Мария Кузнецова <span class="tag t-warn" style="margin-left:6px"><svg class="ic ic-sm"><use href="#i-flag"/></svg> флаг</span></b><div class="muted">Самочувствие: тяга к сладкому вечером, низкая энергия</div></div><button class="btn sm" onclick="resolveCi(this)">Разобрать</button></div>
+      <div class="ci flag"><div class="av">ДВ</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Дарья Волкова <span class="tag t-warn" style="margin-left:6px"><svg class="ic ic-sm"><use href="#i-flag"/></svg> флаг</span></b><div class="muted">Вода 3 дня ниже нормы · пропуск завтраков</div></div><button class="btn sm" onclick="resolveCi(this)">Разобрать</button></div>
+      <div class="ci"><div class="av">ОТ</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Ольга Титова</b><div class="muted">Всё по плану · вес +0,4 кг (набор) · энергия высокая</div></div><span class="tag t-act"><svg class="ic ic-sm"><use href="#i-check"/></svg> ок</span></div>
+      <div class="ci"><div class="av">НИ</div><div style="flex:1"><b style="color:var(--herbal);font-size:13px">Наталья Иванова</b><div class="muted">Чек-ин фото загружено · придерживается меню</div></div><span class="tag t-act"><svg class="ic ic-sm"><use href="#i-check"/></svg> ок</span></div>
+      <div class="legend-note">ИИ автоматически помечает флагом отклонения (пропуски, остановка прогресса, жалобы) — вы видите только тех, кому реально нужно внимание.</div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="view" id="v-messages">
+      <div class="head-row"><span class="muted">5 непрочитанных</span><div class="sp"><button class="btn outline sm" onclick="toast('ИИ подготовил черновики ответов')"><svg class="ic ic-sm"><use href="#i-spark"/></svg> ИИ-черновики ответов</button></div></div>
+      <div class="card msglist">
+        <div class="mrow" onclick="toast('Открываю диалог с Анной')"><div class="av">АП</div><div style="flex:1"><b>Анна Петрова</b><div class="muted">А можно заменить гречку на булгур?</div></div><span class="muted">5 мин</span><span class="unread"></span></div>
+        <div class="mrow" onclick="toast('Открываю диалог с Марией')"><div class="av">МК</div><div style="flex:1"><b>Мария Кузнецова</b><div class="muted">Вечером очень хочется сладкого, что делать?</div></div><span class="muted">22 мин</span><span class="unread"></span></div>
+        <div class="mrow" onclick="toast('Открываю диалог с Ольгой')"><div class="av">ОТ</div><div style="flex:1"><b>Ольга Титова</b><div class="muted">Спасибо, самочувствие отличное!</div></div><span class="muted">1 ч</span><span class="unread"></span></div>
+        <div class="mrow" onclick="toast('Открываю диалог с Дарьей')"><div class="av">ДВ</div><div style="flex:1"><b>Дарья Волкова</b><div class="muted">Прикрепила фото обеда</div></div><span class="muted">3 ч</span><span class="unread"></span></div>
+        <div class="mrow" onclick="toast('Открываю диалог с Еленой')"><div class="av">ЕС</div><div style="flex:1"><b>Елена Смирнова</b><div class="muted">Как продлить подписку?</div></div><span class="muted">5 ч</span><span class="unread"></span></div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="view" id="v-content">
+      <div class="head-row"><span class="muted">Контент-планер</span><div class="sp"><button class="btn gold sm" onclick="toast('ИИ сгенерировал черновик поста')"><svg class="ic ic-sm"><use href="#i-spark"/></svg> ИИ: сгенерировать пост</button></div></div>
+      <div class="grid3">
+        <div class="card"><div class="tag t-warn">черновик</div><h4 style="color:var(--herbal);margin:8px 0 6px">5 мифов о завтраке</h4><div class="muted">Образовательный пост · Telegram-канал</div><button class="btn outline sm" style="margin-top:10px" onclick="toast('Редактирование поста')"><svg class="ic ic-sm"><use href="#i-edit"/></svg> Редактировать</button></div>
+        <div class="card"><div class="tag t-act">запланирован</div><h4 style="color:var(--herbal);margin:8px 0 6px">Рецепт: ужин за 15 минут</h4><div class="muted">Завтра 10:00 · сторис + пост</div><button class="btn outline sm" style="margin-top:10px" onclick="toast('Просмотр поста')">Просмотр</button></div>
+        <div class="card"><div class="tag t-end">идея</div><h4 style="color:var(--herbal);margin:8px 0 6px">Разбор анализов: витамин D</h4><div class="muted">Лид-магнит для воронки</div><button class="btn outline sm" style="margin-top:10px" onclick="toast('ИИ развернёт идею в пост')"><svg class="ic ic-sm"><use href="#i-spark"/></svg> Развернуть</button></div>
+      </div>
+    </div>
+
+    <!-- BILLING -->
+    <div class="view" id="v-billing">
+      <div class="grid4">
+        <div class="card kpi"><div class="muted">MRR</div><div class="val">418k ₽</div><div class="tr up">▲ +14%</div></div>
+        <div class="card kpi"><div class="muted">Средний чек</div><div class="val">9 950 ₽</div></div>
+        <div class="card kpi"><div class="muted">LTV клиента</div><div class="val">31 200 ₽</div><div class="tr up">▲ +8%</div></div>
+        <div class="card kpi"><div class="muted">Отток</div><div class="val">4,2%</div><div class="tr up">▼ хорошо</div></div>
+      </div>
+      <div class="card" style="margin-top:16px;padding:6px">
+        <table>
+          <thead><tr><th>Клиент</th><th>Тариф</th><th>Сумма</th><th>Дата</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr><td><div class="who"><div class="av">ОТ</div><b>Ольга Титова</b></div></td><td>Сопровождение 3 мес</td><td><b>24 900 ₽</b></td><td class="muted">сегодня</td><td><span class="tag t-act">оплачено</span></td></tr>
+            <tr><td><div class="who"><div class="av">ДВ</div><b>Дарья Волкова</b></div></td><td>Сопровождение 3 мес</td><td><b>24 900 ₽</b></td><td class="muted">вчера</td><td><span class="tag t-act">оплачено</span></td></tr>
+            <tr><td><div class="who"><div class="av">МК</div><b>Мария Кузнецова</b></div></td><td>Поддержка (продление)</td><td><b>4 900 ₽</b></td><td class="muted">2 дня</td><td><span class="tag t-act">оплачено</span></td></tr>
+            <tr><td><div class="who"><div class="av">ЕС</div><b>Елена Смирнова</b></div></td><td>Поддержка</td><td><b>4 900 ₽</b></td><td class="muted">истекает</td><td><span class="tag t-end">ожидает оплаты</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="view" id="v-analytics">
+      <div class="grid2">
+        <div class="card"><h4 style="color:var(--herbal);margin-bottom:10px">Выручка по месяцам</h4>
+          <svg viewBox="0 0 500 160" style="width:100%;height:170px">
+            <g fill="#7C9070">
+              <rect x="20" y="100" width="46" height="50" rx="4"/><rect x="90" y="80" width="46" height="70" rx="4"/><rect x="160" y="70" width="46" height="80" rx="4"/><rect x="230" y="55" width="46" height="95" rx="4"/><rect x="300" y="40" width="46" height="110" rx="4"/><rect x="370" y="22" width="46" height="128" rx="4" fill="#C9A24B"/>
+            </g>
+          </svg>
+          <div class="muted">Дек · Янв · Фев · Мар · Апр · Май</div>
+        </div>
+        <div class="card"><h4 style="color:var(--herbal);margin-bottom:10px">Воронка</h4>
+          <div class="field"><span>Лид-магнит (бот)</span><b>820</b></div>
+          <div class="field"><span>Разовый разбор</span><b>156</b></div>
+          <div class="field"><span>Программа сопровождения</span><b>48</b></div>
+          <div class="field" style="border:none"><span>Продлили (подписка)</span><b>34</b></div>
+        </div>
+      </div>
+      <div class="grid3" style="margin-top:16px">
+        <div class="card kpi"><div class="muted">Загрузка нутрициолога</div><div class="val">42 / 60</div><div class="muted">есть место для роста</div></div>
+        <div class="card kpi"><div class="muted">Конверсия разбор→программа</div><div class="val">31%</div><div class="tr up">▲ +5%</div></div>
+        <div class="card kpi"><div class="muted">Среднее удержание</div><div class="val">4,1 мес</div></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="view" id="v-settings">
+      <div class="grid3">
+        <div class="card"><h4 style="color:var(--herbal);margin-bottom:8px">Тарифы и цены</h4><div class="field"><span>Сопровождение 3 мес</span><b>24 900 ₽</b></div><div class="field"><span>Поддержка / мес</span><b>4 900 ₽</b></div><div class="field" style="border:none"><span>Разовый разбор</span><b>3 500 ₽</b></div><button class="btn outline sm" style="margin-top:10px" onclick="toast('Редактирование тарифов')"><svg class="ic ic-sm"><use href="#i-edit"/></svg> Изменить</button></div>
+        <div class="card"><h4 style="color:var(--herbal);margin-bottom:8px">Интеграции</h4><div class="field"><span>Telegram bot</span><b style="color:var(--sage)">подключён</b></div><div class="field"><span>MAX mini-app</span><b style="color:var(--sage)">подключён</b></div><div class="field" style="border:none"><span>Эквайринг / СБП</span><b style="color:var(--sage)">активен</b></div></div>
+        <div class="card"><h4 style="color:var(--herbal);margin-bottom:8px">ИИ-ассистент</h4><div class="field"><span>Генерация меню</span><b style="color:var(--sage)">вкл</b></div><div class="field"><span>Флаги чек-инов</span><b style="color:var(--sage)">вкл</b></div><div class="field" style="border:none"><span>Черновики ответов</span><b style="color:var(--sage)">вкл</b></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const titles={dash:'Дашборд',clients:'Клиенты',client:'Карточка клиента',menu:'Конструктор меню',checkins:'Чек-ины',messages:'Сообщения',content:'Контент',billing:'Подписки и платежи',analytics:'Аналитика',settings:'Настройки'};
+  function show(v){
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));
+    document.getElementById('v-'+v).classList.add('on');
+    document.getElementById('title').textContent=titles[v]||'';
+    document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+    document.querySelector('.view.on').scrollTop=0;
+  }
+  document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>show(a.dataset.v));
+
+  // client detail tabs
+  document.querySelectorAll('#ctabs a').forEach(a=>a.onclick=()=>{
+    document.querySelectorAll('#ctabs a').forEach(x=>x.classList.remove('on'));a.classList.add('on');
+    document.querySelectorAll('.ctab').forEach(x=>x.classList.remove('on'));
+    document.getElementById('c-'+a.dataset.c).classList.add('on');
+  });
+
+  let t;function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(t);t=setTimeout(()=>e.classList.remove('show'),1900);}
+
+  function aiMenu(){
+    toast('ИИ собирает меню на неделю под цель −5 кг…');
+    setTimeout(()=>{
+      document.querySelectorAll('#weekGrid .day').forEach((d,i)=>{
+        if(i===0)return;
+        d.querySelector('h4 .muted').textContent='1900';
+        const slots=d.querySelectorAll('.slot');
+        const meals=[['Завтрак','Творог с орехами'],['Обед','Куриный суп'],['Ужин','Лосось с овощами']];
+        slots.forEach((s,k)=>{s.innerHTML='<b>'+meals[k][0]+'</b>'+meals[k][1];});
+      });
+      toast('Меню готово · проверьте и отправьте клиенту');
+    },1100);
+  }
+  function resolveCi(btn){
+    const ci=btn.closest('.ci');ci.classList.remove('flag');
+    ci.querySelector('.muted').textContent='Разобрано · скорректировано меню, отправлено сообщение';
+    btn.outerHTML='<span class="tag t-act"><svg class="ic ic-sm"><use href="#i-check"/></svg> решено</span>';
+    toast('Чек-ин обработан');
+  }
+  function searchClients(q){
+    q=q.toLowerCase();
+    document.querySelectorAll('#clientsTable tbody tr').forEach(r=>{
+      r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
+    });
+    if(q&&!document.getElementById('v-clients').classList.contains('on'))show('clients');
+  }
+</script>
+</body>
+</html>
