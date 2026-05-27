@@ -126,6 +126,38 @@
 </head>
 <body>
 
+<style>
+  .seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px}
+  .seg a{padding:7px 14px;font-size:12.5px;border-radius:8px;cursor:pointer;color:var(--soft)}
+  .seg a.on{background:var(--herbal);color:#fff}
+  .chb{font-size:9px;font-weight:700;border-radius:5px;padding:2px 6px;color:#fff}
+  .chb.tg{background:#2AABEE}.chb.max{background:#6d4aff}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  .cal .day{background:#fff;border:1px solid var(--line);border-radius:13px;padding:9px;min-height:160px;display:flex;flex-direction:column;gap:7px}
+  .cal .day .dn{font-size:11px;color:var(--soft);display:flex;justify-content:space-between;align-items:center}
+  .cal .day .dn b{color:var(--herbal)}
+  .cal .day .add{color:var(--soft);font-size:11px;border:1px dashed var(--line);border-radius:8px;padding:7px;text-align:center;cursor:pointer;transition:.12s}
+  .cal .day .add:hover{border-color:var(--sage);color:var(--sage)}
+  .pchip{border-radius:9px;padding:7px 8px;font-size:10.5px;color:#fff;cursor:pointer;line-height:1.35}
+  .pchip .chs{display:flex;gap:4px;margin-top:5px}
+  .pchip .chs .chb{font-size:8px;padding:1px 4px}
+  .rub-bowl{background:#2F4A3C}.rub-fire{background:#7C9070}.rub-rec{background:#C9A24B;color:#3a2e10}.rub-air{background:#3c5b4a}
+  .editor{display:grid;grid-template-columns:1fr 350px;gap:20px;align-items:start}
+  .lbl2{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--soft);margin:15px 0 7px;display:block}
+  .lbl2:first-child{margin-top:0}
+  .inp{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:13px;outline:none;background:#fff;color:var(--ink)}
+  .inp:focus{border-color:var(--sage)}
+  textarea.inp{min-height:130px;resize:vertical;line-height:1.5}
+  .tplrow{display:flex;gap:8px;flex-wrap:wrap}
+  .tpl{width:70px;height:46px;border-radius:9px;cursor:pointer;border:2px solid transparent;display:flex;align-items:flex-end;padding:5px;font-size:8px;color:#fff}
+  .tpl.on{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,75,.25)}
+  .rubpill{cursor:pointer;border:1px solid var(--line);border-radius:20px;padding:6px 13px;font-size:12px;color:var(--herbal)}
+  .rubpill.on{background:var(--herbal);color:#fff;border-color:var(--herbal)}
+  .chk{display:inline-flex;align-items:center;gap:7px;font-size:13px;margin-right:16px;cursor:pointer}
+  .prevCover{border-radius:10px;padding:14px;color:#fff;min-height:84px;display:flex;flex-direction:column;justify-content:space-between}
+  .prevCover .pl{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.85}
+  .prevCover .ph{font-family:Georgia,serif;font-size:15px;line-height:1.25}
+</style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z"/><path d="M5 19c4-1 7-4 9-8"/></symbol>
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
@@ -147,6 +179,11 @@
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
   <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 12 8 12 3z"/></symbol>
   <symbol id="i-scale" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13l4-4M12 5V3"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M5 17l4-4 4 3 3-3 3 3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-7-7 16-2-7-7-2z"/></symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M4 10v4h3l9 5V5l-9 5z"/><path d="M19 9a4 4 0 0 1 0 6"/></symbol>
   <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4H6v16h8"/><path d="M10 12h10M17 9l3 3-3 3"/></symbol>
 </svg>
 
@@ -160,7 +197,7 @@
       <a data-v="menu"><svg class="ic"><use href="#i-bowl"/></svg> Конструктор меню</a>
       <a data-v="checkins"><svg class="ic"><use href="#i-clip"/></svg> Чек-ины <span class="badge">3</span></a>
       <a data-v="messages"><svg class="ic"><use href="#i-chat"/></svg> Сообщения <span class="badge">5</span></a>
-      <a data-v="content"><svg class="ic"><use href="#i-edit"/></svg> Контент</a>
+      <a data-v="content"><svg class="ic"><use href="#i-megaphone"/></svg> Канал</a>
       <a data-v="billing"><svg class="ic"><use href="#i-ruble"/></svg> Подписки</a>
       <a data-v="analytics"><svg class="ic"><use href="#i-trend"/></svg> Аналитика</a>
       <a data-v="settings"><svg class="ic"><use href="#i-gear"/></svg> Настройки</a>
@@ -299,13 +336,111 @@
       </div>
     </div>
 
-    <!-- CONTENT -->
+    <!-- CHANNEL / MEDIA PLAN -->
     <div class="view" id="v-content">
-      <div class="head-row"><span class="muted">Контент-планер</span><div class="sp"><button class="btn gold sm" onclick="toast('ИИ сгенерировал черновик поста')"><svg class="ic ic-sm"><use href="#i-spark"/></svg> ИИ: сгенерировать пост</button></div></div>
-      <div class="grid3">
-        <div class="card"><div class="tag t-warn">черновик</div><h4 style="color:var(--herbal);margin:8px 0 6px">5 мифов о завтраке</h4><div class="muted">Образовательный пост · Telegram-канал</div><button class="btn outline sm" style="margin-top:10px" onclick="toast('Редактирование поста')"><svg class="ic ic-sm"><use href="#i-edit"/></svg> Редактировать</button></div>
-        <div class="card"><div class="tag t-act">запланирован</div><h4 style="color:var(--herbal);margin:8px 0 6px">Рецепт: ужин за 15 минут</h4><div class="muted">Завтра 10:00 · сторис + пост</div><button class="btn outline sm" style="margin-top:10px" onclick="toast('Просмотр поста')">Просмотр</button></div>
-        <div class="card"><div class="tag t-end">идея</div><h4 style="color:var(--herbal);margin:8px 0 6px">Разбор анализов: витамин D</h4><div class="muted">Лид-магнит для воронки</div><button class="btn outline sm" style="margin-top:10px" onclick="toast('ИИ развернёт идею в пост')"><svg class="ic ic-sm"><use href="#i-spark"/></svg> Развернуть</button></div>
+      <div class="head-row">
+        <div class="seg" id="planSeg">
+          <a class="on" data-seg="week" onclick="segPlan(this)">Неделя</a>
+          <a data-seg="month" onclick="segPlan(this)">Месяц</a>
+          <a data-seg="drafts" onclick="segPlan(this)">Черновики</a>
+          <a data-seg="done" onclick="segPlan(this)">Опубликовано</a>
+        </div>
+        <div class="sp">
+          <button class="btn outline sm" onclick="aiPlan()"><svg class="ic ic-sm"><use href="#i-spark"/></svg> ИИ: план на неделю</button>
+          <button class="btn sm" onclick="openPost()"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Публикация</button>
+        </div>
+      </div>
+
+      <div class="head-row" style="margin-bottom:14px;flex-wrap:wrap">
+        <span class="muted">Рубрики:</span>
+        <span class="rubpill on" style="background:#2F4A3C;color:#fff;border:none">Разбор тарелки</span>
+        <span class="rubpill on" style="background:#7C9070;color:#fff;border:none">Привычка</span>
+        <span class="rubpill on" style="background:#C9A24B;color:#3a2e10;border:none">Рецепт</span>
+        <span class="rubpill on" style="background:#3c5b4a;color:#fff;border:none">Эфир</span>
+        <span class="sp muted" style="display:flex;align-items:center;gap:7px">Каналы: <span class="chb tg">TG</span><span class="chb max">MAX</span></span>
+      </div>
+
+      <div class="cal" id="calWeek">
+        <div class="day"><div class="dn"><b>Пн</b> 25</div>
+          <div class="pchip rub-bowl" onclick="openPost()">10:00 · Разбор тарелки<br>Сыр и кисломолочка<div class="chs"><span class="chb tg">TG</span><span class="chb max">MAX</span></div></div>
+        </div>
+        <div class="day"><div class="dn"><b>Вт</b> 26</div><div class="add" onclick="openPost()">+ публикация</div></div>
+        <div class="day"><div class="dn"><b>Ср</b> 27</div>
+          <div class="pchip rub-fire" onclick="openPost()">11:00 · Привычка<br>Белковый перекус 17:00<div class="chs"><span class="chb tg">TG</span><span class="chb max">MAX</span></div></div>
+        </div>
+        <div class="day"><div class="dn"><b>Чт</b> 28</div><div class="add" onclick="openPost()">+ публикация</div></div>
+        <div class="day"><div class="dn"><b>Пт</b> 29</div>
+          <div class="pchip rub-rec" onclick="openPost()">10:00 · Рецепт<br>Ароматный бульон<div class="chs"><span class="chb tg">TG</span></div></div>
+        </div>
+        <div class="day"><div class="dn"><b>Сб</b> 30</div><div class="add" onclick="openPost()">+ публикация</div></div>
+        <div class="day"><div class="dn"><b>Вс</b> 31</div>
+          <div class="pchip rub-air" onclick="openPost()">19:00 · Эфир<br>Долголетие и энергия<div class="chs"><span class="chb tg">TG</span><span class="chb max">MAX</span></div></div>
+        </div>
+      </div>
+      <div class="legend-note">ИИ предлагает план под рубрики и оптимальное время; публикация уходит в Telegram и MAX одновременно. Перетаскивание постов между днями — в рабочей версии.</div>
+    </div>
+
+    <!-- POST EDITOR -->
+    <div class="view" id="v-post">
+      <div class="back" onclick="show('content')"><svg class="ic ic-sm"><use href="#i-arrow"/></svg> К медиаплану</div>
+      <div class="editor">
+        <div class="card">
+          <span class="lbl2">Рубрика</span>
+          <div class="tplrow" id="rubPick">
+            <span class="rubpill on" data-r="bowl" data-c="#2F4A3C" data-l="Разбор тарелки" onclick="pickRub(this)">Разбор тарелки</span>
+            <span class="rubpill" data-r="fire" data-c="#7C9070" data-l="Привычка" onclick="pickRub(this)">Привычка</span>
+            <span class="rubpill" data-r="rec" data-c="#C9A24B" data-l="Рецепт" onclick="pickRub(this)">Рецепт</span>
+            <span class="rubpill" data-r="air" data-c="#3c5b4a" data-l="Эфир" onclick="pickRub(this)">Эфир</span>
+          </div>
+
+          <span class="lbl2">Обложка</span>
+          <div class="tplrow" id="covPick">
+            <div class="tpl on" style="background:#2F4A3C" data-c="#2F4A3C" onclick="pickCov(this)">тёмная</div>
+            <div class="tpl" style="background:#7C9070" data-c="#7C9070" onclick="pickCov(this)">шалфей</div>
+            <div class="tpl" style="background:#C9A24B;color:#3a2e10" data-c="#C9A24B" onclick="pickCov(this)">золото</div>
+            <div class="tpl" style="background:#3c5b4a" data-c="#3c5b4a" onclick="pickCov(this)">эфир</div>
+          </div>
+
+          <span class="lbl2">Заголовок</span>
+          <input class="inp" id="postTitle" value="Как правильно есть сыр и кисломолочку" oninput="syncPrev()">
+
+          <span class="lbl2">Текст публикации</span>
+          <textarea class="inp" id="postText" oninput="syncPrev()">Здоровая тарелка — это не только про КБЖУ. Это ещё и про сочетания продуктов, нагрузку на ЖКТ и гликемический ответ.
+
+Разбираем, как встроить сыр и кисломолочку без вреда 🌿</textarea>
+          <button class="btn outline sm" style="margin-top:10px" onclick="aiText()"><svg class="ic ic-sm"><use href="#i-spark"/></svg> ИИ: написать / улучшить текст</button>
+
+          <div class="two" style="margin-top:16px">
+            <div><span class="lbl2">Дата и время</span><input class="inp" id="postWhen" value="Пн, 10:00"></div>
+            <div><span class="lbl2">Каналы публикации</span>
+              <div style="margin-top:8px"><label class="chk"><input type="checkbox" id="chTg" checked> <span class="chb tg">TG</span> Telegram</label><label class="chk"><input type="checkbox" id="chMax" checked> <span class="chb max">MAX</span> MAX</label></div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+            <button class="btn outline" onclick="toast('Черновик сохранён')">Сохранить черновик</button>
+            <button class="btn" onclick="schedulePost()"><svg class="ic ic-sm"><use href="#i-cal"/></svg> Запланировать</button>
+            <button class="btn gold" onclick="publishPost()"><svg class="ic ic-sm"><use href="#i-send"/></svg> Опубликовать сейчас</button>
+          </div>
+        </div>
+
+        <div>
+          <span class="lbl2">Превью публикации</span>
+          <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px">
+            <div style="background:#2AABEE;color:#fff;padding:9px 13px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:7px"><svg class="ic ic-sm"><use href="#i-send"/></svg> Telegram</div>
+            <div style="padding:12px">
+              <div class="prevCover" id="prevCovTg" style="background:#2F4A3C"><div class="pl" id="plTg">Разбор тарелки</div><div class="ph" id="phTg">Как правильно есть сыр и кисломолочку</div></div>
+              <div id="ptTg" style="font-size:11.5px;margin-top:9px;color:#3a463f;white-space:pre-wrap;line-height:1.5"></div>
+            </div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <div style="background:#6d4aff;color:#fff;padding:9px 13px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:7px"><svg class="ic ic-sm"><use href="#i-megaphone"/></svg> MAX</div>
+            <div style="padding:12px">
+              <div class="prevCover" id="prevCovMax" style="background:#2F4A3C"><div class="pl" id="plMax">Разбор тарелки</div><div class="ph" id="phMax">Как правильно есть сыр и кисломолочку</div></div>
+              <div id="ptMax" style="font-size:11.5px;margin-top:9px;color:#3a463f;white-space:pre-wrap;line-height:1.5"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -370,7 +505,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const titles={dash:'Дашборд',clients:'Клиенты',client:'Карточка клиента',menu:'Конструктор меню',checkins:'Чек-ины',messages:'Сообщения',content:'Контент',billing:'Подписки и платежи',analytics:'Аналитика',settings:'Настройки'};
+  const titles={dash:'Дашборд',clients:'Клиенты',client:'Карточка клиента',menu:'Конструктор меню',checkins:'Чек-ины',messages:'Сообщения',content:'Канал и медиаплан',post:'Подготовка публикации',billing:'Подписки и платежи',analytics:'Аналитика',settings:'Настройки'};
   function show(v){
     document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));
     document.getElementById('v-'+v).classList.add('on');
@@ -415,6 +550,77 @@
     });
     if(q&&!document.getElementById('v-clients').classList.contains('on'))show('clients');
   }
+
+  /* ===== Канал / медиаплан ===== */
+  function segPlan(el){
+    document.querySelectorAll('#planSeg a').forEach(a=>a.classList.remove('on'));el.classList.add('on');
+    const m={week:'Неделя',month:'Месяц',drafts:'Черновики',done:'Опубликовано'};
+    if(el.dataset.seg!=='week')toast('Режим: '+m[el.dataset.seg]+' (демо)');
+  }
+  function aiPlan(){
+    toast('ИИ подбирает темы и время под рубрики…');
+    setTimeout(()=>{
+      const fills=[
+        {sel:1,cls:'rub-air',html:'18:00 · Эфир<br>Q&A по анализам<div class="chs"><span class="chb tg">TG</span><span class="chb max">MAX</span></div>'},
+        {sel:3,cls:'rub-bowl',html:'10:00 · Разбор тарелки<br>Завтрак, который насыщает<div class="chs"><span class="chb tg">TG</span><span class="chb max">MAX</span></div>'},
+        {sel:5,cls:'rub-rec',html:'12:00 · Рецепт<br>Тёплый салат на ужин<div class="chs"><span class="chb tg">TG</span></div>'}
+      ];
+      const days=document.querySelectorAll('#calWeek .day');
+      fills.forEach(f=>{
+        const add=days[f.sel].querySelector('.add');if(!add)return;
+        const chip=document.createElement('div');chip.className='pchip '+f.cls;chip.innerHTML=f.html;chip.onclick=openPost;
+        add.replaceWith(chip);
+      });
+      toast('План на неделю готов · проверьте и опубликуйте');
+    },1100);
+  }
+  let curRub={r:'bowl',c:'#2F4A3C',l:'Разбор тарелки'};
+  function openPost(){show('post');syncPrev();}
+  function pickRub(el){
+    document.querySelectorAll('#rubPick .rubpill').forEach(x=>x.classList.remove('on'));el.classList.add('on');
+    curRub={r:el.dataset.r,c:el.dataset.c,l:el.dataset.l};
+    // подсветить обложку в тон рубрики
+    document.querySelectorAll('#covPick .tpl').forEach(t=>t.classList.toggle('on',t.dataset.c===curRub.c));
+    syncPrev(curRub.c);
+  }
+  function pickCov(el){
+    document.querySelectorAll('#covPick .tpl').forEach(t=>t.classList.remove('on'));el.classList.add('on');
+    syncPrev(el.dataset.c);
+  }
+  function syncPrev(coverColor){
+    const title=document.getElementById('postTitle').value;
+    const text=document.getElementById('postText').value;
+    const c=coverColor||document.querySelector('#covPick .tpl.on')?.dataset.c||'#2F4A3C';
+    ['Tg','Max'].forEach(s=>{
+      document.getElementById('pl'+s).textContent=curRub.l;
+      document.getElementById('ph'+s).textContent=title;
+      document.getElementById('pt'+s).textContent=text;
+      const cov=document.getElementById('prevCov'+s);cov.style.background=c;
+      cov.style.color=(c==='#C9A24B')?'#3a2e10':'#fff';
+    });
+  }
+  function aiText(){
+    toast('ИИ пишет текст в фирменном тоне…');
+    setTimeout(()=>{
+      document.getElementById('postText').value=
+'Здоровая тарелка — это не только про калории. Это про сочетания, нагрузку на ЖКТ и спокойную энергию весь день.\n\n'+
+'Как встроить сыр и кисломолочку без вреда:\n'+
+'• выбирайте кисломолочное без сахара и наполнителей\n'+
+'• сыр — небольшой порцией, к овощам и зелени\n'+
+'• не сочетайте с быстрыми углеводами на голодный желудок\n\n'+
+'Сохрани, чтобы не забыть 🌿';
+      syncPrev();
+      toast('Текст готов · отредактируйте при необходимости');
+    },1000);
+  }
+  function chTxt(){
+    const tg=document.getElementById('chTg').checked,mx=document.getElementById('chMax').checked;
+    return [tg?'Telegram':null,mx?'MAX':null].filter(Boolean).join(' + ')||'каналы не выбраны';
+  }
+  function schedulePost(){toast('Запланировано в '+chTxt()+' · '+document.getElementById('postWhen').value);setTimeout(()=>show('content'),900);}
+  function publishPost(){toast('Опубликовано в '+chTxt()+' ✓');setTimeout(()=>show('content'),900);}
 </script>
+
+<script>syncPrev&&syncPrev();</script>
 </body>
 </html>
