@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Архитектура анкета-бота (Telegram/MAX)</title>
+<style>
+  :root{--sage:#7C9070;--herbal:#2F4A3C;--cream:#F5EFE6;--terra:#E8A87C;--gold:#C9A24B;--ink:#23302a;--line:rgba(47,74,60,.14);--soft:#8a978d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6}
+  .wrap{max-width:940px;margin:0 auto;padding:0 24px}
+  header{background:var(--herbal);color:var(--cream);padding:48px 0;text-align:center}
+  header .k{font-size:12px;letter-spacing:6px;color:var(--gold);text-transform:uppercase}
+  header h1{font-family:Georgia,serif;font-size:25px;margin-top:10px}
+  header p{color:var(--sage);margin-top:8px;font-size:14px}
+  .sec{padding:38px 0;border-bottom:1px solid var(--line)}
+  .kick{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700}
+  h2{font-family:Georgia,serif;font-size:21px;color:var(--herbal);margin:6px 0 14px}
+  .d{color:#5d6b62;font-size:14px;max-width:680px;margin-bottom:18px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+  .card h3{color:var(--herbal);font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .card p{font-size:13.5px;color:#5d6b62}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-top:10px}
+
+  /* pipeline */
+  .flow{display:flex;flex-direction:column;gap:0}
+  .node{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 18px;display:flex;gap:14px;align-items:flex-start;position:relative}
+  .node .n{width:30px;height:30px;border-radius:9px;background:var(--herbal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none;font-size:13px}
+  .node b{color:var(--herbal)}
+  .node small{color:var(--soft);display:block;margin-top:2px}
+  .arrow{height:18px;width:2px;background:var(--sage);margin:6px 0 6px 32px}
+  .arrow:after{content:"▼";color:var(--sage);font-size:10px;position:relative;left:-4px;top:6px}
+  .tech{display:inline-block;background:var(--cream);border:1px solid var(--line);border-radius:7px;padding:2px 8px;font-size:11.5px;color:var(--herbal);margin:3px 4px 0 0;font-family:Consolas,monospace}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  th{background:var(--herbal);color:var(--cream);text-align:left;font-size:12px;padding:11px 14px;font-weight:600}
+  td{padding:11px 14px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top}
+  td b{color:var(--herbal)}
+  .rec{color:var(--sage);font-weight:700}
+  .json{background:#1b251f;color:#cfe0d3;border-radius:12px;padding:16px;font-family:Consolas,monospace;font-size:11.5px;white-space:pre-wrap;line-height:1.55;overflow:auto}
+  .flag{background:#fff;border:1px solid rgba(192,88,79,.4);border-left:4px solid #c0584f;border-radius:12px;padding:16px;margin-bottom:10px;font-size:13.5px}
+  .flag b{color:#a8453c}
+  .phase{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:10px}
+  .phase .t{width:60px;flex:none;font-weight:700;color:var(--gold);font-size:13px}
+  .phase b{color:var(--herbal)}
+  ul.clean{list-style:none;margin-top:8px}ul.clean li{padding:6px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+  ul.clean li:before{content:"›";color:var(--gold);font-weight:700;margin-right:8px}
+  @media(max-width:720px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="k">VIZELBERG · Intake Bot Architecture</div>
+  <h1>Анкета-бот: Telegram / MAX</h1>
+  <p>Мультиклиентский голосовой опрос → структурированные данные</p>
+</header>
+
+<!-- 2 контура -->
+<div class="sec"><div class="wrap">
+  <div class="kick">00 · Разделение контуров</div>
+  <h2>Два разных механизма — не путать</h2>
+  <div class="two">
+    <div class="card"><h3>① Ops-канал «Заказчик ↔ Claude»</h3><p>Владелец бизнеса (Наталья и др.) обсуждает проект. «Claude» здесь — рабочая сессия + недельный дайджест. Лёгкий, без отдельной разработки: общий Telegram-чат, голосовые расшифровываются, Руслан ведёт.</p><span class="pill">не масштабируем, ручной</span></div>
+    <div class="card" style="border-color:var(--gold)"><h3>② Продукт «Анкета-бот»</h3><p>Конечные клиенты Заказчиков наговаривают анкету голосом. Обработка — <b>автоматический бэкенд</b> (STT + Claude API), без человека в петле. Мультиклиентский, переиспользуется для каждого Заказчика.</p><span class="pill" style="color:#3a2e10;background:var(--gold);padding:2px 8px;border-radius:6px">это и проектируем ↓</span></div>
+  </div>
+</div></div>
+
+<!-- pipeline -->
+<div class="sec"><div class="wrap">
+  <div class="kick">01 · Поток данных</div>
+  <h2>Как работает опрос</h2>
+  <div class="d">Клиент переходит по ссылке Заказчика, наговаривает ответы голосом (или текстом), бэкенд расшифровывает, Claude API раскладывает в структуру и помечает риски, результат уходит в кабинет нутрициолога.</div>
+  <div class="flow">
+    <div class="node"><div class="n">1</div><div><b>Вход по диплинку</b><small>t.me/vizelberg_intake_bot?start=<b>natali</b> — параметр определяет Заказчика (tenant). Тот же бот обслуживает всех.</small><span class="tech">Telegram Bot API</span><span class="tech">MAX Bot API</span></div></div>
+    <div class="arrow"></div>
+    <div class="node"><div class="n">2</div><div><b>Согласие на обработку ПДн</b><small>Первый шаг — кнопка «Согласен(на)». Без согласия опрос не стартует (152-ФЗ).</small><span class="tech">consent log</span></div></div>
+    <div class="arrow"></div>
+    <div class="node"><div class="n">3</div><div><b>Опрос: голос или текст</b><small>Два режима: «наговорить одним рассказом» или «по вопросам». Голосовые .ogg принимаются как есть.</small><span class="tech">webhook</span><span class="tech">state machine</span></div></div>
+    <div class="arrow"></div>
+    <div class="node"><div class="n">4</div><div><b>Расшифровка речи (STT)</b><small>Голос .ogg/Opus → текст. Русский язык, данные в РФ.</small><span class="tech">Yandex SpeechKit (реком.)</span><span class="tech">/ Whisper self-host</span></div></div>
+    <div class="arrow"></div>
+    <div class="node"><div class="n">5</div><div><b>Структурирование (Claude API)</b><small>Свободный текст → JSON по схеме анкеты, заполнение пропусков уточняющими вопросами, флаги рисков/противопоказаний, черновик рекомендаций.</small><span class="tech">Claude API + tool use</span><span class="tech">prompt caching</span></div></div>
+    <div class="arrow"></div>
+    <div class="node"><div class="n">6</div><div><b>Сохранение + доставка</b><small>JSON → БД (шифрование ПДн) → очередь интейка в кабинете нутрициолога + уведомление Заказчику.</small><span class="tech">PostgreSQL</span><span class="tech">админ-кабинет</span></div></div>
+  </div>
+</div></div>
+
+<!-- tech stack -->
+<div class="sec"><div class="wrap">
+  <div class="kick">02 · Стек и выбор</div>
+  <h2>Технологии</h2>
+  <table>
+    <tr><th>Слой</th><th>Рекомендация</th><th>Почему / альтернатива</th></tr>
+    <tr><td><b>Мессенджеры</b></td><td class="rec">Telegram Bot API + MAX Bot API</td><td>Один бэкенд, два транспорта. Telegram — сейчас, MAX — РФ-рост</td></tr>
+    <tr><td><b>Распознавание речи</b></td><td class="rec">Yandex SpeechKit</td><td>Лучший русский + данные в РФ (важно для ПДн), дёшево. Альтернатива — self-host Whisper (дороже по железу, но без внешнего вендора)</td></tr>
+    <tr><td><b>Логика / структурирование</b></td><td class="rec">Claude API (Anthropic)</td><td>Свободная речь → JSON-схема, флаги рисков, черновик рекомендаций. Prompt caching снижает цену</td></tr>
+    <tr><td><b>Бэкенд</b></td><td class="rec">Python (FastAPI / aiogram)</td><td>aiogram — зрелая Telegram-библиотека; webhook на FastAPI</td></tr>
+    <tr><td><b>Хранилище</b></td><td class="rec">PostgreSQL + шифрование</td><td>Мультиарендность по tenant_id; ПДн шифруем at-rest</td></tr>
+    <tr><td><b>Хостинг</b></td><td class="rec">существующий VPS</td><td>Уже есть инфраструктура проекта; данные в РФ</td></tr>
+  </table>
+</div></div>
+
+<!-- multitenancy + schema -->
+<div class="sec"><div class="wrap">
+  <div class="kick">03 · Мультиарендность</div>
+  <h2>Один бот — много Заказчиков</h2>
+  <div class="d">Каждый Заказчик = tenant с собственным шаблоном анкеты, брендингом и адресом доставки результатов. Тот же код, разная конфигурация.</div>
+  <div class="two">
+    <div>
+      <div class="card"><b style="color:var(--herbal)">Конфиг Заказчика (пример)</b>
+      <div class="json" style="margin-top:10px">{
+  "tenant": "natali",
+  "name": "Наталья Визельберг",
+  "brand": "vizelberg",
+  "deeplink": "?start=natali",
+  "questionnaire": "nutrition_v1",
+  "deliver_to": {
+    "cabinet": "admin/intake",
+    "notify_tg": "@natali_amrita"
+  },
+  "stt_lang": "ru-RU"
+}</div></div>
+    </div>
+    <div>
+      <div class="card"><b style="color:var(--herbal)">Выход опроса (та же схема, что в anketa.html)</b>
+      <div class="json" style="margin-top:10px">{
+  "tenant": "natali",
+  "name": "Анна",
+  "afp": "32 года, 168 см, 70 кг",
+  "goal": ["Снизить вес","Больше энергии"],
+  "goal_text": "...",
+  "health": "...", "allergy": "...",
+  "meds": "...", "day": "...",
+  "water": "...", "life": "...",
+  "diets": "...",
+  "_flags": ["низкий витамин D?","гастрит — осторожно с кислым"],
+  "source": "voice",
+  "submitted_at": "2026-05-27T..."
+}</div></div>
+    </div>
+  </div>
+  <p class="d" style="margin-top:14px">Схема JSON совпадает с интерактивной анкетой — алгоритм обработки один и тот же для web-формы и бота.</p>
+</div></div>
+
+<!-- legal -->
+<div class="sec"><div class="wrap">
+  <div class="kick">04 · Право и данные</div>
+  <h2>Стоп-условия (решение Руслана/юриста)</h2>
+  <div class="flag"><b>Согласие на ПДн (152-ФЗ).</b> Обязательный первый шаг бота. Без явного согласия опрос не начинается. Текст согласия + политику — подготовить.</div>
+  <div class="flag"><b>Медицинские данные.</b> Анкета содержит сведения о здоровье — повышенная категория ПДн. Хранение в РФ, шифрование, ограничение доступа.</div>
+  <div class="flag"><b>Голос как биометрия.</b> Храним <u>текст расшифровки</u>, аудио удаляем после распознавания — чтобы не попасть в биометрические ПДн.</div>
+  <div class="flag"><b>Дисклеймер.</b> Нутрициология — не мед.услуга; рекомендации не заменяют врача. Формулировку согласовать.</div>
+</div></div>
+
+<!-- phases -->
+<div class="sec"><div class="wrap">
+  <div class="kick">05 · Этапы</div>
+  <h2>План внедрения</h2>
+  <div class="phase"><div class="t">MVP<br>1–2 нед</div><div><b>Telegram-бот, 1 Заказчик (Наталья).</b> Опрос по вопросам + голос (Yandex STT), структурирование Claude API, выгрузка JSON в кабинет. Согласие на ПДн.</div></div>
+  <div class="phase"><div class="t">V2<br>+1 нед</div><div><b>Свободный монолог + дозапрос пропусков.</b> «Расскажите о себе» одним голосовым → Claude вытаскивает поля и спрашивает только недостающее.</div></div>
+  <div class="phase"><div class="t">V3<br>+1–2 нед</div><div><b>Мультиарендность + MAX.</b> Конфиг Заказчиков, диплинки, кабинет с очередью интейка, второй транспорт MAX. Готово к подключению новых Заказчиков.</div></div>
+  <div class="phase"><div class="t">V4</div><div><b>Конструктор анкет.</b> Заказчик сам редактирует вопросы из кабинета — полноценный SaaS-модуль.</div></div>
+  <ul class="clean">
+    <li>Себестоимость одного опроса: STT + Claude API + хостинг ≈ <b>единицы рублей</b></li>
+    <li>Переиспользование: новый Заказчик = строка конфига, не новая разработка</li>
+  </ul>
+</div></div>
+
+<div style="padding:36px 0;text-align:center;color:#5d6b62;font-size:13px">VIZELBERG · Intake Bot Architecture v1.0 · 2026</div>
+</body>
+</html>
