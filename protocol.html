@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Протокол взаимодействия</title>
+<style>
+  :root{--sage:#7C9070;--herbal:#2F4A3C;--cream:#F5EFE6;--terra:#E8A87C;--gold:#C9A24B;--ink:#23302a;--line:rgba(47,74,60,.12);--soft:#8a978d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6}
+  .wrap{max-width:900px;margin:0 auto;padding:0 24px}
+  header{background:var(--herbal);color:var(--cream);padding:50px 0;text-align:center}
+  header .k{font-size:12px;letter-spacing:6px;color:var(--gold);text-transform:uppercase}
+  header h1{font-family:Georgia,serif;font-size:26px;margin-top:10px}
+  header p{color:var(--sage);margin-top:8px;font-size:14px}
+  .sec{padding:40px 0;border-bottom:1px solid var(--line)}
+  .kick{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700}
+  h2{font-family:Georgia,serif;font-size:21px;color:var(--herbal);margin:6px 0 16px}
+  .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .role{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+  .role .ico{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px;font-size:20px}
+  .role h3{color:var(--herbal);font-size:16px;margin-bottom:6px}
+  .role p{font-size:13px;color:#5d6b62}
+  .role .tag{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  th{background:var(--herbal);color:var(--cream);text-align:left;font-size:12px;padding:11px 14px;font-weight:600}
+  td{padding:11px 14px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top}
+  td b{color:var(--herbal)}
+  .who-n{color:#3c5b4a;font-weight:700}.who-c{color:var(--gold);font-weight:700}.who-r{color:var(--terra);font-weight:700}
+  .flow{display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+  .step .n{width:30px;height:30px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+  .step b{color:var(--herbal)}
+  .step small{color:var(--soft)}
+  .stop{background:#fff;border:1px solid rgba(192,88,79,.4);border-left:4px solid #c0584f;border-radius:12px;padding:16px;margin-bottom:10px}
+  .stop b{color:#a8453c}
+  ul.clean{list-style:none}ul.clean li{padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  ul.clean li:before{content:"›";color:var(--gold);font-weight:700;margin-right:8px}
+  .note{background:var(--cream);border:1px dashed var(--sage);border-radius:12px;padding:16px;font-size:13.5px;margin-top:14px}
+  @media(max-width:720px){.roles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="k">VIZELBERG · Operating Protocol</div>
+  <h1>Протокол взаимодействия</h1>
+  <p>Заказчик ↔ Claude напрямую · Руслан — реализация</p>
+</header>
+
+<div class="sec"><div class="wrap">
+  <div class="kick">01 · Роли</div>
+  <h2>Кто за что отвечает</h2>
+  <div class="roles">
+    <div class="role"><div class="ico" style="background:#3c5b4a">Н</div><h3>Наталья (Заказчик)</h3><p>Источник экспертизы и контента: цели, тексты, медицинская правота, обратная связь. Общается голосом или текстом.</p><div class="tag">решает: контент и экспертиза</div></div>
+    <div class="role"><div class="ico" style="background:#C9A24B;color:#3a2e10">C</div><h3>Claude (Исполнитель)</h3><p>Дизайн, прототипы, тексты, обработка анкет, обновление мокапов на GitHub. Уточняет минимально, показывает результат ссылкой.</p><div class="tag">делает: продукт и дизайн</div></div>
+    <div class="role"><div class="ico" style="background:#E8A87C;color:#3a2e10">Р</div><h3>Руслан (Реализация)</h3><p>Приоритеты, бюджет, доступы и секреты, деплой в прод, юр-вопросы, финальный sign-off, арбитр спорных решений.</p><div class="tag">владеет: реализация и деньги</div></div>
+  </div>
+</div></div>
+
+<div class="sec"><div class="wrap">
+  <div class="kick">02 · Кто что решает</div>
+  <h2>Матрица решений</h2>
+  <table>
+    <tr><th>Вопрос</th><th>Решает</th><th>Роль остальных</th></tr>
+    <tr><td><b>Контент, тексты, экспертные правки</b></td><td class="who-n">Наталья</td><td>Claude выполняет</td></tr>
+    <tr><td><b>Дизайн / UX внутри утверждённого бренда</b></td><td class="who-c">Claude</td><td>Наталья согласует, Руслан в копии</td></tr>
+    <tr><td><b>Бренд, нейминг, слоган, цены, скоуп</b></td><td class="who-r">Руслан</td><td>Claude предлагает, Наталья высказывается</td></tr>
+    <tr><td><b>Деньги, интеграции, доступы, деплой в прод</b></td><td class="who-r">Руслан</td><td>Claude помечает флагом</td></tr>
+    <tr><td><b>Персональные данные клиентов, юр/оферта/ПДн</b></td><td class="who-r">Руслан</td><td>Claude не публикует без разрешения</td></tr>
+    <tr><td><b>Техническая реализация и инфраструктура</b></td><td class="who-r">Руслан</td><td>Claude отдаёт готовые артефакты</td></tr>
+  </table>
+</div></div>
+
+<div class="sec"><div class="wrap">
+  <div class="kick">03 · Цикл работы</div>
+  <h2>Как идёт один запрос</h2>
+  <div class="flow">
+    <div class="step"><div class="n">1</div><div><b>Запрос</b> — Наталья формулирует задачу голосом или текстом в общем канале (что нужно, зачем). <small>Голос → транскрипт автоматически.</small></div></div>
+    <div class="step"><div class="n">2</div><div><b>Уточнение</b> — Claude задаёт максимум 1–2 вопроса, только если без них нельзя. Иначе сразу делает.</div></div>
+    <div class="step"><div class="n">3</div><div><b>Исполнение + публикация</b> — Claude выполняет и <b>сразу обновляет мокапы на GitHub</b>, присылает живую ссылку.</div></div>
+    <div class="step"><div class="n">4</div><div><b>Проверка</b> — Наталья смотрит с телефона по ссылке, даёт правки (голосом). Итерируем до «ок».</div></div>
+    <div class="step"><div class="n">5</div><div><b>Эскалация</b> — если задача задевает бренд/деньги/доступы/ПДн → Claude поднимает Руслану, ждёт решения.</div></div>
+    <div class="step"><div class="n">6</div><div><b>Дайджест</b> — раз в неделю Claude присылает Руслану сводку: что сделано, что в работе, где нужно решение.</div></div>
+  </div>
+</div></div>
+
+<div class="sec"><div class="wrap">
+  <div class="kick">04 · Стоп-условия</div>
+  <h2>Когда Claude обязан остановиться и спросить Руслана</h2>
+  <div class="stop"><b>Деньги/доступы.</b> Любая интеграция, требующая ключей, оплат, аккаунтов, токенов.</div>
+  <div class="stop"><b>Бренд/скоуп.</b> Смена имени, слогана, палитры, цен, расширение проекта за рамки.</div>
+  <div class="stop"><b>Персональные данные.</b> Публикация/хранение данных реальных клиентов, медицинских сведений.</div>
+  <div class="stop"><b>Право.</b> Оферта, договор, согласие на обработку ПДн, регуляторика нутрициологии.</div>
+</div></div>
+
+<div class="sec"><div class="wrap">
+  <div class="kick">05 · Каналы и правила</div>
+  <h2>Как технически устроен «прямой канал»</h2>
+  <ul class="clean">
+    <li><b>Вариант A (быстро):</b> Наталья работает в общем проекте Claude — пишет/наговаривает запросы, видит ответы и ссылки.</li>
+    <li><b>Вариант B (удобнее ей):</b> Telegram-бот-мост — её голосовые → транскрипт → Claude → ответ ссылкой. Руслан в том же чате как наблюдатель.</li>
+    <li><b>Единый источник правды:</b> прототипы на GitHub Pages — всегда актуальны, открываются с любого устройства.</li>
+    <li><b>Каждое обновление Claude</b> автоматически уходит на GitHub (правило включено).</li>
+    <li><b>Язык общения с Натальей</b> — простой, без терминов; Claude переводит её пожелания в продукт.</li>
+  </ul>
+  <div class="note">💡 Рекомендация: начать с <b>Варианта A</b> (ноль настройки), а Telegram-мост (Вариант B) подключить, когда поток запросов станет регулярным — он удобнее для голосовых.</div>
+</div></div>
+
+<div style="padding:36px 0;text-align:center;color:#5d6b62;font-size:13px">VIZELBERG · Operating Protocol v1.0 · 2026</div>
+</body>
+</html>

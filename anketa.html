@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Анкета нового клиента</title>
+<style>
+  :root{--sage:#7C9070;--herbal:#2F4A3C;--cream:#F5EFE6;--terra:#E8A87C;--gold:#C9A24B;--ink:#23302a;--line:rgba(47,74,60,.14);--soft:#8a978d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;color:var(--ink);background:#ece5da;line-height:1.55}
+  .ic{width:20px;height:20px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;display:block}
+  .ic-sm{width:15px;height:15px}
+  .shell{max-width:640px;margin:0 auto;min-height:100vh;background:var(--cream);box-shadow:0 0 60px rgba(0,0,0,.07)}
+  .top{background:var(--herbal);color:var(--cream);padding:22px 22px 18px;position:sticky;top:0;z-index:5}
+  .top .row{display:flex;align-items:center;gap:10px}
+  .top .lg{width:30px;height:30px;border-radius:10px;background:var(--gold);color:var(--herbal);display:flex;align-items:center;justify-content:center}
+  .top h1{font-size:16px;font-weight:600}
+  .top .sl{font-size:10px;letter-spacing:2px;color:var(--sage);text-transform:uppercase}
+  .pbar{height:6px;background:rgba(255,255,255,.15);border-radius:4px;margin-top:14px;overflow:hidden}
+  .pbar i{display:block;height:6px;background:var(--gold);width:0;transition:width .4s}
+  .pmeta{font-size:11px;color:var(--sage);margin-top:6px;display:flex;justify-content:space-between}
+
+  .toolbar{display:flex;gap:8px;padding:14px 20px 0;flex-wrap:wrap}
+  .tbtn{font-family:inherit;border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 13px;font-size:12px;color:var(--herbal);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .tbtn.gold{background:var(--gold);color:#3a2e10;border:none}
+  .tbtn:active{transform:scale(.97)}
+
+  .body{padding:14px 20px 30px}
+  .sect{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+  .sect h2{font-family:Georgia,serif;font-size:16px;color:var(--herbal);display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .sect h2 .num{width:24px;height:24px;border-radius:50%;background:var(--sage);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+  .sect .sd{font-size:12px;color:var(--soft);margin-bottom:12px}
+  .q{margin-bottom:14px}
+  .q label{display:block;font-size:13px;color:var(--herbal);font-weight:600;margin-bottom:6px}
+  .inwrap{position:relative}
+  .inp{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 44px 11px 12px;font-family:inherit;font-size:13.5px;outline:none;background:#fff;color:var(--ink)}
+  .inp:focus{border-color:var(--sage)}
+  textarea.inp{min-height:64px;resize:vertical;line-height:1.5}
+  .ex{font-size:11.5px;color:#a99;margin-top:5px;font-style:italic}
+  .mic{position:absolute;right:7px;top:7px;width:32px;height:32px;border-radius:50%;border:none;background:var(--cream);color:var(--herbal);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+  .mic:hover{background:#e6ddcd}
+  .mic.rec{background:#c0584f;color:#fff;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(192,88,79,.5)}50%{box-shadow:0 0 0 7px rgba(192,88,79,0)}}
+  .chips{display:flex;gap:7px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);border-radius:20px;padding:7px 13px;font-size:12.5px;color:var(--herbal);cursor:pointer;background:#fff}
+  .chip.on{background:var(--herbal);color:#fff;border-color:var(--herbal)}
+
+  .submit{position:sticky;bottom:0;background:linear-gradient(transparent,var(--cream) 30%);padding:16px 20px 22px}
+  .btn{width:100%;background:var(--gold);color:#3a2e10;border:none;font-family:inherit;border-radius:14px;padding:15px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+  .btn:active{transform:scale(.99)}
+  .voice-note{font-size:11px;color:var(--soft);text-align:center;margin-top:8px}
+
+  /* done screen */
+  .done{display:none;padding:50px 24px;text-align:center}
+  .done.on{display:block}
+  .done .badge{width:80px;height:80px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .done h2{font-family:Georgia,serif;color:var(--herbal);font-size:22px}
+  .done p{color:#5d6b62;font-size:14px;margin-top:8px}
+  .json{text-align:left;background:#1b251f;color:#cfe0d3;border-radius:12px;padding:16px;font-family:Consolas,monospace;font-size:11px;margin-top:20px;white-space:pre-wrap;line-height:1.5;max-height:320px;overflow:auto}
+  .hint{background:var(--cream);border:1px dashed var(--sage);border-radius:12px;padding:12px;font-size:12.5px;color:#5d6b62;margin-top:16px;text-align:left}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z"/><path d="M5 19c4-1 7-4 9-8"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-7-7 16-2-7-7-2z"/></symbol>
+</svg>
+
+<div class="shell">
+  <div class="top">
+    <div class="row"><div class="lg"><svg class="ic ic-sm"><use href="#i-leaf"/></svg></div><div><h1>Анкета нового клиента</h1><div class="sl">vizelberg · нутрициология здоровья</div></div></div>
+    <div class="pbar"><i id="pbar"></i></div>
+    <div class="pmeta"><span>Заполнено: <span id="pcnt">0</span>%</span><span id="micstate">🎙 голос: проверка…</span></div>
+  </div>
+
+  <div id="form">
+    <div class="toolbar">
+      <button class="tbtn gold" onclick="fillExample()"><svg class="ic ic-sm"><use href="#i-spark"/></svg> Заполнить примером</button>
+      <button class="tbtn" onclick="toggleEx()"><svg class="ic ic-sm"><use href="#i-eye"/></svg> Показать/скрыть подсказки</button>
+      <button class="tbtn" onclick="clearAll()">Очистить</button>
+    </div>
+
+    <div class="body">
+
+      <div class="sect">
+        <h2><span class="num">1</span> О себе</h2>
+        <div class="sd">Базовые данные — чтобы рассчитать норму калорий и нутриентов.</div>
+        <div class="q"><label>Имя</label><div class="inwrap"><input class="inp" data-k="name" placeholder="Например: Анна"><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: Анна</div></div>
+        <div class="q"><label>Возраст / рост / вес</label><div class="inwrap"><input class="inp" data-k="afp" placeholder="32 года, 168 см, 70 кг"><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: 32 года, 168 см, 70 кг</div></div>
+      </div>
+
+      <div class="sect">
+        <h2><span class="num">2</span> Цель</h2>
+        <div class="sd">Что хотите изменить и к какому сроку.</div>
+        <div class="q"><label>Главная цель</label>
+          <div class="chips" data-multi="goal">
+            <span class="chip" onclick="tog(this)">Снизить вес</span><span class="chip" onclick="tog(this)">Больше энергии</span><span class="chip" onclick="tog(this)">Наладить ЖКТ</span><span class="chip" onclick="tog(this)">Долголетие / anti-age</span><span class="chip" onclick="tog(this)">Набрать массу</span><span class="chip" onclick="tog(this)">Привычки питания</span>
+          </div>
+        </div>
+        <div class="q"><label>Опишите цель своими словами</label><div class="inwrap"><textarea class="inp" data-k="goal_text" placeholder="Хочу снизить вес на 5 кг к лету и перестать срываться вечером"></textarea><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: снизить вес на 5 кг к лету, убрать вечерние срывы, больше энергии днём</div></div>
+      </div>
+
+      <div class="sect">
+        <h2><span class="num">3</span> Здоровье</h2>
+        <div class="sd">Важно для безопасных рекомендаций. Всё конфиденциально.</div>
+        <div class="q"><label>Хронические заболевания, состояние ЖКТ</label><div class="inwrap"><textarea class="inp" data-k="health" placeholder="Гастрит, бывает вздутие после молочного"></textarea><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: гастрит вне обострения, вздутие после молочного</div></div>
+        <div class="q"><label>Аллергии / непереносимости</label><div class="inwrap"><input class="inp" data-k="allergy" placeholder="Лактоза, орехи"><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: непереносимость лактозы</div></div>
+        <div class="q"><label>Лекарства / БАД сейчас</label><div class="inwrap"><input class="inp" data-k="meds" placeholder="Витамин D, магний"><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: витамин D 2000 МЕ, магний</div></div>
+      </div>
+
+      <div class="sect">
+        <h2><span class="num">4</span> Питание сейчас</h2>
+        <div class="sd">Как вы едите в обычный день — без прикрас, это база для меню.</div>
+        <div class="q"><label>Типичный день: завтрак / обед / ужин / перекусы</label><div class="inwrap"><textarea class="inp" data-k="day" placeholder="Завтрак — кофе и бутерброд, обед — что на работе, ужин поздно, перекусы сладким"></textarea><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: завтрак часто пропускаю, обед на бегу, ужин плотный поздно, днём сладкое</div></div>
+        <div class="q"><label>Сколько воды в день / что не едите принципиально</label><div class="inwrap"><input class="inp" data-k="water" placeholder="~1 л воды, не ем мясо"><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: примерно 1 литр воды, не ем красное мясо</div></div>
+      </div>
+
+      <div class="sect">
+        <h2><span class="num">5</span> Образ жизни</h2>
+        <div class="sd">Сон, активность, стресс влияют на результат не меньше еды.</div>
+        <div class="q"><label>Сон, физическая активность, уровень стресса</label><div class="inwrap"><textarea class="inp" data-k="life" placeholder="Сплю 6 часов, сидячая работа, высокий стресс"></textarea><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: сон 6 ч, сидячая работа, 8000 шагов, стресс высокий</div></div>
+        <div class="q"><label>Был ли опыт диет? Что не сработало?</label><div class="inwrap"><textarea class="inp" data-k="diets" placeholder="Пробовала кето — срывалась, голодала — вес вернулся"></textarea><button class="mic" onclick="rec(this)"><svg class="ic ic-sm"><use href="#i-mic"/></svg></button></div><div class="ex">Пример: пробовала кето и подсчёт калорий — надолго не хватало</div></div>
+      </div>
+
+    </div>
+
+    <div class="submit">
+      <button class="btn" onclick="submitForm()"><svg class="ic ic-sm"><use href="#i-send"/></svg> Отправить анкету нутрициологу</button>
+      <div class="voice-note">🎙 У каждого поля — кнопка микрофона: можно наговорить ответ голосом</div>
+    </div>
+  </div>
+
+  <!-- DONE -->
+  <div class="done" id="done">
+    <div class="badge"><svg class="ic" style="width:34px;height:34px"><use href="#i-check"/></svg></div>
+    <h2>Спасибо! Анкета отправлена</h2>
+    <p>Наталья изучит ответы и подготовит персональные рекомендации. Структурированные данные уходят в обработку.</p>
+    <div class="json" id="jsonout"></div>
+    <div class="hint">⚙️ Эти данные в формате JSON поступают в <b>алгоритм обработки анкет</b> (предоставляется отдельно): расчёт калорий/КБЖУ, выделение рисков и противопоказаний, черновик первичных рекомендаций и меню. Голосовые ответы уже расшифрованы в текст.</div>
+    <button class="btn" style="margin-top:18px;background:var(--herbal);color:#fff" onclick="location.reload()">Заполнить заново</button>
+  </div>
+</div>
+
+<script>
+  // ---- progress ----
+  function fields(){return document.querySelectorAll('#form .inp');}
+  function updateProgress(){
+    const f=fields();let filled=0;f.forEach(x=>{if(x.value.trim())filled++;});
+    const goal=document.querySelectorAll('[data-multi="goal"] .chip.on').length>0?1:0;
+    const total=f.length+1, done=filled+goal;
+    const pct=Math.round(done/total*100);
+    document.getElementById('pbar').style.width=pct+'%';
+    document.getElementById('pcnt').textContent=pct;
+  }
+  fields().forEach(x=>x.addEventListener('input',updateProgress));
+
+  // ---- chips ----
+  function tog(el){el.classList.toggle('on');updateProgress();}
+
+  // ---- example / hints ----
+  const sample={name:'Анна',afp:'32 года, 168 см, 70 кг',goal_text:'Снизить вес на 5 кг к лету, убрать вечерние срывы, больше энергии днём',health:'Гастрит вне обострения, вздутие после молочного',allergy:'Непереносимость лактозы',meds:'Витамин D 2000 МЕ, магний',day:'Завтрак часто пропускаю, обед на бегу, ужин плотный поздно, днём тянет на сладкое',water:'Примерно 1 литр воды, не ем красное мясо',life:'Сон 6 часов, сидячая работа, ~8000 шагов, стресс высокий',diets:'Пробовала кето и подсчёт калорий — надолго не хватало'};
+  function fillExample(){
+    fields().forEach(x=>{const k=x.dataset.k;if(sample[k])x.value=sample[k];});
+    document.querySelectorAll('[data-multi="goal"] .chip').forEach((c,i)=>c.classList.toggle('on',i===0||i===1));
+    updateProgress();
+  }
+  let exShown=true;
+  function toggleEx(){exShown=!exShown;document.querySelectorAll('.ex').forEach(e=>e.style.display=exShown?'':'none');}
+  function clearAll(){fields().forEach(x=>x.value='');document.querySelectorAll('.chip.on').forEach(c=>c.classList.remove('on'));updateProgress();}
+
+  // ---- voice (Web Speech API) ----
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  let recog=null,activeMic=null;
+  if(SR){
+    document.getElementById('micstate').textContent='🎙 голос: доступен';
+    recog=new SR();recog.lang='ru-RU';recog.interimResults=true;recog.continuous=false;
+    let target=null,base='';
+    recog.onresult=(e)=>{
+      let txt='';for(let i=0;i<e.results.length;i++)txt+=e.results[i][0].transcript;
+      if(target){target.value=(base?base+' ':'')+txt;updateProgress();}
+    };
+    recog.onend=()=>{if(activeMic){activeMic.classList.remove('rec');activeMic=null;target=null;}};
+    recog.onerror=()=>{document.getElementById('micstate').textContent='🎙 голос: нет доступа к микрофону';if(activeMic){activeMic.classList.remove('rec');activeMic=null;}};
+    window.rec=function(btn){
+      const input=btn.parentElement.querySelector('.inp');
+      if(activeMic===btn){recog.stop();return;}
+      if(activeMic){recog.stop();}
+      target=input;base=input.value.trim();
+      activeMic=btn;btn.classList.add('rec');
+      try{recog.start();}catch(e){}
+    };
+  } else {
+    document.getElementById('micstate').textContent='🎙 голос: браузер не поддерживает';
+    // fallback: simulate dictation
+    window.rec=function(btn){
+      const input=btn.parentElement.querySelector('.inp');const k=input.dataset.k;
+      btn.classList.add('rec');
+      setTimeout(()=>{input.value=(input.value?input.value+' ':'')+(sample[k]||'(распознанный голос)');btn.classList.remove('rec');updateProgress();},900);
+    };
+  }
+
+  // ---- submit ----
+  function submitForm(){
+    const data={};fields().forEach(x=>{if(x.value.trim())data[x.dataset.k]=x.value.trim();});
+    data.goal=[...document.querySelectorAll('[data-multi="goal"] .chip.on')].map(c=>c.textContent);
+    data.submitted_at=new Date().toISOString();
+    document.getElementById('jsonout').textContent=JSON.stringify(data,null,2);
+    document.getElementById('form').style.display='none';
+    document.getElementById('done').classList.add('on');
+    window.scrollTo(0,0);
+  }
+  updateProgress();
+</script>
+</body>
+</html>

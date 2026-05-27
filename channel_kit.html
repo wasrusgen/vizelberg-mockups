@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZELBERG — Ребрендинг Telegram-канала</title>
+<style>
+  :root{--sage:#7C9070;--herbal:#2F4A3C;--cream:#F5EFE6;--terra:#E8A87C;--gold:#C9A24B;--ink:#23302a;--line:rgba(47,74,60,.12);--soft:#8a978d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;color:var(--ink);background:#ece5da;line-height:1.55}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  header{background:var(--herbal);color:var(--cream);padding:46px 0;text-align:center}
+  header .k{font-size:12px;letter-spacing:6px;color:var(--gold);text-transform:uppercase}
+  header h1{font-family:Georgia,serif;font-size:24px;margin-top:10px}
+  header p{color:var(--sage);font-size:14px;margin-top:6px}
+  .ic{width:22px;height:22px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;display:block}
+  .ic-sm{width:15px;height:15px}.ic-lg{width:34px;height:34px}
+  .sec{padding:42px 0}
+  .sec h2{font-family:Georgia,serif;font-size:20px;color:var(--herbal);margin-bottom:4px}
+  .sec .d{color:#5d6b62;font-size:13.5px;margin-bottom:22px;max-width:680px}
+  .cols{display:grid;grid-template-columns:340px 1fr;gap:34px;align-items:start}
+
+  /* telegram phone */
+  .phone{background:#1b251f;border-radius:36px;padding:9px;box-shadow:0 20px 46px rgba(27,37,31,.3)}
+  .tg{background:#e9e3d8;border-radius:28px;overflow:hidden}
+  .tg .cover{background:linear-gradient(135deg,#2F4A3C,#3c5b4a);padding:26px 18px 18px;color:var(--cream);text-align:center;position:relative;overflow:hidden}
+  .tg .cover .leaf{position:absolute;right:-26px;top:-20px;opacity:.16}
+  .tg .av{width:84px;height:84px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--herbal);border:3px solid rgba(245,239,230,.25)}
+  .tg .nm{font-weight:600;font-size:17px}
+  .tg .sl{font-size:11px;letter-spacing:2px;color:var(--sage);margin-top:3px;text-transform:lowercase}
+  .tg .subs{font-size:11px;color:rgba(245,239,230,.7);margin-top:7px}
+  .tg .desc{background:#fff;margin:0;padding:14px 16px;font-size:11.5px;color:#3a463f;line-height:1.6;border-bottom:1px solid var(--line)}
+  .tg .desc .lnk{color:var(--sage)}
+  .tg .posts{padding:12px;display:flex;flex-direction:column;gap:10px;background:#e9e3d8}
+  .pcard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .pcard .pc{padding:18px 14px;color:#fff;display:flex;align-items:center;gap:10px}
+  .pcard .pt{padding:9px 12px;font-size:11px;color:#3a463f}
+
+  /* assets */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+  .card .t{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
+  .av-opt{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;color:var(--soft)}
+  .copybox{background:var(--cream);border:1px dashed var(--sage);border-radius:12px;padding:16px;font-size:13px;color:var(--ink);line-height:1.7;white-space:pre-wrap}
+  .copybox b{color:var(--herbal)}
+
+  /* covers */
+  .covers{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .cover-tpl{border-radius:16px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1.5/1;display:flex;flex-direction:column;justify-content:space-between;padding:20px;position:relative;color:#fff}
+  .cover-tpl .lbl{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.85;display:flex;align-items:center;gap:7px}
+  .cover-tpl .hl{font-family:Georgia,serif;font-size:20px;line-height:1.2}
+  .cover-tpl .lg{font-size:10px;letter-spacing:1px;opacity:.8;display:flex;align-items:center;gap:6px}
+  .cover-tpl .bgleaf{position:absolute;right:-20px;bottom:-30px;opacity:.13}
+  .tags{margin-top:8px}
+  .pill{display:inline-flex;align-items:center;gap:5px;background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--herbal);margin:3px 4px 0 0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+  @media(max-width:860px){.cols,.two{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z"/><path d="M5 19c4-1 7-4 9-8"/></symbol>
+  <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M2 11h20"/><path d="M9 7c0-1.5 1-2 1-3M13 7c0-1.5 1-2 1-3"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-1.5-7-1v13c2-.5 5-.5 7 1 2-1.5 5-1.5 7-1V5c-2-.5-5-.5-7 1z"/><path d="M12 6v13"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 12 8 12 3z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S4 14.5 4 9a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 5.5-8 11-8 11z"/></symbol>
+</svg>
+
+<header>
+  <div class="k">VIZELBERG · Channel Rebrand</div>
+  <h1>Ребрендинг Telegram-канала</h1>
+  <p>@natali_amrita → единый фирменный стиль</p>
+</header>
+
+<!-- BEFORE/AFTER + PHONE -->
+<div class="sec"><div class="wrap">
+  <h2>Как будет выглядеть канал</h2>
+  <div class="d">Имя автора сохраняем (Наталья Визельберг), визуал и описание приводим к брендбуку. Аватар — фирменный листок, шапка постов — единые обложки.</div>
+  <div class="cols">
+
+    <div class="phone"><div class="tg">
+      <div class="cover">
+        <svg class="leaf" width="130" height="130" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z" fill="#C9A24B"/></svg>
+        <div class="av"><svg class="ic ic-lg"><use href="#i-leaf"/></svg></div>
+        <div class="nm">Наталья Визельберг</div>
+        <div class="sl">нутрициология здоровья</div>
+        <div class="subs">632 подписчика</div>
+      </div>
+      <div class="desc">
+        <b>Клинический нутрициолог.</b> Помогаю восстановить здоровье и энергию через питание, движение и образ жизни — спокойно, по шагам, без диет и чувства вины. 🌿<br>
+        Разборы тарелки · привычки · восточный взгляд на тело<br>
+        Программы и консультации → <span class="lnk">vizelberg.ru</span>
+      </div>
+      <div class="posts">
+        <div class="pcard"><div class="pc" style="background:var(--herbal)"><svg class="ic"><use href="#i-bowl"/></svg><b style="font-family:Georgia,serif">Разбор тарелки: сыр и кисломолочка</b></div><div class="pt">Как сочетать без вреда для ЖКТ →</div></div>
+        <div class="pcard"><div class="pc" style="background:var(--sage)"><svg class="ic"><use href="#i-fire"/></svg><b style="font-family:Georgia,serif">Привычка недели</b></div><div class="pt">Белковый перекус в 17:00 →</div></div>
+      </div>
+    </div></div>
+
+    <div>
+      <div class="grid3">
+        <div class="card av-opt"><div class="t" style="margin:0">тёмный</div>
+          <svg width="92" height="92" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#2F4A3C"/><circle cx="60" cy="58" r="30" fill="#C9A24B"/><path d="M44 50 C44 38 52 30 66 30 C62 44 56 52 44 58 Z" fill="#2F4A3C"/></svg>
+          основной
+        </div>
+        <div class="card av-opt"><div class="t" style="margin:0">шалфей</div>
+          <svg width="92" height="92" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#7C9070"/><path d="M42 50 C42 36 52 26 68 26 C63 42 55 52 42 58 Z" fill="#F5EFE6"/></svg>
+          альтернатива
+        </div>
+        <div class="card av-opt"><div class="t" style="margin:0">крем</div>
+          <svg width="92" height="92" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#F5EFE6" stroke="#C9A24B" stroke-width="2"/><circle cx="60" cy="58" r="30" fill="#C9A24B"/><path d="M44 50 C44 38 52 30 66 30 C62 44 56 52 44 58 Z" fill="#2F4A3C"/></svg>
+          премиум
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="t">Готовое описание канала (копировать)</div>
+        <div class="copybox"><b>Наталья Визельберг · нутрициология здоровья</b>
+
+Клинический нутрициолог. Помогаю восстановить здоровье и энергию через питание, движение и образ жизни — спокойно, по шагам, без диет и чувства вины. 🌿
+
+🍽 Разборы тарелки и сочетания продуктов
+🌱 Привычки и восточный взгляд на тело
+📋 Программы сопровождения и консультации
+
+Записаться → vizelberg.ru</div>
+      </div>
+    </div>
+
+  </div>
+</div></div>
+
+<!-- POST COVER TEMPLATES -->
+<div class="sec" style="background:#fff"><div class="wrap">
+  <h2>Шаблоны обложек постов</h2>
+  <div class="d">4 рубрики в едином стиле — узнаваемость ленты. Монохромная иконка + рубрика + заголовок + лого-замок.</div>
+  <div class="covers">
+    <div class="cover-tpl" style="background:var(--herbal)">
+      <svg class="bgleaf" width="120" height="120" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z" fill="#C9A24B"/></svg>
+      <div class="lbl"><svg class="ic ic-sm"><use href="#i-bowl"/></svg> Разбор тарелки</div>
+      <div class="hl">Как правильно есть<br>сыр и кисломолочку</div>
+      <div class="lg"><svg class="ic ic-sm"><use href="#i-leaf"/></svg> vizelberg</div>
+    </div>
+    <div class="cover-tpl" style="background:var(--sage)">
+      <svg class="bgleaf" width="120" height="120" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z" fill="#F5EFE6"/></svg>
+      <div class="lbl"><svg class="ic ic-sm"><use href="#i-fire"/></svg> Привычка недели</div>
+      <div class="hl">Белковый перекус,<br>чтобы не сорваться вечером</div>
+      <div class="lg"><svg class="ic ic-sm"><use href="#i-leaf"/></svg> vizelberg</div>
+    </div>
+    <div class="cover-tpl" style="background:var(--terra);color:#3a2e10">
+      <svg class="bgleaf" width="120" height="120" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z" fill="#2F4A3C"/></svg>
+      <div class="lbl" style="opacity:.7"><svg class="ic ic-sm"><use href="#i-book"/></svg> Рецепт</div>
+      <div class="hl">Ароматный бульон:<br>3 секрета насыщенности</div>
+      <div class="lg" style="opacity:.7"><svg class="ic ic-sm"><use href="#i-leaf"/></svg> vizelberg</div>
+    </div>
+    <div class="cover-tpl" style="background:#3c5b4a">
+      <svg class="bgleaf" width="120" height="120" viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 20 5c0 9-6 14-14 14z" fill="#C9A24B"/></svg>
+      <div class="lbl"><svg class="ic ic-sm"><use href="#i-video"/></svg> Эфир / Q&A</div>
+      <div class="hl">Долголетие и энергия:<br>с чего начать</div>
+      <div class="lg"><svg class="ic ic-sm"><use href="#i-leaf"/></svg> vizelberg</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- GUIDELINES -->
+<div class="sec"><div class="wrap">
+  <h2>Правила оформления ленты</h2>
+  <div class="two">
+    <div class="card">
+      <div class="t">Рубрики (хэштеги)</div>
+      <div class="tags">
+        <span class="pill"><svg class="ic ic-sm"><use href="#i-bowl"/></svg> #разбор_тарелки</span>
+        <span class="pill"><svg class="ic ic-sm"><use href="#i-fire"/></svg> #привычка_недели</span>
+        <span class="pill"><svg class="ic ic-sm"><use href="#i-book"/></svg> #рецепт</span>
+        <span class="pill"><svg class="ic ic-sm"><use href="#i-video"/></svg> #эфир</span>
+        <span class="pill"><svg class="ic ic-sm"><use href="#i-heart"/></svg> #долголетие</span>
+      </div>
+      <div class="t" style="margin-top:18px">Принципы</div>
+      <ul style="font-size:13px;color:#3a463f;list-style:none">
+        <li style="padding:5px 0;border-bottom:1px dashed var(--line)">· Каждый пост — фирменная обложка с рубрикой</li>
+        <li style="padding:5px 0;border-bottom:1px dashed var(--line)">· Палитра: травяной/шалфей фон, золото/крем акцент</li>
+        <li style="padding:5px 0;border-bottom:1px dashed var(--line)">· Только монохромные иконки бренда, без сторонних эмодзи-наборов</li>
+        <li style="padding:5px 0">· Тон: тёплый эксперт, без запугивания и «срочно худей»</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="t">Что меняем сейчас</div>
+      <ul style="font-size:13px;color:#3a463f;list-style:none">
+        <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ Аватар → фирменный листок</li>
+        <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ Описание → новый текст в ToV бренда</li>
+        <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ Обложки постов → 4 шаблона рубрик</li>
+        <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ Ссылка taplink → vizelberg.ru (свой домен)</li>
+        <li style="padding:7px 0">○ Юзернейм @natali_amrita — решить отдельно (оставить / @vizelberg)</li>
+      </ul>
+      <div class="copybox" style="margin-top:14px;font-size:12.5px">💡 Имя автора «Наталья Визельберг» оставляем — это и доверие, и реальная фамилия. Бренд VIZELBERG выстраивается вокруг неё.</div>
+    </div>
+  </div>
+</div></div>
+
+<div style="padding:36px 0;text-align:center;color:#5d6b62;font-size:13px">VIZELBERG · Channel Rebrand Kit · 2026 — превью на системных шрифтах</div>
+</body>
+</html>
