@@ -139,6 +139,7 @@
     <div class="badge"><svg class="ic" style="width:34px;height:34px"><use href="#i-check"/></svg></div>
     <h2>Спасибо! Анкета отправлена</h2>
     <p>Наталья изучит ответы и подготовит персональные рекомендации. Структурированные данные уходят в обработку.</p>
+    <div id="savenote" style="font-size:11px;color:var(--soft);margin-top:6px"></div>
     <div class="json" id="jsonout"></div>
     <div class="hint">⚙️ Эти данные в формате JSON поступают в <b>алгоритм обработки анкет</b> (предоставляется отдельно): расчёт калорий/КБЖУ, выделение рисков и противопоказаний, черновик первичных рекомендаций и меню. Голосовые ответы уже расшифрованы в текст.</div>
     <button class="btn" style="margin-top:18px;background:var(--herbal);color:#fff" onclick="location.reload()">Заполнить заново</button>
@@ -204,7 +205,14 @@
   }
 
   // ---- submit ----
-  function submitForm(){
+  // DEV-демо: сохраняет ТЕСТОВЫЕ данные на DEV-сервере через реальный API (не прод, не боевые пациенты).
+  // Идентификатор — публичная инвайт-ссылка на демо-запись (project_members.id=4, DEV), НЕ секрет/пароль/ключ
+  // (та же природа, что и обычная пригласительная ссылка в кабинет). Смена доменов/ссылки — не менять
+  // молча, это тестовый провод для показа Наталье/Руслану, не рабочий канал приёма пациентов.
+  const HEALTH_API = 'https://claude-188-225-75-25.sslip.io/consulting-dev/api';
+  const DEMO_INVITE_LINK_ID = 'vzb-demo-tour-01';
+
+  async function submitForm(){
     const data={};fields().forEach(x=>{if(x.value.trim())data[x.dataset.k]=x.value.trim();});
     data.goal=[...document.querySelectorAll('[data-multi="goal"] .chip.on')].map(c=>c.textContent);
     data.submitted_at=new Date().toISOString();
@@ -212,6 +220,17 @@
     document.getElementById('form').style.display='none';
     document.getElementById('done').classList.add('on');
     window.scrollTo(0,0);
+
+    const saveNote=document.getElementById('savenote');
+    saveNote.textContent='⏳ сохраняю в тестовую систему…';
+    try{
+      await fetch(HEALTH_API+'/health-consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:DEMO_INVITE_LINK_ID})});
+      const r=await fetch(HEALTH_API+'/health-intake',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:DEMO_INVITE_LINK_ID,answers:data})});
+      const j=await r.json();
+      saveNote.textContent=j.ok?'✓ сохранено в тестовую БД (DEV, не прод)':'⚠ ошибка сохранения: '+(j.error||'?');
+    }catch(e){
+      saveNote.textContent='⚠ DEV-сервер недоступен (демо всё равно показан локально)';
+    }
   }
   updateProgress();
 </script>
