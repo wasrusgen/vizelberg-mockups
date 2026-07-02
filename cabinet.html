@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Личный кабинет · VIZELBERG AMRITA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Моя программа · VIZELBERG AMRITA</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -13,7 +11,7 @@
   --white:#fff;--border:#E4DDD0;--text:#2B2B26;--muted:#8A8578;--subtle:#FBF9F5;
 }
 html,body{height:100%;overflow:hidden}
-body{font-family:'Segoe UI',Inter,sans-serif;background:var(--cream);color:var(--text);display:flex;flex-direction:column}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cream);color:var(--text);display:flex;flex-direction:column}
 h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 
 /* Header (mobile) */
@@ -26,7 +24,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 
 /* Layout */
 .layout{flex:1;display:flex;overflow:hidden}
-.sb{width:252px;flex-shrink:0;background:var(--herbal);display:flex;flex-direction:column}
+.sb{width:256px;flex-shrink:0;background:var(--herbal);display:flex;flex-direction:column}
 @media(max-width:760px){.sb{position:fixed;inset:0 auto 0 0;z-index:20;transform:translateX(-100%);transition:transform .22s;height:100%}
   .sb.open{transform:translateX(0)}
   .sb-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:19}
@@ -34,8 +32,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .sb-brand{padding:20px 18px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .sb-brand-ic{width:34px;height:34px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:16px;color:var(--herbal);flex-shrink:0}
 .sb-brand-t{font-family:Georgia;font-weight:700;font-size:14.5px;color:#fff;line-height:1.25}
-.sb-brand-s{font-size:10.5px;color:rgba(255,255,255,.45);margin-top:1px;letter-spacing:.03em}
-.sb-nav{flex:1;padding:14px 0;overflow-y:auto}
+.sb-nav{flex:1;padding:12px 0;overflow-y:auto}
 .sb-cap{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.28);padding:12px 18px 6px}
 .si{display:flex;align-items:center;gap:11px;padding:9px 18px;cursor:pointer;border-left:2px solid transparent;transition:background .12s}
 .si:hover:not(.locked){background:rgba(255,255,255,.05)}
@@ -45,38 +42,92 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .si.active .si-ic{background:var(--gold);color:var(--herbal)}
 .si-name{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.75)}
 .si.active .si-name{color:#fff}
-.si.locked .si-name{color:rgba(255,255,255,.35)}
 .si-sub{font-size:11px;color:rgba(255,255,255,.32);margin-top:1px}
-.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.08)}
-.sb-foot-name{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.8)}
-.sb-foot-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.si-badge{margin-left:auto;background:var(--terra);color:var(--herbal);font-size:10px;font-weight:700;border-radius:100px;padding:2px 7px;flex-shrink:0}
+.sb-foot{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08)}
+.pw-lbl{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.45);margin-bottom:5px}
+.pw-lbl b{color:var(--gold)}
+.pw-track{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.pw-fill{height:100%;width:37%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:2px}
+.sb-foot-sub{font-size:10.5px;color:rgba(255,255,255,.35);margin-top:8px}
 
 /* Main */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 .sv{display:none;flex:1;flex-direction:column;overflow-y:auto;align-items:center}
 .sv.active{display:flex}
-.wrap{width:100%;max-width:840px;padding:30px 26px 60px}
+.wrap{width:100%;max-width:860px;padding:28px 26px 60px}
+@media(max-width:760px){.wrap{padding:20px 16px 50px}}
 .page-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sage);margin-bottom:6px}
 .page-h{font-family:Georgia;font-size:23px;font-weight:700;color:var(--herbal)}
 .page-d{font-size:13.5px;color:var(--muted);margin-top:5px;line-height:1.5}
-.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-top:20px}
-.card-h{font-family:Georgia;font-size:15.5px;font-weight:700;color:var(--herbal);margin-bottom:4px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-top:18px}
+.card-h{font-family:Georgia;font-size:15.5px;font-weight:700;color:var(--herbal);margin-bottom:4px;display:flex;align-items:center;gap:8px}
 .card-d{font-size:13px;color:var(--muted);line-height:1.55}
-.btn{font-family:'Segoe UI',Inter;font-weight:600;border:none;cursor:pointer;border-radius:10px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;margin-top:14px}
+.btn{font-family:inherit;font-weight:600;border:none;cursor:pointer;border-radius:10px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;margin-top:14px}
 .btn-p{background:var(--herbal);color:#fff;font-size:13.5px;padding:11px 20px}
 .btn-p:hover{background:#243B30}
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:100px;margin-top:10px}
-.pill.ok{background:rgba(124,144,112,.15);color:var(--sage)}
-.pill.wait{background:rgba(201,162,75,.15);color:var(--gold)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
-@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+.btn-o{background:transparent;color:var(--herbal);border:1.5px solid var(--sage);font-size:13px;padding:9px 17px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:100px}
+.pill.ok{background:rgba(124,144,112,.15);color:#5C7050}
+.pill.wait{background:rgba(201,162,75,.18);color:#9A7A2E}
+.pill.terra{background:rgba(232,168,124,.22);color:#B06A38}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+
+/* Программа: этапы */
+.steps{display:flex;flex-direction:column;gap:0;margin-top:16px}
+.step{display:flex;gap:14px;padding:12px 0;position:relative}
+.step::before{content:'';position:absolute;left:13px;top:38px;bottom:-4px;width:2px;background:var(--border)}
+.step:last-child::before{display:none}
+.step-dot{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1}
+.step.done .step-dot{background:var(--sage);color:#fff}
+.step.now .step-dot{background:var(--gold);color:var(--herbal);box-shadow:0 0 0 4px rgba(201,162,75,.2)}
+.step.next .step-dot{background:var(--cream);border:1.5px solid var(--border);color:var(--muted)}
+.step-name{font-size:13.5px;font-weight:600}
+.step.now .step-name{color:var(--herbal)}
+.step-sub{font-size:12px;color:var(--muted);margin-top:1px}
+
+/* Нутрицевтики: расписание дня */
+.sched{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.sl{display:flex;align-items:center;gap:12px;background:var(--subtle);border:1px solid var(--border);border-radius:11px;padding:11px 14px}
+.sl-time{font-family:Georgia;font-size:14px;font-weight:700;color:var(--herbal);width:62px;flex-shrink:0}
+.sl-body{flex:1;min-width:0}
+.sl-name{font-size:13.5px;font-weight:600}
+.sl-dose{font-size:12px;color:var(--muted)}
+.sl-chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--sage);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:transparent;transition:all .15s;background:transparent;font-size:14px}
+.sl.taken .sl-chk{background:var(--sage);color:#fff;border-color:var(--sage)}
+.sl.taken .sl-name{text-decoration:line-through;color:var(--muted)}
+
+/* Дневник */
+.diary-day{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.dd{width:38px;height:48px;border-radius:9px;border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--muted);background:var(--white)}
+.dd b{font-size:13px;color:var(--text)}
+.dd.filled{background:rgba(124,144,112,.12);border-color:var(--sage)}
+.dd.filled b{color:#5C7050}
+.dd.today{border-color:var(--gold);border-width:2px}
+.dd.sunday{background:rgba(201,162,75,.1)}
+textarea.diary{width:100%;margin-top:14px;border:1.5px solid var(--border);border-radius:11px;padding:12px 14px;font:inherit;font-size:13.5px;min-height:96px;resize:vertical;outline:none;background:var(--white)}
+textarea.diary:focus{border-color:var(--sage)}
+
+/* Симптомы */
+.sym-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.sym{border:1.5px solid var(--border);background:var(--white);border-radius:100px;padding:7px 14px;font-size:12.5px;cursor:pointer;transition:all .12s;font-family:inherit;color:var(--text)}
+.sym.on{background:rgba(232,168,124,.25);border-color:var(--terra);color:#8A4A1E;font-weight:600}
+
+/* Файлы (анализы/материалы) */
+.file-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.file-row:last-child{border-bottom:none}
+.file-ic{width:34px;height:34px;border-radius:9px;background:rgba(124,144,112,.14);color:var(--sage);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.file-name{font-size:13px;font-weight:600}
+.file-sub{font-size:11.5px;color:var(--muted)}
 </style>
 </head>
 <body>
 
 <div class="hdr">
   <div class="hdr-ic">V</div>
-  <div class="hdr-t">Личный кабинет</div>
+  <div class="hdr-t">Моя программа</div>
+  <span class="pill terra" style="margin-left:8px">демо</span>
   <div class="hdr-r"><div class="hdr-menu" onclick="toggleSb()">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
   </div></div>
@@ -87,106 +138,176 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
   <div class="sb" id="sb">
     <div class="sb-brand">
       <div class="sb-brand-ic">V</div>
-      <div>
-        <div class="sb-brand-t">VIZELBERG<br>AMRITA</div>
-      </div>
+      <div class="sb-brand-t">VIZELBERG<br>AMRITA</div>
     </div>
     <div class="sb-nav">
-      <div class="sb-cap">Кабинет</div>
-      <div class="si active" id="si0" onclick="go(0)">
-        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></div>
-        <div><div class="si-name">Обзор</div><div class="si-sub">Ваш прогресс</div></div>
-      </div>
+      <div class="sb-cap">Каждый день</div>
       <div class="si" id="si1" onclick="go(1)">
-        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <div><div class="si-name">Анкета здоровья</div><div class="si-sub" id="intakeSub">Не заполнена</div></div>
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <div><div class="si-name">Приём нутрицевтиков</div><div class="si-sub">Схема на сегодня</div></div>
+        <div class="si-badge">2 из 4</div>
       </div>
-      <div class="si locked" id="si2" onclick="go(2)">
-        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-        <div><div class="si-name">Рекомендации</div><div class="si-sub">После анкеты</div></div>
+      <div class="si" id="si2" onclick="go(2)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+        <div><div class="si-name">Дневник питания</div><div class="si-sub">Отчёт — в воскресенье</div></div>
       </div>
-      <div class="si locked" id="si3" onclick="go(3)">
-        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
-        <div><div class="si-name">Дневник и прогресс</div><div class="si-sub">Скоро</div></div>
+      <div class="si" id="si3" onclick="go(3)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div><div class="si-name">Самочувствие</div><div class="si-sub">Отметить симптомы</div></div>
+      </div>
+      <div class="sb-cap">Моя программа</div>
+      <div class="si active" id="si0" onclick="go(0)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+        <div><div class="si-name">Программа</div><div class="si-sub">Неделя 3 из 8</div></div>
       </div>
       <div class="si" id="si4" onclick="go(4)">
-        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-        <div><div class="si-name">Материалы</div><div class="si-sub">Гайды, сборники</div></div>
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+        <div><div class="si-name">Анализы</div><div class="si-sub">Загрузить / история</div></div>
       </div>
       <div class="si" id="si5" onclick="go(5)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div><div class="si-name">Рецепты и таблицы</div><div class="si-sub">Материалы Натальи</div></div>
+      </div>
+      <div class="sb-cap">Связь</div>
+      <div class="si" id="si6" onclick="go(6)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-        <div><div class="si-name">Написать Наталье</div><div class="si-sub">Связаться напрямую</div></div>
+        <div><div class="si-name">Написать Наталье</div><div class="si-sub">Вопрос по программе</div></div>
       </div>
     </div>
     <div class="sb-foot">
-      <div class="sb-foot-name">Гость (демо)</div>
-      <div class="sb-foot-sub">Тестовая версия · без реальных данных</div>
+      <div class="pw-lbl"><span>Программа · 2 месяца</span><b>Неделя 3</b></div>
+      <div class="pw-track"><div class="pw-fill"></div></div>
+      <div class="sb-foot-sub">Демо · тестовые данные, не реальный клиент</div>
     </div>
   </div>
 
   <div class="main">
+
+    <!-- 0 Программа (главная) -->
     <div class="sv active" id="sv0"><div class="wrap">
-      <div class="page-tag">Обзор</div>
-      <div class="page-h">Добро пожаловать</div>
-      <div class="page-d">Здесь будет видно ваш прогресс, ближайший шаг и последние рекомендации Натальи.</div>
+      <div class="page-tag">Моя программа</div>
+      <div class="page-h">Программа коррекции · неделя 3 из 8</div>
+      <div class="page-d">Персональная программа Натальи: диагностика, схема нутрицевтиков, питание. Ниже — где вы сейчас.</div>
       <div class="card">
-        <div class="card-h">Следующий шаг</div>
-        <div class="card-d">Заполните анкету здоровья — это займёт 5–7 минут. На её основе Наталья составит для вас первые рекомендации.</div>
-        <button class="btn btn-p" onclick="go(1)">Заполнить анкету →</button>
+        <div class="steps">
+          <div class="step done"><div class="step-dot">✓</div><div><div class="step-name">Подготовка</div><div class="step-sub">Анализы, опросники и дневник питания получены</div></div></div>
+          <div class="step done"><div class="step-dot">✓</div><div><div class="step-name">Диагностика</div><div class="step-sub">Наталья изучила данные и собрала вашу программу</div></div></div>
+          <div class="step now"><div class="step-dot">3</div><div><div class="step-name">Сопровождение · недели 1–8</div><div class="step-sub">Ежедневно: схема приёма + дневник. Каждое воскресенье — отчёт, Наталья разбирает и корректирует</div></div></div>
+          <div class="step next"><div class="step-dot">4</div><div><div class="step-name">Завершение программы <span class="pill wait" style="margin-left:6px">формат уточним у Натальи</span></div><div class="step-sub">Как закрывается программа (итоговая встреча? контрольные анализы?) — согласуем с Натальей, это её решение</div></div></div>
+        </div>
       </div>
       <div class="grid2">
-        <div class="card"><div class="card-h">Материалы</div><div class="card-d">Пока пусто — появятся после первой консультации.</div></div>
-        <div class="card"><div class="card-h">Дневник</div><div class="card-d">Станет доступен после заполнения анкеты.</div></div>
+        <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен.</div><button class="btn btn-o" onclick="go(1)">К схеме приёма</button></div>
+        <div class="card"><div class="card-h">Воскресный отчёт</div><div class="card-d">До отчёта 4 дня. Дневник заполнен 5 из 7 дней — Наталья увидит полную неделю.</div><button class="btn btn-o" onclick="go(2)">К дневнику</button></div>
       </div>
-    </div></div>
-
-    <div class="sv" id="sv1"><div class="wrap">
-      <div class="page-tag">Шаг 1</div>
-      <div class="page-h">Анкета здоровья</div>
-      <div class="page-d">Анкета — отдельная короткая форма (голос или текст). Заполняется один раз, потом можно только обновлять.</div>
       <div class="card">
-        <div class="card-h">Статус</div>
-        <div id="intakeStatusPill" class="pill wait">⏳ Не заполнена</div>
-        <div class="card-d" style="margin-top:12px">Форма откроется в отдельном окне — так удобнее заполнять с телефона голосом.</div>
-        <a href="anketa.html" target="_blank"><button class="btn btn-p">Открыть анкету →</button></a>
+        <div class="card-h">Последняя корректировка Натальи <span class="pill ok">вс, 29 июня</span> <span class="pill terra">пример, не реальное назначение</span></div>
+        <div class="card-d">«Магний переносим на вечер, к ужину. По дневнику вижу поздние углеводы — добавила в рецепты 3 варианта лёгкого ужина. Отличная динамика по сну, продолжаем.»</div>
       </div>
     </div></div>
 
+    <!-- 1 Нутрицевтики -->
+    <div class="sv" id="sv1"><div class="wrap">
+      <div class="page-tag">Каждый день</div>
+      <div class="page-h">Схема приёма · сегодня</div>
+      <div class="page-d">Ваша персональная схема от Натальи. Отмечайте приём — так она видит реальную картину при воскресном разборе.</div>
+      <div class="sched">
+        <div class="sl taken"><div class="sl-time">08:00</div><div class="sl-body"><div class="sl-name">Омега-3</div><div class="sl-dose">2 капсулы · с завтраком</div></div><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+        <div class="sl taken"><div class="sl-time">08:00</div><div class="sl-body"><div class="sl-name">Витамин D3</div><div class="sl-dose">2000 МЕ · с жирной пищей</div></div><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+        <div class="sl"><div class="sl-time">14:00</div><div class="sl-body"><div class="sl-name">Цинк</div><div class="sl-dose">1 капсула · после обеда, не с кофе</div></div><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+        <div class="sl"><div class="sl-time">21:00</div><div class="sl-body"><div class="sl-name">Магний цитрат</div><div class="sl-dose">400 мг · за час до сна</div></div><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+      </div>
+      <div class="card"><div class="card-h">Напоминания</div><div class="card-d">В рабочей версии: пуш/сообщение в момент приёма — ничего не держать в голове. Заметили реакцию на приём — отметьте в «Самочувствии», Наталья увидит сразу.</div></div>
+    </div></div>
+
+    <!-- 2 Дневник -->
     <div class="sv" id="sv2"><div class="wrap">
-      <div class="page-tag">Шаг 2</div>
-      <div class="page-h">Рекомендации</div>
-      <div class="page-d">Появятся здесь после того, как Наталья изучит вашу анкету.</div>
-      <div class="card"><div class="card-h">Пока нет рекомендаций</div><div class="card-d">Заполните анкету здоровья, чтобы начать.</div></div>
+      <div class="page-tag">Каждый день</div>
+      <div class="page-h">Дневник питания</div>
+      <div class="page-d">Вместо Excel-таблицы. Заполняйте за день — в воскресенье всё автоматически соберётся в отчёт для Натальи.</div>
+      <div class="card">
+        <div class="card-h">Эта неделя</div>
+        <div class="diary-day">
+          <div class="dd filled"><b>Пн</b>✓</div><div class="dd filled"><b>Вт</b>✓</div><div class="dd filled"><b>Ср</b>✓</div><div class="dd filled"><b>Чт</b>✓</div><div class="dd filled"><b>Пт</b>✓</div><div class="dd today"><b>Сб</b>·</div><div class="dd sunday"><b>Вс</b>📤</div>
+        </div>
+        <div class="card-d" style="margin-top:12px">Воскресенье — день отчёта: неделя уходит Наталье на разбор, в ответ придёт корректировка.</div>
+      </div>
+      <div class="card">
+        <div class="card-h">Сегодня, суббота</div>
+        <textarea class="diary" placeholder="Завтрак: … &#10;Обед: … &#10;Ужин: … &#10;Вода, самочувствие, сон — всё, что заметили"></textarea>
+        <button class="btn btn-p">Сохранить день</button>
+      </div>
     </div></div>
 
+    <!-- 3 Самочувствие -->
     <div class="sv" id="sv3"><div class="wrap">
-      <div class="page-tag">Скоро</div>
-      <div class="page-h">Дневник и прогресс</div>
-      <div class="page-d">Отслеживание самочувствия и динамики — в разработке.</div>
+      <div class="page-tag">Каждый день</div>
+      <div class="page-h">Самочувствие</div>
+      <div class="page-d">Отмечайте, что беспокоит. Если что-то похоже на реакцию на нутрицевтик — Наталья увидит это сразу, не дожидаясь воскресенья.</div>
+      <div class="card">
+        <div class="card-h">Как вы сегодня?</div>
+        <div class="sym-row">
+          <button class="sym" onclick="this.classList.toggle('on')">Энергия ниже обычного</button>
+          <button class="sym" onclick="this.classList.toggle('on')">Плохо спалось</button>
+          <button class="sym" onclick="this.classList.toggle('on')">Тяжесть после еды</button>
+          <button class="sym" onclick="this.classList.toggle('on')">Головная боль</button>
+          <button class="sym" onclick="this.classList.toggle('on')">Высыпания</button>
+          <button class="sym" onclick="this.classList.toggle('on')">Дискомфорт ЖКТ</button>
+          <button class="sym" onclick="this.classList.toggle('on')">Всё отлично</button>
+        </div>
+        <textarea class="diary" style="min-height:70px" placeholder="Подробнее своими словами (необязательно)"></textarea>
+        <button class="btn btn-p">Отправить</button>
+      </div>
+      <div class="card"><div class="card-h">Зачем это</div><div class="card-d">Реакция на новый нутрицевтик или продукт важна сразу, а не в конце недели. Ваши отметки — ранний сигнал для Натальи скорректировать схему.<br><br><b>Важно:</b> при остром или тревожащем состоянии обращайтесь к врачу — программа корректирует питание и образ жизни, она не заменяет медицинскую помощь.</div></div>
     </div></div>
 
+    <!-- 4 Анализы -->
     <div class="sv" id="sv4"><div class="wrap">
-      <div class="page-tag">Материалы</div>
-      <div class="page-h">Гайды и сборники</div>
-      <div class="page-d">Персональные материалы от Натальи появятся здесь.</div>
-      <div class="card"><div class="card-h">Пока пусто</div><div class="card-d">Материалы публикуются по мере готовности программы.</div></div>
+      <div class="page-tag">Моя программа</div>
+      <div class="page-h">Анализы</div>
+      <div class="page-d">Все анализы в одном месте — Наталья видит историю, вы ничего не пересылаете по десять раз.</div>
+      <div class="card">
+        <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="file-name">Биохимия крови · апрель</div><div class="file-sub">Загружено при подготовке · разобрано в диагностике</div></div></div>
+        <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="file-name">Витамин D, ферритин · апрель</div><div class="file-sub">Загружено при подготовке</div></div></div>
+      </div>
+      <div class="card"><div class="card-h">Контрольные анализы <span class="pill wait">неделя 8</span></div><div class="card-d">В конце программы Наталья попросит контрольный список — загрузите сюда, и на итоговой встрече сравните «до / после».</div><button class="btn btn-o">Загрузить файл</button></div>
     </div></div>
 
+    <!-- 5 Материалы -->
     <div class="sv" id="sv5"><div class="wrap">
+      <div class="page-tag">Моя программа</div>
+      <div class="page-h">Рецепты и таблицы</div>
+      <div class="page-d">Ваш персональный пакет от Натальи — то, что раньше лежало папкой на Google Диске.</div>
+      <div class="card">
+        <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div><div class="file-name">Рецепты под вашу программу</div><div class="file-sub">Завтраки, ужины + 3 лёгких ужина из корректировки 29.06</div></div></div>
+        <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 3v18"/></svg></div><div><div class="file-name">Таблица гликемических индексов</div><div class="file-sub">Экспертная таблица Натальи</div></div></div>
+        <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 3v18"/></svg></div><div><div class="file-name">Сочетаемость продуктов</div><div class="file-sub">Экспертная таблица Натальи</div></div></div>
+        <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="file-name">Ваша диагностика</div><div class="file-sub">Итог разбора анализов и опросников</div></div></div>
+      </div>
+    </div></div>
+
+    <!-- 6 Связь -->
+    <div class="sv" id="sv6"><div class="wrap">
       <div class="page-tag">Связь</div>
       <div class="page-h">Написать Наталье</div>
-      <div class="page-d">Прямой канал с нутрициологом появится на этом экране.</div>
-      <div class="card"><div class="card-h">Пока недоступно (демо)</div><div class="card-d">В реальной версии здесь будет чат или контакт.</div></div>
+      <div class="page-d">Вопрос по программе, продуктам или самочувствию — прямо здесь.</div>
+      <div class="card">
+        <textarea class="diary" placeholder="Ваш вопрос…"></textarea>
+        <button class="btn btn-p">Отправить</button>
+        <div class="card-d" style="margin-top:10px">Наталья отвечает в течение дня; срочная реакция на самочувствие — через «Самочувствие», такие отметки она видит первыми.</div>
+      </div>
+      <div class="card"><div class="card-h">После программы</div><div class="card-d">Завершили 8 недель и хотите продолжить? Корректирующая консультация — обновление схемы под новые анализы и цели.</div><button class="btn btn-o">Узнать о корректирующей</button></div>
     </div></div>
+
   </div>
 </div>
 
 <script>
 function go(n){
-  document.querySelectorAll('.si').forEach(function(el){el.classList.remove('active')});
-  document.querySelectorAll('.sv').forEach(function(el){el.classList.remove('active')});
   var si=document.getElementById('si'+n), sv=document.getElementById('sv'+n);
   if(si && si.classList.contains('locked')) return;
+  document.querySelectorAll('.si').forEach(function(el){el.classList.remove('active')});
+  document.querySelectorAll('.sv').forEach(function(el){el.classList.remove('active')});
   if(si) si.classList.add('active');
   if(sv) sv.classList.add('active');
   if(window.innerWidth<=760) toggleSb(false);
@@ -196,6 +317,9 @@ function toggleSb(force){
   var open = force!==undefined ? force : !sb.classList.contains('open');
   sb.classList.toggle('open', open);
   bd.classList.toggle('show', open);
+}
+function toggleTake(btn){
+  btn.closest('.sl').classList.toggle('taken');
 }
 </script>
 </body>
