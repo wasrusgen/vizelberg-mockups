@@ -19,8 +19,14 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 @media(min-width:761px){.hdr{display:none}}
 .hdr-ic{width:30px;height:30px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:15px;color:var(--herbal)}
 .hdr-t{font-family:Georgia;font-weight:700;font-size:14px;color:rgba(255,255,255,.85)}
-.hdr-r{margin-left:auto}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:6px}
 .hdr-menu{width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer}
+
+/* Bell (notifications) */
+.bell{position:relative;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;background:rgba(255,255,255,.08)}
+.bell:hover{background:rgba(255,255,255,.16)}
+.bell-dot{position:absolute;top:6px;right:7px;min-width:15px;height:15px;padding:0 3px;background:var(--terra);color:var(--herbal);border-radius:100px;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--herbal)}
+.sb .bell{background:rgba(255,255,255,.06)}
 
 /* Layout */
 .layout{flex:1;display:flex;overflow:hidden}
@@ -31,7 +37,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
   .sb-backdrop.show{display:block}}
 .sb-brand{padding:20px 18px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .sb-brand-ic{width:34px;height:34px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:16px;color:var(--herbal);flex-shrink:0}
-.sb-brand-t{font-family:Georgia;font-weight:700;font-size:14.5px;color:#fff;line-height:1.25}
+.sb-brand-t{font-family:Georgia;font-weight:700;font-size:14.5px;color:#fff;line-height:1.25;flex:1}
 .sb-nav{flex:1;padding:12px 0;overflow-y:auto}
 .sb-cap{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.28);padding:12px 18px 6px}
 .si{display:flex;align-items:center;gap:11px;padding:9px 18px;cursor:pointer;border-left:2px solid transparent;transition:background .12s}
@@ -44,6 +50,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .si.active .si-name{color:#fff}
 .si-sub{font-size:11px;color:rgba(255,255,255,.32);margin-top:1px}
 .si-badge{margin-left:auto;background:var(--terra);color:var(--herbal);font-size:10px;font-weight:700;border-radius:100px;padding:2px 7px;flex-shrink:0}
+.si-badge.sage{background:var(--sage);color:#fff}
 .sb-foot{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08)}
 .pw-lbl{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.45);margin-bottom:5px}
 .pw-lbl b{color:var(--gold)}
@@ -61,12 +68,13 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .page-h{font-family:Georgia;font-size:23px;font-weight:700;color:var(--herbal)}
 .page-d{font-size:13.5px;color:var(--muted);margin-top:5px;line-height:1.5}
 .card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-top:18px}
-.card-h{font-family:Georgia;font-size:15.5px;font-weight:700;color:var(--herbal);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.card-h{font-family:Georgia;font-size:15.5px;font-weight:700;color:var(--herbal);margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .card-d{font-size:13px;color:var(--muted);line-height:1.55}
 .btn{font-family:inherit;font-weight:600;border:none;cursor:pointer;border-radius:10px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;margin-top:14px}
 .btn-p{background:var(--herbal);color:#fff;font-size:13.5px;padding:11px 20px}
 .btn-p:hover{background:#243B30}
 .btn-o{background:transparent;color:var(--herbal);border:1.5px solid var(--sage);font-size:13px;padding:9px 17px}
+.btn-o:hover{background:var(--subtle)}
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:100px}
 .pill.ok{background:rgba(124,144,112,.15);color:#5C7050}
 .pill.wait{background:rgba(201,162,75,.18);color:#9A7A2E}
@@ -120,6 +128,98 @@ textarea.diary:focus{border-color:var(--sage)}
 .file-ic{width:34px;height:34px;border-radius:9px;background:rgba(124,144,112,.14);color:var(--sage);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .file-name{font-size:13px;font-weight:600}
 .file-sub{font-size:11.5px;color:var(--muted)}
+
+/* Календарь-месяц */
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-title{font-family:Georgia;font-size:16px;font-weight:700;color:var(--herbal)}
+.cal-nav{display:flex;gap:6px}
+.cal-nav button{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--white);cursor:pointer;color:var(--herbal);font-size:15px;display:flex;align-items:center;justify-content:center}
+.cal-nav button:hover{background:var(--subtle)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-dow{text-align:center;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding-bottom:4px}
+.cal-cell{aspect-ratio:1;border:1px solid var(--border);border-radius:9px;background:var(--white);padding:5px 6px;display:flex;flex-direction:column;cursor:pointer;position:relative;transition:border-color .12s}
+.cal-cell:hover{border-color:var(--sage)}
+.cal-cell.out{opacity:.35;background:var(--subtle);cursor:default}
+.cal-cell.today{border-color:var(--gold);border-width:2px}
+.cal-cell.sel{background:rgba(124,144,112,.1);border-color:var(--sage)}
+.cal-num{font-size:12.5px;font-weight:600;color:var(--text)}
+.cal-cell.sun .cal-num{color:var(--gold)}
+.cal-dots{display:flex;gap:3px;margin-top:auto;flex-wrap:wrap}
+.cal-dot{width:6px;height:6px;border-radius:50%}
+.cal-dot.take{background:var(--sage)}
+.cal-dot.diary{background:var(--herbal)}
+.cal-dot.report{background:var(--gold)}
+.cal-dot.task{background:var(--terra)}
+.cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--muted)}
+.cal-legend span{display:inline-flex;align-items:center;gap:5px}
+.cal-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.cal-agenda{margin-top:16px}
+.cal-ag-item{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)}
+.cal-ag-item:last-child{border-bottom:none}
+.cal-ag-ic{width:30px;height:30px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* Задания */
+.task{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.task:last-child{border-bottom:none}
+.task-chk{width:24px;height:24px;border-radius:7px;border:2px solid var(--sage);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:transparent;font-size:14px;margin-top:1px;transition:all .15s}
+.task.done .task-chk{background:var(--sage);border-color:var(--sage);color:#fff}
+.task.done .task-name{text-decoration:line-through;color:var(--muted)}
+.task-body{flex:1;min-width:0}
+.task-name{font-size:13.5px;font-weight:600;color:var(--text)}
+.task-meta{font-size:12px;color:var(--muted);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.task-due{font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;background:rgba(201,162,75,.15);color:#9A7A2E}
+.task-due.soon{background:rgba(232,168,124,.2);color:#B06A38}
+
+/* Модалка — уведомления */
+.ovl{position:fixed;inset:0;background:rgba(30,40,32,.42);z-index:40;display:none;align-items:flex-start;justify-content:center;padding:70px 16px 16px}
+.ovl.show{display:flex}
+.notif-panel{position:fixed;top:60px;right:16px;width:340px;max-width:calc(100vw - 32px);max-height:70vh;background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 50px rgba(30,40,32,.22);z-index:41;display:none;flex-direction:column;overflow:hidden}
+.notif-panel.show{display:flex}
+.notif-hd{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.notif-hd b{font-family:Georgia;font-size:15px;color:var(--herbal)}
+.notif-hd a{font-size:11.5px;color:var(--sage);cursor:pointer;font-weight:600}
+.notif-list{overflow-y:auto}
+.notif-item{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;gap:11px;cursor:pointer}
+.notif-item:hover{background:var(--subtle)}
+.notif-item.unread{background:rgba(201,162,75,.06)}
+.notif-ic{width:32px;height:32px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px}
+.notif-tx{flex:1;min-width:0}
+.notif-tx b{font-size:13px;font-weight:600;color:var(--text);display:block}
+.notif-tx span{font-size:12px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
+.notif-tx time{font-size:11px;color:var(--sage);margin-top:4px;display:block}
+.notif-unreaddot{width:8px;height:8px;border-radius:50%;background:var(--terra);flex-shrink:0;margin-top:6px}
+
+/* Модалка — композер */
+.modal{width:100%;max-width:520px;background:var(--white);border-radius:16px;box-shadow:0 24px 60px rgba(30,40,32,.28);overflow:hidden;animation:pop .16s ease}
+@keyframes pop{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-hd b{font-family:Georgia;font-size:16px;color:var(--herbal)}
+.modal-x{width:30px;height:30px;border:none;background:var(--subtle);border-radius:8px;cursor:pointer;font-size:17px;color:var(--muted);display:flex;align-items:center;justify-content:center}
+.modal-x:hover{background:var(--border)}
+.modal-bd{padding:18px 20px}
+.modal-ta{width:100%;border:1.5px solid var(--border);border-radius:11px;padding:12px 14px;font:inherit;font-size:14px;min-height:110px;resize:vertical;outline:none}
+.modal-ta:focus{border-color:var(--sage)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--subtle);border:1px solid var(--border);border-radius:9px;padding:7px 10px;font-size:12px;color:var(--text);max-width:100%}
+.chip .chip-ic{color:var(--sage);flex-shrink:0}
+.chip .chip-nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip .chip-x{cursor:pointer;color:var(--muted);font-size:14px;margin-left:2px}
+.tool-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.tool-btn{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--border);background:var(--white);border-radius:10px;padding:9px 13px;font:inherit;font-size:12.5px;font-weight:600;color:var(--herbal);cursor:pointer;transition:all .12s}
+.tool-btn:hover{border-color:var(--sage);background:var(--subtle)}
+.tool-btn.rec{border-color:var(--terra);background:rgba(232,168,124,.14);color:#B0512A}
+.tool-btn .dotpulse{width:8px;height:8px;border-radius:50%;background:#C0584F;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.modal-ft{padding:14px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.modal-hint{font-size:11.5px;color:var(--muted);flex:1}
+.modal-send{background:var(--herbal);color:#fff;border:none;border-radius:10px;padding:11px 22px;font:inherit;font-weight:600;font-size:13.5px;cursor:pointer}
+.modal-send:hover{background:#243B30}
+.rec-bar{display:none;align-items:center;gap:10px;margin-top:12px;background:rgba(232,168,124,.12);border:1px solid var(--terra);border-radius:11px;padding:10px 14px}
+.rec-bar.show{display:flex}
+.rec-wave{flex:1;display:flex;gap:3px;align-items:center;height:20px}
+.rec-wave i{flex:1;background:var(--terra);border-radius:2px;animation:wave 1s infinite ease-in-out}
+@keyframes wave{0%,100%{height:4px}50%{height:18px}}
+.rec-time{font-family:Georgia;font-weight:700;color:#B0512A;font-size:13px}
 </style>
 </head>
 <body>
@@ -128,9 +228,12 @@ textarea.diary:focus{border-color:var(--sage)}
   <div class="hdr-ic">V</div>
   <div class="hdr-t">Моя программа</div>
   <span class="pill terra" style="margin-left:8px">демо</span>
-  <div class="hdr-r"><div class="hdr-menu" onclick="toggleSb()">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-  </div></div>
+  <div class="hdr-r">
+    <div class="bell" onclick="toggleNotif()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-dot" id="bellDotM">3</span></div>
+    <div class="hdr-menu" onclick="toggleSb()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </div>
+  </div>
 </div>
 
 <div class="layout">
@@ -139,6 +242,7 @@ textarea.diary:focus{border-color:var(--sage)}
     <div class="sb-brand">
       <div class="sb-brand-ic">V</div>
       <div class="sb-brand-t">VIZELBERG<br>AMRITA</div>
+      <div class="bell" onclick="toggleNotif()" style="display:none" id="bellDesk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-dot" id="bellDotD">3</span></div>
     </div>
     <div class="sb-nav">
       <div class="sb-cap">Каждый день</div>
@@ -155,10 +259,19 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <div><div class="si-name">Самочувствие</div><div class="si-sub">Отметить симптомы</div></div>
       </div>
+      <div class="si" id="si7" onclick="go(7)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div><div class="si-name">Задания</div><div class="si-sub">От Натальи</div></div>
+        <div class="si-badge">2</div>
+      </div>
       <div class="sb-cap">Моя программа</div>
       <div class="si active" id="si0" onclick="go(0)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
         <div><div class="si-name">Программа</div><div class="si-sub">Неделя 3 из 8</div></div>
+      </div>
+      <div class="si" id="si8" onclick="go(8)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <div><div class="si-name">Календарь</div><div class="si-sub">Приёмы, отчёты, задания</div></div>
       </div>
       <div class="si" id="si4" onclick="go(4)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
@@ -197,7 +310,7 @@ textarea.diary:focus{border-color:var(--sage)}
         </div>
       </div>
       <div class="grid2">
-        <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен.</div><button class="btn btn-o" onclick="go(1)">К схеме приёма</button></div>
+        <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен · 1 задание к сроку.</div><button class="btn btn-o" onclick="go(1)">К схеме приёма</button></div>
         <div class="card"><div class="card-h">Воскресный отчёт</div><div class="card-d">До отчёта 4 дня. Дневник заполнен 5 из 7 дней — Наталья увидит полную неделю.</div><button class="btn btn-o" onclick="go(2)">К дневнику</button></div>
       </div>
       <div class="card">
@@ -217,7 +330,7 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="sl"><div class="sl-time">14:00</div><div class="sl-body"><div class="sl-name">Цинк</div><div class="sl-dose">1 капсула · после обеда, не с кофе</div></div><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
         <div class="sl"><div class="sl-time">21:00</div><div class="sl-body"><div class="sl-name">Магний цитрат</div><div class="sl-dose">400 мг · за час до сна</div></div><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
       </div>
-      <div class="card"><div class="card-h">Напоминания</div><div class="card-d">В рабочей версии: пуш/сообщение в момент приёма — ничего не держать в голове. Заметили реакцию на приём — отметьте в «Самочувствии», Наталья увидит сразу.</div></div>
+      <div class="card"><div class="card-h">Напоминания <span class="pill ok">включены</span></div><div class="card-d">Пуш придёт в момент приёма — 08:00, 14:00, 21:00 — ничего не держать в голове. Заметили реакцию на приём — отметьте в «Самочувствии», Наталья увидит сразу.</div><button class="btn btn-o" onclick="toggleNotif()">Показать напоминания</button></div>
     </div></div>
 
     <!-- 2 Дневник -->
@@ -235,6 +348,9 @@ textarea.diary:focus{border-color:var(--sage)}
       <div class="card">
         <div class="card-h">Сегодня, суббота</div>
         <textarea class="diary" placeholder="Завтрак: … &#10;Обед: … &#10;Ужин: … &#10;Вода, самочувствие, сон — всё, что заметили"></textarea>
+        <div class="tool-row">
+          <button class="tool-btn" onclick="openComposer('diary')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>Фото блюда / голосом</button>
+        </div>
         <button class="btn btn-p">Сохранить день</button>
       </div>
     </div></div>
@@ -261,6 +377,62 @@ textarea.diary:focus{border-color:var(--sage)}
       <div class="card"><div class="card-h">Зачем это</div><div class="card-d">Реакция на новый нутрицевтик или продукт важна сразу, а не в конце недели. Ваши отметки — ранний сигнал для Натальи скорректировать схему.<br><br><b>Важно:</b> при остром или тревожащем состоянии обращайтесь к врачу — программа корректирует питание и образ жизни, она не заменяет медицинскую помощь.</div></div>
     </div></div>
 
+    <!-- 7 Задания -->
+    <div class="sv" id="sv7"><div class="wrap">
+      <div class="page-tag">Каждый день</div>
+      <div class="page-h">Задания от Натальи</div>
+      <div class="page-d">Небольшие шаги между воскресными разборами. Отмечайте выполненное — Наталья видит прогресс.</div>
+      <div class="card">
+        <div class="card-h">К выполнению <span class="pill wait">2 активных</span></div>
+        <div class="task">
+          <button class="task-chk" onclick="toggleTask(this)">✓</button>
+          <div class="task-body">
+            <div class="task-name">Сдать контрольные анализы (ферритин, витамин D)</div>
+            <div class="task-meta"><span class="task-due soon">до 12 июля</span> <span>к неделе 8 · сравним «до / после»</span></div>
+          </div>
+        </div>
+        <div class="task">
+          <button class="task-chk" onclick="toggleTask(this)">✓</button>
+          <div class="task-body">
+            <div class="task-name">Посмотреть видео «Как читать состав на этикетке»</div>
+            <div class="task-meta"><span class="task-due">до 6 июля</span> <span>материал в разделе «Рецепты и таблицы»</span></div>
+          </div>
+        </div>
+        <div class="task done">
+          <button class="task-chk" onclick="toggleTask(this)">✓</button>
+          <div class="task-body">
+            <div class="task-name">Заполнить опросник по пищеварению</div>
+            <div class="task-meta"><span>выполнено 30 июня</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card"><div class="card-h">Вопрос по заданию?</div><div class="card-d">Не поняли, что нужно, или не успеваете — напишите Наталье, она подскажет.</div><button class="btn btn-o" onclick="openComposer('task')">Написать Наталье</button></div>
+    </div></div>
+
+    <!-- 8 Календарь -->
+    <div class="sv" id="sv8"><div class="wrap">
+      <div class="page-tag">Моя программа</div>
+      <div class="page-h">Календарь</div>
+      <div class="page-d">Всё в одном месте: дни приёма, воскресные отчёты, сроки заданий и напоминания.</div>
+      <div class="card">
+        <div class="cal-head">
+          <div class="cal-title" id="calTitle">Июль 2026</div>
+          <div class="cal-nav"><button onclick="calMove(-1)">‹</button><button onclick="calMove(1)">›</button></div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="cal-legend">
+          <span><i style="background:#7C9070"></i>Приём отмечен</span>
+          <span><i style="background:#2F4A3C"></i>Дневник</span>
+          <span><i style="background:#C9A24B"></i>Отчёт / встреча</span>
+          <span><i style="background:#E8A87C"></i>Задание</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h" id="agTitle">Суббота, 4 июля</div>
+        <div class="cal-agenda" id="calAgenda"></div>
+      </div>
+    </div></div>
+
     <!-- 4 Анализы -->
     <div class="sv" id="sv4"><div class="wrap">
       <div class="page-tag">Моя программа</div>
@@ -270,7 +442,7 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="file-name">Биохимия крови · апрель</div><div class="file-sub">Загружено при подготовке · разобрано в диагностике</div></div></div>
         <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="file-name">Витамин D, ферритин · апрель</div><div class="file-sub">Загружено при подготовке</div></div></div>
       </div>
-      <div class="card"><div class="card-h">Контрольные анализы <span class="pill wait">неделя 8</span></div><div class="card-d">В конце программы Наталья попросит контрольный список — загрузите сюда, и на итоговой встрече сравните «до / после».</div><button class="btn btn-o">Загрузить файл</button></div>
+      <div class="card"><div class="card-h">Контрольные анализы <span class="pill wait">неделя 8</span></div><div class="card-d">В конце программы Наталья попросит контрольный список — загрузите сюда, и на итоговой встрече сравните «до / после».</div><button class="btn btn-o" onclick="openComposer('file')">Загрузить файл</button></div>
     </div></div>
 
     <!-- 5 Материалы -->
@@ -290,15 +462,53 @@ textarea.diary:focus{border-color:var(--sage)}
     <div class="sv" id="sv6"><div class="wrap">
       <div class="page-tag">Связь</div>
       <div class="page-h">Написать Наталье</div>
-      <div class="page-d">Вопрос по программе, продуктам или самочувствию — прямо здесь.</div>
+      <div class="page-d">Вопрос по программе, продуктам или самочувствию — прямо здесь. Можно приложить фото, ссылку или наговорить голосом.</div>
       <div class="card">
-        <textarea class="diary" placeholder="Ваш вопрос…"></textarea>
-        <button class="btn btn-p">Отправить</button>
-        <div class="card-d" style="margin-top:10px">Наталья отвечает в течение дня; срочная реакция на самочувствие — через «Самочувствие», такие отметки она видит первыми.</div>
+        <div class="card-h">Новое сообщение</div>
+        <div class="card-d">Откройте окно сообщения — там поле для текста и инструменты: прикрепить файл, вставить ссылку, записать голос.</div>
+        <button class="btn btn-p" onclick="openComposer('msg')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Написать сообщение</button>
+        <div class="card-d" style="margin-top:12px">Наталья отвечает в течение дня; срочная реакция на самочувствие — через «Самочувствие», такие отметки она видит первыми.</div>
       </div>
       <div class="card"><div class="card-h">После программы</div><div class="card-d">Завершили 8 недель и хотите продолжить? Корректирующая консультация — обновление схемы под новые анализы и цели.</div><button class="btn btn-o">Узнать о корректирующей</button></div>
     </div></div>
 
+  </div>
+</div>
+
+<!-- Панель уведомлений -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-hd"><b>Напоминания</b><a onclick="markAllRead()">Отметить прочитанным</a></div>
+  <div class="notif-list" id="notifList">
+    <div class="notif-item unread"><div class="notif-ic" style="background:rgba(124,144,112,.16);color:#5C7050">⏰</div><div class="notif-tx"><b>Приём в 14:00 — Цинк</b><span>1 капсула после обеда, не с кофе</span><time>через 40 минут</time></div><div class="notif-unreaddot"></div></div>
+    <div class="notif-item unread"><div class="notif-ic" style="background:rgba(201,162,75,.18);color:#9A7A2E">📤</div><div class="notif-tx"><b>Воскресный отчёт завтра</b><span>Дневник заполнен 5 из 7 дней — допишите субботу и воскресенье</span><time>сегодня, 09:12</time></div><div class="notif-unreaddot"></div></div>
+    <div class="notif-item unread"><div class="notif-ic" style="background:rgba(232,168,124,.2);color:#B06A38">✎</div><div class="notif-tx"><b>Новая корректировка от Натальи</b><span>«Магний переносим на вечер…» — смотрите в «Программа»</span><time>вс, 29 июня</time></div><div class="notif-unreaddot"></div></div>
+    <div class="notif-item"><div class="notif-ic" style="background:rgba(124,144,112,.14);color:var(--sage)">✓</div><div class="notif-tx"><b>Задание выполнено</b><span>Опросник по пищеварению принят</span><time>30 июня</time></div></div>
+  </div>
+</div>
+
+<!-- Модалка композера -->
+<div class="ovl" id="composerOvl" onclick="if(event.target===this)closeComposer()">
+  <div class="modal">
+    <div class="modal-hd"><b id="composerTitle">Написать Наталье</b><button class="modal-x" onclick="closeComposer()">✕</button></div>
+    <div class="modal-bd">
+      <textarea class="modal-ta" id="composerTa" placeholder="Ваше сообщение…"></textarea>
+      <div class="rec-bar" id="recBar">
+        <div class="notif-ic" style="background:rgba(232,168,124,.2);color:#B0512A">🎤</div>
+        <div class="rec-wave"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.15s"></i><i style="animation-delay:.25s"></i><i style="animation-delay:.05s"></i></div>
+        <div class="rec-time" id="recTime">0:03</div>
+        <span class="pill terra">демо — звук не записывается</span>
+      </div>
+      <div class="chips" id="composerChips"></div>
+      <div class="tool-row">
+        <button class="tool-btn" onclick="attachDemo('file')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>Файл</button>
+        <button class="tool-btn" onclick="attachDemo('link')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Ссылка</button>
+        <button class="tool-btn" id="micBtn" onclick="toggleRec()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg>Голос</button>
+      </div>
+    </div>
+    <div class="modal-ft">
+      <div class="modal-hint" id="composerHint">Наталья ответит в течение дня</div>
+      <button class="modal-send" onclick="closeComposer()">Отправить</button>
+    </div>
   </div>
 </div>
 
@@ -310,6 +520,7 @@ function go(n){
   document.querySelectorAll('.sv').forEach(function(el){el.classList.remove('active')});
   if(si) si.classList.add('active');
   if(sv) sv.classList.add('active');
+  if(n===8) buildCal();
   if(window.innerWidth<=760) toggleSb(false);
 }
 function toggleSb(force){
@@ -318,9 +529,127 @@ function toggleSb(force){
   sb.classList.toggle('open', open);
   bd.classList.toggle('show', open);
 }
-function toggleTake(btn){
-  btn.closest('.sl').classList.toggle('taken');
+function toggleTake(btn){ btn.closest('.sl').classList.toggle('taken'); }
+function toggleTask(btn){ btn.closest('.task').classList.toggle('done'); }
+
+/* Уведомления */
+function toggleNotif(){
+  var p=document.getElementById('notifPanel');
+  p.classList.toggle('show');
 }
+function markAllRead(){
+  document.querySelectorAll('#notifList .notif-item').forEach(function(el){el.classList.remove('unread');var d=el.querySelector('.notif-unreaddot');if(d)d.remove();});
+  document.getElementById('bellDotM').style.display='none';
+  document.getElementById('bellDotD').style.display='none';
+}
+document.addEventListener('click',function(e){
+  var p=document.getElementById('notifPanel');
+  if(p.classList.contains('show') && !p.contains(e.target) && !e.target.closest('.bell')) p.classList.remove('show');
+});
+
+/* Композер */
+var composerCfg={
+  msg:{title:'Написать Наталье',ph:'Ваше сообщение…',hint:'Наталья ответит в течение дня'},
+  task:{title:'Вопрос по заданию',ph:'Что именно непонятно по заданию?',hint:'Наталья подскажет по заданию'},
+  file:{title:'Загрузить анализ',ph:'Комментарий к файлу (необязательно)…',hint:'Файл увидит только Наталья'},
+  diary:{title:'Добавить к дневнику',ph:'Что сегодня ели, самочувствие…',hint:'Попадёт в воскресный отчёт'}
+};
+function openComposer(kind){
+  var c=composerCfg[kind]||composerCfg.msg;
+  document.getElementById('composerTitle').textContent=c.title;
+  document.getElementById('composerTa').placeholder=c.ph;
+  document.getElementById('composerHint').textContent=c.hint;
+  document.getElementById('composerChips').innerHTML='';
+  document.getElementById('composerTa').value='';
+  stopRec();
+  document.getElementById('composerOvl').classList.add('show');
+  if(kind==='file') attachDemo('file');
+}
+function closeComposer(){ stopRec(); document.getElementById('composerOvl').classList.remove('show'); }
+function attachDemo(type){
+  var chips=document.getElementById('composerChips');
+  var ic,nm;
+  if(type==='file'){ic='📎';nm='анализы_июль.pdf';}
+  else if(type==='link'){ic='🔗';nm='vk.com/wall — рецепт';}
+  else {ic='🎤';nm='голос · 0:14';}
+  var chip=document.createElement('div');
+  chip.className='chip';
+  chip.innerHTML='<span class="chip-ic">'+ic+'</span><span class="chip-nm">'+nm+'</span><span class="chip-x">✕</span>';
+  chip.querySelector('.chip-x').onclick=function(){chip.remove();};
+  chips.appendChild(chip);
+}
+var recTimer=null,recSec=0;
+function toggleRec(){
+  var bar=document.getElementById('recBar'), btn=document.getElementById('micBtn');
+  if(bar.classList.contains('show')){ stopRec(); attachDemo('voice'); }
+  else{
+    bar.classList.add('show'); btn.classList.add('rec');
+    btn.innerHTML='<span class="dotpulse"></span>Стоп';
+    recSec=3;
+    recTimer=setInterval(function(){recSec++;document.getElementById('recTime').textContent='0:'+(recSec<10?'0':'')+recSec;},1000);
+  }
+}
+function stopRec(){
+  var bar=document.getElementById('recBar'), btn=document.getElementById('micBtn');
+  bar.classList.remove('show'); btn.classList.remove('rec');
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg>Голос';
+  if(recTimer){clearInterval(recTimer);recTimer=null;}
+}
+
+/* Календарь — демо-месяц июль 2026 (1 июля = среда) */
+var calY=2026, calM=6; // 0-indexed июль
+var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+var events={ // день: типы
+  1:['take','diary'],2:['take','diary'],3:['take','diary'],4:['take'],5:['take','diary','report'],
+  6:['task'],7:['take','diary'],8:['take','diary'],9:['take','diary'],10:['take'],12:['task','report'],
+  13:['report'],20:['report'],27:['report']
+};
+var agendas={
+  4:[['⏰','#7C9070','Приём: Омега-3, D3 (08:00) · Цинк (14:00) · Магний (21:00)'],['✎','#8A8578','Дневник питания за субботу — не заполнен']],
+  5:[['📤','#C9A24B','Воскресный отчёт уходит Наталье'],['⏰','#7C9070','Приём по схеме']],
+  6:[['✓','#E8A87C','Задание: посмотреть видео «Как читать состав»']],
+  12:[['🧪','#C9A24B','Срок: сдать контрольные анализы'],['✓','#E8A87C','Задание к неделе 8']]
+};
+function calMove(d){ calM+=d; if(calM<0){calM=11;calY--;} if(calM>11){calM=0;calY++;} buildCal(); }
+function buildCal(){
+  document.getElementById('calTitle').textContent=MN[calM]+' '+calY;
+  var grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(function(d){var e=document.createElement('div');e.className='cal-dow';e.textContent=d;grid.appendChild(e);});
+  var first=new Date(calY,calM,1).getDay(); first=first===0?6:first-1; // Пн=0
+  var days=new Date(calY,calM+1,0).getDate();
+  var isJul=(calM===6&&calY===2026);
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='cal-cell out';grid.appendChild(e);}
+  for(var d=1;d<=days;d++){
+    var cell=document.createElement('div');
+    var dow=new Date(calY,calM,d).getDay();
+    cell.className='cal-cell'+(dow===0?' sun':'');
+    if(isJul && d===4) cell.className+=' today';
+    var dots='';
+    if(isJul && events[d]) events[d].forEach(function(t){dots+='<span class="cal-dot '+t+'"></span>';});
+    cell.innerHTML='<div class="cal-num">'+d+'</div><div class="cal-dots">'+dots+'</div>';
+    (function(dd){cell.onclick=function(){selDay(dd,cell);};})(d);
+    grid.appendChild(cell);
+  }
+  selDay(4,null);
+}
+function selDay(d,cell){
+  document.querySelectorAll('.cal-cell').forEach(function(c){c.classList.remove('sel')});
+  if(cell) cell.classList.add('sel');
+  var dow=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'][new Date(calY,calM,d).getDay()];
+  document.getElementById('agTitle').textContent=dow.charAt(0).toUpperCase()+dow.slice(1)+', '+d+' '+MN[calM].toLowerCase();
+  var ag=document.getElementById('calAgenda'); ag.innerHTML='';
+  var items=(calM===6&&calY===2026)?agendas[d]:null;
+  if(!items){ag.innerHTML='<div class="card-d">На этот день ничего не запланировано.</div>';return;}
+  items.forEach(function(it){
+    var row=document.createElement('div');row.className='cal-ag-item';
+    row.innerHTML='<div class="cal-ag-ic" style="background:'+it[1]+'22;color:'+it[1]+'">'+it[0]+'</div><div class="card-d" style="padding-top:4px">'+it[2]+'</div>';
+    ag.appendChild(row);
+  });
+}
+/* показать колокол в десктоп-сайдбаре */
+function syncBell(){ document.getElementById('bellDesk').style.display = window.innerWidth>760?'flex':'none'; }
+window.addEventListener('resize',syncBell); syncBell();
 </script>
 </body>
 </html>
