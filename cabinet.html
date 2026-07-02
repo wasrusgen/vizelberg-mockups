@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Личный кабинет · VIZELBERG AMRITA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --herbal:#2F4A3C;--sage:#7C9070;--cream:#F5EFE6;--gold:#C9A24B;--terra:#E8A87C;
+  --white:#fff;--border:#E4DDD0;--text:#2B2B26;--muted:#8A8578;--subtle:#FBF9F5;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Segoe UI',Inter,sans-serif;background:var(--cream);color:var(--text);display:flex;flex-direction:column}
+h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
+
+/* Header (mobile) */
+.hdr{height:54px;background:var(--herbal);display:flex;align-items:center;padding:0 18px;gap:10px;flex-shrink:0}
+@media(min-width:761px){.hdr{display:none}}
+.hdr-ic{width:30px;height:30px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:15px;color:var(--herbal)}
+.hdr-t{font-family:Georgia;font-weight:700;font-size:14px;color:rgba(255,255,255,.85)}
+.hdr-r{margin-left:auto}
+.hdr-menu{width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer}
+
+/* Layout */
+.layout{flex:1;display:flex;overflow:hidden}
+.sb{width:252px;flex-shrink:0;background:var(--herbal);display:flex;flex-direction:column}
+@media(max-width:760px){.sb{position:fixed;inset:0 auto 0 0;z-index:20;transform:translateX(-100%);transition:transform .22s;height:100%}
+  .sb.open{transform:translateX(0)}
+  .sb-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:19}
+  .sb-backdrop.show{display:block}}
+.sb-brand{padding:20px 18px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-brand-ic{width:34px;height:34px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:16px;color:var(--herbal);flex-shrink:0}
+.sb-brand-t{font-family:Georgia;font-weight:700;font-size:14.5px;color:#fff;line-height:1.25}
+.sb-brand-s{font-size:10.5px;color:rgba(255,255,255,.45);margin-top:1px;letter-spacing:.03em}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto}
+.sb-cap{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.28);padding:12px 18px 6px}
+.si{display:flex;align-items:center;gap:11px;padding:9px 18px;cursor:pointer;border-left:2px solid transparent;transition:background .12s}
+.si:hover:not(.locked){background:rgba(255,255,255,.05)}
+.si.active{background:rgba(201,162,75,.14);border-left-color:var(--gold)}
+.si.locked{opacity:.4;cursor:default}
+.si-ic{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55)}
+.si.active .si-ic{background:var(--gold);color:var(--herbal)}
+.si-name{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.75)}
+.si.active .si-name{color:#fff}
+.si.locked .si-name{color:rgba(255,255,255,.35)}
+.si-sub{font-size:11px;color:rgba(255,255,255,.32);margin-top:1px}
+.sb-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.08)}
+.sb-foot-name{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.8)}
+.sb-foot-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.sv{display:none;flex:1;flex-direction:column;overflow-y:auto;align-items:center}
+.sv.active{display:flex}
+.wrap{width:100%;max-width:840px;padding:30px 26px 60px}
+.page-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sage);margin-bottom:6px}
+.page-h{font-family:Georgia;font-size:23px;font-weight:700;color:var(--herbal)}
+.page-d{font-size:13.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-top:20px}
+.card-h{font-family:Georgia;font-size:15.5px;font-weight:700;color:var(--herbal);margin-bottom:4px}
+.card-d{font-size:13px;color:var(--muted);line-height:1.55}
+.btn{font-family:'Segoe UI',Inter;font-weight:600;border:none;cursor:pointer;border-radius:10px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;margin-top:14px}
+.btn-p{background:var(--herbal);color:#fff;font-size:13.5px;padding:11px 20px}
+.btn-p:hover{background:#243B30}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:100px;margin-top:10px}
+.pill.ok{background:rgba(124,144,112,.15);color:var(--sage)}
+.pill.wait{background:rgba(201,162,75,.15);color:var(--gold)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-ic">V</div>
+  <div class="hdr-t">Личный кабинет</div>
+  <div class="hdr-r"><div class="hdr-menu" onclick="toggleSb()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </div></div>
+</div>
+
+<div class="layout">
+  <div class="sb-backdrop" id="sbBackdrop" onclick="toggleSb()"></div>
+  <div class="sb" id="sb">
+    <div class="sb-brand">
+      <div class="sb-brand-ic">V</div>
+      <div>
+        <div class="sb-brand-t">VIZELBERG<br>AMRITA</div>
+      </div>
+    </div>
+    <div class="sb-nav">
+      <div class="sb-cap">Кабинет</div>
+      <div class="si active" id="si0" onclick="go(0)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></div>
+        <div><div class="si-name">Обзор</div><div class="si-sub">Ваш прогресс</div></div>
+      </div>
+      <div class="si" id="si1" onclick="go(1)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div><div class="si-name">Анкета здоровья</div><div class="si-sub" id="intakeSub">Не заполнена</div></div>
+      </div>
+      <div class="si locked" id="si2" onclick="go(2)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div><div class="si-name">Рекомендации</div><div class="si-sub">После анкеты</div></div>
+      </div>
+      <div class="si locked" id="si3" onclick="go(3)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
+        <div><div class="si-name">Дневник и прогресс</div><div class="si-sub">Скоро</div></div>
+      </div>
+      <div class="si" id="si4" onclick="go(4)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div><div class="si-name">Материалы</div><div class="si-sub">Гайды, сборники</div></div>
+      </div>
+      <div class="si" id="si5" onclick="go(5)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div><div class="si-name">Написать Наталье</div><div class="si-sub">Связаться напрямую</div></div>
+      </div>
+    </div>
+    <div class="sb-foot">
+      <div class="sb-foot-name">Гость (демо)</div>
+      <div class="sb-foot-sub">Тестовая версия · без реальных данных</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="sv active" id="sv0"><div class="wrap">
+      <div class="page-tag">Обзор</div>
+      <div class="page-h">Добро пожаловать</div>
+      <div class="page-d">Здесь будет видно ваш прогресс, ближайший шаг и последние рекомендации Натальи.</div>
+      <div class="card">
+        <div class="card-h">Следующий шаг</div>
+        <div class="card-d">Заполните анкету здоровья — это займёт 5–7 минут. На её основе Наталья составит для вас первые рекомендации.</div>
+        <button class="btn btn-p" onclick="go(1)">Заполнить анкету →</button>
+      </div>
+      <div class="grid2">
+        <div class="card"><div class="card-h">Материалы</div><div class="card-d">Пока пусто — появятся после первой консультации.</div></div>
+        <div class="card"><div class="card-h">Дневник</div><div class="card-d">Станет доступен после заполнения анкеты.</div></div>
+      </div>
+    </div></div>
+
+    <div class="sv" id="sv1"><div class="wrap">
+      <div class="page-tag">Шаг 1</div>
+      <div class="page-h">Анкета здоровья</div>
+      <div class="page-d">Анкета — отдельная короткая форма (голос или текст). Заполняется один раз, потом можно только обновлять.</div>
+      <div class="card">
+        <div class="card-h">Статус</div>
+        <div id="intakeStatusPill" class="pill wait">⏳ Не заполнена</div>
+        <div class="card-d" style="margin-top:12px">Форма откроется в отдельном окне — так удобнее заполнять с телефона голосом.</div>
+        <a href="anketa.html" target="_blank"><button class="btn btn-p">Открыть анкету →</button></a>
+      </div>
+    </div></div>
+
+    <div class="sv" id="sv2"><div class="wrap">
+      <div class="page-tag">Шаг 2</div>
+      <div class="page-h">Рекомендации</div>
+      <div class="page-d">Появятся здесь после того, как Наталья изучит вашу анкету.</div>
+      <div class="card"><div class="card-h">Пока нет рекомендаций</div><div class="card-d">Заполните анкету здоровья, чтобы начать.</div></div>
+    </div></div>
+
+    <div class="sv" id="sv3"><div class="wrap">
+      <div class="page-tag">Скоро</div>
+      <div class="page-h">Дневник и прогресс</div>
+      <div class="page-d">Отслеживание самочувствия и динамики — в разработке.</div>
+    </div></div>
+
+    <div class="sv" id="sv4"><div class="wrap">
+      <div class="page-tag">Материалы</div>
+      <div class="page-h">Гайды и сборники</div>
+      <div class="page-d">Персональные материалы от Натальи появятся здесь.</div>
+      <div class="card"><div class="card-h">Пока пусто</div><div class="card-d">Материалы публикуются по мере готовности программы.</div></div>
+    </div></div>
+
+    <div class="sv" id="sv5"><div class="wrap">
+      <div class="page-tag">Связь</div>
+      <div class="page-h">Написать Наталье</div>
+      <div class="page-d">Прямой канал с нутрициологом появится на этом экране.</div>
+      <div class="card"><div class="card-h">Пока недоступно (демо)</div><div class="card-d">В реальной версии здесь будет чат или контакт.</div></div>
+    </div></div>
+  </div>
+</div>
+
+<script>
+function go(n){
+  document.querySelectorAll('.si').forEach(function(el){el.classList.remove('active')});
+  document.querySelectorAll('.sv').forEach(function(el){el.classList.remove('active')});
+  var si=document.getElementById('si'+n), sv=document.getElementById('sv'+n);
+  if(si && si.classList.contains('locked')) return;
+  if(si) si.classList.add('active');
+  if(sv) sv.classList.add('active');
+  if(window.innerWidth<=760) toggleSb(false);
+}
+function toggleSb(force){
+  var sb=document.getElementById('sb'), bd=document.getElementById('sbBackdrop');
+  var open = force!==undefined ? force : !sb.classList.contains('open');
+  sb.classList.toggle('open', open);
+  bd.classList.toggle('show', open);
+}
+</script>
+</body>
+</html>
