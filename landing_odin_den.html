@@ -134,11 +134,9 @@ h2{font-family:'Prata',serif; font-weight:400; font-size:clamp(26px,3.2vw,40px);
 
 /* Наталья слот */
 .natalia{display:grid; grid-template-columns:340px 1fr; gap:56px; align-items:center}
-.n-photo{
-  aspect-ratio:3/4; border-radius:20px; background:linear-gradient(160deg, rgba(124,144,112,.25), rgba(47,74,60,.35));
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  border:1.5px dashed rgba(47,74,60,.35); color:var(--forest); font-size:13px; line-height:1.6; padding:20px;
-}
+.n-photo{aspect-ratio:3/4; border-radius:20px; overflow:hidden; background:linear-gradient(160deg, rgba(124,144,112,.25), rgba(47,74,60,.35))}
+.n-photo img{width:100%; height:100%; object-fit:cover; display:block}
+.n-cap{margin-top:10px; font-size:12px; line-height:1.5; color:var(--forest); opacity:.75}
 .natalia h2 .accent{color:var(--sage)}
 .n-facts{margin-top:22px; display:flex; flex-direction:column; gap:12px}
 .n-facts div{display:flex; gap:12px; font-size:14.5px; line-height:1.55}
@@ -274,7 +272,10 @@ footer .logo{font-size:17px}
 <!-- ═══════════ НАТАЛЬЯ ═══════════ -->
 <section id="natalia">
   <div class="wrap natalia">
-    <div class="n-photo">[ слот: фото Натальи<br>после её согласия<br>и фотосессии ]</div>
+    <div>
+      <div class="n-photo"><img src="assets/natalya_slot_900.jpg" alt="Наталья Визельберг"></div>
+      <div class="n-cap">Временная подстановка — кадр из вашего канала. Заменим на фото с фотосессии, когда согласуем.</div>
+    </div>
     <div>
       <div class="sec-label">кто ведёт</div>
       <h2>Наталья Визельберг — <span class="accent">не врач, и честно об этом.</span></h2>
