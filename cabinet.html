@@ -696,36 +696,57 @@ window.addEventListener('resize',syncBell); syncBell();
 window.SIM_ACT='Глазами клиента';
 window.SIM_LAUNCH_LABEL='Как это работает — глазами клиента';
 window.SIM_NEXT={label:'Продолжить: глазами Натальи →',href:'admin.html?sim=1'};
-window.simCleanup=function(){ var n=document.getElementById('simNotif'); if(n) n.remove(); };
+window.simCleanup=function(){
+  ['simNotif','simFileRow','simFoodChips'].forEach(function(id){var n=document.getElementById(id); if(n) n.remove();});
+  var p=document.getElementById('notifPanel'); if(p){p.classList.remove('show'); p.style.zIndex='';}
+  ['bellDotM','bellDotD'].forEach(function(id){var b=document.getElementById(id); if(b) b.textContent='3';});
+  var sl=document.querySelectorAll('#sv1 .sl')[2]; if(sl) sl.classList.remove('taken');
+  var sy=document.querySelectorAll('#sv3 .sym')[2]; if(sy) sy.classList.remove('on');
+};
 window.SIM_SCENES=[
- {html:'<div class="simd-tag">Пролог · лендинг «Один день»</div><div class="simd-h">Как Марина сюда попала</div><div class="simd-row"><div class="simd-ic">📖</div><div>Марина, 38 (демо-персонаж) прочитала пост Натальи в канале и прожила страницу «Один день из жизни с программой».</div></div><div class="simd-row"><div class="simd-ic">👆</div><div>Внизу страницы — одна кнопка:</div></div><div class="simd-btnrow"><span class="simd-btn">Начать с бесплатного первого наблюдения →</span></div><div class="simd-note">Никаких установок и регистраций — кабинет открылся в браузере по ссылке.</div>',
+ {html:'<div class="simd-tag">Пролог · лендинг «Один день»</div><div class="simd-h">Как Марина сюда попала</div><div class="simd-row"><div class="simd-ic">📖</div><div>Марина, 38 (демо-персонаж) прочитала пост Натальи в канале и прожила страницу «Один день из жизни с программой».</div></div><div class="simd-row"><div class="simd-ic">👆</div><div>Внизу страницы — одна кнопка:</div></div><div class="simd-btnrow"><span class="simd-btn">Начать с бесплатного первого наблюдения →</span></div><div class="simd-note">Никаких установок и регистраций — кабинет открылся в браузере по ссылке. Это прототип: так система будет работать после сборки.</div>',
   title:'Пост → лендинг → кабинет', text:'Марина нажала кнопку — и оказалась в своём кабинете. Смотрим её путь с первого экрана.'},
- {view:0, sel:'.sb',
-  title:'Первый вход', text:'Кабинет встречает коротким путём: слева — всё, что будет в её программе. Пока открыто немного — остальное откроется по мере шагов.'},
+ {view:0, sel:'.sb', run:function(){ if(window.innerWidth<=760 && typeof toggleSb==='function') toggleSb(true); },
+  title:'Первый вход', text:'Слева — вся её программа: приём и дневник на каждый день, задания, анализы, материалы, связь с вами и оплата. Один дом вместо мессенджера, папок и Excel.'},
  {html:'<div class="simd-tag">Шаг 1 · анкета</div><div class="simd-h">Марина рассказывает о себе</div><div class="simd-field"><b>Что беспокоит:</b> «Энергия проседает к 16:00, сон рваный, тяжесть после еды…»</div><div class="simd-field"><b>Питание сейчас:</b> «Завтрак на бегу, поздние ужины…»</div><div class="simd-field"><b>Сон и режим:</b> «Ложусь после полуночи…»</div><div class="simd-btnrow"><span class="simd-btn">🎤 Наговорить голосом</span></div><div class="simd-note">Можно голосом — телефон сам превратит рассказ в текст. Не анкета из 100 полей, а разговор.</div>',
   title:'Анкета — сон, энергия, питание', text:'Сон, энергия, питание, что беспокоит — своими словами или голосом. Это первый материал для разбора Натальи.'},
- {html:'<div class="simd-tag">Шаг 2 · согласие</div><div class="simd-h">Прежде чем рассказать о здоровье</div><div class="simd-chk"><div class="box">✓</div><div>Согласен(на) на обработку данных о здоровье: <b>что храним, где (в России) и зачем</b> — только для работы нутрициолога по моей программе.</div></div><div class="simd-note">Без галочки дальше не пустит. Данные о здоровье — особая категория, здесь всё по закону (152-ФЗ), детали контура определяются с юристом.</div>',
+ {html:'<div class="simd-tag">Шаг 2 · согласие</div><div class="simd-h">Прежде чем рассказать о здоровье</div><div class="simd-chk"><div class="box">✓</div><div>Согласен(на) на обработку данных о здоровье: <b>что храним, где (в России) и зачем</b> — только для работы нутрициолога по моей программе.</div></div><div class="simd-note">Без галочки дальше не пустит. Данные о здоровье — особая категория: контур хранения строим под 152-ФЗ (хранение в России) и согласуем с юристом до запуска.</div>',
   title:'Согласие на обработку данных', text:'Марина видит, что и зачем сохраняется. Это не формальность — это часть доверия к вам.'},
- {view:4, sel:'#sv4 .card:last-child',
-  title:'Анализы — файлом с телефона', text:'Свежие анализы — PDF из лаборатории или фото прямо с телефона. Марина прикладывает файл — и больше никогда не пересылает его по мессенджерам.'},
- {view:2, sel:'#sv2 .card:last-child',
-  title:'День еды — фотографиями', text:'Не таблицы и не взвешивание: сфотографировала — отправила. Дневник заполняется по пути, а не «вечером сяду и вспомню».'},
+ {view:4, sel:'#sv4 .card', run:function(){
+    if(!document.getElementById('simFileRow')){
+      var c=document.querySelector('#sv4 .card');
+      var d=document.createElement('div'); d.className='file-row'; d.id='simFileRow';
+      d.innerHTML='<div class="file-ic" style="background:rgba(201,162,75,.18);color:#9A7A2E"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="file-name">Анализы_май.pdf <span class="pill wait" style="margin-left:6px">только что</span></div><div class="file-sub">Загружено с телефона · уйдёт Наталье вместе с анкетой</div></div>';
+      c.insertBefore(d,c.firstChild);
+    }
+  },
+  title:'Анализы — файлом с телефона', text:'Свежие анализы — PDF из лаборатории или фото прямо с телефона. Файл лёг в историю — и больше никогда не пересылается по мессенджерам.'},
+ {view:2, sel:'#sv2 .card:last-child', run:function(){
+    if(!document.getElementById('simFoodChips')){
+      var c=document.querySelector('#sv2 .card:last-child .tool-row');
+      var d=document.createElement('div'); d.className='chips'; d.id='simFoodChips';
+      d.innerHTML='<span class="chip"><span class="chip-ic">📷</span><span class="chip-nm">завтрак.jpg</span></span><span class="chip"><span class="chip-ic">📷</span><span class="chip-nm">обед.jpg</span></span><span class="chip"><span class="chip-ic">📷</span><span class="chip-nm">ужин.jpg</span></span>';
+      if(c) c.parentNode.insertBefore(d,c);
+    }
+  },
+  title:'День еды — фотографиями', text:'Не таблицы и не взвешивание: сфотографировала — отправила. Три фото уже в дневнике — день заполнен по пути, а не «вечером сяду и вспомню».'},
  {html:'<div class="simd-tag">Что происходит за кулисами</div><div class="simd-h">Данные ушли Наталье</div><div class="simd-row"><div class="simd-ic">📥</div><div>Анкета, анализы и дневник Марины собрались в одну карточку у Натальи.</div></div><div class="simd-row"><div class="simd-ic">🧾</div><div>Система уже разметила анализы черновиком: что в норме, что на границе. <span class="simd-pill">разметка, не вывод</span></div></div><div class="simd-row"><div class="simd-ic">👩‍⚕️</div><div>Вывод сделает Наталья — не автомат. Марина видит статус: <b>«на разборе у Натальи»</b>.</div></div>',
   title:'Статус: на разборе', text:'Марина ничего не делает — просто живёт. Система подготовила материалы, решение за Натальей.'},
- {view:0, sel:'.bell', run:function(){
+ {view:0, sel:'#bellDesk', run:function(){
     if(!document.getElementById('simNotif')){
       var list=document.getElementById('notifList');
       var d=document.createElement('div'); d.className='notif-item unread'; d.id='simNotif';
       d.innerHTML='<div class="notif-ic" style="background:rgba(124,144,112,.16);color:#5C7050">✨</div><div class="notif-tx"><b>Разбор готов</b><span>Наталья посмотрела ваши данные — смотрите «Разбор»</span><time>только что</time></div><div class="notif-unreaddot"></div>';
       list.insertBefore(d,list.firstChild);
     }
-    document.getElementById('notifPanel').classList.add('show');
+    ['bellDotM','bellDotD'].forEach(function(id){var b=document.getElementById(id); if(b) b.textContent='4';});
+    var p=document.getElementById('notifPanel'); p.classList.add('show'); p.style.zIndex='1000'; // поверх затемнения — пэйофф сцены должен быть читаем
   },
   title:'Через день — уведомление', text:'«Наталья посмотрела ваши данные». Не тишина на три дня, а понятный момент: разбор готов.'},
  {html:'<div class="simd-tag">Экран «Разбор» · демо-пример</div><div class="simd-h">Что происходит с питанием и ритмом</div><div class="simd-row"><div class="simd-ic">⚡</div><div><b>Энергия к 16:00 проседает</b> — по дневнику видно: быстрые углеводы утром, большой перерыв днём. Это про ритм питания, поправимо.</div></div><div class="simd-row"><div class="simd-ic">🌙</div><div><b>Сон рваный</b> — поздние плотные ужины (3 из 6 дней). Начнём с лёгких ужинов и магния вечером.</div></div><div class="simd-row"><div class="simd-ic">🧪</div><div><b>По анализам:</b> ферритин на нижней границе — обсудим питание, богатое железом. <span class="simd-pill red">где нужна медицина — это к врачу</span></div></div><div class="simd-note">Это нутрициологический разбор — оценка питания и образа жизни человеческим языком. Не диагноз и не лечение.</div>',
   title:'Разбор от Натальи', text:'Марина видит, ЧТО происходит и ПОЧЕМУ — без латыни и запугивания. Подпись под каждым выводом — Натальи.',
-  run:function(){ var p=document.getElementById('notifPanel'); if(p)p.classList.remove('show'); }},
- {view:0, sel:'#sv0 .card:first-of-type',
+  run:function(){ var p=document.getElementById('notifPanel'); if(p){p.classList.remove('show'); p.style.zIndex='';} }},
+ {view:0, sel:'#sv0 .steps',
   title:'Программа — весь маршрут сразу', text:'Пути решения: программа на 2 месяца, этапы, «где вы сейчас». Не «делайте что скажут», а понятная дорога.'},
  {view:1, sel:'.sched',
   title:'Схема приёма — живой план', text:'Что, когда, с чем принимать. Напоминания кабинет поставил сам — в 08:00, 14:00 и 21:00 телефон подскажет.'},
@@ -734,19 +755,19 @@ window.SIM_SCENES=[
  {view:1, sel:'.sched .sl:nth-child(3)', run:function(){
     var sl=document.querySelectorAll('#sv1 .sl')[2]; if(sl) sl.classList.add('taken');
   },
-  title:'Утро: отметила приём', text:'Две секунды: галочка — и Наталья в воскресенье увидит реальную картину, а не «вроде всё пила».'},
+  title:'Отметка — две секунды', text:'День: галочка после приёма — и Наталья в воскресенье увидит реальную картину, а не «вроде всё пила». Утренние уже отмечены.'},
  {view:3, sel:'#sv3 .sym-row', run:function(){
     var s=document.querySelectorAll('#sv3 .sym')[2]; if(s) s.classList.add('on');
   },
   title:'Раз в день — самочувствие', text:'Отметки — ранний датчик: если что-то идёт не так, Наталья узнает раньше, чем «всё разладилось». При остром — к врачу, это подписано прямо в кабинете.'},
- {view:2, sel:'#sv2 .card:first-of-type',
+ {view:2, sel:'#sv2 .card',
   title:'Воскресенье — отчёт одним махом', text:'Неделя сама собралась из ежедневных отметок. Марина только дописывает ощущения — и отправляет. Раньше это был час переписки.'},
- {view:0, sel:'#sv0 .card:last-of-type',
+ {view:0, sel:'#sv0 .wrap>.card:last-child',
   title:'Понедельник — корректировка', text:'Наталья разобрала отчёт: «магний переносим на вечер, добавила 3 лёгких ужина». Программа живая — она меняется под Марину каждую неделю.'},
- {html:'<div class="simd-tag">Экран «Мой прогресс» · демо-пример</div><div class="simd-h">Прогресс — не ощущение, а картинка</div><div class="simd-bars"><i style="height:26%"></i><i style="height:32%"></i><i style="height:30%"></i><i style="height:46%"></i><i style="height:58%"></i><i style="height:72%"></i></div><div style="display:flex;font-size:10px;color:#8A8578"><div style="flex:1;text-align:center">нед 1</div><div style="flex:1;text-align:center">2</div><div style="flex:1;text-align:center">3</div><div style="flex:1;text-align:center">4</div><div style="flex:1;text-align:center">5</div><div style="flex:1;text-align:center">6</div></div><table class="simd-tbl"><tr><th>Показатель</th><th>Старт</th><th>Неделя 8</th></tr><tr><td>Ферритин</td><td>ниж. граница</td><td><span class="simd-dot" style="background:#7C9070"></span>норма</td></tr><tr><td>Витамин D</td><td>ниже нормы</td><td><span class="simd-dot" style="background:#7C9070"></span>норма</td></tr></table><div class="simd-note">Самочувствие по неделям + контрольные анализы рядом с первичными. Демо-цифры для примера.</div>',
+ {html:'<div class="simd-tag">Экран «Мой прогресс» · демо-пример</div><div class="simd-h">Прогресс — не ощущение, а картинка</div><div class="simd-bars"><i style="height:26%"></i><i style="height:32%"></i><i style="height:30%"></i><i style="height:46%"></i><i style="height:58%"></i><i style="height:72%"></i></div><div style="display:flex;font-size:10px;color:#8A8578"><div style="flex:1;text-align:center">нед 1</div><div style="flex:1;text-align:center">2</div><div style="flex:1;text-align:center">3</div><div style="flex:1;text-align:center">4</div><div style="flex:1;text-align:center">5</div><div style="flex:1;text-align:center">6</div></div><table class="simd-tbl"><tr><th>Показатель</th><th>Старт</th><th>Цель · неделя 8</th></tr><tr><td>Ферритин</td><td>ниж. граница</td><td><span class="simd-dot" style="background:#7C9070"></span>норма</td></tr><tr><td>Витамин D</td><td>ниже нормы</td><td><span class="simd-dot" style="background:#7C9070"></span>норма</td></tr></table><div class="simd-note">Самочувствие по неделям + контрольные анализы рядом с первичными. Демо-цифры; «цель» — ориентир программы, не гарантия результата.</div>',
   title:'6 недель спустя', text:'Марина видит движение: график самочувствия, пройденные этапы, анализы «до / после». Это и есть довод продолжать.'},
- {view:9, sel:'#sv9 .card:nth-of-type(2)',
-  title:'Финал: не «выпала», а осталась', text:'Программа завершена — и два пути дальше: подписка на рецепты или корректирующая программа (цены на экране — демо). Клиент остаётся в орбите. Дальше — тот же день глазами Натальи.'}
+ {view:9, sel:'#sv9 .card:nth-child(5)',
+  title:'Финал: не «выпала», а осталась', text:'Программа завершена — и два пути дальше: подписка на рецепты или корректирующая программа (цены на экране — демо). Клиент остаётся в орбите. Дальше — та же неделя глазами Натальи.'}
 ];
 </script>
 <script src="sim_engine.js"></script>

@@ -52,7 +52,7 @@ var css = ''+
 '.simd-chk .box{width:18px;height:18px;border-radius:5px;background:#7C9070;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}';
 var styleEl=document.createElement('style'); styleEl.textContent=css; document.head.appendChild(styleEl);
 
-var S={i:0,on:false,spot:null,card:null,badge:null,demo:null,raf:null};
+var S={i:0,on:false,spot:null,card:null,badge:null,demo:null,shield:null,target:null,raf:null};
 
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e;}
 
@@ -61,21 +61,38 @@ function start(fromIdx){
   S.on=true; S.i=(typeof fromIdx==='number' && fromIdx>=0 && fromIdx<window.SIM_SCENES.length)?fromIdx:0;
   S.badge=el('div','sim-badge','Симуляция · демо-данные · ничего не отправляется');
   document.body.appendChild(S.badge);
+  // щит: на время симуляции клики по странице не проходят (мокап не «уезжает»)
+  S.shield=el('div'); S.shield.style.cssText='position:fixed;inset:0;z-index:997;background:transparent';
+  document.body.appendChild(S.shield);
   S.card=el('div','sim-card');
   document.body.appendChild(S.card);
   show();
   window.addEventListener('resize',reposition);
+  document.addEventListener('scroll',onScroll,true);
   document.addEventListener('keydown',onKey);
 }
 function stop(){
   S.on=false;
-  [S.spot,S.card,S.badge,S.demo].forEach(function(x){if(x&&x.parentNode)x.parentNode.removeChild(x);});
-  S.spot=S.card=S.badge=S.demo=null;
+  [S.spot,S.card,S.badge,S.demo,S.shield].forEach(function(x){if(x&&x.parentNode)x.parentNode.removeChild(x);});
+  S.spot=S.card=S.badge=S.demo=S.shield=null; S.target=null;
   window.removeEventListener('resize',reposition);
+  document.removeEventListener('scroll',onScroll,true);
   document.removeEventListener('keydown',onKey);
   if(typeof window.simCleanup==='function') window.simCleanup();
 }
+var scrollT=null;
+function onScroll(){ if(scrollT)return; scrollT=setTimeout(function(){scrollT=null; refreshSpot();},80); }
+function refreshSpot(){
+  if(!S.on||!S.target) return;
+  var r=S.target.getBoundingClientRect();
+  if(!S.spot) return;
+  var pad=8;
+  S.spot.style.top=(r.top-pad)+'px'; S.spot.style.left=(r.left-pad)+'px';
+  S.spot.style.width=(r.width+pad*2)+'px'; S.spot.style.height=(r.height+pad*2)+'px';
+  placeCard(r);
+}
 function onKey(e){
+  if(e.key==='Enter' && S.card && S.card.contains(document.activeElement)) return; // иначе click+Enter = двойной шаг
   if(e.key==='ArrowRight'||e.key==='Enter') next();
   else if(e.key==='ArrowLeft') back();
   else if(e.key==='Escape') stop();
@@ -96,7 +113,7 @@ function show(){
   if(typeof sc.run==='function'){ try{sc.run();}catch(e){} }
   // подсветка
   if(sc.html){
-    clearSpot();
+    S.target=null; clearSpot();
     var dim=el('div','sim-dim'); dim.className='sim-spot'; dim.style.cssText='top:-20px;left:-20px;width:0;height:0;border-radius:0;box-shadow:0 0 0 9999px rgba(24,34,27,.62)';
     S.spot=dim; document.body.appendChild(dim);
     S.demo=el('div','sim-demo',sc.html);
@@ -105,16 +122,17 @@ function show(){
   } else if(sc.sel){
     setTimeout(function(){ anchor(sc.sel); },(typeof sc.view==='number')?60:0);
   } else {
-    clearSpot(); placeCard(null);
+    S.target=null; clearSpot(); placeCard(null);
   }
   renderCard(sc);
 }
 
 function anchor(sel){
   var t=document.querySelector(sel);
-  if(!t){ clearSpot(); placeCard(null); return; }
+  if(!t){ S.target=null; clearSpot(); placeCard(null); return; }
+  S.target=t;
   try{ t.scrollIntoView({block:'center',behavior:'auto'}); }catch(e){}
-  setTimeout(function(){
+  function measure(){
     var r=t.getBoundingClientRect();
     if(!S.spot){ S.spot=el('div','sim-spot'); document.body.appendChild(S.spot); }
     var pad=8;
@@ -123,7 +141,10 @@ function anchor(sel){
     S.spot.style.borderRadius='14px';
     S.spot.style.boxShadow='0 0 0 9999px rgba(24,34,27,.62), 0 0 0 3px rgba(201,162,75,.9)';
     placeCard(r);
-  },40);
+  }
+  setTimeout(measure,40);
+  // повторный замер: скролл/шрифты могли доехать после первого
+  setTimeout(function(){ try{ t.scrollIntoView({block:'center',behavior:'auto'}); }catch(e){} measure(); },380);
 }
 
 function placeCard(r){
@@ -152,7 +173,7 @@ function renderCard(sc){
   S.card.querySelector('.sim-back').onclick=back;
   S.card.querySelector('.sim-next').onclick=next;
   var sc2=window.SIM_SCENES[S.i];
-  if(!sc2.html && !sc2.sel) placeCard(null);
+  if(!sc2.sel) placeCard(null); // позиция по фактической высоте уже заполненной карточки
 }
 
 function reposition(){
