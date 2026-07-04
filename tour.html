@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Экскурсия по машине — Наталья Визельберг</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sage:#7C9070; --forest:#2F4A3C; --cream:#F5EFE6; --terra:#E8A87C; --gold:#C9A24B; --deep:#22382D;
+  --ink:#26312B; --line:rgba(47,74,60,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+body{font-family:'Manrope',sans-serif; color:var(--ink); background:var(--cream)}
+h1,h2,h3{font-family:'Prata',serif; font-weight:400; color:var(--forest)}
+
+/* ── комнаты ── */
+.room{min-height:100vh; display:flex; align-items:center; padding:96px 6vw 72px; position:relative}
+.wrap{max-width:1120px; margin:0 auto; width:100%}
+.room-dark{background:var(--deep)}
+.room-dark h2,.room-dark h3{color:var(--cream)}
+.room-dark p{color:rgba(245,239,230,.88)}
+
+.r-label{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; font-weight:600}
+.room h2{font-size:clamp(24px,3.6vw,44px); line-height:1.2; margin-bottom:16px}
+.room .lead{font-size:clamp(15.5px,1.6vw,18.5px); line-height:1.65; max-width:640px; color:#4A554E}
+.room-dark .lead{color:rgba(245,239,230,.88)}
+
+.cols{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center}
+.cols>*{min-width:0}
+@media(max-width:900px){.cols{grid-template-columns:1fr; gap:28px}}
+
+/* ярлыки честности */
+.tag{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; padding:6px 12px; border-radius:999px; margin:4px 6px 4px 0}
+.tag-built{background:rgba(124,144,112,.16); color:var(--forest); border:1px solid rgba(124,144,112,.45)}
+.tag-plan{background:rgba(201,162,75,.12); color:#8a6d25; border:1px solid rgba(201,162,75,.45)}
+.room-dark .tag-built{background:rgba(124,144,112,.28); color:#DFE9DA; border-color:rgba(124,144,112,.6)}
+.room-dark .tag-plan{background:rgba(201,162,75,.18); color:#E8D5A0; border-color:rgba(201,162,75,.5)}
+.tag svg{flex:0 0 auto}
+
+/* экспонат */
+.exhibit{border-radius:16px; overflow:hidden; box-shadow:0 18px 50px rgba(34,56,45,.18); border:1px solid var(--line); background:#fff}
+.exhibit img{width:100%; display:block}
+.ex-cap{font-size:12.5px; line-height:1.55; color:#6B7069; padding:10px 16px; background:#FBF8F1; border-top:1px solid var(--line)}
+.ex-cap a{color:var(--sage); font-weight:600; text-decoration:none; white-space:nowrap}
+
+/* было → станет */
+.bs{display:flex; flex-direction:column; gap:12px; margin-top:22px}
+.bs .b,.bs .s{border-radius:12px; padding:14px 18px; font-size:14.5px; line-height:1.6}
+.bs .b{background:rgba(47,74,60,.06); border:1px solid var(--line); color:#5A645D}
+.bs .s{background:#fff; border:1px solid rgba(124,144,112,.4)}
+.room-dark .bs .b{background:rgba(245,239,230,.07); border-color:rgba(245,239,230,.15); color:rgba(245,239,230,.75)}
+.room-dark .bs .s{background:rgba(245,239,230,.12); border-color:rgba(124,144,112,.55); color:var(--cream)}
+.bs b{font-weight:700}
+
+/* счётчик */
+.counter{background:#fff; border:1px solid var(--line); border-radius:20px; padding:34px 36px; box-shadow:0 18px 50px rgba(34,56,45,.12)}
+.counter label{display:block; font-size:14px; font-weight:600; margin-bottom:10px; color:var(--forest)}
+.counter input[type=range]{width:100%; accent-color:var(--sage)}
+.c-row{display:flex; justify-content:space-between; align-items:baseline; gap:18px; margin-top:22px; padding-top:18px; border-top:1px dashed var(--line)}
+.c-row .name{font-size:13.5px; line-height:1.5; color:#5A645D}
+.c-row .val{font-family:'Prata',serif; font-size:clamp(20px,2.2vw,27px); color:var(--forest); white-space:nowrap}
+.c-subn{font-size:12px; color:#8A948C; text-align:right; margin-top:4px}
+.c-note{margin-top:18px; font-size:12.5px; line-height:1.6; color:#8a6d25; background:rgba(201,162,75,.1); border:1px solid rgba(201,162,75,.35); border-radius:10px; padding:10px 14px}
+
+/* пункты */
+.pts{margin-top:22px; display:flex; flex-direction:column; gap:12px}
+.pts div{display:flex; gap:12px; font-size:14.5px; line-height:1.6}
+.pts svg{flex:0 0 auto; margin-top:3px}
+
+/* роли */
+.roles{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:28px}
+@media(max-width:900px){.roles{grid-template-columns:1fr}}
+.role{background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px}
+.room-dark .role{background:rgba(245,239,230,.08); border-color:rgba(245,239,230,.15)}
+.role h3{font-size:18px; margin-bottom:10px}
+.room-dark .role h3{color:var(--cream)}
+.role p{font-size:13.5px; line-height:1.6; color:#5A645D}
+.room-dark .role p{color:rgba(245,239,230,.8)}
+
+/* шаги стройки */
+.steps{display:flex; flex-direction:column; gap:0; margin-top:26px; max-width:640px}
+.step{display:flex; gap:16px; padding:14px 0; border-bottom:1px dashed rgba(245,239,230,.2)}
+.step:last-child{border-bottom:none}
+.step .n{font-family:'Prata',serif; font-size:20px; color:var(--gold); flex:0 0 34px}
+.step .t{font-size:14.5px; line-height:1.6; color:rgba(245,239,230,.9)}
+.step .t b{color:var(--cream)}
+
+/* навигация */
+.nav{position:fixed; right:22px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; z-index:50}
+.nav a{width:10px; height:10px; border-radius:50%; background:rgba(47,74,60,.25); transition:.2s; display:block}
+.nav a.on{background:var(--sage); transform:scale(1.45)}
+@media(max-width:900px){.nav{display:none}}
+.next{display:inline-flex; align-items:center; gap:10px; margin-top:30px; padding:13px 26px; border-radius:999px; background:var(--forest); color:var(--cream); text-decoration:none; font-size:14.5px; font-weight:600; transition:.2s}
+.next:hover{background:var(--deep); transform:translateY(-1px)}
+.room-dark .next{background:var(--sage)}
+.badge{position:fixed; left:18px; top:16px; z-index:60; font-size:11px; letter-spacing:.14em; text-transform:uppercase; background:rgba(34,56,45,.85); color:var(--cream); padding:7px 13px; border-radius:999px; font-weight:600}
+
+/* обложка */
+.cover{background:linear-gradient(160deg, var(--deep) 0%, #2C4638 100%); text-align:center; justify-content:center}
+.cover h1{font-size:clamp(28px,5vw,62px); color:var(--cream); line-height:1.15; margin:18px 0 20px}
+.cover .lead{margin:0 auto; color:rgba(245,239,230,.85)}
+.cover .r-label{margin-bottom:0}
+</style>
+</head>
+<body>
+
+<div class="badge">черновик · демо-данные</div>
+
+<nav class="nav" id="nav">
+  <a href="#r0" title="Вход" aria-label="Вход"></a><a href="#r1" title="Поток" aria-label="Поток"></a><a href="#r2" title="Счётчик" aria-label="Счётчик"></a>
+  <a href="#r3" title="Данные" aria-label="Данные"></a><a href="#r4" title="Кабинет" aria-label="Кабинет"></a><a href="#r5" title="Пульт" aria-label="Пульт"></a><a href="#r6" title="Кто за что" aria-label="Кто за что"></a>
+</nav>
+
+<!-- ═══ 0 ВХОД ═══ -->
+<section class="room room-dark cover" id="r0">
+  <div class="wrap">
+    <div class="r-label">экскурсия · 6 комнат · ~7 минут</div>
+    <h1>Ваша машина.<br>Пройдём по ней комнату за комнатой.</h1>
+    <p class="lead">Это не презентация «как могло бы быть». Часть комнат уже построена — их можно открыть и покликать. На каждой двери честный ярлык: что уже существует, а что строим на внедрении.</p>
+    <div style="margin-top:26px">
+      <span class="tag tag-built"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> уже построено прототипом</span>
+      <span class="tag tag-plan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> строим на внедрении</span>
+    </div>
+    <a class="next" href="#r1">Войти в первую комнату
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══ 1 ПОТОК ═══ -->
+<section class="room" id="r1">
+  <div class="wrap">
+    <div class="r-label">комната 1 из 6</div>
+    <h2>Поток клиентов — вместо запусков рывками</h2>
+    <div class="cols">
+      <div>
+        <p class="lead">Сейчас клиенты приходят волнами: запуск — всплеск — тишина. Машина устроена иначе: контент будет выходить регулярно, и каждый пост поведёт читателя на страницу «Один день» — прожить день вашего клиента и оставить заявку.</p>
+        <div class="bs">
+          <div class="b"><b>Было:</b> продажи — только когда есть силы на запуск; между запусками вход закрыт.</div>
+          <div class="s"><b>Станет:</b> страница входа открыта каждый день, контент-машина подводит к ней читателей без вашего участия в каждой публикации.</div>
+        </div>
+        <div style="margin-top:16px"><span class="tag tag-built"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> страница «Один день» построена</span> <span class="tag tag-plan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> контент-машина — на внедрении</span></div>
+      </div>
+      <div class="exhibit">
+        <img src="assets/tour_landing_900.jpg" alt="Финал страницы «Один день» — вход в кабинет">
+        <div class="ex-cap">Финал страницы «Один день»: из истории дня читатель попадает в кабинет. <a href="landing_odin_den.html" target="_blank">Открыть прототип →</a></div>
+      </div>
+    </div>
+    <a class="next" href="#r2">Дальше: сколько это в деньгах
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══ 2 СЧЁТЧИК ═══ -->
+<section class="room room-dark" id="r2">
+  <div class="wrap">
+    <div class="r-label">комната 2 из 6</div>
+    <h2>Счётчик: пропускная способность → выручка</h2>
+    <div class="cols">
+      <div>
+        <p class="lead">Главный ограничитель дохода — не спрос, а ваши руки: каждый клиент сейчас требует часов лично от вас. Машина забирает рутину (дневники, напоминания, черновики разборов) — и задумана так, чтобы та же неделя вмещала больше клиентов, а качество не падало.</p>
+        <p class="lead" style="margin-top:14px">Подвигайте ползунок — это модель, где видно, как ёмкость превращается в выручку.</p>
+      </div>
+      <div class="counter" id="counter">
+        <label for="cap">Клиентов в программе одновременно: <span id="capv" style="color:var(--sage)">4</span></label>
+        <input type="range" id="cap" min="1" max="12" value="4" oninput="calc()">
+        <div class="c-row"><span class="name">Выручка программ в месяц (демо-тариф 45 000 ₽ / 2 мес)</span><span class="val" id="rev">90 000 ₽</span></div>
+        <div class="c-row"><span class="name">+ подписка на рецепты (демо 990 ₽/мес; база ≈ выпускники за год = 12 × ёмкость, подписаны 30%)</span><span class="val" id="sub">—</span></div>
+        <div class="c-subn" id="subn"></div>
+        <div class="c-note">Это модель на демонстрационных цифрах, не прогноз и не обещание. На внедрении подставим ваши реальные тарифы и ёмкость — счётчик станет вашим рабочим инструментом планирования.</div>
+      </div>
+    </div>
+    <a class="next" href="#r3">Дальше: куда попадают данные
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══ 3 ДАННЫЕ ═══ -->
+<section class="room" id="r3">
+  <div class="wrap">
+    <div class="r-label">комната 3 из 6</div>
+    <h2>Куда попадают данные клиентов — и почему это важно</h2>
+    <p class="lead">Анкеты о здоровье и дневники — чувствительные данные. Закон (152-ФЗ) требует к ним особого отношения, и машина спроектирована под это с первого дня, а не «допилим потом».</p>
+    <div class="pts">
+      <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C9070" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg><span><b>Telegram остаётся витриной</b> — канал, контент, вход. Анкеты о здоровье и дневники в нём не живут.</span></div>
+      <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C9070" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg><span><b>Кабинет проектируется отдельным, на российском сервере:</b> данные о здоровье будут храниться в России, доступ — по ролям, сотрудники не будут видеть данных о здоровье клиентов. Это заложено в архитектуру с первого дня; реализация — этап внедрения.</span></div>
+      <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C9070" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg><span><b>Согласия и роли оформляем с юристом</b> — кто оператор данных и какие согласия берём, определим на юридическом этапе вместе с юристом. Этот этап проходим вместе — вы не остаётесь с ним одна.</span></div>
+    </div>
+    <div style="margin-top:18px"><span class="tag tag-plan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> раздельный контур данных — в архитектуре, реализация на внедрении</span> <span class="tag tag-plan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> юридическое оформление — этап внедрения</span></div>
+    <a class="next" href="#r4">Дальше: кабинет вашего клиента
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══ 4 КАБИНЕТ КЛИЕНТА ═══ -->
+<section class="room" id="r4">
+  <div class="wrap">
+    <div class="r-label">комната 4 из 6</div>
+    <h2>Кабинет клиента — программа живёт не в переписке</h2>
+    <div class="cols">
+      <div class="exhibit">
+        <img src="assets/tour_cabinet_900.jpg" alt="Экран «Программа» кабинета клиента — прототип">
+        <div class="ex-cap">Экран «Программа»: этапы, «где вы сейчас», последняя корректировка. Данные демонстрационные. <a href="cabinet.html" target="_blank">Открыть прототип →</a></div>
+      </div>
+      <div>
+        <p class="lead">Всё, что сейчас разбросано по чатам и папкам — программа, схема приёма, анализы, рецепты, — собирается в одном месте у клиента. Чек-отметки приёма, дневник с воскресным ритмом отчёта, напоминания — сами.</p>
+        <div class="bs">
+          <div class="b"><b>Было:</b> «напомните, что мне принимать?» — и поиск по переписке за март.</div>
+          <div class="s"><b>Станет:</b> клиент открывает кабинет — и видит свой сегодняшний день: схему приёма, дневник, задание от вас.</div>
+        </div>
+        <div style="margin-top:16px"><span class="tag tag-built"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> кабинет построен — можно покликать</span></div>
+      </div>
+    </div>
+    <a class="next" href="#r5">Дальше: ваш пульт
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══ 5 ПУЛЬТ ═══ -->
+<section class="room" id="r5">
+  <div class="wrap">
+    <div class="r-label">комната 5 из 6</div>
+    <h2>Ваш пульт — дневники превращаются в сигналы</h2>
+    <div class="cols">
+      <div>
+        <p class="lead">Вы не читаете сорок дневников подряд. Пульт собирает их сам и поднимает наверх то, что требует вашего взгляда: кто отклонился от схемы, у кого самочувствие пошло вниз, чей отчёт ждёт воскресного разбора.</p>
+        <div class="bs">
+          <div class="b"><b>Было:</b> весь контроль — в голове и в ручном пролистывании переписок; что-то неизбежно теряется.</div>
+          <div class="s"><b>Станет:</b> система готовит сводку и черновик корректировки — решение и подпись всегда ваши. Сигнал — это совпадение по времени, не диагноз: оценка за вами.</div>
+        </div>
+        <div style="margin-top:16px"><span class="tag tag-built"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> каркас панели построен</span> <span class="tag tag-plan"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> живые сигналы из дневников — на внедрении</span></div>
+      </div>
+      <div class="exhibit">
+        <img src="assets/tour_pult_900.jpg" alt="Экран «Пульт» панели эксперта — прототип">
+        <div class="ex-cap">Экран «Пульт»: очередь дня и пример раннего сигнала — «совпадение по времени, оценка за вами». Данные демонстрационные. <a href="admin.html" target="_blank">Открыть прототип →</a></div>
+      </div>
+    </div>
+    <a class="next" href="#r6">Последняя комната: кто за что
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══ 6 КТО ЗА ЧТО ═══ -->
+<section class="room room-dark" id="r6">
+  <div class="wrap">
+    <div class="r-label">комната 6 из 6</div>
+    <h2>Кто за что отвечает — и как машина строится</h2>
+    <div class="roles">
+      <div class="role"><h3>Наталья</h3><p>Экспертиза и решения: программы, разборы, корректировки. Всё, что машина готовит, — черновик до вашей подписи. Ваше время уходит на клиентов, не на рутину.</p></div>
+      <div class="role"><h3>Ваш СММ-специалист</h3><p>Редактор-публикатор при фабрике контента: правит черновики под ваш тон и публикует. Доступа к данным клиентов и деньгам у него нет.</p></div>
+      <div class="role"><h3>Платформа</h3><p>Строит и сопровождает машину: кабинеты, напоминания, сигналы, хранение данных в России, юридический контур — вместе с юристом.</p></div>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="n">✓</span><span class="t"><b>Уже сделано:</b> кабинет клиента, панель и страница «Один день» — прототипы построены, вы видели их в этой экскурсии. План вашей программы уже собран в рабочем кабинете.</span></div>
+      <div class="step"><span class="n">1</span><span class="t"><b>Кабинет оживает:</b> прототип подключается к реальным данным — анкета, программа, дневники ваших клиентов.</span></div>
+      <div class="step"><span class="n">2</span><span class="t"><b>Контент-машина и витрина:</b> постоянный поток публикаций и открытая страница входа.</span></div>
+      <div class="step"><span class="n">3</span><span class="t"><b>Мозг машины:</b> оцифровка ваших методик и научный слой — подсказки с источником в каждом разборе.</span></div>
+      <div class="step"><span class="n">∥</span><span class="t"><b>Параллельно:</b> юридический контур (согласия, роли, уведомления) — с юристом, до приёма данных о здоровье в рабочем режиме.</span></div>
+    </div>
+    <p class="lead" style="margin-top:26px">Сроки и стоимость каждого этапа — предмет договора по этапам: обсуждаем на созвоне, двигаемся шагами, каждый шаг заканчивается работающей частью машины.</p>
+    <div>
+      <a class="next" href="mailto:i@wasrusgen.ru?subject=Экскурсия по машине — обсудить">Обсудить на созвоне
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="next" href="#r0" style="background:transparent; border:1px solid rgba(245,239,230,.4); margin-left:12px">Пройти ещё раз
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<script>
+function calc(){
+  var cap = +document.getElementById('cap').value;
+  document.getElementById('capv').textContent = cap;
+  // демо-модель: программа 45 000 ₽ на 2 мес → в месяц cap/2 новых стартов × 45 000
+  var rev = cap * 45000 / 2;
+  document.getElementById('rev').textContent = rev.toLocaleString('ru-RU') + ' ₽';
+  // подписка: демо — база растёт с ёмкостью, 30% от (cap × 12) подписаны
+  var subs = Math.round(cap * 12 * 0.3);
+  document.getElementById('sub').textContent = (subs * 990).toLocaleString('ru-RU') + ' ₽';
+  document.getElementById('subn').textContent = subs + ' подписчиков в модели';
+}
+calc();
+// подсветка навигации
+var ids = ['r0','r1','r2','r3','r4','r5','r6'];
+var links = document.querySelectorAll('#nav a');
+function onScroll(){
+  var y = window.scrollY + window.innerHeight/2;
+  var cur = 0;
+  ids.forEach(function(id, i){ var el = document.getElementById(id); if (el.offsetTop <= y) cur = i; });
+  links.forEach(function(a, i){ a.classList.toggle('on', i === cur); });
+}
+window.addEventListener('scroll', onScroll); onScroll();
+</script>
+</body>
+</html>
