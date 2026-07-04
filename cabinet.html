@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Моя программа · VIZELBERG AMRITA</title>
@@ -81,6 +82,9 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .pill.terra{background:rgba(232,168,124,.22);color:#B06A38}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
 @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.mrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+.mrow:last-child{border-bottom:none}
+.mrow b{color:var(--herbal);text-align:right}
 
 /* Программа: этапы */
 .steps{display:flex;flex-direction:column;gap:0;margin-top:16px}
@@ -286,6 +290,11 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div><div class="si-name">Написать Наталье</div><div class="si-sub">Вопрос по программе</div></div>
       </div>
+      <div class="sb-cap">Оплата</div>
+      <div class="si" id="si9" onclick="go(9)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <div><div class="si-name">Оплата и чек</div><div class="si-sub">Тариф · подписка</div></div>
+      </div>
     </div>
     <div class="sb-foot">
       <div class="pw-lbl"><span>Программа · 2 месяца</span><b>Неделя 3</b></div>
@@ -469,7 +478,36 @@ textarea.diary:focus{border-color:var(--sage)}
         <button class="btn btn-p" onclick="openComposer('msg')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Написать сообщение</button>
         <div class="card-d" style="margin-top:12px">Наталья отвечает в течение дня; срочная реакция на самочувствие — через «Самочувствие», такие отметки она видит первыми.</div>
       </div>
-      <div class="card"><div class="card-h">После программы</div><div class="card-d">Завершили 8 недель и хотите продолжить? Корректирующая консультация — обновление схемы под новые анализы и цели.</div><button class="btn btn-o">Узнать о корректирующей</button></div>
+      <div class="card"><div class="card-h">После программы</div><div class="card-d">Завершили 8 недель и хотите продолжить? Корректирующая консультация — обновление схемы под новые анализы и цели.</div><button class="btn btn-o" onclick="go(9)">Узнать о корректирующей</button></div>
+    </div></div>
+
+    <!-- 9 Оплата -->
+    <div class="sv" id="sv9"><div class="wrap">
+      <div class="page-tag">Оплата</div>
+      <div class="page-h">Оплата и чек</div>
+      <div class="page-d">Ваш тариф, статус оплаты и чеки — всё в одном месте. Оплата — через защищённый платёжный сервис: данные карты видит только банк, не Наталья.</div>
+      <div class="card">
+        <div class="card-h">Ваш тариф <span class="pill ok">оплачено</span></div>
+        <div class="mrow"><span>Программа</span><b>Коррекция · 2 месяца</b></div>
+        <div class="mrow"><span>Стоимость</span><b>45 000 ₽</b></div>
+        <div class="mrow"><span>Оплачено</span><b>20 июня · СБП</b></div>
+        <div class="mrow"><span>Программа активна до</span><b>20 августа</b></div>
+        <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь скачивается чек по 54-ФЗ')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Скачать чек (54-ФЗ)</button>
+      </div>
+      <div class="card">
+        <div class="card-h">Подписка на рецепты <span class="pill wait">опция</span></div>
+        <div class="card-d">Новые сезонные рецепты и таблицы под вашу программу каждый месяц. Можно подключить или отключить в любой момент.</div>
+        <div class="mrow" style="margin-top:10px"><span>Стоимость</span><b>990 ₽ / мес</b></div>
+        <div class="mrow"><span>Статус</span><b>не подключена</b></div>
+        <button class="btn btn-p" onclick="demoNote(this,'В рабочей версии здесь подключается подписка через платёжный сервис')">Подключить подписку</button>
+      </div>
+      <div class="card">
+        <div class="card-h">После программы</div>
+        <div class="card-d">Корректирующая консультация — обновление схемы под новые анализы и цели после завершения 8 недель.</div>
+        <div class="mrow" style="margin-top:10px"><span>Стоимость</span><b>6 000 ₽</b></div>
+        <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь оформляется запись на корректирующую')">Записаться позже</button>
+      </div>
+      <div class="card"><div class="card-d">Демо · суммы и даты для примера. В рабочей версии оплата пройдёт через платёжный сервис с чеком по 54-ФЗ, платёжные данные — с хранением в РФ (152-ФЗ). Сейчас это не подключено.</div></div>
     </div></div>
 
   </div>
@@ -531,6 +569,7 @@ function toggleSb(force){
 }
 function toggleTake(btn){ btn.closest('.sl').classList.toggle('taken'); }
 function toggleTask(btn){ btn.closest('.task').classList.toggle('done'); }
+function demoNote(btn,txt){ var s=document.createElement('span'); s.className='pill wait'; s.textContent='демо — '+txt; btn.replaceWith(s); }
 
 /* Уведомления */
 function toggleNotif(){

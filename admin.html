@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Кабинет Натальи · VIZELBERG AMRITA</title>
@@ -218,6 +219,20 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .modal-send:hover{background:#243B30}
 .modal-ghost{background:transparent;border:1.5px solid var(--border);color:var(--muted);border-radius:10px;padding:11px 18px;font:inherit;font-weight:600;font-size:13px;cursor:pointer}
 
+/* Фабрика контента */
+.kb4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+@media(max-width:900px){.kb4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.kb4{grid-template-columns:1fr}}
+.src-item{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--border)}
+.src-item:last-child{border-bottom:none}
+.src-ic{width:40px;height:40px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--subtle)}
+.src-b{flex:1;min-width:0}
+.src-b b{font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.src-b p{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.55}
+.src-cnt{font-size:11px;font-weight:700;color:var(--sage)}
+/* Оплаты */
+.money{font-family:Georgia;font-weight:700;color:var(--herbal)}
+
 .demo-tag{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:var(--herbal);color:#fff;font-size:11px;padding:6px 14px;border-radius:100px;z-index:30;opacity:.9}
 </style>
 </head>
@@ -266,9 +281,20 @@ table.tbl tbody tr:hover{background:var(--subtle)}
         <div><div class="si-name">Задания</div><div class="si-sub">Клиентам и себе</div></div>
       </div>
       <div class="sb-cap">Продвижение</div>
+      <div class="si" id="si7" onclick="go(7)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div><div class="si-name">Фабрика контента</div><div class="si-sub">Идея → черновик → вы</div></div>
+        <div class="si-badge gold">1</div>
+      </div>
       <div class="si" id="si5" onclick="go(5)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
         <div><div class="si-name">Контент-план</div><div class="si-sub">TG · Reels · Shorts</div></div>
+      </div>
+      <div class="sb-cap">Деньги</div>
+      <div class="si" id="si6" onclick="go(6)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <div><div class="si-name">Оплаты</div><div class="si-sub">Кто и за что заплатил</div></div>
+        <div class="si-badge">2</div>
       </div>
     </div>
     <div class="sb-foot">
@@ -494,6 +520,100 @@ table.tbl tbody tr:hover{background:var(--subtle)}
       </div>
     </div></div>
 
+    <!-- 7 Фабрика контента -->
+    <div class="sv" id="sv7"><div class="wrap">
+      <div class="page-tag">Продвижение</div>
+      <div class="page-h">Фабрика контента</div>
+      <div class="page-d">Конвейер: идея → черновик в вашем тоне → ваша правка → публикация. Черновики система собирает <b>только из ваших материалов и проверенных источников</b>. Ничего не выходит без вашего утверждения.</div>
+
+      <div class="kb4">
+        <div class="kb-col">
+          <div class="kb-h"><span>Идеи</span><span>2</span></div>
+          <div class="kb-card" onclick="openPost()"><div class="kb-card-t">Почему вечером тянет на сладкое</div><div class="kb-card-m"><span class="kb-who">из 3 вопросов клиентов</span></div></div>
+          <div class="kb-card" onclick="openPost()"><div class="kb-card-t">Сезонные ягоды июля</div><div class="kb-card-m"><span class="kb-who self">сезон</span></div></div>
+        </div>
+        <div class="kb-col">
+          <div class="kb-h"><span>Черновик системы</span><span>1</span></div>
+          <div class="kb-card" onclick="openPost()"><div class="kb-card-t">Магний и сон</div><div class="kb-card-m"><span class="kb-who">ваш гайд + научный слой</span></div></div>
+        </div>
+        <div class="kb-col">
+          <div class="kb-h"><span>На вашей правке</span><span>1</span></div>
+          <div class="kb-card" onclick="openPost()"><div class="kb-card-t">Разбор этикеток</div><div class="kb-card-m"><span class="pill wait">правите экспертную часть</span></div></div>
+        </div>
+        <div class="kb-col">
+          <div class="kb-h"><span>Опубликовано</span><span>2</span></div>
+          <div class="kb-card"><div class="kb-card-t">Разбор тарелки</div><div class="kb-card-m"><span class="kb-who">TG · 30 июня</span><span>1.2к</span></div></div>
+          <div class="kb-card"><div class="kb-card-t">3 лёгких ужина</div><div class="kb-card-m"><span class="kb-who">Reels · 1 июля</span><span>4.8к</span></div></div>
+        </div>
+      </div>
+      <button class="btn btn-p" onclick="openPost()">+ Новая идея</button>
+
+      <div class="card">
+        <div class="card-h">Источники — из чего система собирает черновики</div>
+        <div class="card-d" style="margin-bottom:6px">Черновик всегда опирается на что-то из этого. Чем больше материалов вы загружаете, тем точнее ваш тон.</div>
+        <div class="src-item">
+          <div class="src-ic">📚</div>
+          <div class="src-b"><b>Архив ваших постов <span class="src-cnt">312 шт</span></b><p>Система училась на них — берёт отсюда ваши формулировки и тон, чтобы черновик звучал как вы, а не как робот.</p></div>
+        </div>
+        <div class="src-item">
+          <div class="src-ic">🎓</div>
+          <div class="src-b"><b>Гайды, сборники, вебинары <span class="src-cnt">18 материалов</span> <span class="pill ok">ваша методология</span></b><p>Ваш авторский подход — ядро. Именно он отличает вас от конкурентов, и система не заменяет его чужими схемами.</p></div>
+        </div>
+        <div class="src-item">
+          <div class="src-ic">🔬</div>
+          <div class="src-b"><b>Научный слой <span class="src-cnt">PubMed · нормы РФ/ВОЗ</span></b><p>Факты и цифры — со ссылкой на источник. Формулировки информационные, без диагнозов и назначений (нутрициолог — не врач).</p></div>
+        </div>
+        <div class="src-item">
+          <div class="src-ic">💬</div>
+          <div class="src-b"><b>Вопросы клиентов <span class="src-cnt">собраны из сообщений</span></b><p>Что реально волнует людей — становится темами постов. Повторяющийся вопрос → готовая идея в конвейере.</p></div>
+        </div>
+      </div>
+      <div class="card"><div class="card-d">Демо-контент — пример работы конвейера. Публикация всегда проходит через ваше утверждение; научные факты сопровождаются ссылкой на источник.</div></div>
+    </div></div>
+
+    <!-- 6 Оплаты -->
+    <div class="sv" id="sv6"><div class="wrap">
+      <div class="page-tag">Деньги · июль 2026</div>
+      <div class="page-h">Оплаты</div>
+      <div class="page-d">Кто и за что заплатил, что ждёт оплаты, какие продления на подходе. Счёт выставляется в пару кликов, оплата отражается в кабинете. <span class="pill terra">так задумано в рабочей версии</span></div>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-n" style="font-size:22px">184 000 ₽</div><div class="kpi-l">Поступило в июле</div></div>
+        <div class="kpi alert"><div class="kpi-n">2</div><div class="kpi-l">Ждут оплаты</div></div>
+        <div class="kpi"><div class="kpi-n">3</div><div class="kpi-l">Продления до 15 июля</div></div>
+        <div class="kpi"><div class="kpi-n">12</div><div class="kpi-l">Подписок на рецепты</div></div>
+      </div>
+      <div class="card">
+        <div class="card-h">Подписка на рецепты <span class="pill ok">регулярный доход</span></div>
+        <div class="mrow"><span>Активных подписок</span><b>12 × 990 ₽/мес</b></div>
+        <div class="mrow"><span>Приходит ежемесячно</span><b>11 880 ₽</b></div>
+        <div class="mrow"><span>С автопродлением</span><b>10 из 12</b></div>
+        <div class="card-d" style="margin-top:10px">В рабочей версии подписка продлевается сама: клиенту — напоминание за 3 дня, вам делать ничего не нужно.</div>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-tools">
+          <input class="tbl-search" placeholder="Поиск по клиенту…">
+          <button class="tbl-filter">Продукт ▾</button>
+          <button class="tbl-filter">Статус ▾</button>
+          <button class="btn btn-p btn-sm" style="margin-left:auto" onclick="openPay('')">+ Выставить счёт</button>
+        </div>
+        <div class="tbl-scroll">
+          <table class="tbl">
+            <thead><tr><th>Клиент</th><th>Продукт</th><th>Сумма</th><th>Дата</th><th>Способ</th><th>Статус</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tc-name"><span class="tc-ava red">М</span>Марина К.</span></td><td>Коррекция 2 мес</td><td><span class="money">45 000 ₽</span></td><td>20 июня</td><td>СБП</td><td><span class="pill ok">оплачено</span></td></tr>
+              <tr><td><span class="tc-name"><span class="tc-ava">А</span>Анна С.</span></td><td>Коррекция 2 мес</td><td><span class="money">45 000 ₽</span></td><td>3 июня</td><td>Карта</td><td><span class="pill ok">оплачено</span></td></tr>
+              <tr><td><span class="tc-name"><span class="tc-ava">Ф</span>Фёдор Р.</span></td><td>Коррекция 2 мес</td><td><span class="money">45 000 ₽</span></td><td>10 мая</td><td>СБП</td><td><span class="pill ok">оплачено</span></td></tr>
+              <tr><td><span class="tc-name"><span class="tc-ava">Д</span>Дарья М.</span></td><td>Продвинутые (без сопр.)</td><td><span class="money">19 000 ₽</span></td><td>15 июня</td><td>Карта</td><td><span class="pill ok">оплачено</span></td></tr>
+              <tr><td><span class="tc-name"><span class="tc-ava">О</span>Ольга В.</span></td><td>Подписка на рецепты</td><td><span class="money">990 ₽/мес</span></td><td>1 июля</td><td>Автосписание</td><td><span class="pill ok">активна</span></td></tr>
+              <tr><td><span class="tc-name"><span class="tc-ava">Е</span>Елена П.</span></td><td>Диагностика</td><td><span class="money">10 000 ₽</span></td><td>счёт 2 июля</td><td>—</td><td><span class="pill wait">ждёт оплаты</span></td></tr>
+              <tr><td><span class="tc-name"><span class="tc-ava">И</span>Ирина Л.</span></td><td>Диагностика</td><td><span class="money">10 000 ₽</span></td><td>счёт 28 июня</td><td>—</td><td><span class="pill red">просрочен 3 дня</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card"><div class="card-d">Демо-суммы и способы оплаты — пример. В рабочей версии платежи планируются через платёжный сервис с хранением данных в РФ (152-ФЗ) и чеком по 54-ФЗ. Сейчас это не подключено.</div></div>
+    </div></div>
+
   </div>
 </div>
 
@@ -581,6 +701,14 @@ function openPost(){
     '<div class="ai-draft"><div class="ai-draft-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>Черновик текста · система, в вашем тоне <span class="pill terra" style="margin-left:auto">демо-пример</span></div><div class="ai-draft-tx">«Сезонные овощи июля — что положить в тарелку на этой неделе и почему это работает для энергии…»</div></div>'+
     '<div class="fld"><label>Текст поста (утвердите экспертную часть)</label><textarea class="modal-ta">Сезонные овощи июля — что положить в тарелку на этой неделе и почему это работает для энергии…</textarea></div>'+
     '<div class="fld"><label>Дата и время</label><input type="datetime-local" value="2026-07-03T09:00"></div>'+toolRowHTML,'Запланировать');
+}
+
+function openPay(who){
+  openModal('Выставить счёт',
+    '<div class="fld"><label>Клиент</label><select><option'+(who?'':' selected')+'>Выберите клиента</option><option'+(who==='Елена П.'?' selected':'')+'>Елена П.</option><option>Марина К.</option><option>Анна С.</option><option>Ирина Л.</option><option>Новый клиент</option></select></div>'+
+    '<div class="fld"><label>Продукт</label><select><option>Диагностика — 10 000 ₽</option><option>Коррекция 2 месяца — 45 000 ₽</option><option>Продвинутые (без сопр.) — 19 000 ₽</option><option>Подписка на рецепты — 990 ₽/мес</option></select></div>'+
+    '<div class="fld"><label>Способ</label><select><option>СБП (ссылка на оплату)</option><option>Карта</option><option>Счёт на реквизиты (B2B)</option></select></div>'+
+    '<div class="ai-draft"><div class="ai-draft-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>Как это будет работать <span class="pill terra" style="margin-left:auto">демо · пока не подключено</span></div><div class="ai-draft-tx">В рабочей версии клиенту уйдёт ссылка на оплату; после оплаты статус сменится сам, чек по 54-ФЗ сформируется, вам придёт уведомление.</div></div>','Отправить счёт');
 }
 
 /* Вложения / запись — демо */
