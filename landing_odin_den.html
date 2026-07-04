@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Наталья Визельберг — нутрициология с доказательствами</title>
+<!-- HERO-отступление от РЕГЛ_17: концепт «один день» — sticky-сцена 400vh (утв. Руслан 03.07 «как прототип берём v4») -->
+<!-- ВНУТРЕННИЙ ПРОТОТИП. Наталье не отправлять до тура принципов. Источники в секции метода = ЧЕРНОВИКИ, выверить перед публикацией. Слот Натальи = плейсхолдер до её согласия+фото. -->
+<!-- ЧЕК-ЛИСТ ПУБЛИКАЦИИ (критик a3af53de, 03.07): 1) шрифты self-host (Google Fonts = IP посетителя в Google, 152-ФЗ) 2) источники: журнал·год·ссылка·сила (мета-анализ/обзор/наблюдательное) 3) факты Натальи: диплом/часы/с какого года — от неё, проверяемые 4) выполнимость «первое наблюдение с источником из 2-мин анкеты» проверить ДО публикации 5) CTA href="#" оживить 6) фолд на 375px замерить §7a 7) юристу: титул «клинический нутрициолог» (нерегулируемая профессия) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sage:#7C9070; --forest:#2F4A3C; --cream:#F5EFE6; --terra:#E8A87C; --gold:#C9A24B; --deep:#22382D;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif; background:var(--cream); color:var(--forest)}
+.internal-badge{
+  position:fixed; top:10px; right:10px; z-index:99;
+  background:rgba(47,74,60,.85); color:#F5EFE6; font-size:10.5px; letter-spacing:.06em;
+  padding:5px 10px; border-radius:8px; opacity:.75;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px; width:100%}
+
+/* ══ HERO «Один день» ══ */
+.scene-outer{height:400vh; position:relative}
+.scene{position:sticky; top:0; height:100vh; overflow:hidden; display:flex}
+nav{
+  position:absolute; top:0; left:0; right:0; z-index:8;
+  display:flex; justify-content:space-between; align-items:center; padding:22px 120px 0;
+}
+.logo{font-family:'Prata',serif; font-size:20px}
+.logo .leaf{color:var(--sage)}
+.nav-note{font-size:12.5px; opacity:.7; font-weight:500}
+.left{
+  flex:1 1 52%; display:flex; flex-direction:column; justify-content:center;
+  padding:110px 40px 60px 120px; max-width:760px;
+}
+.clock{
+  font-family:'Prata',serif; font-size:clamp(52px,6.5vw,86px); line-height:1;
+  display:flex; align-items:baseline; gap:18px; margin-bottom:10px;
+}
+.clock .word{
+  font-family:'Manrope',sans-serif; font-size:14px; font-weight:600; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--terra);
+}
+.state{min-height:96px; margin-bottom:8px}
+.state p{
+  font-family:'Prata',serif; font-size:clamp(20px,2.3vw,28px); line-height:1.35; max-width:520px;
+  opacity:0; transform:translateY(8px); transition:opacity .5s, transform .5s; position:absolute;
+}
+.state p.on{opacity:1; transform:none; position:relative}
+h1{
+  font-family:'Prata',serif; font-weight:400; font-size:clamp(24px,2.6vw,33px); line-height:1.3;
+  margin:26px 0 12px; letter-spacing:-.01em;
+}
+h1 .accent{color:var(--sage); border-bottom:3px solid var(--gold)}
+.sub{font-size:clamp(14.5px,1.5vw,16.5px); line-height:1.65; opacity:.8; max-width:480px; margin-bottom:26px; font-weight:500}
+.cta-row{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
+.btn{
+  font-weight:700; font-size:16px; padding:16px 32px; border-radius:14px; border:none;
+  cursor:pointer; text-decoration:none; display:inline-block; transition:transform .18s, box-shadow .18s;
+  background:var(--forest); color:var(--cream);
+}
+.btn:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(34,56,45,.3)}
+.btn-ghost{background:transparent; color:var(--forest); border:1.5px solid rgba(47,74,60,.35); font-weight:600; font-size:14px; padding:12px 22px; border-radius:12px}
+.micro{font-size:12.5px; opacity:.55; margin-top:10px}
+.scroll-cue{font-size:13px; opacity:.65; display:flex; align-items:center; gap:8px; font-weight:500}
+.scroll-cue .arr{animation:bob 1.6s ease-in-out infinite; display:inline-block}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.curve-wrap{margin-top:30px; max-width:520px}
+.curve-wrap svg{width:100%; height:86px; overflow:visible}
+.curve-track{fill:none; stroke:rgba(47,74,60,.18); stroke-width:2.5}
+.curve-live{fill:none; stroke:var(--sage); stroke-width:3; stroke-linecap:round}
+.curve-dot{fill:var(--terra); stroke:var(--forest); stroke-width:2}
+.curve-times{display:flex; justify-content:space-between; font-size:11.5px; opacity:.5; font-weight:600; margin-top:4px}
+.right{flex:1 1 48%; position:relative; overflow:hidden}
+.right img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 20%;
+  opacity:0; transition:opacity .8s ease;
+}
+.right img.on{opacity:1}
+.right::after{
+  content:''; position:absolute; top:0; bottom:0; left:0; width:120px;
+  background:linear-gradient(90deg, var(--cream), rgba(245,239,230,0));
+}
+.photo-note{
+  position:absolute; right:14px; bottom:12px; z-index:3; font-size:10.5px; color:#fff;
+  background:rgba(34,56,45,.5); padding:3px 9px; border-radius:7px; letter-spacing:.03em;
+}
+
+/* ══ Секции ══ */
+section{padding:90px 0}
+.sec-label{font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--terra); margin-bottom:14px}
+h2{font-family:'Prata',serif; font-weight:400; font-size:clamp(26px,3.2vw,40px); line-height:1.2; margin-bottom:18px}
+.lead{font-size:clamp(15px,1.6vw,18px); line-height:1.7; opacity:.85; max-width:640px; font-weight:500}
+
+/* метод: 3 шага + источники */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:46px}
+.step{
+  background:#fff; border:1px solid rgba(124,144,112,.25); border-radius:18px; padding:30px 26px;
+  display:flex; flex-direction:column;
+}
+.step .num{font-family:'Prata',serif; font-size:15px; color:var(--gold); margin-bottom:12px}
+.step h3{font-family:'Prata',serif; font-weight:400; font-size:21px; line-height:1.3; margin-bottom:10px}
+.step p{font-size:14.5px; line-height:1.65; opacity:.8; flex:1}
+.src{
+  margin-top:16px; display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  opacity:.65; cursor:pointer; user-select:none; border:none; background:none; font-family:inherit; text-align:left;
+}
+.src .arr{color:var(--terra); font-size:14px}
+.src:hover{opacity:1}
+.src-body{max-height:0; overflow:hidden; transition:max-height .4s, opacity .4s; opacity:0; font-size:12.5px; line-height:1.55}
+.src-body.open{max-height:150px; opacity:.8; margin-top:10px}
+.src-body .draft{
+  display:inline-block; font-size:10px; letter-spacing:.05em; color:var(--gold);
+  border:1px solid rgba(201,162,75,.5); border-radius:6px; padding:1px 6px; margin-top:6px;
+}
+
+/* интерлюдия-прилив */
+.tide{
+  position:relative; min-height:64vh; display:flex; align-items:center; overflow:hidden; padding:0;
+}
+.tide img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 62%}
+.tide .veil{position:absolute; inset:0; background:linear-gradient(100deg, rgba(34,56,45,.62) 0%, rgba(34,56,45,.28) 45%, rgba(34,56,45,.05) 75%)}
+.tide .wrap{position:relative; z-index:2; color:var(--cream)}
+.tide h2{color:var(--cream)}
+.tide .lead{opacity:.92; color:var(--cream)}
+.tide-marks{margin-top:26px; display:flex; flex-direction:column; gap:10px}
+.tide-marks span{font-family:'Prata',serif; font-size:clamp(15px,1.7vw,19px); opacity:.9}
+.tide-marks span::before{content:'— '; color:var(--gold)}
+
+/* Наталья слот */
+.natalia{display:grid; grid-template-columns:340px 1fr; gap:56px; align-items:center}
+.n-photo{
+  aspect-ratio:3/4; border-radius:20px; background:linear-gradient(160deg, rgba(124,144,112,.25), rgba(47,74,60,.35));
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  border:1.5px dashed rgba(47,74,60,.35); color:var(--forest); font-size:13px; line-height:1.6; padding:20px;
+}
+.natalia h2 .accent{color:var(--sage)}
+.n-facts{margin-top:22px; display:flex; flex-direction:column; gap:12px}
+.n-facts div{display:flex; gap:12px; font-size:14.5px; line-height:1.55}
+.n-facts div::before{content:'❧'; color:var(--sage); flex:0 0 auto}
+
+/* мост в кабинет */
+.bridge{background:var(--deep); color:var(--cream)}
+.bridge h2{color:var(--cream)}
+.bridge .lead{color:var(--cream); opacity:.85}
+.bridge-flow{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:34px 0 8px; font-size:14px; font-weight:600}
+.bridge-flow .b-step{background:rgba(245,239,230,.1); border:1px solid rgba(245,239,230,.25); border-radius:12px; padding:12px 18px}
+.bridge-flow .b-arr{opacity:.5}
+.bridge .btn{background:var(--cream); color:var(--forest); margin-top:22px}
+.bridge .micro{color:var(--cream); opacity:.6}
+
+/* футер */
+footer{padding:44px 0 60px; border-top:1px solid rgba(124,144,112,.3)}
+footer .cols{display:flex; justify-content:space-between; gap:30px; flex-wrap:wrap}
+footer .disc{font-size:12.5px; line-height:1.7; opacity:.65; max-width:640px}
+footer .logo{font-size:17px}
+
+@media(max-width:900px){
+  .scene{flex-direction:column}
+  nav{padding:16px 24px 0}
+  .nav-note{display:none}
+  .right{order:-1; flex:0 0 44vh}
+  .right::after{left:auto; right:0; top:auto; bottom:-1px; width:100%; height:90px;
+    background:linear-gradient(180deg, rgba(245,239,230,0), var(--cream))}
+  .left{padding:10px 24px 40px; flex:1}
+  .clock{font-size:44px}
+  .state{min-height:120px}
+  .btn{width:100%; text-align:center}
+  .steps{grid-template-columns:1fr}
+  .natalia{grid-template-columns:1fr; gap:26px}
+  .n-photo{max-width:300px}
+  section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+<div class="internal-badge">внутренний прототип · черновик</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="scene-outer" id="sceneOuter">
+  <div class="scene">
+    <nav>
+      <div class="logo">vizelberg <span class="leaf">❧</span></div>
+      <div class="nav-note">клиническая нутрициология · подход с доказательствами</div>
+    </nav>
+    <div class="left">
+      <div class="clock"><span id="clockTime">7:00</span><span class="word" id="clockWord">подъём</span></div>
+      <div class="state" id="state">
+        <p data-i="0" class="on">Подъём — как всплытие с глубины. Кофе вместо завтрака, и день уже должен ехать.</p>
+        <p data-i="1">К одиннадцати — вроде всё нормально. Это «вроде» и обманывает: разгон часто держится на кофеине, не на ресурсе.</p>
+        <p data-i="2">Яма. Ты называешь это ленью и коришь себя. Чаще всего это не лень — это кончилось топливо.</p>
+        <p data-i="3">Второе дыхание — ровно тогда, когда пора спать. А завтра всё сначала.</p>
+      </div>
+      <div class="curve-wrap">
+        <svg viewBox="0 0 520 86">
+          <path id="track" class="curve-track" d="M10,30 C70,18 110,26 150,24 C200,22 230,34 270,58 C310,74 330,72 370,60 C420,46 460,26 510,20"/>
+          <path id="live" class="curve-live" d=""/>
+          <circle id="dot" class="curve-dot" r="6" cx="10" cy="30"/>
+        </svg>
+        <div class="curve-times"><span>7:00</span><span>11:00</span><span>15:30</span><span>22:30</span></div>
+      </div>
+      <h1>Узнаёшь этот день? <span class="accent">Его можно разомкнуть.</span></h1>
+      <p class="sub">Без запретов, детоксов и силы воли. Сначала понять, на чём именно едет твой день, — потом менять по одной опоре за раз.</p>
+      <div class="cta-row">
+        <a class="btn" href="#bridge">Разобрать мой день →</a>
+        <span class="scroll-cue"><span class="arr">↓</span> листай — день пройдёт с утра до ночи</span>
+      </div>
+      <p class="micro">2 минуты · без БАДов и запретов · первое наблюдение — бесплатно</p>
+    </div>
+    <div class="right" id="photos">
+      <img src="assets/day_07_900.jpg" alt="" class="on">
+      <img src="assets/day_11_900.jpg" alt="">
+      <img src="assets/day_15_900.jpg" alt="">
+      <img src="assets/day_22_900.jpg" alt="">
+      <div class="photo-note">героиня — собирательный образ</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ МЕТОД ═══════════ -->
+<section id="method">
+  <div class="wrap">
+    <div class="sec-label">как это работает</div>
+    <h2>Три шага. Каждый вывод — с источником.</h2>
+    <p class="lead">Я не прошу верить на слово — ни мне, ни «марафонам стройности». Каждый шаг опирается на исследования и нормы, и ты видишь, на что именно.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Смотрим на твой день как есть</h3>
+        <p>Сон, еда, свет, кофе, движение — без дневников на месяц и чувства вины. Достаточно честной картины одной недели.</p>
+        <button class="src" onclick="toggleSrc(this)"><span class="arr">↳</span> почему так</button>
+        <div class="src-body">Пищевые дневники «на глаз» систематически недооценивают рацион — короткое структурированное наблюдение информативнее месяца самобичевания.<br><span class="draft">черновик · формат публикации: издание · год · ссылка · сила (мета-анализ/обзор/наблюдательное)</span></div>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Находим, на чём он едет</h3>
+        <p>Утренний кофеиновый разгон, яма после обеда, «второе дыхание» к ночи — у каждого паттерна есть причина в топливе и ритме, а не в характере.</p>
+        <button class="src" onclick="toggleSrc(this)"><span class="arr">↳</span> почему так</button>
+        <div class="src-body">Послеобеденный спад бодрости — документированный циркадный феномен; его глубина зависит от сна, состава еды и времени кофеина.<br><span class="draft">черновик · выверить источник</span></div>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Меняем по одной опоре за раз</h3>
+        <p>Не «новая жизнь с понедельника», а одна перемена — измеряем эффект, закрепляем, идём дальше. Так изменения переживают месяц и год.</p>
+        <button class="src" onclick="toggleSrc(this)"><span class="arr">↳</span> почему так</button>
+        <div class="src-body">Постепенные малые изменения удерживаются заметно лучше радикальных перестроек — это база поведенческих вмешательств.<br><span class="draft">черновик · выверить источник</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ИНТЕРЛЮДИЯ-ПРИЛИВ ═══════════ -->
+<section class="tide">
+  <img src="assets/tide_b_1920.jpg" alt="">
+  <div class="veil"></div>
+  <div class="wrap">
+    <div class="sec-label" style="color:var(--gold)">над чем работаем</div>
+    <h2>Энергия не кончилась.<br>Она просто отступила — как отлив.</h2>
+    <p class="lead">Я не обещаю прилив к дате. Это направления, над которыми работаем — по одной метке за раз, с честным замером «стало/не стало»:</p>
+    <div class="tide-marks">
+      <span>утро без будильника</span>
+      <span>ясная голова к вечеру</span>
+      <span>сон, который восстанавливает</span>
+      <span>еда без чувства вины</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ НАТАЛЬЯ ═══════════ -->
+<section id="natalia">
+  <div class="wrap natalia">
+    <div class="n-photo">[ слот: фото Натальи<br>после её согласия<br>и фотосессии ]</div>
+    <div>
+      <div class="sec-label">кто ведёт</div>
+      <h2>Наталья Визельберг — <span class="accent">не врач, и честно об этом.</span></h2>
+      <p class="lead">Клинический нутрициолог. Работаю с питанием, ритмом и образом жизни — не с диагнозами и лечением. Там, где нужна медицина, говорю прямо: «это к врачу».</p>
+      <div class="n-facts">
+        <div>[ слот: проверяемые факты — образование/программа, часы практики, с какого года. Дать от Натальи, не сочинять ]</div>
+        <div>Каждая рекомендация приходит с объяснением «почему» и источником. Где доказательств нет — говорю «здесь наука пока не уверена».</div>
+        <div>Восточные практики ритма и самонаблюдения — как дополнение, честно отделённое от доказательной части.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ МОСТ В КАБИНЕТ ═══════════ -->
+<section class="bridge" id="bridge">
+  <div class="wrap">
+    <div class="sec-label" style="color:var(--terra)">проверь на себе</div>
+    <h2>Первое наблюдение — бесплатно, за 2 минуты.</h2>
+    <p class="lead">Ответь на несколько вопросов о своём дне — получишь одно честное наблюдение о своём ритме: не диагноз, а точку, с которой начинается разбор.</p>
+    <div class="bridge-flow">
+      <span class="b-step">2 минуты вопросов</span><span class="b-arr">→</span>
+      <span class="b-step">твоё первое наблюдение</span><span class="b-arr">→</span>
+      <span class="b-step">личный кабинет с разбором</span>
+    </div>
+    <a class="btn" href="#">Разобрать мой день →</a>
+    <p class="micro">без карты · для кабинета понадобится только email · ответы анкеты не передаём третьим лицам</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <div class="logo">vizelberg <span class="leaf">❧</span></div>
+    </div>
+    <p class="disc">Сервис носит информационный характер и не является медицинской услугой, диагностикой или лечением. Героиня первого экрана — собирательный образ, не реальная клиентка. Каждое утверждение о питании и ритме сопровождается источником; если источника нет — мы так и пишем.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const outer=document.getElementById('sceneOuter');
+  const imgs=[...document.querySelectorAll('#photos img')];
+  const stateP=[...document.querySelectorAll('#state p')];
+  const clockTime=document.getElementById('clockTime');
+  const clockWord=document.getElementById('clockWord');
+  const track=document.getElementById('track');
+  const live=document.getElementById('live');
+  const dot=document.getElementById('dot');
+  const STAGES=[
+    {t:'7:00', w:'подъём'},
+    {t:'11:00', w:'разгон'},
+    {t:'15:30', w:'яма'},
+    {t:'22:30', w:'не время, но бодрая'}
+  ];
+  const L=track.getTotalLength();
+  live.setAttribute('d', track.getAttribute('d'));
+  live.style.strokeDasharray=L;
+  const forced=new URLSearchParams(location.search).get('p');
+  function apply(p){
+    const idx=Math.min(3, Math.floor(p*4));
+    imgs.forEach((im,k)=>im.classList.toggle('on',k===idx));
+    stateP.forEach((el,k)=>el.classList.toggle('on',k===idx));
+    clockTime.textContent=STAGES[idx].t;
+    clockWord.textContent=STAGES[idx].w;
+    const q=Math.max(0.02,Math.min(1,p));
+    live.style.strokeDashoffset=L*(1-q);
+    const pt=track.getPointAtLength(L*q);
+    dot.setAttribute('cx',pt.x); dot.setAttribute('cy',pt.y);
+  }
+  function onScroll(){
+    if(forced!==null){apply(parseFloat(forced));return;}
+    const r=outer.getBoundingClientRect();
+    const total=r.height-window.innerHeight;
+    const p=Math.max(0,Math.min(1,-r.top/total));
+    apply(p);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+  // debug: ?scroll=0..1 — прямой прыжок по странице для скриншотов
+  const sc=new URLSearchParams(location.search).get('scroll');
+  if(sc!==null){ setTimeout(()=>{ document.documentElement.style.scrollBehavior='auto';
+    window.scrollTo(0, parseFloat(sc)*(document.body.scrollHeight-window.innerHeight)); },120); }
+})();
+function toggleSrc(btn){ btn.nextElementSibling.classList.toggle('open'); }
+</script>
+</body>
+</html>
