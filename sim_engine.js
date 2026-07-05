@@ -4,17 +4,20 @@
             title:'заголовок', text:'подпись', run:function(){} } */
 (function(){
 var css = ''+
-'.sim-launch{position:fixed;bottom:52px;right:18px;z-index:900;background:#2F4A3C;color:#fff;border:none;border-radius:100px;padding:13px 22px;font:600 13.5px/1 "Segoe UI",system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 26px rgba(30,40,32,.35);display:flex;align-items:center;gap:9px}'+
+'.sim-launch{position:fixed;bottom:118px;right:18px;z-index:900;background:#2F4A3C;color:#fff;border:none;border-radius:100px;padding:13px 22px;font:600 13.5px/1 "Segoe UI",system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 26px rgba(30,40,32,.35);display:flex;align-items:center;gap:9px}'+
 '.sim-launch:hover{background:#243B30}'+
 '.sim-launch .gold{color:#C9A24B}'+
 '.sim-spot{position:fixed;z-index:998;pointer-events:none;border-radius:14px;box-shadow:0 0 0 9999px rgba(24,34,27,.62), 0 0 0 3px rgba(201,162,75,.9);transition:all .38s cubic-bezier(.4,.1,.2,1)}'+
 '.sim-dim{position:fixed;inset:0;z-index:998;background:rgba(24,34,27,.62);pointer-events:none}'+
 '.sim-card{position:fixed;z-index:1001;width:min(430px,calc(100vw - 28px));background:#fff;border-radius:16px;box-shadow:0 22px 60px rgba(20,30,24,.4);font-family:"Segoe UI",system-ui,sans-serif;overflow:hidden;transition:top .38s cubic-bezier(.4,.1,.2,1), left .38s cubic-bezier(.4,.1,.2,1)}'+
-'.sim-card-hd{padding:13px 18px 0;display:flex;align-items:center;gap:9px}'+
+'.sim-card-hd{padding:13px 18px 0;display:flex;align-items:center;gap:9px;flex-wrap:wrap}'+
 '.sim-step{font-size:10.5px;font-weight:800;letter-spacing:.05em;color:#7C9070;text-transform:uppercase}'+
 '.sim-x{margin-left:auto;width:26px;height:26px;border:none;background:#F5EFE6;border-radius:7px;cursor:pointer;color:#8A8578;font-size:14px;line-height:1}'+
 '.sim-title{font-family:Georgia,serif;font-size:16.5px;font-weight:700;color:#2F4A3C;padding:7px 18px 0}'+
 '.sim-text{font-size:13px;line-height:1.6;color:#2B2B26;padding:6px 18px 0}'+
+'.sim-chap{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#C9A24B;background:rgba(201,162,75,.13);border-radius:100px;padding:3px 10px}'+
+'.sim-hook{display:flex;gap:8px;align-items:flex-start;margin:10px 18px 0;background:rgba(201,162,75,.1);border-left:3px solid #C9A24B;border-radius:0 9px 9px 0;padding:8px 12px;font-size:12px;line-height:1.5;color:#6E5A22}'+
+'.sim-hook b{color:#9A7A2E;font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;padding-top:1px}'+
 '.sim-ft{display:flex;align-items:center;gap:10px;padding:14px 18px 15px}'+
 '.sim-prog{flex:1;height:4px;background:#EDE7DA;border-radius:2px;overflow:hidden}'+
 '.sim-prog i{display:block;height:100%;background:linear-gradient(90deg,#7C9070,#C9A24B);border-radius:2px;transition:width .3s}'+
@@ -128,7 +131,8 @@ function show(){
 }
 
 function anchor(sel){
-  var t=document.querySelector(sel);
+  if(typeof sel==='function'){ try{sel=sel();}catch(e){sel=null;} }
+  var t=sel?document.querySelector(sel):null;
   if(!t){ S.target=null; clearSpot(); placeCard(null); return; }
   S.target=t;
   try{ t.scrollIntoView({block:'center',behavior:'auto'}); }catch(e){}
@@ -165,9 +169,10 @@ function renderCard(sc){
   var last=(S.i===total-1);
   var nextLabel = last ? (window.SIM_NEXT?window.SIM_NEXT.label:'Завершить') : 'Дальше →';
   S.card.innerHTML=
-    '<div class="sim-card-hd"><span class="sim-step">'+(window.SIM_ACT||'Симуляция')+' · сцена '+n+' из '+total+'</span><button class="sim-x" title="Выйти">✕</button></div>'+
+    '<div class="sim-card-hd"><span class="sim-step">'+(window.SIM_ACT||'Симуляция')+' · шаг '+n+' из '+total+'</span>'+(sc.chap?'<span class="sim-chap">'+sc.chap+'</span>':'')+'<button class="sim-x" title="Выйти">✕</button></div>'+
     (sc.title?'<div class="sim-title">'+sc.title+'</div>':'')+
     '<div class="sim-text">'+sc.text+'</div>'+
+    (sc.hook?'<div class="sim-hook"><b>'+(window.SIM_HOOK_LABEL||'Крючок')+'</b><span>'+sc.hook+'</span></div>':'')+
     '<div class="sim-ft"><button class="sim-btn sim-back"'+(S.i===0?' style="visibility:hidden"':'')+'>← Назад</button><div class="sim-prog"><i style="width:'+Math.round(n/total*100)+'%"></i></div><button class="sim-btn sim-next">'+nextLabel+'</button></div>';
   S.card.querySelector('.sim-x').onclick=stop;
   S.card.querySelector('.sim-back').onclick=back;

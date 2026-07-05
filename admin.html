@@ -131,6 +131,15 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .mrow:last-child{border-bottom:none}
 .mrow b{color:var(--herbal)}
 
+/* Идея · эскиз (кандидаты из мониторинга рынка — НЕ рабочий прототип) */
+.card.idea{border:1.5px dashed var(--gold);background:repeating-linear-gradient(135deg,rgba(201,162,75,.045),rgba(201,162,75,.045) 10px,transparent 10px,transparent 22px),var(--white)}
+.idea-tag{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#9A7A2E;background:rgba(201,162,75,.16);border-radius:100px;padding:3px 11px;margin-bottom:8px}
+.idea-tag::before{content:'✦'}
+.mark-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+.mark-row:last-child{border-bottom:none}
+.mark-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.mark-row b{margin-left:auto;font-weight:600}
+
 /* Контент-календарь */
 .cc-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px}
 .ccd{border:1px solid var(--border);border-radius:9px;background:var(--white);min-height:82px;padding:6px 7px;font-size:11px}
@@ -234,6 +243,25 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .money{font-family:Georgia;font-weight:700;color:var(--herbal)}
 
 .demo-tag{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:var(--herbal);color:#fff;font-size:11px;padding:6px 14px;border-radius:100px;z-index:30;opacity:.9}
+
+/* AI-ассистент Натальи — идея·эскиз (трек G): плавающая кнопка + панель */
+.ai-fab{position:fixed;bottom:52px;right:18px;z-index:900;background:var(--white);color:var(--herbal);border:1.5px dashed var(--gold);border-radius:100px;padding:12px 20px;font:600 13px 'Segoe UI',system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 26px rgba(30,40,32,.18);display:flex;align-items:center;gap:8px;animation:aiPulse 2.4s infinite}
+.ai-fab:hover{background:var(--subtle);animation-play-state:paused}
+.ai-fab .st{color:var(--gold);animation:aiTwinkle 2.4s infinite}
+@keyframes aiPulse{0%{box-shadow:0 8px 26px rgba(30,40,32,.18),0 0 0 0 rgba(201,162,75,.45)}70%{box-shadow:0 8px 26px rgba(30,40,32,.18),0 0 0 14px rgba(201,162,75,0)}100%{box-shadow:0 8px 26px rgba(30,40,32,.18),0 0 0 0 rgba(201,162,75,0)}}
+@keyframes aiTwinkle{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.25) rotate(20deg);opacity:.75}}
+.ai-panel{position:fixed;bottom:104px;right:18px;z-index:901;width:min(380px,calc(100vw - 36px));background:var(--white);border:1.5px dashed var(--gold);border-radius:16px;box-shadow:0 22px 60px rgba(20,30,24,.3);display:none;flex-direction:column;overflow:hidden}
+.ai-panel.show{display:flex}
+.ai-hd{padding:13px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.ai-hd b{font-family:Georgia,serif;font-size:14.5px;color:var(--herbal)}
+.ai-hd .idea-tag{margin:0 0 0 auto}
+.ai-chat{padding:14px 16px;display:flex;flex-direction:column;gap:9px;max-height:46vh;overflow-y:auto}
+.ai-msg{font-size:12.5px;line-height:1.55;border-radius:12px;padding:9px 13px;max-width:88%}
+.ai-msg.me{align-self:flex-end;background:var(--herbal);color:#fff;border-bottom-right-radius:4px}
+.ai-msg.bot{align-self:flex-start;background:var(--subtle);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px}
+.ai-msg.bot .src{display:block;margin-top:5px;font-size:10.5px;color:#5C7050;font-weight:600}
+.ai-note{font-size:11px;color:var(--muted);line-height:1.5;padding:10px 16px;border-top:1px solid var(--border);background:var(--subtle)}
+@media(max-width:560px){.ai-fab{padding:12px 14px}.ai-fab .lb{display:none}}
 </style>
 </head>
 <body>
@@ -288,7 +316,7 @@ table.tbl tbody tr:hover{background:var(--subtle)}
       </div>
       <div class="si" id="si5" onclick="go(5)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-        <div><div class="si-name">Контент-план</div><div class="si-sub">TG · Reels · Shorts</div></div>
+        <div><div class="si-name">Контент-план</div><div class="si-sub">TG · VK Клипы · Shorts</div></div>
       </div>
       <div class="sb-cap">Деньги</div>
       <div class="si" id="si6" onclick="go(6)">
@@ -332,6 +360,11 @@ table.tbl tbody tr:hover{background:var(--subtle)}
         <div class="card-h">Ваши задачи на сегодня</div>
         <div class="q-item"><div class="q-ava" style="background:var(--gold);color:var(--herbal)">✎</div><div class="q-body"><div class="q-name">Собрать пост для канала (вторник)</div><div class="q-meta"><span>черновик готов системой — осталось утвердить экспертную часть</span></div><div class="q-act"><button class="btn btn-o btn-sm" onclick="go(5)">К контент-плану</button></div></div></div>
         <div class="q-item"><div class="q-ava" style="background:var(--sage)">Ф</div><div class="q-body"><div class="q-name">Проверить контрольные анализы — Фёдор Р.</div><div class="q-meta"><span>загрузил вчера, неделя 8, сравнить «до / после»</span></div></div></div>
+      </div>
+      <div class="card idea">
+        <span class="idea-tag">Идея · эскиз, не в прототипе</span>
+        <div class="card-h">Ассистент-эксперт — спросите словами</div>
+        <div class="card-d">«Что изменилось у Марины за две недели?» · «Собери черновик поста из гайда по магнию» — ассистент отвечает по данным кабинета и вашим материалам, черновики кладёт на вашу правку. Решение и подпись — всегда ваши. Кнопка <b>✦ Ассистент</b> — справа внизу, это эскиз.</div>
       </div>
     </div></div>
 
@@ -441,6 +474,15 @@ table.tbl tbody tr:hover{background:var(--subtle)}
               <div class="mrow"><span>Анализы</span><b>2 файла</b></div>
               <div class="mrow"><span>Задания</span><b>1 активное</b></div>
             </div>
+            <div class="card idea">
+              <span class="idea-tag">Идея · эскиз, не в прототипе</span>
+              <div class="card-h">Анализы из бланка — в таблицу</div>
+              <div class="card-d" style="margin-bottom:8px">Система переносит показатели из PDF или фото бланка в аккуратную таблицу — не нужно перепечатывать вручную. Только цифры, рядом с прошлыми замерами.</div>
+              <div class="mark-row">Витамин D <b>42 нг/мл</b></div>
+              <div class="mark-row">Ферритин <b>18 нг/мл</b></div>
+              <div class="mark-row">Витамин B12 <b>305 пг/мл</b></div>
+              <div class="card-d" style="margin-top:8px;font-size:11.5px">Система не оценивает анализы — только собирает цифры в одно место. Клиническая трактовка анализов — область врача; вы работаете с питанием и образом жизни.</div>
+            </div>
             <div class="card">
               <div class="card-h">Действия</div>
               <button class="btn btn-p" style="width:100%;justify-content:center" onclick="openReview('Марина К.')">Разобрать неделю</button>
@@ -504,10 +546,10 @@ table.tbl tbody tr:hover{background:var(--subtle)}
         </div>
         <div class="cc-cal-grid">
           <div class="ccd"><div class="ccd-n">Пн 30</div><div class="post tg" onclick="openPost()">TG · Разбор тарелки</div></div>
-          <div class="ccd"><div class="ccd-n">Вт 1</div><div class="post tg" onclick="openPost()">TG · Магний и сон</div><div class="post reels" onclick="openPost()">Reels · 3 ужина</div></div>
+          <div class="ccd"><div class="ccd-n">Вт 1</div><div class="post tg" onclick="openPost()">TG · Магний и сон</div><div class="post reels" onclick="openPost()">Клипы · 3 ужина</div></div>
           <div class="ccd"><div class="ccd-n">Ср 2</div><div class="post draft" onclick="openPost()">черновик…</div></div>
           <div class="ccd"><div class="ccd-n">Чт 3</div><div class="post tg" onclick="openPost()">TG · Сезонные овощи</div></div>
-          <div class="ccd today"><div class="ccd-n">Пт 4</div><div class="post reels" onclick="openPost()">Reels · этикетки</div></div>
+          <div class="ccd today"><div class="ccd-n">Пт 4</div><div class="post reels" onclick="openPost()">Клипы · этикетки</div></div>
           <div class="ccd"><div class="ccd-n">Сб 5</div></div>
           <div class="ccd"><div class="ccd-n">Вс 6</div><div class="post tg" onclick="openPost()">TG · Итоги недели</div></div>
         </div>
@@ -516,7 +558,7 @@ table.tbl tbody tr:hover{background:var(--subtle)}
         <div class="card-h">На этой неделе</div>
         <div class="mrow"><span>Запланировано публикаций</span><b>5</b></div>
         <div class="mrow"><span>Черновиков ждут вас</span><b>1</b></div>
-        <div class="mrow"><span>Reels / Shorts</span><b>2</b></div>
+        <div class="mrow"><span>VK Клипы / Shorts</span><b>2</b></div>
       </div>
     </div></div>
 
@@ -543,7 +585,7 @@ table.tbl tbody tr:hover{background:var(--subtle)}
         <div class="kb-col">
           <div class="kb-h"><span>Опубликовано</span><span>2</span></div>
           <div class="kb-card"><div class="kb-card-t">Разбор тарелки</div><div class="kb-card-m"><span class="kb-who">TG · 30 июня</span><span>1.2к</span></div></div>
-          <div class="kb-card"><div class="kb-card-t">3 лёгких ужина</div><div class="kb-card-m"><span class="kb-who">Reels · 1 июля</span><span>4.8к</span></div></div>
+          <div class="kb-card"><div class="kb-card-t">3 лёгких ужина</div><div class="kb-card-m"><span class="kb-who">VK Клипы · 1 июля</span><span>4.8к</span></div></div>
         </div>
       </div>
       <button class="btn btn-p" onclick="openPost()">+ Новая идея</button>
@@ -642,6 +684,19 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 
 <div class="demo-tag">Демо · тестовые данные, не реальные клиенты</div>
 
+<!-- AI-ассистент Натальи — идея·эскиз (трек G, мониторинг рынка 04.07). НЕ в рабочем прототипе -->
+<button class="ai-fab" onclick="document.getElementById('aiPanel').classList.toggle('show')"><span class="st">✦</span><span class="lb">Ассистент</span></button>
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-hd"><span style="color:var(--gold)">✦</span><b>Ассистент-эксперт</b><span class="idea-tag">Идея · эскиз</span></div>
+  <div class="ai-chat">
+    <div class="ai-msg me">Что изменилось у Марины за две недели?</div>
+    <div class="ai-msg bot">Приём 82%, сон лучше по её отметкам, два сигнала ЖКТ после старта цинка. Открыть карточку?<span class="src">из данных кабинета</span></div>
+    <div class="ai-msg me">Собери черновик поста из моего гайда по магнию</div>
+    <div class="ai-msg bot">Готово: черновик «Магний и сон» в Фабрике контента — ваш тон, ссылка на источник. Ждёт вашей правки.<span class="src">ваш гайд + научный слой</span></div>
+  </div>
+  <div class="ai-note">Эскиз, не в прототипе. Ассистент уровня эксперта: клиенты, программа, корпус, фабрика контента. Отвечает по вашим материалам и данным кабинета; решение и подпись — всегда ваши.</div>
+</div>
+
 <script>
 function go(n){
   document.querySelectorAll('.si').forEach(function(el){el.classList.remove('active')});
@@ -697,7 +752,7 @@ function openReview(who){
 }
 function openPost(){
   openModal('Публикация',
-    '<div class="fld"><label>Канал</label><select><option>Telegram</option><option>Instagram Reels</option><option>YouTube Shorts</option></select></div>'+
+    '<div class="fld"><label>Канал</label><select><option>Telegram</option><option>VK Клипы</option><option>YouTube Shorts</option></select></div>'+
     '<div class="ai-draft"><div class="ai-draft-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>Черновик текста · система, в вашем тоне <span class="pill terra" style="margin-left:auto">демо-пример</span></div><div class="ai-draft-tx">«Сезонные овощи июля — что положить в тарелку на этой неделе и почему это работает для энергии…»</div></div>'+
     '<div class="fld"><label>Текст поста (утвердите экспертную часть)</label><textarea class="modal-ta">Сезонные овощи июля — что положить в тарелку на этой неделе и почему это работает для энергии…</textarea></div>'+
     '<div class="fld"><label>Дата и время</label><input type="datetime-local" value="2026-07-03T09:00"></div>'+toolRowHTML,'Запланировать');
@@ -742,46 +797,68 @@ window.addEventListener('resize',syncBell); syncBell();
 
 <script>
 /* ===== Флэш-симуляция · Акт II — глазами Натальи ===== */
-window.SIM_ACT='Глазами Натальи';
-window.SIM_LAUNCH_LABEL='Как это работает — глазами Натальи';
+window.SIM_ACT='День Натальи';
+window.SIM_HOOK_LABEL='Почему это просто';
+window.SIM_LAUNCH_LABEL='День Натальи — по шагам';
 window.simCleanup=function(){ if(typeof closeModal==='function') closeModal(); var o=document.getElementById('ovl'); if(o) o.style.zIndex=''; };
 window.SIM_SCENES=[
- {view:0, sel:'.kpis',
-  title:'Ваше утро — один экран', text:'Не сорок переписок, а пульт: 3 отчёта на разбор, 2 вопроса, 7 активных клиентов, 5 постов в плане. Всё, что требует вас, — уже собрано.'},
- {view:0, sel:'#sv0 .q-note.flag',
-  title:'Ранний сигнал', text:'Система заметила: у Марины два дня «тяжесть после еды» после старта цинка. Это совпадение по времени, не вывод — но оно поднято наверх, чтобы вы взглянули сегодня, а не через неделю.'},
- {view:2, sel:'#clientsList tbody tr:nth-child(5)',
-  title:'Заявка → готовая карточка', text:'Новый человек с лендинга появляется в списке сам: Ирина Л. пришла на диагностику — анкета и анализы уже в карточке. Ничего не пересылали по мессенджерам и не собирали по папкам.'},
- {html:'<div class="simd-tag">Разметка анализов · демо-пример</div><div class="simd-h">Система разметила — ваш глаз главный</div><table class="simd-tbl"><tr><th>Показатель</th><th>Значение</th><th>Разметка системы</th></tr><tr><td>Ферритин</td><td>16 нг/мл</td><td><span class="simd-dot" style="background:#C9A24B"></span>на нижней границе</td></tr><tr><td>Витамин D</td><td>21 нг/мл</td><td><span class="simd-dot" style="background:#C0584F"></span>ниже референса</td></tr><tr><td>ТТГ</td><td>2.1 мЕд/л</td><td><span class="simd-dot" style="background:#7C9070"></span>в референсе</td></tr><tr><td>Глюкоза</td><td>5.3 ммоль/л</td><td><span class="simd-dot" style="background:#7C9070"></span>в референсе</td></tr></table><div class="simd-note">Это разметка «что где относительно референса», не заключение. Интерпретация и решение — ваши. Демо-цифры.</div>',
-  title:'Анализы уже размечены', text:'Вы открываете карточку — и не тратите первые 20 минут на «где тут что». Система подчеркнула, вы решаете.'},
- {html:'<div class="simd-tag">Конструктор программы · демо-пример</div><div class="simd-h">Программа — из ВАШИХ протоколов</div><div class="simd-row"><div class="simd-ic">🧩</div><div><b>Ваш протокол «Энергия и ритм питания»</b> — система подставила под профиль Ирины <span class="simd-pill ok">ваша методика</span></div></div><div class="simd-row"><div class="simd-ic">🥗</div><div><b>Рецепты из вашего сборника</b> — лёгкие ужины, завтраки без быстрых углеводов</div></div><div class="simd-row"><div class="simd-ic">🔬</div><div><b>Научная подсказка:</b> магний вечером и гигиена сна — у каждой подсказки ссылка на источник, можно открыть и проверить <span class="simd-pill">справочно, решение ваше</span></div></div><div class="simd-note">Система не заменяет вашу методологию чужими схемами — она подаёт вашу. Подсказки информационные, без диагнозов и назначений.</div>',
-  title:'Сборка за минуты, не за вечер', text:'Вы собираете программу из своих наработок — система подставляет их под профиль клиента и кладёт рядом научный слой с источниками.'},
- {html:'<div class="simd-tag">Утверждение</div><div class="simd-h">Ваша подпись — и программа уехала</div><div class="simd-row"><div class="simd-ic">✅</div><div>Этапы, схема приёма, рецепты — одним нажатием уходят в кабинет Ирины.</div></div><div class="simd-btnrow"><span class="simd-btn">Отправить клиенту →</span></div><div class="simd-note">То, что раньше было вечером работы в мессенджере и PDF-файлами, — теперь один экран и одна кнопка. Ничего не уходит клиенту без вашего утверждения.</div>',
-  title:'Решение всегда за вами', text:'Система готовит — вы подписываете. Это правило всей машины, оно нигде не нарушается.'},
- {view:1, sel:'#sv1 .card', run:function(){ if(typeof closeModal==='function') closeModal(); },
-  title:'Воскресный разбор — одна очередь', text:'Все отчёты недели в одном месте, отсортированы: где сигналы — те сверху. Не «листать 7 переписок», а пройти очередь сверху вниз.'},
- {view:1, sel:'#sv1 .q-item:first-child', run:function(){ if(typeof closeModal==='function') closeModal(); document.getElementById('ovl').style.zIndex=''; },
-  title:'Сводка + черновик по каждому', text:'Приём 82%, дневник 6/7, сигнал по ЖКТ — и черновик корректировки на вашем языке, из ваших методик. Осталось поправить и утвердить.'},
- {view:1, sel:'.modal', run:function(){ if(typeof openReview==='function') openReview('Марина К.'); document.getElementById('ovl').style.zIndex='1000'; /* модалка поверх sim-затемнения — черновик должен быть читаем */ },
-  title:'4 минуты, не 40', text:'Вы правите одну строку — и утверждаете. Марина получает корректировку в кабинет. Раньше один такой разбор занимал до часа переписки.'},
- {view:7, sel:'#sv7 .card', run:function(){ if(typeof closeModal==='function') closeModal(); document.getElementById('ovl').style.zIndex=''; },
-  title:'Корпус — мозг машины', text:'Ваши сборники, гайд по маслам, вебинары, таблицы — оцифрованы в рабочий корпус. Из него собираются программы, рецепты клиентам и черновики контента. Экспертиза — не в голове и папках, а в системе.'},
- {html:'<div class="simd-tag">Один корпус — три канала</div><div class="simd-h">Написано один раз — работает трижды</div><div class="simd-flow"><div class="simd-fstep"><div class="simd-fnum">1</div><div><b>Рецепты в программе клиента</b> — под задачи каждого</div></div><div class="simd-farr">↓ тот же корпус</div><div class="simd-fstep"><div class="simd-fnum">2</div><div><b>Подборки в подписке</b> — 990 ₽/мес (демо), регулярный доход</div></div><div class="simd-farr">↓ тот же корпус</div><div class="simd-fstep"><div class="simd-fnum">3</div><div><b>Примеры и факты в контенте</b> — посты и Reels</div></div></div>',
-  title:'Материалы перестают лежать мёртвым грузом', text:'Один и тот же сборник кормит программу, подписку и контент. Ничего не пишется трижды.'},
- {view:7, sel:'#sv7 .src-item',
-  title:'Фабрика контента · шаг 1 — источники', text:'Откуда берётся контент: архив ваших постов (ваш тон) + ваши гайды (суть) + научный слой (ссылки) + вопросы клиентов (темы, которые реально волнуют). Четыре источника — все ваши.'},
- {view:7, sel:'.kb4 .kb-col:nth-child(2)',
-  title:'Шаг 2 — черновик системы', text:'Система предлагает тему («Магний и сон» — из вашего гайда) и пишет черновик вашим тоном, со ссылкой на источник. Не «контент от робота», а заготовка под вашу правку.'},
- {view:7, sel:'.kb4 .kb-col:nth-child(3)',
-  title:'Шаг 3 — ваша правка', text:'Черновик ждёт вас: поправить, переписать, выбросить — решаете вы. Ничего не публикуется без вашей руки. Ваша работа — 10 минут редактуры, не 2 часа с чистого листа.'},
- {view:5, sel:'.cc-cal-grid',
-  title:'Шаг 4 — публикация по плану', text:'Утверждённый пост уходит в канал по плану недели. Регулярность больше не зависит от вдохновения и свободного вечера.'},
- {html:'<div class="simd-tag">Шаг 5 — круг замыкается</div><div class="simd-h">Контент — это вход машины продаж</div><div class="simd-flow"><div class="simd-fstep"><div class="simd-fnum">1</div><div>Пост в канале → читатель переходит на «Один день»</div></div><div class="simd-farr">↓</div><div class="simd-fstep"><div class="simd-fnum">2</div><div>Лендинг → «начать с бесплатного наблюдения» → заявка</div></div><div class="simd-farr">↓</div><div class="simd-fstep"><div class="simd-fnum">3</div><div>Новая карточка — у вас на пульте. Круг замкнулся.</div></div></div><div class="simd-note">Контент — не «ведение соцсетей», а постоянно открытая дверь: каждый пост может привести клиента.</div>',
-  title:'Пост → лендинг → заявка → пульт', text:'Тот самый путь, которым пришла Марина в Акте I. Теперь вы видите его со своей стороны.'},
- {view:6, sel:'#sv6 .kpis',
-  title:'Деньги видны', text:'Кто оплатил, кто ждёт, подписки идут. Счёт — кнопкой, чек — автоматом (в рабочей версии). Суммы на экране — демо.'},
- {view:0, sel:'.kpis',
-  title:'Это ваш день с машиной', text:'Клиенты ведутся, контент выходит, деньги видны — а ваши часы уходят на то, что умеете только вы: разборы и решения. Обсудим этапы? Напишите Руслану — i@wasrusgen.ru.'}
+ {chap:'Утро · 5 минут', view:0, sel:'.kpis',
+  title:'Открыли кабинет — день уже собран', text:'Не сорок переписок, а пульт: 3 отчёта на разбор, 2 вопроса, 7 активных клиентов, 5 постов в плане. Всё, что требует вас, — уже в очереди.',
+  hook:'Один экран отвечает на вопрос «что сегодня важно» — не нужно вспоминать и листать чаты.'},
+ {chap:'Утро · 5 минут', view:0, sel:'#sv0 .q-note.flag',
+  title:'Важное — уже наверху', text:'Система заметила: у Марины два дня «тяжесть после еды» после старта цинка. Это совпадение по времени, не вывод — но оно поднято наверх, чтобы вы взглянули сегодня, а не через неделю.',
+  hook:'Ничего не мониторить вручную: что требует глаза — само поднимается первым.'},
+ {chap:'Новый клиент', view:2, sel:'#clientsList tbody tr:nth-child(5)',
+  title:'Заявка пришла — карточка готова', text:'Новый человек с лендинга появляется в списке сам: Ирина Л. пришла на диагностику — анкета и анализы уже в карточке. Ничего не пересылали и не собирали по папкам.',
+  hook:'Клиент приходит уже «собранным» — вы начинаете с сути, а не со сбора файлов.'},
+ {chap:'Новый клиент', html:'<div class="simd-tag">Анализы из бланка — в таблицу · демо-пример</div><div class="simd-h">Цифры уже собраны — оцениваете вы</div><table class="simd-tbl"><tr><th>Показатель</th><th>Значение</th><th>Референс из бланка</th></tr><tr><td>Ферритин</td><td>16 нг/мл</td><td>10–120</td></tr><tr><td>Витамин D</td><td>21 нг/мл</td><td>30–100</td></tr><tr><td>ТТГ</td><td>2.1 мЕд/л</td><td>0.4–4.0</td></tr><tr><td>Глюкоза</td><td>5.3 ммоль/л</td><td>3.9–6.1</td></tr></table><div class="simd-note">Система только переносит показатели и референсы из бланка в таблицу — рядом с прошлыми замерами. Она не оценивает анализы: оценка — ваша, клиническая трактовка — область врача. Демо-цифры.</div>',
+  title:'Не перепечатываете бланки', text:'Открыли карточку — цифры из PDF и фото уже в таблице, рядом с прошлыми. Первые 20 минут «где тут что» исчезли.',
+  hook:'Начинаете с работы эксперта, а не с ручного переноса цифр.'},
+ {chap:'Новый клиент', html:'<div class="simd-tag">Конструктор программы · демо-пример</div><div class="simd-h">Программа — из ВАШИХ протоколов</div><div class="simd-row"><div class="simd-ic">🧩</div><div><b>Ваш протокол «Энергия и ритм питания»</b> — система подставила под профиль Ирины <span class="simd-pill ok">ваша методика</span></div></div><div class="simd-row"><div class="simd-ic">🥗</div><div><b>Рецепты из вашего сборника</b> — лёгкие ужины, завтраки без быстрых углеводов</div></div><div class="simd-row"><div class="simd-ic">🔬</div><div><b>Научная подсказка:</b> магний вечером и гигиена сна — у каждой подсказки ссылка на источник, можно открыть и проверить <span class="simd-pill">справочно, решение ваше</span></div></div><div class="simd-note">Система не заменяет вашу методологию чужими схемами — она подаёт вашу. Подсказки информационные, без диагнозов и назначений.</div>',
+  title:'Собираете программу за минуты', text:'Вы собираете программу из своих наработок — система подставляет их под профиль клиента и кладёт рядом научный слой с источниками.',
+  hook:'Ничего не искать по папкам: ваши протоколы сами приходят под клиента.'},
+ {chap:'Новый клиент', html:'<div class="simd-tag">Утверждение</div><div class="simd-h">Ваша подпись — и программа уехала</div><div class="simd-row"><div class="simd-ic">✅</div><div>Этапы, схема приёма, рецепты — одним нажатием уходят в кабинет Ирины.</div></div><div class="simd-btnrow"><span class="simd-btn">Отправить клиенту →</span></div><div class="simd-note">То, что раньше было вечером работы в мессенджере и PDF-файлами, — теперь один экран и одна кнопка. Ничего не уходит клиенту без вашего утверждения.</div>',
+  title:'Утвердили — уехало', text:'Система готовит — вы подписываете. Это правило всей машины, оно нигде не нарушается.',
+  hook:'Одно правило везде: «система готовит — вы утверждаете». Привыкать не к чему.'},
+ {chap:'Воскресенье', view:1, sel:'#sv1 .card', run:function(){ if(typeof closeModal==='function') closeModal(); },
+  title:'Разбор недели — одна очередь', text:'Все отчёты недели в одном месте, отсортированы: где сигналы — те сверху. Не «листать 7 переписок», а пройти очередь сверху вниз.',
+  hook:'Следующий шаг всегда очевиден: просто идёте по очереди сверху вниз.'},
+ {chap:'Воскресенье', view:1, sel:'#sv1 .q-item:first-child', run:function(){ if(typeof closeModal==='function') closeModal(); document.getElementById('ovl').style.zIndex=''; },
+  title:'По каждому — сводка и черновик', text:'Приём 82%, дневник 6/7, сигнал по ЖКТ — и черновик корректировки на вашем языке, из ваших методик. Осталось поправить и утвердить.',
+  hook:'Черновик уже написан вашим языком: вы правите, а не сочиняете с нуля.'},
+ {chap:'Воскресенье', view:1, sel:'.modal', run:function(){ if(typeof openReview==='function') openReview('Марина К.'); document.getElementById('ovl').style.zIndex='1000'; /* модалка поверх sim-затемнения — черновик должен быть читаем */ },
+  title:'4 минуты, не 40', text:'Вы правите одну строку — и утверждаете. Марина получает корректировку в кабинет. Раньше один такой разбор занимал до часа переписки.',
+  hook:'Воскресенье перестаёт съедать день: 7 разборов — меньше часа.'},
+ {chap:'Под рукой всегда', run:function(){ if(typeof closeModal==='function') closeModal(); var o=document.getElementById('ovl'); if(o) o.style.zIndex=''; }, html:'<div class="simd-tag">Ассистент · идея-слой из мониторинга рынка</div><div class="simd-h">Спросили словами — получили ответ</div><div class="simd-row"><div class="simd-ic">💬</div><div><b>Вы:</b> «Что изменилось у Марины за две недели?»</div></div><div class="simd-row"><div class="simd-ic">✦</div><div><b>Ассистент:</b> «Приём 82%, сон лучше по отметкам, два сигнала ЖКТ после старта цинка. Открыть карточку?» <span class="simd-pill ok">из данных кабинета</span></div></div><div class="simd-row"><div class="simd-ic">💬</div><div><b>Вы:</b> «Собери черновик поста из моего гайда по магнию»</div></div><div class="simd-row"><div class="simd-ic">✦</div><div><b>Ассистент:</b> «Черновик в Фабрике контента — ваш тон, ссылка на источник. Ждёт вашей правки».</div></div><div class="simd-note">Ассистент уровня эксперта: программа, корпус, фабрика контента. Отвечает по вашим материалам и данным кабинета; решение и подпись — всегда ваши. Эскиз — добавляем в модель по итогам мониторинга рынка.</div>',
+  title:'Ассистент-эксперт рядом', text:'Любой вопрос к системе — словами: про клиента, программу, корпус или контент. Не нужно знать, «где это лежит».',
+  hook:'Кабинет отвечает на вопросы, как коллега, — интерфейс перестаёт быть барьером.'},
+ {chap:'Корпус', view:7, sel:'#sv7 .card', run:function(){ if(typeof closeModal==='function') closeModal(); document.getElementById('ovl').style.zIndex=''; },
+  title:'Корпус — мозг машины', text:'Ваши сборники, гайд по маслам, вебинары, таблицы — оцифрованы в рабочий корпус. Из него собираются программы, рецепты клиентам и черновики контента.',
+  hook:'Загрузили один раз — дальше работает во всех разделах само.'},
+ {chap:'Корпус', html:'<div class="simd-tag">Один корпус — три канала</div><div class="simd-h">Написано один раз — работает трижды</div><div class="simd-flow"><div class="simd-fstep"><div class="simd-fnum">1</div><div><b>Рецепты в программе клиента</b> — под задачи каждого</div></div><div class="simd-farr">↓ тот же корпус</div><div class="simd-fstep"><div class="simd-fnum">2</div><div><b>Подборки в подписке</b> — 990 ₽/мес (демо), регулярный доход</div></div><div class="simd-farr">↓ тот же корпус</div><div class="simd-fstep"><div class="simd-fnum">3</div><div><b>Примеры и факты в контенте</b> — посты и клипы</div></div></div>',
+  title:'Материалы не лежат мёртвым грузом', text:'Один и тот же сборник кормит программу, подписку и контент.',
+  hook:'Ничего не пишется трижды — написали раз, работает в трёх местах.'},
+ {chap:'Контент', view:7, sel:'#sv7 .src-item',
+  title:'Шаг 1 — источники', text:'Архив ваших постов (ваш тон) + ваши гайды (суть) + научный слой (ссылки) + вопросы клиентов (темы, которые реально волнуют). Четыре источника — все ваши.',
+  hook:'Контент растёт из того, что у вас уже есть, — не из чужих шаблонов.'},
+ {chap:'Контент', view:7, sel:'.kb4 .kb-col:nth-child(2)',
+  title:'Шаг 2 — черновик системы', text:'Система предлагает тему («Магний и сон» — из вашего гайда) и пишет черновик вашим тоном, со ссылкой на источник. Не «контент от робота», а заготовка под вашу правку.',
+  hook:'Тема и черновик приходят сами — не надо «придумывать пост» с нуля.'},
+ {chap:'Контент', view:7, sel:'.kb4 .kb-col:nth-child(3)',
+  title:'Шаг 3 — ваша правка', text:'Черновик ждёт вас: поправить, переписать, выбросить — решаете вы. Ничего не публикуется без вашей руки.',
+  hook:'10 минут редактуры вместо 2 часов с чистого листа.'},
+ {chap:'Контент', view:5, sel:'.cc-cal-grid',
+  title:'Шаг 4 — публикация по плану', text:'Утверждённый пост уходит в канал по плану недели.',
+  hook:'Регулярность держит план, а не вдохновение и свободный вечер.'},
+ {chap:'Круг замкнулся', html:'<div class="simd-tag">Шаг 5 — круг замыкается</div><div class="simd-h">Контент — это вход машины продаж</div><div class="simd-flow"><div class="simd-fstep"><div class="simd-fnum">1</div><div>Пост в канале → читатель переходит на «Один день»</div></div><div class="simd-farr">↓</div><div class="simd-fstep"><div class="simd-fnum">2</div><div>Лендинг → «начать с бесплатного наблюдения» → заявка</div></div><div class="simd-farr">↓</div><div class="simd-fstep"><div class="simd-fnum">3</div><div>Новая карточка — у вас на пульте. Круг замкнулся.</div></div></div><div class="simd-note">Контент — не «ведение соцсетей», а постоянно открытая дверь: каждый пост может привести клиента.</div>',
+  title:'Пост → лендинг → заявка → пульт', text:'Тот самый путь, которым пришла Марина в «Пути клиента». Теперь вы видите его со своей стороны.',
+  hook:'Каждый пост — открытая дверь: машина продаж работает, пока вы ведёте клиентов.'},
+ {chap:'Деньги', view:6, sel:'#sv6 .kpis',
+  title:'Деньги видны', text:'Кто оплатил, кто ждёт, подписки идут. Счёт — кнопкой, чек — автоматом (в рабочей версии). Суммы на экране — демо.',
+  hook:'Без табличек и памяти: состояние денег — один экран.'},
+ {chap:'Итог', view:0, sel:'.kpis',
+  title:'Это ваш день с машиной', text:'Клиенты ведутся, контент выходит, деньги видны — а ваши часы уходят на то, что умеете только вы: разборы и решения. Обсудим этапы? Напишите Руслану — i@wasrusgen.ru.',
+  hook:'Ваши часы — на то, что умеете только вы. Остальное несёт машина.'}
 ];
 </script>
 <script src="sim_engine.js"></script>
