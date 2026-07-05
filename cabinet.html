@@ -153,6 +153,45 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
   .sl-dose .mi{display:inline}
 }
 
+/* Дневник: таблица записей */
+.dfil{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.dfil input{flex:1;min-width:150px;font-family:inherit;font-size:12.5px;padding:8px 12px;border:1px solid var(--border);border-radius:9px;background:var(--white);color:var(--text)}
+.dfil input:focus{outline:none;border-color:var(--gold)}
+.dfil select{font-family:inherit;font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:9px;background:var(--white);color:var(--muted);cursor:pointer}
+.dtab{margin-top:12px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
+.dtab-hd{display:grid;grid-template-columns:64px 44px .8fr 2fr 30px 30px 56px;gap:10px;align-items:center;padding:10px 14px;background:var(--subtle);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1px solid var(--border)}
+.dg{display:grid;grid-template-columns:76px 1fr;border-bottom:1px solid var(--border)}
+.dg:last-of-type{border-bottom:none}
+.dg-day{padding:12px 10px 12px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
+.dg-day b{font-family:Georgia;font-size:14px;font-weight:700;color:var(--herbal)}
+.dg-day span{font-size:10.5px;color:var(--muted)}
+.dg-rows{min-width:0}
+.dg-rows .dr:not(:first-child){border-top:1px solid var(--border)}
+.dr{display:grid;grid-template-columns:44px .8fr 2fr 30px 30px 56px;gap:10px;align-items:center;padding:9px 14px 9px 12px}
+.dr-t{font-size:12.5px;font-weight:600;color:var(--herbal)}
+.dr-meal{font-size:12px}
+.dr-tx{font-size:12.5px;color:var(--muted);line-height:1.45;min-width:0}
+.dr-tx .mi{display:none}
+.dr-kcal{font-size:12.5px;text-align:right;font-weight:600;color:var(--herbal)}
+.dr-kcal .est{color:var(--muted);font-weight:500}
+.dr-none{opacity:.3;text-align:center;font-size:11px}
+.dr-media{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:transparent;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;padding:0;transition:all .15s}
+.dr-media:hover{border-color:var(--gold);background:rgba(201,162,75,.12)}
+.dr-note{display:none;padding:0 14px 10px 12px}
+.dr-note.show{display:block}
+.dr-note-in{border-left:2px solid var(--gold);background:var(--subtle);border-radius:0 8px 8px 0;padding:8px 10px;font-size:12px;color:var(--muted);line-height:1.5}
+.dr-note-in b{color:var(--herbal)}
+.dsys{padding:0 14px 10px 12px}
+.dtab-leg{padding:9px 14px;background:var(--subtle);border-top:1px solid var(--border);font-size:11.5px;color:var(--muted);line-height:1.5}
+@media(max-width:760px){
+  .dtab-hd{display:none}
+  .dg{grid-template-columns:58px 1fr}
+  .dg-day{padding:10px 6px 10px 10px}
+  .dr{grid-template-columns:1fr 30px 30px;padding:9px 12px 9px 10px}
+  .dr-t,.dr-meal,.dr-kcal{display:none}
+  .dr-tx .mi{display:block;font-size:11px;font-weight:600;color:var(--herbal);margin-bottom:1px}
+}
+
 /* Дневник */
 .diary-day{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .dd{width:38px;height:48px;border-radius:9px;border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--muted);background:var(--white)}
@@ -439,7 +478,7 @@ textarea.diary:focus{border-color:var(--sage)}
     <div class="sv" id="sv2"><div class="wrap">
       <div class="page-tag">Каждый день</div>
       <div class="page-h">Дневник питания</div>
-      <div class="page-d">Не три графы, а живая лента: добавляйте любой приём — дата и время встанут сами. В воскресенье всё автоматически соберётся в отчёт для Натальи.</div>
+      <div class="page-d">Живой дневник: добавляйте любой приём — дата и время встанут сами, запись сама встанет в таблицу ниже. В воскресенье всё автоматически соберётся в отчёт для Натальи.</div>
       <div class="card" id="addMeal">
         <div class="card-h">Добавить приём <span class="pill">сб · время добавится само</span></div>
         <div class="sym-row">
@@ -474,15 +513,116 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="card-d" style="margin-top:12px">Воскресенье — день отчёта: неделя уходит Наталье на разбор, в ответ придёт корректировка.</div>
       </div>
       <div class="card">
-        <div class="card-h">Последние записи</div>
-        <div class="dlog">
-          <div class="dlog-hd"><span class="dlog-day">Пятница</span><span class="pill ok">5 записей ✓</span></div>
-          <div class="dlog-tx"><b>08:10 · Завтрак</b> — овсянка на воде, черника, грецкий орех · чай без сахара <span class="pill">📷 фото</span><br><b>13:40 · Обед</b> — гречка, индейка, салат с оливковым маслом <span class="pill">📷 фото</span><br><b>16:30 · Перекус</b> — яблоко, горсть миндаля<br><b>19:30 · Ужин</b> — треска на пару, брокколи, киноа<br><b>Вода:</b> ~1,9 л · спалось хорошо</div>
+        <div class="card-h">Записи дневника <span class="pill ok" id="dCount">…</span></div>
+        <div class="card-d">Все записи — в одной таблице: поиск по описанию, фильтр по метке и периоду. 📷 и 🎤 нажимаются — раскрывается карточка записи (в готовой версии — просмотр фото и прослушивание, здесь показано текстом).</div>
+        <div class="dfil">
+          <input type="text" id="dSearch" placeholder="Поиск по записям…" oninput="dFilter()">
+          <select id="dPeriod" onchange="dFilter()"><option value="cur" selected>Эта неделя</option><option value="prev">Прошлая неделя</option><option value="all">Все записи</option></select>
         </div>
-        <div class="dlog">
-          <div class="dlog-hd"><span class="dlog-day">Четверг</span><span class="pill ok">5 записей ✓</span></div>
-          <div class="dlog-tx"><b>08:30 · Завтрак</b> — омлет из 2 яиц, цельнозерновой тост, огурец<br><b>14:20 · Обед</b> — тыквенный суп-пюре, курица, зелень<br><b>17:00 · Кофе-брейк</b> — капучино, сырники <span class="pill">🎤 голосом</span><br><b>22:10 · Ужин</b> (поздно — после работы) — паста с сыром<br><b>Вода:</b> ~1,2 л — меньше обычного</div>
-          <div class="dlog-reply"><b>Заметка системы для отчёта:</b> поздний ужин с углеводами и мало воды — попадёт в воскресный разбор, выводы сделает Наталья.</div>
+        <div class="sym-row" style="margin-top:8px">
+          <button class="sym on" onclick="dPin(this)" data-meal="">Все</button>
+          <button class="sym" onclick="dPin(this)" data-meal="Завтрак">Завтрак</button>
+          <button class="sym" onclick="dPin(this)" data-meal="Обед">Обед</button>
+          <button class="sym" onclick="dPin(this)" data-meal="Ужин">Ужин</button>
+          <button class="sym" onclick="dPin(this)" data-meal="Полдник">Полдник</button>
+          <button class="sym" onclick="dPin(this)" data-meal="Перекус">Перекус</button>
+          <button class="sym" onclick="dPin(this)" data-meal="Кофе-брейк">Кофе-брейк</button>
+        </div>
+        <div class="dtab" id="dTab">
+          <div class="dtab-hd"><span>Дата</span><span>Время</span><span>Приём</span><span>Описание</span><span title="Фото">📷</span><span title="Голос">🎤</span><span style="text-align:right">Ккал</span></div>
+          <div class="dg">
+            <div class="dg-day"><b>Пт</b><span>03.07</span></div>
+            <div class="dg-rows">
+              <div class="dr" data-meal="Завтрак" data-w="cur">
+                <span class="dr-t">08:10</span><span class="dr-meal">Завтрак</span>
+                <div class="dr-tx"><span class="mi">08:10 · Завтрак · ~370 ккал</span>овсянка на воде, черника, грецкий орех · чай без сахара</div>
+                <button class="dr-media" onclick="dNote('np1')" title="Посмотреть фото">📷</button><span class="dr-none">—</span>
+                <span class="dr-kcal">~370</span>
+              </div>
+              <div class="dr-note" id="np1"><div class="dr-note-in"><b>📷 Фото приложено</b> — КБЖУ оценены по снимку: Б ~12 г · Ж ~9 г · У ~55 г · ~370 ккал · итог сверяет Наталья <span class="idea-tag">идея · эскиз</span></div></div>
+              <div class="dr" data-meal="Обед" data-w="cur">
+                <span class="dr-t">13:40</span><span class="dr-meal">Обед</span>
+                <div class="dr-tx"><span class="mi">13:40 · Обед · ~520 ккал</span>гречка, индейка, салат с оливковым маслом</div>
+                <button class="dr-media" onclick="dNote('np2')" title="Посмотреть фото">📷</button><span class="dr-none">—</span>
+                <span class="dr-kcal">~520</span>
+              </div>
+              <div class="dr-note" id="np2"><div class="dr-note-in"><b>📷 Фото приложено</b> — КБЖУ оценены по снимку: Б ~42 г · Ж ~15 г · У ~48 г · ~520 ккал · итог сверяет Наталья <span class="idea-tag">идея · эскиз</span></div></div>
+              <div class="dr" data-meal="Перекус" data-w="cur">
+                <span class="dr-t">16:30</span><span class="dr-meal">Перекус</span>
+                <div class="dr-tx"><span class="mi">16:30 · Перекус · ~180 ккал (оценка)</span>яблоко, горсть миндаля</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal"><span class="est">~180</span></span>
+              </div>
+              <div class="dr" data-meal="Ужин" data-w="cur">
+                <span class="dr-t">19:30</span><span class="dr-meal">Ужин</span>
+                <div class="dr-tx"><span class="mi">19:30 · Ужин · ~430 ккал (оценка)</span>треска на пару, брокколи, киноа</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal"><span class="est">~430</span></span>
+              </div>
+              <div class="dr" data-meal="Вода" data-w="cur">
+                <span class="dr-t" style="opacity:.4">итог</span><span class="dr-meal">Вода</span>
+                <div class="dr-tx"><span class="mi">Вода · за день</span>~1,9 л · спалось хорошо</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal" style="opacity:.3">—</span>
+              </div>
+            </div>
+          </div>
+          <div class="dg">
+            <div class="dg-day"><b>Чт</b><span>02.07</span></div>
+            <div class="dg-rows">
+              <div class="dr" data-meal="Завтрак" data-w="cur">
+                <span class="dr-t">08:30</span><span class="dr-meal">Завтрак</span>
+                <div class="dr-tx"><span class="mi">08:30 · Завтрак · ~410 ккал (оценка)</span>омлет из 2 яиц, цельнозерновой тост, огурец</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal"><span class="est">~410</span></span>
+              </div>
+              <div class="dr" data-meal="Обед" data-w="cur">
+                <span class="dr-t">14:20</span><span class="dr-meal">Обед</span>
+                <div class="dr-tx"><span class="mi">14:20 · Обед · ~460 ккал (оценка)</span>тыквенный суп-пюре, курица, зелень</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal"><span class="est">~460</span></span>
+              </div>
+              <div class="dr" data-meal="Кофе-брейк" data-w="cur">
+                <span class="dr-t">17:00</span><span class="dr-meal">Кофе-брейк</span>
+                <div class="dr-tx"><span class="mi">17:00 · Кофе-брейк · ~350 ккал (оценка)</span>капучино, сырники</div>
+                <span class="dr-none">—</span><button class="dr-media" onclick="dNote('nv1')" title="Прослушать запись">🎤</button>
+                <span class="dr-kcal"><span class="est">~350</span></span>
+              </div>
+              <div class="dr-note" id="nv1"><div class="dr-note-in"><b>🎤 Голосовая запись · 0:14</b> — «капучино на обычном молоке и два сырника, без сахара» · ▶ прослушать <span class="idea-tag">идея · эскиз</span></div></div>
+              <div class="dr" data-meal="Ужин" data-w="cur">
+                <span class="dr-t">22:10</span><span class="dr-meal">Ужин</span>
+                <div class="dr-tx"><span class="mi">22:10 · Ужин · ~620 ккал (оценка)</span>паста с сыром (поздно — после работы)</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal"><span class="est">~620</span></span>
+              </div>
+              <div class="dr" data-meal="Вода" data-w="cur">
+                <span class="dr-t" style="opacity:.4">итог</span><span class="dr-meal">Вода</span>
+                <div class="dr-tx"><span class="mi">Вода · за день</span>~1,2 л — меньше обычного</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal" style="opacity:.3">—</span>
+              </div>
+              <div class="dsys"><div class="dr-note-in"><b>Заметка системы для отчёта:</b> поздний ужин с углеводами и мало воды — попадёт в воскресный разбор, выводы сделает Наталья.</div></div>
+            </div>
+          </div>
+          <div class="dg">
+            <div class="dg-day"><b>Вс</b><span>28.06</span></div>
+            <div class="dg-rows">
+              <div class="dr" data-meal="Завтрак" data-w="prev">
+                <span class="dr-t">09:00</span><span class="dr-meal">Завтрак</span>
+                <div class="dr-tx"><span class="mi">09:00 · Завтрак · ~480 ккал (оценка)</span>сырники со сметаной, ягоды</div>
+                <span class="dr-none">—</span><span class="dr-none">—</span>
+                <span class="dr-kcal"><span class="est">~480</span></span>
+              </div>
+              <div class="dr" data-meal="Ужин" data-w="prev">
+                <span class="dr-t">19:40</span><span class="dr-meal">Ужин</span>
+                <div class="dr-tx"><span class="mi">19:40 · Ужин · ~450 ккал</span>запечённая форель, овощи гриль</div>
+                <button class="dr-media" onclick="dNote('np3')" title="Посмотреть фото">📷</button><span class="dr-none">—</span>
+                <span class="dr-kcal">~450</span>
+              </div>
+              <div class="dr-note" id="np3"><div class="dr-note-in"><b>📷 Фото приложено</b> — КБЖУ оценены по снимку: Б ~36 г · Ж ~22 г · У ~18 г · ~450 ккал · итог сверяет Наталья <span class="idea-tag">идея · эскиз</span></div></div>
+            </div>
+          </div>
+          <div class="dtab-leg">Ккал: с 📷 — расчёт по фото, точнее после 🎤-уточнения · <span class="est" style="font-weight:600">~серым</span> — примерная оценка по описанию · итоговые выводы всегда делает Наталья.</div>
         </div>
       </div>
     </div></div>
@@ -721,6 +861,34 @@ function toggleSb(force){
 function toggleTake(btn){ btn.closest('.sl').classList.toggle('taken'); }
 function toggleBell(b){ b.classList.toggle('on'); b.title = b.classList.contains('on')?'Уведомление включено':'Уведомление выключено'; }
 function pinPick(b){ Array.prototype.forEach.call(b.parentNode.children,function(x){x.classList.remove('on');}); b.classList.add('on'); }
+/* Дневник: таблица записей — фильтры/поиск */
+var dMeal='';
+function dPin(b){ pinPick(b); dMeal=b.getAttribute('data-meal')||''; dFilter(); }
+function dNote(id){ document.getElementById(id).classList.toggle('show'); }
+function dFilter(){
+  var q=(document.getElementById('dSearch').value||'').toLowerCase();
+  var per=document.getElementById('dPeriod').value;
+  var groups=document.querySelectorAll('#dTab .dg'), total=0;
+  for(var i=0;i<groups.length;i++){
+    var g=groups[i], rows=g.querySelectorAll('.dr'), vis=0;
+    for(var j=0;j<rows.length;j++){
+      var r=rows[j];
+      var ok=(per==='all'||r.getAttribute('data-w')===per)
+        && (!dMeal||r.getAttribute('data-meal')===dMeal)
+        && (!q||(r.textContent||'').toLowerCase().indexOf(q)>-1);
+      r.style.display=ok?'':'none';
+      var nt=r.nextElementSibling;
+      if(nt&&nt.classList.contains('dr-note')&&!ok){nt.classList.remove('show');}
+      if(ok){vis++; if(r.getAttribute('data-meal')!=='Вода')total++;}
+    }
+    var sys=g.querySelectorAll('.dsys');
+    for(var s=0;s<sys.length;s++){sys[s].style.display=(vis&&!q&&!dMeal)?'':'none';}
+    g.style.display=vis?'':'none';
+  }
+  var w=(total%10===1&&total%100!==11)?'приём':((total%10>=2&&total%10<=4&&(total%100<10||total%100>=20))?'приёма':'приёмов');
+  document.getElementById('dCount').textContent=total+' '+w;
+}
+dFilter();
 function toggleTask(btn){ btn.closest('.task').classList.toggle('done'); }
 function demoNote(btn,txt){ var s=document.createElement('span'); s.className='pill wait'; s.textContent='демо — '+txt; btn.replaceWith(s); }
 
