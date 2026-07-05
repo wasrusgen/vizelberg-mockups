@@ -439,8 +439,34 @@ textarea.diary:focus{border-color:var(--sage)}
     <div class="sv" id="sv2"><div class="wrap">
       <div class="page-tag">Каждый день</div>
       <div class="page-h">Дневник питания</div>
-      <div class="page-d">Вместо Excel-таблицы. Заполняйте за день — в воскресенье всё автоматически соберётся в отчёт для Натальи.</div>
-      <div class="card">
+      <div class="page-d">Не три графы, а живая лента: добавляйте любой приём — дата и время встанут сами. В воскресенье всё автоматически соберётся в отчёт для Натальи.</div>
+      <div class="card" id="addMeal">
+        <div class="card-h">Добавить приём <span class="pill">сб · время добавится само</span></div>
+        <div class="sym-row">
+          <button class="sym" onclick="pinPick(this)">Завтрак</button>
+          <button class="sym" onclick="pinPick(this)">Обед</button>
+          <button class="sym on" onclick="pinPick(this)">Ужин</button>
+          <button class="sym" onclick="pinPick(this)">Полдник</button>
+          <button class="sym" onclick="pinPick(this)">Перекус</button>
+          <button class="sym" onclick="pinPick(this)">Кофе-брейк</button>
+        </div>
+        <div class="acc-note" style="margin-top:8px">Метка — просто обозначение, выбирается одним тапом (система подставит подходящую по времени). Случился перекус — добавили перекус, ничего не ломается.</div>
+        <div class="photo-demo">
+          <div class="photo-thumb"><div class="photo-scan"></div><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+          <div class="photo-res">
+            <div class="card-d" style="color:var(--text);font-weight:600">Овсянка с ягодами и орехами <span class="pill wait">примерная оценка по фото</span> <span class="idea-tag">идея · эскиз</span></div>
+            <div class="kbju"><span>Б ~10–14 г</span><span>Ж ~12–16 г</span><span>У ~42–50 г</span><span>~330–390 ккал</span></div>
+            <div class="dlog-reply"><b>🎤 Голосом уточнили:</b> «овсянка на кокосовом молоке, плюс ложка мёда» → оценка пересчитана: <b>~400–460 ккал</b>. Фото-расчёт не всегда точен — голосовое уточнение делает его честнее, итог всегда сверяет Наталья.</div>
+          </div>
+        </div>
+        <textarea class="diary" placeholder="Или текстом: что съели, самочувствие — время встанет само"></textarea>
+        <div class="tool-row">
+          <button class="tool-btn" onclick="openComposer('diary')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>Фото блюда</button>
+          <button class="tool-btn" onclick="openComposer('diary')">🎤 Наговорить голосом</button>
+        </div>
+        <button class="btn btn-p">Добавить в дневник</button>
+      </div>
+      <div class="card" id="weekCard">
         <div class="card-h">Эта неделя</div>
         <div class="diary-day">
           <div class="dd filled"><b>Пн</b>✓</div><div class="dd filled"><b>Вт</b>✓</div><div class="dd filled"><b>Ср</b>✓</div><div class="dd filled"><b>Чт</b>✓</div><div class="dd filled"><b>Пт</b>✓</div><div class="dd today"><b>Сб</b>·</div><div class="dd sunday"><b>Вс</b>📤</div>
@@ -450,34 +476,14 @@ textarea.diary:focus{border-color:var(--sage)}
       <div class="card">
         <div class="card-h">Последние записи</div>
         <div class="dlog">
-          <div class="dlog-hd"><span class="dlog-day">Пятница</span><span class="pill ok">заполнено ✓</span></div>
-          <div class="dlog-tx"><b>Завтрак:</b> овсянка на воде, черника, грецкий орех · чай без сахара<br><b>Обед:</b> гречка, индейка, салат с оливковым маслом<br><b>Перекус:</b> яблоко, горсть миндаля<br><b>Ужин (19:30):</b> треска на пару, брокколи, киноа<br><b>Вода:</b> ~1,9 л · спалось хорошо</div>
+          <div class="dlog-hd"><span class="dlog-day">Пятница</span><span class="pill ok">5 записей ✓</span></div>
+          <div class="dlog-tx"><b>08:10 · Завтрак</b> — овсянка на воде, черника, грецкий орех · чай без сахара <span class="pill">📷 фото</span><br><b>13:40 · Обед</b> — гречка, индейка, салат с оливковым маслом <span class="pill">📷 фото</span><br><b>16:30 · Перекус</b> — яблоко, горсть миндаля<br><b>19:30 · Ужин</b> — треска на пару, брокколи, киноа<br><b>Вода:</b> ~1,9 л · спалось хорошо</div>
         </div>
         <div class="dlog">
-          <div class="dlog-hd"><span class="dlog-day">Четверг</span><span class="pill ok">заполнено ✓</span></div>
-          <div class="dlog-tx"><b>Завтрак:</b> омлет из 2 яиц, цельнозерновой тост, огурец<br><b>Обед:</b> тыквенный суп-пюре, курица, зелень<br><b>Ужин (22:10, поздно — после работы):</b> паста с сыром<br><b>Вода:</b> ~1,2 л — меньше обычного</div>
+          <div class="dlog-hd"><span class="dlog-day">Четверг</span><span class="pill ok">5 записей ✓</span></div>
+          <div class="dlog-tx"><b>08:30 · Завтрак</b> — омлет из 2 яиц, цельнозерновой тост, огурец<br><b>14:20 · Обед</b> — тыквенный суп-пюре, курица, зелень<br><b>17:00 · Кофе-брейк</b> — капучино, сырники <span class="pill">🎤 голосом</span><br><b>22:10 · Ужин</b> (поздно — после работы) — паста с сыром<br><b>Вода:</b> ~1,2 л — меньше обычного</div>
           <div class="dlog-reply"><b>Заметка системы для отчёта:</b> поздний ужин с углеводами и мало воды — попадёт в воскресный разбор, выводы сделает Наталья.</div>
         </div>
-      </div>
-      <div class="card idea">
-        <span class="idea-tag">Идея · эскиз, не в прототипе</span>
-        <div class="card-h">Фото блюда → расчёт состава</div>
-        <div class="photo-demo">
-          <div class="photo-thumb"><div class="photo-scan"></div><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-          <div class="photo-res">
-            <div class="card-d" style="color:var(--text);font-weight:600">Овсянка с ягодами и орехами <span class="pill wait">примерная оценка</span></div>
-            <div class="kbju"><span>Б ~10–14 г</span><span>Ж ~12–16 г</span><span>У ~42–50 г</span><span>~330–390 ккал</span></div>
-            <div class="acc-note">Клиенту не нужно взвешивать и считать — сфотографировал, и день заполнен. Оценка примерная: точность фото-расчёта плавает, итог всегда уточняет Наталья.</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-h">Сегодня, суббота</div>
-        <textarea class="diary" placeholder="Завтрак: … &#10;Обед: … &#10;Ужин: … &#10;Вода, самочувствие, сон — всё, что заметили"></textarea>
-        <div class="tool-row">
-          <button class="tool-btn" onclick="openComposer('diary')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>Фото блюда / голосом</button>
-        </div>
-        <button class="btn btn-p">Сохранить день</button>
       </div>
     </div></div>
 
@@ -714,6 +720,7 @@ function toggleSb(force){
 }
 function toggleTake(btn){ btn.closest('.sl').classList.toggle('taken'); }
 function toggleBell(b){ b.classList.toggle('on'); b.title = b.classList.contains('on')?'Уведомление включено':'Уведомление выключено'; }
+function pinPick(b){ Array.prototype.forEach.call(b.parentNode.children,function(x){x.classList.remove('on');}); b.classList.add('on'); }
 function toggleTask(btn){ btn.closest('.task').classList.toggle('done'); }
 function demoNote(btn,txt){ var s=document.createElement('span'); s.className='pill wait'; s.textContent='демо — '+txt; btn.replaceWith(s); }
 
@@ -886,9 +893,9 @@ window.SIM_SCENES=[
   },
   title:'Загрузила анализы — файлом с телефона', text:'Действие 4: свежие анализы — PDF из лаборатории или фото прямо с телефона. Файл лёг в историю навсегда.',
   hook:'Один раз загрузила — и больше никогда не пересылать по мессенджерам «а скиньте ещё раз».'},
- {chap:'День 1', view:2, sel:'#sv2 .card:last-child', run:function(){
+ {chap:'День 1', view:2, sel:'#addMeal', run:function(){
     if(!document.getElementById('simFoodChips')){
-      var c=document.querySelector('#sv2 .card:last-child .tool-row');
+      var c=document.querySelector('#addMeal .tool-row');
       var d=document.createElement('div'); d.className='chips'; d.id='simFoodChips';
       d.innerHTML='<span class="chip"><span class="chip-ic">📷</span><span class="chip-nm">завтрак.jpg</span></span><span class="chip"><span class="chip-ic">📷</span><span class="chip-nm">обед.jpg</span></span><span class="chip"><span class="chip-ic">📷</span><span class="chip-nm">ужин.jpg</span></span>';
       if(c) c.parentNode.insertBefore(d,c);
@@ -937,7 +944,7 @@ window.SIM_SCENES=[
  {chap:'Каждый день', view:5, sel:'#sv5 .card',
   title:'Рецепты — под рукой, не в папке', text:'Продукты, рецепты и таблицы — из авторских материалов Натальи, подобранные под задачи Марины.',
   hook:'Не «скачай PDF и потеряй», а всегда в кабинете — рядом с дневником.'},
- {chap:'Воскресенье', view:2, sel:'#sv2 .card',
+ {chap:'Воскресенье', view:2, sel:'#weekCard',
   title:'Отчёт — одним махом', text:'Неделя сама собралась из ежедневных отметок. Марина только дописывает ощущения — и отправляет.',
   hook:'Две минуты вместо часа переписки: отчёт собрала система, не Марина.'},
  {chap:'Понедельник', view:0, sel:'#sv0 .wrap>.card:last-child',
