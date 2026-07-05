@@ -211,6 +211,7 @@ body.app .sim-launch{bottom:128px}
 body.lite .tb.lite-only{display:flex}
 body.lite .tb[data-v="1"],body.lite .tb[data-v="2"],body.lite .tb[data-v="8"],body.lite .tb[data-v="more"]{display:none}
 body.lite #sv0 .btn[onclick*="go(1)"],body.lite #sv0 .btn[onclick*="go(2)"]{display:none}
+body.lite #discCard,body.lite #stageCard{display:none} /* дисциплина/итог этапа несут health-детали — в TG-витрине скрыты целиком (152-ФЗ граница) */
 .lite-note{display:none}
 body.lite .lite-note{display:block;position:fixed;left:10px;right:10px;bottom:58px;z-index:29;background:rgba(201,162,75,.16);border:1px solid var(--gold);border-radius:10px;padding:7px 11px;font-size:10.5px;color:var(--herbal);text-align:center}
 .moresheet{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18);z-index:40;transform:translateY(100%);transition:transform .22s;padding:10px 14px 70px}
@@ -381,6 +382,38 @@ textarea.diary:focus{border-color:var(--sage)}
 .streak i{flex:1;height:32px;border-radius:8px;background:var(--subtle);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:var(--muted);font-style:normal}
 .streak i.on{background:rgba(124,144,112,.16);border-color:var(--sage);color:#5C7050}
 .streak i.today{border-color:var(--gold);border-width:1.5px;color:#9A7A2E}
+.streak i.on.part{background:rgba(201,162,75,.14);border-color:var(--gold);color:#9A7A2E}
+/* дисциплина: чипы свёртки недели */
+.disc-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.disc-chip{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:100px;background:rgba(124,144,112,.13);color:#5C7050}
+.disc-chip.part{background:rgba(201,162,75,.14);color:#9A7A2E}
+/* кольцо выполненности дня в календаре */
+.cal-ring{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--sage) calc(var(--p)*1%),rgba(47,74,60,.13) 0);display:inline-flex;align-items:center;justify-content:center}
+.cal-ring b{width:16px;height:16px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text)}
+.cal-cell.sun .cal-ring b{color:var(--gold)}
+/* итог этапа: факты */
+.res-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:12px}
+.res-fact{background:var(--subtle);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.res-fact b{display:block;font-family:Georgia,serif;font-size:18px;color:var(--herbal)}
+.res-fact span{font-size:11px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
+/* таблица самочувствия */
+.stab{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:12px}
+.stab-hd{display:grid;grid-template-columns:82px .9fr 1.4fr 176px;gap:10px;padding:10px 14px;background:var(--subtle);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1px solid var(--border)}
+.srow{display:grid;grid-template-columns:82px .9fr 1.4fr 176px;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--white)}
+.stab>*:last-child{border-bottom:none}
+.srow.click{cursor:pointer}
+.srow.click:hover{background:var(--subtle)}
+.sr-day{font-weight:700;font-size:12.5px;font-family:Georgia,serif;color:var(--herbal)}
+.sr-what{font-size:12.5px;color:var(--herbal);font-weight:600}
+.sr-com{font-size:12px;color:var(--muted)}
+.sr-note{display:none;padding:10px 14px;background:#fff;border-bottom:1px solid var(--border)}
+.sr-note.show{display:block}
+@media(max-width:760px){
+  .stab-hd{display:none}
+  .srow{grid-template-columns:1fr;gap:4px;align-items:start;padding:10px 12px}
+  .cal-ring{width:19px;height:19px}
+  .cal-ring b{width:14px;height:14px;font-size:10px}
+}
 
 /* AI-помощник — идея·эскиз (трек G): плавающая кнопка + панель */
 .ai-fab{position:fixed;bottom:52px;right:18px;z-index:900;background:var(--white);color:var(--herbal);border:1.5px dashed var(--gold);border-radius:100px;padding:12px 20px;font:600 13px 'Segoe UI',system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 26px rgba(30,40,32,.18);display:flex;align-items:center;gap:8px;animation:aiPulse 2.4s infinite}
@@ -493,11 +526,29 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен · 1 задание к сроку.</div><button class="btn btn-o" onclick="go(1)">К моему дню</button></div>
         <div class="card"><div class="card-h">Воскресный отчёт</div><div class="card-d">Отчёт — завтра. Дневник заполнен 5 из 7 дней — допишите субботу, останется только воскресенье.</div><button class="btn btn-o" onclick="go(2)">К дневнику</button></div>
       </div>
-      <div class="card idea">
-        <span class="idea-tag">Идея · эскиз, не в прототипе</span>
-        <div class="card-h">Серия дней подряд <span class="pill ok">7 дней</span></div>
-        <div class="card-d">Мягкая мотивация держать ритм: отметили приём и дневник — день засчитан. Без «детских» механик — спокойная линия постоянства, которую видит и Наталья.</div>
-        <div class="streak"><i class="on">Пн</i><i class="on">Вт</i><i class="on">Ср</i><i class="on">Чт</i><i class="on">Пт</i><i class="today">Сб</i><i>Вс</i></div>
+      <div class="card" id="discCard">
+        <div class="card-h">Дисциплина недели <span class="pill ok">пока 96% — сильный ход</span></div>
+        <div class="card-d">Неделя ещё идёт — итог зафиксирует воскресный отчёт. Считается из ваших отметок: приём, дневник, задания. Это мера труда, не оценка здоровья.</div>
+        <div class="streak"><i class="on">Пн</i><i class="on">Вт</i><i class="on">Ср</i><i class="on">Чт</i><i class="on part">Пт</i><i class="today">Сб</i><i>Вс</i></div>
+        <div class="disc-chips">
+          <span class="disc-chip">Приём 19 из 20 · пн–пт</span>
+          <span class="disc-chip">Дневник 5 дней подряд</span>
+          <span class="disc-chip">Задания в срок 1 из 1</span>
+          <span class="disc-chip part">Пт без вечернего магния — бывает, серия не сгорает</span>
+        </div>
+        <div class="card-d" style="margin-top:10px">Просела неделя — это не «плохо стараетесь», а сигнал Наталье: поддержать и перестроить план. По дням — кольца в календаре.</div>
+        <button class="btn btn-o" onclick="go(8)">Дисциплина по дням — в календаре</button>
+      </div>
+      <div class="card" id="stageCard">
+        <div class="card-h">Итог этапа · недели 1–2 <span class="pill terra">пример, не реальная рекомендация</span></div>
+        <div class="res-facts">
+          <div class="res-fact"><b>89%</b><span>дисциплина этапа (приём + дневник; заданий в этап не выпадало)</span></div>
+          <div class="res-fact"><b>50 из 56</b><span>приёмов отмечено</span></div>
+          <div class="res-fact"><b>12 из 14</b><span>дней дневника</span></div>
+          <div class="res-fact"><b>до / после</b><span>анализы «до» сданы · контроль к неделе 8</span></div>
+        </div>
+        <div class="dlog-reply" style="margin-top:12px"><b>Вывод Натальи:</b> «Первые две недели — про вход в ритм, и вы вошли уверенно. По дневнику вижу поздние углеводы — забрала это в корректировку: лёгкие ужины, магний на вечер. Сон уже отвечает. Остальную схему не трогаем».</div>
+        <div class="card-d" style="margin-top:10px">Факты собирает система, вывод по ним — всегда Наталья. Следующий итог — после недели 4; финальный, со сравнением анализов «до / после», — к неделе 8.</div>
       </div>
       <div class="card">
         <div class="card-h">Последняя корректировка Натальи <span class="pill ok">пн, 29 июня</span> <span class="pill terra">пример, не реальная рекомендация</span></div>
@@ -544,7 +595,7 @@ textarea.diary:focus{border-color:var(--sage)}
           <button class="task-chk" onclick="toggleTask(this)">✓</button>
           <div class="task-body">
             <div class="task-name">Заполнить опросник по пищеварению</div>
-            <div class="task-meta"><span>выполнено 30 июня</span></div>
+            <div class="task-meta"><span>до 4 июля · выполнено 30 июня</span></div>
           </div>
         </div>
         <div class="card-d" style="margin-top:10px">Не поняли задание или не успеваете — <a href="#" onclick="openComposer('task');return false" style="color:var(--herbal);font-weight:600">напишите Наталье</a>, она подскажет.</div>
@@ -731,18 +782,25 @@ textarea.diary:focus{border-color:var(--sage)}
       </div>
       <div class="card">
         <div class="card-h">Ранее отмечали</div>
-        <div class="dlog">
-          <div class="dlog-hd"><span class="dlog-day">Четверг</span><span class="pill wait">войдёт в воскресный отчёт</span></div>
-          <div class="dlog-tx">Отмечено: <b>тяжесть после еды</b>. Комментарий: «ужин был поздно, около 22:00».</div>
-        </div>
-        <div class="dlog">
-          <div class="dlog-hd"><span class="dlog-day">Вторник</span><span class="pill terra">ушло Наталье с приоритетом</span></div>
-          <div class="dlog-tx">Отмечено: <b>дискомфорт ЖКТ</b>. Комментарий: «приняла цинк до еды, забыла про правило».</div>
-          <div class="dlog-reply"><b>Наталья ответила в тот же день:</b> «Цинк — строго после еды, натощак он часто даёт дискомфорт. Если повторится и после еды — напишите, заменим форму».</div>
-        </div>
-        <div class="dlog">
-          <div class="dlog-hd"><span class="dlog-day">Воскресенье</span><span class="pill ok">отмечено</span></div>
-          <div class="dlog-tx">Отмечено: <b>всё отлично</b>. Комментарий: «энергии заметно больше, чем неделю назад».</div>
+        <div class="card-d">Все отметки — таблицей. Строка с 💬 нажимается: раскрывается ответ Натальи.</div>
+        <div class="stab">
+          <div class="stab-hd"><span>День</span><span>Отмечено</span><span>Комментарий</span><span>Статус</span></div>
+          <div class="srow">
+            <span class="sr-day">Чт 02.07</span><span class="sr-what">Тяжесть после еды</span>
+            <span class="sr-com">«ужин был поздно, около 22:00»</span>
+            <span><span class="pill wait">войдёт в воскресный отчёт</span></span>
+          </div>
+          <div class="srow click" onclick="document.getElementById('srn1').classList.toggle('show')">
+            <span class="sr-day">Вт 30.06</span><span class="sr-what">Дискомфорт ЖКТ 💬</span>
+            <span class="sr-com">«приняла цинк до еды, забыла про правило»</span>
+            <span><span class="pill terra">ушло Наталье с приоритетом</span></span>
+          </div>
+          <div class="sr-note" id="srn1"><div class="dlog-reply" style="margin-top:0"><b>Наталья ответила в тот же день:</b> «Цинк — строго после еды, натощак он часто даёт дискомфорт. Если повторится и после еды — напишите, заменим форму».</div></div>
+          <div class="srow">
+            <span class="sr-day">Вс 28.06</span><span class="sr-what">Всё отлично</span>
+            <span class="sr-com">«энергии заметно больше, чем неделю назад»</span>
+            <span><span class="pill ok">отмечено</span></span>
+          </div>
         </div>
       </div>
       <div class="card"><div class="card-h">Зачем это</div><div class="card-d">Реакция на новый нутрицевтик или продукт важна сразу, а не в конце недели. Ваши отметки — ранний сигнал для Натальи скорректировать схему.<br><br><b>Важно:</b> при остром или тревожащем состоянии обращайтесь к врачу — программа корректирует питание и образ жизни, она не заменяет медицинскую помощь.</div></div>
@@ -753,7 +811,7 @@ textarea.diary:focus{border-color:var(--sage)}
     <div class="sv" id="sv8"><div class="wrap">
       <div class="page-tag">Моя программа</div>
       <div class="page-h">Календарь</div>
-      <div class="page-d">Всё в одном месте: дни приёма, воскресные отчёты, сроки заданий — и свои напоминания: выберите день и добавьте внизу.</div>
+      <div class="page-d">Всё в одном месте: дни приёма, воскресные отчёты, сроки заданий — и свои напоминания: выберите день и добавьте внизу. Кольцо вокруг числа — выполненность дня по вашим отметкам: дисциплина видна по дням, плюс-минус за период — одним взглядом.</div>
       <div class="card">
         <div class="cal-head">
           <div class="cal-title" id="calTitle">Июль 2026</div>
@@ -766,6 +824,7 @@ textarea.diary:focus{border-color:var(--sage)}
           <span><i style="background:#C9A24B"></i>Воскресный отчёт</span>
           <span><i style="background:#E8A87C"></i>Задание</span>
           <span><i style="background:transparent;border:1.5px solid #C9A24B;box-sizing:border-box"></i>Моё напоминание</span>
+          <span><i style="width:12px;height:12px;background:radial-gradient(circle,#fff 0 3px,transparent 3.2px),conic-gradient(#7C9070 75%,rgba(47,74,60,.13) 0)"></i>Кольцо — выполненность дня</span>
         </div>
       </div>
       <div class="card">
@@ -1089,10 +1148,23 @@ var events={ // день: типы
   6:['tsk'],12:['report'],
   19:['report'],26:['report'] // отчёты — воскресенья (5,12,19,26 июля 2026); отметки приёма/дневника — только на прошедших днях
 };
+var DISC={1:100,2:100,3:80}; // выполненность дня, % — июль (демо: пт — приём 3 из 4)
+// июнь (недели 1–2 + пн-вт недели 3): раскладка сходится с итогом этапа 89% = 62/70 (приём 50/56, дневник 12/14)
+var DISCJ={15:100,16:100,17:80,18:100,19:60,20:100,21:80,22:100,23:100,24:80,25:100,26:80,27:60,28:100,29:100,30:100};
+var EVJ={21:['report'],28:['report']}; // воскресные отчёты июня
+var AGJ={
+  21:[['📤','#C9A24B','Воскресный отчёт недели 1 ушёл Наталье']],
+  28:[['📤','#C9A24B','Воскресный отчёт недели 2 ушёл Наталье — в ответ пришла корректировка (пн, 29 июня)']],
+  29:[['✓','#7C9070','День выполнен: приём 4 из 4, дневник заполнен']],
+  30:[['✓','#7C9070','День выполнен: приём 4 из 4, дневник заполнен'],['📋','#E8A87C','Задание «опросник по пищеварению» выполнено — в срок']]
+};
 var agendas={
+  1:[['✓','#7C9070','День выполнен: приём 4 из 4, дневник заполнен']],
+  2:[['✓','#7C9070','День выполнен: приём 4 из 4, дневник заполнен'],['⚡','#E8A87C','Отметка самочувствия «тяжесть после еды» — войдёт в воскресный отчёт. <a href="#" onclick="go(3);return false" style="color:var(--herbal);font-weight:600">Открыть «Самочувствие» →</a>']],
+  3:[['✓','#7C9070','Приём 3 из 4 — вечерний магний пропущен. Бывает: серия не сгорает, день в отчёте'],['✎','#2F4A3C','Дневник заполнен']],
   4:[['⏰','#7C9070','Приём: Омега-3, D3 (08:00) · Цинк (14:00) · Магний (21:00)'],['✎','#8A8578','Дневник питания за субботу — не заполнен']],
   5:[['📤','#C9A24B','Воскресный отчёт уходит Наталье'],['⏰','#7C9070','Приём по схеме']],
-  6:[['✓','#E8A87C','Задание: посмотреть видео «Как читать состав»']],
+  6:[['📋','#E8A87C','Задание к сроку: посмотреть видео «Как читать состав»']],
   12:[['📤','#C9A24B','Воскресный отчёт уходит Наталье']],
   19:[['📤','#C9A24B','Воскресный отчёт уходит Наталье']],
   26:[['📤','#C9A24B','Воскресный отчёт уходит Наталье']]
@@ -1108,7 +1180,7 @@ function buildCal(){
   ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(function(d){var e=document.createElement('div');e.className='cal-dow';e.textContent=d;grid.appendChild(e);});
   var first=new Date(calY,calM,1).getDay(); first=first===0?6:first-1; // Пн=0
   var days=new Date(calY,calM+1,0).getDate();
-  var isJul=(calM===6&&calY===2026);
+  var isJul=(calM===6&&calY===2026), isJun=(calM===5&&calY===2026);
   var selCell=null;
   for(var i=0;i<first;i++){var e=document.createElement('div');e.className='cal-cell out';grid.appendChild(e);}
   for(var d=1;d<=days;d++){
@@ -1118,8 +1190,12 @@ function buildCal(){
     if(isJul && d===4) cell.className+=' today';
     var dots='';
     if(isJul && events[d]) events[d].forEach(function(t){dots+='<span class="cal-dot '+t+'"></span>';});
+    if(isJun && EVJ[d]) EVJ[d].forEach(function(t){dots+='<span class="cal-dot '+t+'"></span>';});
     if(myRem[remKey(d)]&&myRem[remKey(d)].length) dots+='<span class="cal-dot mine"></span>';
-    cell.innerHTML='<div class="cal-num">'+d+'</div><div class="cal-dots">'+dots+'</div>';
+    // кольцо выполненности: только прошедшие дни с данными (сегодня — золотой кружок, будущее — пусто)
+    var ringP = (isJul && DISC[d]!=null && d<4) ? DISC[d] : (isJun && DISCJ[d]!=null ? DISCJ[d] : null);
+    var num = (ringP!=null) ? '<span class="cal-ring" style="--p:'+ringP+'"><b>'+d+'</b></span>' : d;
+    cell.innerHTML='<div class="cal-num">'+num+'</div><div class="cal-dots">'+dots+'</div>';
     (function(dd){cell.onclick=function(){selDay(dd,cell);};})(d);
     if(d===selD) selCell=cell;
     grid.appendChild(cell);
@@ -1133,7 +1209,7 @@ function selDay(d,cell){
   var dow=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'][new Date(calY,calM,d).getDay()];
   document.getElementById('agTitle').textContent=dow.charAt(0).toUpperCase()+dow.slice(1)+', '+d+' '+MN[calM].toLowerCase();
   var ag=document.getElementById('calAgenda'); ag.innerHTML='';
-  var items=((calM===6&&calY===2026)?agendas[d]:null)||[];
+  var items=((calM===6&&calY===2026)?agendas[d]:((calM===5&&calY===2026)?AGJ[d]:null))||[];
   var mine=(myRem[remKey(d)]||[]).map(function(t){return ['🔔','#C9A24B','Моё напоминание: '+t];});
   items=items.concat(mine);
   if(!items.length){ag.innerHTML='<div class="card-d">На этот день ничего не запланировано — можно добавить своё напоминание ниже.</div>';return;}
