@@ -272,7 +272,7 @@ textarea.diary:focus{border-color:var(--sage)}
 .cal-nav{display:flex;gap:6px}
 .cal-nav button{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--white);cursor:pointer;color:var(--herbal);font-size:15px;display:flex;align-items:center;justify-content:center}
 .cal-nav button:hover{background:var(--subtle)}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .cal-dow{text-align:center;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding-bottom:4px}
 .cal-cell{min-height:54px;border:1px solid var(--border);border-radius:9px;background:var(--white);padding:5px 6px;display:flex;flex-direction:column;cursor:pointer;position:relative;transition:border-color .12s}
 .cal-cell:hover{border-color:var(--sage)}
@@ -387,10 +387,12 @@ textarea.diary:focus{border-color:var(--sage)}
 .disc-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .disc-chip{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:100px;background:rgba(124,144,112,.13);color:#5C7050}
 .disc-chip.part{background:rgba(201,162,75,.14);color:#9A7A2E}
-/* кольцо выполненности дня в календаре */
-.cal-ring{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--sage) calc(var(--p)*1%),rgba(47,74,60,.13) 0);display:inline-flex;align-items:center;justify-content:center}
-.cal-ring b{width:16px;height:16px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text)}
-.cal-cell.sun .cal-ring b{color:var(--gold)}
+/* выполненность дня в календаре — крупная цифра % (зелёная — день целиком, золотая — с пропуском) */
+.cal-pct{font-size:17px;font-weight:700;line-height:1;letter-spacing:-.02em;color:#5C7050;margin-top:3px}
+.cal-pct i{font-style:normal;font-size:10px;font-weight:600;margin-left:1px;opacity:.7}
+.cal-pct.part{color:#9A7A2E}
+.cal-legend .lg-pct{font-size:12.5px;font-weight:700;letter-spacing:-.02em;color:#5C7050}
+.cal-legend .lg-pct.part{color:#9A7A2E}
 /* итог этапа: факты */
 .res-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:12px}
 .res-fact{background:var(--subtle);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
@@ -411,8 +413,8 @@ textarea.diary:focus{border-color:var(--sage)}
 @media(max-width:760px){
   .stab-hd{display:none}
   .srow{grid-template-columns:1fr;gap:4px;align-items:start;padding:10px 12px}
-  .cal-ring{width:19px;height:19px}
-  .cal-ring b{width:14px;height:14px;font-size:10px}
+  .cal-pct{font-size:12.5px;margin-top:2px}
+  .cal-pct i{display:none} /* на узкой ячейке значок % не влезает — легенда объясняет */
 }
 
 /* AI-помощник — идея·эскиз (трек G): плавающая кнопка + панель */
@@ -536,7 +538,7 @@ textarea.diary:focus{border-color:var(--sage)}
           <span class="disc-chip">Задания в срок 1 из 1</span>
           <span class="disc-chip part">Пт без вечернего магния — бывает, серия не сгорает</span>
         </div>
-        <div class="card-d" style="margin-top:10px">Просела неделя — это не «плохо стараетесь», а сигнал Наталье: поддержать и перестроить план. По дням — кольца в календаре.</div>
+        <div class="card-d" style="margin-top:10px">Просела неделя — это не «плохо стараетесь», а сигнал Наталье: поддержать и перестроить план. По дням — цифры в календаре.</div>
         <button class="btn btn-o" onclick="go(8)">Дисциплина по дням — в календаре</button>
       </div>
       <div class="card" id="stageCard">
@@ -811,7 +813,7 @@ textarea.diary:focus{border-color:var(--sage)}
     <div class="sv" id="sv8"><div class="wrap">
       <div class="page-tag">Моя программа</div>
       <div class="page-h">Календарь</div>
-      <div class="page-d">Всё в одном месте: дни приёма, воскресные отчёты, сроки заданий — и свои напоминания: выберите день и добавьте внизу. Кольцо вокруг числа — выполненность дня по вашим отметкам: дисциплина видна по дням, плюс-минус за период — одним взглядом.</div>
+      <div class="page-d">Всё в одном месте: дни приёма, воскресные отчёты, сроки заданий — и свои напоминания: выберите день и добавьте внизу. Крупная цифра в ячейке — выполненность дня по вашим отметкам: зелёная — день целиком, золотая — с пропуском. Дисциплина видна по дням, плюс-минус за период — одним взглядом.</div>
       <div class="card">
         <div class="cal-head">
           <div class="cal-title" id="calTitle">Июль 2026</div>
@@ -824,7 +826,7 @@ textarea.diary:focus{border-color:var(--sage)}
           <span><i style="background:#C9A24B"></i>Воскресный отчёт</span>
           <span><i style="background:#E8A87C"></i>Задание</span>
           <span><i style="background:transparent;border:1.5px solid #C9A24B;box-sizing:border-box"></i>Моё напоминание</span>
-          <span><i style="width:12px;height:12px;background:radial-gradient(circle,#fff 0 3px,transparent 3.2px),conic-gradient(#7C9070 75%,rgba(47,74,60,.13) 0)"></i>Кольцо — выполненность дня</span>
+          <span><b class="lg-pct">100%</b>день выполнен · <b class="lg-pct part">&lt;100%</b>с пропуском</span>
         </div>
       </div>
       <div class="card">
@@ -1143,6 +1145,7 @@ function stopRec(){
 /* Календарь — демо-месяц июль 2026 (1 июля = среда) */
 var calY=2026, calM=6; // 0-indexed июль
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+var MNR=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря']; // родительный — для «4 июля»
 var events={ // день: типы
   1:['take','diary'],2:['take','diary'],3:['take','diary'],4:['take'],5:['report'],
   6:['tsk'],12:['report'],
@@ -1192,10 +1195,10 @@ function buildCal(){
     if(isJul && events[d]) events[d].forEach(function(t){dots+='<span class="cal-dot '+t+'"></span>';});
     if(isJun && EVJ[d]) EVJ[d].forEach(function(t){dots+='<span class="cal-dot '+t+'"></span>';});
     if(myRem[remKey(d)]&&myRem[remKey(d)].length) dots+='<span class="cal-dot mine"></span>';
-    // кольцо выполненности: только прошедшие дни с данными (сегодня — золотой кружок, будущее — пусто)
-    var ringP = (isJul && DISC[d]!=null && d<4) ? DISC[d] : (isJun && DISCJ[d]!=null ? DISCJ[d] : null);
-    var num = (ringP!=null) ? '<span class="cal-ring" style="--p:'+ringP+'"><b>'+d+'</b></span>' : d;
-    cell.innerHTML='<div class="cal-num">'+num+'</div><div class="cal-dots">'+dots+'</div>';
+    // выполненность: только прошедшие дни с данными (сегодня — золотой кружок, будущее — пусто)
+    var dayP = (isJul && DISC[d]!=null && d<4) ? DISC[d] : (isJun && DISCJ[d]!=null ? DISCJ[d] : null);
+    var pct = (dayP!=null) ? '<div class="cal-pct'+(dayP<100?' part':'')+'">'+dayP+'<i>%</i></div>' : '';
+    cell.innerHTML='<div class="cal-num">'+d+'</div>'+pct+'<div class="cal-dots">'+dots+'</div>';
     (function(dd){cell.onclick=function(){selDay(dd,cell);};})(d);
     if(d===selD) selCell=cell;
     grid.appendChild(cell);
@@ -1207,7 +1210,7 @@ function selDay(d,cell){
   document.querySelectorAll('.cal-cell').forEach(function(c){c.classList.remove('sel')});
   if(cell) cell.classList.add('sel');
   var dow=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'][new Date(calY,calM,d).getDay()];
-  document.getElementById('agTitle').textContent=dow.charAt(0).toUpperCase()+dow.slice(1)+', '+d+' '+MN[calM].toLowerCase();
+  document.getElementById('agTitle').textContent=dow.charAt(0).toUpperCase()+dow.slice(1)+', '+d+' '+MNR[calM];
   var ag=document.getElementById('calAgenda'); ag.innerHTML='';
   var items=((calM===6&&calY===2026)?agendas[d]:((calM===5&&calY===2026)?AGJ[d]:null))||[];
   var mine=(myRem[remKey(d)]||[]).map(function(t){return ['🔔','#C9A24B','Моё напоминание: '+t];});
