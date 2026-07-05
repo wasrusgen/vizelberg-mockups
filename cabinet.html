@@ -192,6 +192,27 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
   .dr-tx .mi{display:block;font-size:11px;font-weight:600;color:var(--herbal);margin-bottom:1px}
 }
 
+/* Чат с Натальей */
+.chat{margin-top:16px;border:1px solid var(--border);border-radius:14px;background:var(--white);overflow:hidden}
+.chat-body{padding:4px 16px 14px;display:flex;flex-direction:column;gap:8px;max-height:460px;overflow-y:auto}
+.chat-day{text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:12px 0 2px}
+.msg{max-width:78%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.5}
+.msg.me{align-self:flex-end;background:var(--herbal);color:#fff;border-bottom-right-radius:4px}
+.msg.her{align-self:flex-start;background:var(--subtle);border:1px solid var(--border);border-bottom-left-radius:4px;color:var(--text)}
+.msg-name{font-weight:700;color:var(--herbal);font-size:11px;margin-bottom:2px}
+.msg-meta{font-size:10.5px;opacity:.6;margin-top:3px;text-align:right}
+.msg .att{display:flex;align-items:center;gap:7px;margin-top:7px;padding:6px 10px;border-radius:9px;background:rgba(255,255,255,.16);font-size:11.5px;cursor:pointer;width:fit-content}
+.msg.her .att{background:#fff;border:1px solid var(--border)}
+.msg.sys{align-self:center;max-width:92%;background:rgba(201,162,75,.12);border:1px solid rgba(201,162,75,.35);color:var(--muted);font-size:11.5px;padding:6px 13px;border-radius:100px;text-align:center}
+.chat-in{display:flex;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid var(--border);background:var(--subtle)}
+.chat-in input{flex:1;font-family:inherit;font-size:13px;padding:10px 14px;border:1px solid var(--border);border-radius:100px;background:var(--white);color:var(--text)}
+.chat-in input:focus{outline:none;border-color:var(--gold)}
+.chat-ic{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--white);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.chat-ic:hover{border-color:var(--gold);background:rgba(201,162,75,.12)}
+.chat-send{width:36px;height:36px;border-radius:50%;border:none;background:var(--herbal);color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-send:hover{background:#243B30}
+@media(max-width:760px){.msg{max-width:88%}}
+
 /* Дневник */
 .diary-day{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .dd{width:38px;height:48px;border-radius:9px;border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--muted);background:var(--white)}
@@ -757,13 +778,30 @@ textarea.diary:focus{border-color:var(--sage)}
     <div class="sv" id="sv6"><div class="wrap">
       <div class="page-tag">Связь</div>
       <div class="page-h">Написать Наталье</div>
-      <div class="page-d">Вопрос по программе, продуктам или самочувствию — прямо здесь. Можно приложить фото, ссылку или наговорить голосом.</div>
-      <div class="card">
-        <div class="card-h">Новое сообщение</div>
-        <div class="card-d">Откройте окно сообщения — там поле для текста и инструменты: прикрепить файл, вставить ссылку, записать голос.</div>
-        <button class="btn btn-p" onclick="openComposer('msg')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Написать сообщение</button>
-        <div class="card-d" style="margin-top:12px">Наталья обычно отвечает в течение дня (точный ритм согласуем с ней); отметки «Самочувствия» поднимаются к ней с приоритетом.</div>
+      <div class="page-d">Переписка с Натальей — как в мессенджере: текст, фото, голосовые. Отметки «Самочувствия» попадают сюда с приоритетом. Отвечает лично Наталья — ритм ответов согласуем при запуске.</div>
+      <div class="chat">
+        <div class="chat-body">
+          <div class="chat-day">Вторник · 30.06</div>
+          <div class="msg sys">⚡ Отметка «дискомфорт ЖКТ» из «Самочувствия» ушла Наталье с приоритетом</div>
+          <div class="msg me">Приняла цинк до еды, забыла про правило — через полчаса небольшой дискомфорт 😔<div class="msg-meta">12:05</div></div>
+          <div class="msg her"><div class="msg-name">Наталья</div>Цинк — строго после еды, натощак он часто даёт дискомфорт. Если повторится и после еды — напишите, заменим форму.<div class="msg-meta">14:40</div></div>
+          <div class="msg me">Поняла, спасибо! Сегодня после обеда — всё спокойно.<div class="msg-meta">15:12</div></div>
+          <div class="chat-day">Пятница · 03.07</div>
+          <div class="msg me">В аптеке только такой магний — подойдёт эта форма?<div class="att" onclick="chatAtt(this,'демо — просмотр фото')">📷 Фото упаковки</div><div class="msg-meta">10:20</div></div>
+          <div class="msg her"><div class="msg-name">Наталья</div>Да, цитрат магния — то, что нужно. Дозировка та же: 1 таблетка за час до сна.<div class="msg-meta">12:05</div></div>
+          <div class="msg me">И ещё про поездку на следующей неделе…<div class="att" onclick="chatAtt(this,'демо — прослушивание')">🎤 Голосовое · 0:19</div><div class="msg-meta">12:10</div></div>
+          <div class="msg her"><div class="msg-name">Наталья</div>Слышала! Для поездки соберите капсулы по строке «Итого на день» в схеме приёма — там уже всё посчитано. Хорошей дороги 🌿<div class="msg-meta">13:30</div></div>
+          <div class="chat-day">Сегодня · суббота</div>
+          <div class="msg sys">Завтра воскресенье — день отчёта: неделя соберётся и уйдёт Наталье автоматически</div>
+        </div>
+        <div class="chat-in">
+          <button class="chat-ic" title="Прикрепить фото или файл" onclick="openComposer('msg')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></button>
+          <input type="text" placeholder="Сообщение Наталье…" readonly onclick="openComposer('msg')">
+          <button class="chat-ic" title="Записать голосовое" onclick="openComposer('msg')">🎤</button>
+          <button class="chat-send" title="Отправить" onclick="openComposer('msg')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+        </div>
       </div>
+      <div class="acc-note" style="margin-top:10px">Точный ритм ответов согласуем с Натальей; отметки «Самочувствия» поднимаются к ней с приоритетом. Диалог выше — демо-пример.</div>
       <div class="card idea">
         <span class="idea-tag">Идея · эскиз, не в прототипе</span>
         <div class="card-h">Помощник — для быстрых вопросов</div>
@@ -835,8 +873,8 @@ textarea.diary:focus{border-color:var(--sage)}
       </div>
     </div>
     <div class="modal-ft">
-      <div class="modal-hint" id="composerHint">Обычно ответ приходит в течение дня</div>
-      <button class="modal-send" onclick="closeComposer()">Отправить</button>
+      <div class="modal-hint" id="composerHint">Ответит лично Наталья</div>
+      <button class="modal-send" onclick="sendComposer()">Отправить</button>
     </div>
   </div>
 </div>
@@ -889,6 +927,31 @@ function dFilter(){
   document.getElementById('dCount').textContent=total+' '+w;
 }
 dFilter();
+/* Чат: при входе в раздел прокручиваем к последним сообщениям */
+var _goChat=go; go=function(n){_goChat(n); if(n===6){var cb=document.querySelector('.chat-body'); if(cb)cb.scrollTop=cb.scrollHeight;}};
+/* Чат: вложение — плашка-пояснение по клику (toggle, вложение не исчезает) */
+function chatAtt(el,txt){
+  var nx=el.nextElementSibling;
+  if(nx&&nx.classList.contains('att-note')){nx.remove();return;}
+  var s=document.createElement('div'); s.className='att att-note'; s.style.cursor='default'; s.textContent=txt;
+  el.parentNode.insertBefore(s,el.nextSibling);
+}
+/* Композер: отправка из чата дописывает сообщение в ленту (демо) */
+var composerKind='';
+function sendComposer(){
+  if(composerKind==='msg'){
+    var t=(document.getElementById('composerTa').value||'').trim();
+    var hasChips=document.getElementById('composerChips').children.length>0;
+    var cb=document.querySelector('.chat-body');
+    if(cb&&(t||hasChips)){
+      var m=document.createElement('div'); m.className='msg me';
+      m.textContent=t||'📎 Вложение';
+      var meta=document.createElement('div'); meta.className='msg-meta'; meta.textContent='только что · демо';
+      m.appendChild(meta); cb.appendChild(m); cb.scrollTop=cb.scrollHeight;
+    }
+  }
+  closeComposer();
+}
 function toggleTask(btn){ btn.closest('.task').classList.toggle('done'); }
 function demoNote(btn,txt){ var s=document.createElement('span'); s.className='pill wait'; s.textContent='демо — '+txt; btn.replaceWith(s); }
 
@@ -909,12 +972,13 @@ document.addEventListener('click',function(e){
 
 /* Композер */
 var composerCfg={
-  msg:{title:'Написать Наталье',ph:'Ваше сообщение…',hint:'Обычно ответ приходит в течение дня'},
+  msg:{title:'Написать Наталье',ph:'Ваше сообщение…',hint:'Ответит лично Наталья'},
   task:{title:'Вопрос по заданию',ph:'Что именно непонятно по заданию?',hint:'Наталья подскажет по заданию'},
   file:{title:'Загрузить анализ',ph:'Комментарий к файлу (необязательно)…',hint:'Файл увидит только Наталья'},
   diary:{title:'Добавить к дневнику',ph:'Что сегодня ели, самочувствие…',hint:'Попадёт в воскресный отчёт'}
 };
 function openComposer(kind){
+  composerKind=kind;
   var c=composerCfg[kind]||composerCfg.msg;
   document.getElementById('composerTitle').textContent=c.title;
   document.getElementById('composerTa').placeholder=c.ph;
