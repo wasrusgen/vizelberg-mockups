@@ -192,6 +192,35 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
   .dr-tx .mi{display:block;font-size:11px;font-weight:600;color:var(--herbal);margin-bottom:1px}
 }
 
+/* Miniapp-режим (?app=1): без сайдбара, нижний таб-бар — оболочка TG/MAX */
+body.app .sb,body.app .sb-backdrop{display:none!important}
+body.app .hdr{display:flex!important}
+body.app .hdr-menu{display:none}
+body.app .wrap{padding-bottom:118px}
+.tabbar{display:none}
+body.app .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--white);border-top:1px solid var(--border);z-index:30;padding:5px 4px 7px}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;border:none;background:transparent;cursor:pointer;font-family:inherit;font-size:9.5px;font-weight:600;color:var(--muted);padding:2px 1px;min-width:0}
+.tb-ic{width:36px;height:24px;border-radius:100px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.tb.on{color:var(--herbal)}
+.tb.on .tb-ic{background:rgba(201,162,75,.22)}
+body.app .ai-fab{bottom:76px}
+body.app .ai-panel{bottom:128px}
+body.app .sim-launch{bottom:128px}
+/* TG-витрина (?app=1&lite=1): без health-разделов */
+.tb.lite-only{display:none}
+body.lite .tb.lite-only{display:flex}
+body.lite .tb[data-v="1"],body.lite .tb[data-v="2"],body.lite .tb[data-v="8"],body.lite .tb[data-v="more"]{display:none}
+body.lite #sv0 .btn[onclick*="go(1)"],body.lite #sv0 .btn[onclick*="go(2)"]{display:none}
+.lite-note{display:none}
+body.lite .lite-note{display:block;position:fixed;left:10px;right:10px;bottom:58px;z-index:29;background:rgba(201,162,75,.16);border:1px solid var(--gold);border-radius:10px;padding:7px 11px;font-size:10.5px;color:var(--herbal);text-align:center}
+.moresheet{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18);z-index:40;transform:translateY(100%);transition:transform .22s;padding:10px 14px 70px}
+.moresheet.show{transform:translateY(0)}
+.ms-grab{width:38px;height:4px;border-radius:100px;background:var(--border);margin:2px auto 10px}
+.ms-item{display:flex;align-items:center;gap:12px;padding:11px 8px;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--text)}
+.ms-item:active,.ms-item:hover{background:var(--subtle)}
+.ms-item svg{color:var(--sage);flex-shrink:0}
+.ms-item span{font-size:11px;color:var(--muted);font-weight:500;margin-left:auto}
+
 /* Чат с Натальей */
 .chat{margin-top:16px;border:1px solid var(--border);border-radius:14px;background:var(--white);overflow:hidden}
 .chat-body{padding:4px 16px 14px;display:flex;flex-direction:column;gap:8px;max-height:460px;overflow-y:auto}
@@ -244,19 +273,27 @@ textarea.diary:focus{border-color:var(--sage)}
 .cal-nav button:hover{background:var(--subtle)}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .cal-dow{text-align:center;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding-bottom:4px}
-.cal-cell{aspect-ratio:1;border:1px solid var(--border);border-radius:9px;background:var(--white);padding:5px 6px;display:flex;flex-direction:column;cursor:pointer;position:relative;transition:border-color .12s}
+.cal-cell{min-height:54px;border:1px solid var(--border);border-radius:9px;background:var(--white);padding:5px 6px;display:flex;flex-direction:column;cursor:pointer;position:relative;transition:border-color .12s}
 .cal-cell:hover{border-color:var(--sage)}
 .cal-cell.out{opacity:.35;background:var(--subtle);cursor:default}
-.cal-cell.today{border-color:var(--gold);border-width:2px}
+.cal-cell.today{border-color:var(--gold);border-width:2px;background:rgba(201,162,75,.10)}
+.cal-cell.today .cal-num{width:20px;height:20px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11.5px}
 .cal-cell.sel{background:rgba(124,144,112,.1);border-color:var(--sage)}
 .cal-num{font-size:12.5px;font-weight:600;color:var(--text)}
 .cal-cell.sun .cal-num{color:var(--gold)}
+.cal-cell.today.sun .cal-num{color:#fff}
 .cal-dots{display:flex;gap:3px;margin-top:auto;flex-wrap:wrap}
-.cal-dot{width:6px;height:6px;border-radius:50%}
+.cal-dot{width:7px;height:7px;border-radius:50%}
 .cal-dot.take{background:var(--sage)}
 .cal-dot.diary{background:var(--herbal)}
 .cal-dot.report{background:var(--gold)}
-.cal-dot.task{background:var(--terra)}
+.cal-dot.tsk{background:var(--terra)}
+.cal-dot.mine{background:transparent;border:1.5px solid var(--gold);box-sizing:border-box}
+.cal-add{display:flex;gap:8px;margin-top:14px;align-items:center}
+.cal-add input{flex:1;min-width:0;font-family:inherit;font-size:12.5px;padding:9px 12px;border:1px solid var(--border);border-radius:9px;background:var(--white);color:var(--text)}
+.cal-add input:focus{outline:none;border-color:var(--gold)}
+.cal-add .btn{margin-top:0}
+@media(max-width:760px){.cal-cell{min-height:44px;padding:4px 5px}.cal-grid{gap:4px}.cal-dot{width:6px;height:6px}.cal-dots{gap:2px}}
 .cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--muted)}
 .cal-legend span{display:inline-flex;align-items:center;gap:5px}
 .cal-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
@@ -391,8 +428,8 @@ textarea.diary:focus{border-color:var(--sage)}
       <div class="sb-cap">Каждый день</div>
       <div class="si" id="si1" onclick="go(1)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-        <div><div class="si-name">Приём нутрицевтиков</div><div class="si-sub">Схема на сегодня</div></div>
-        <div class="si-badge">2 из 4</div>
+        <div><div class="si-name">Мой день</div><div class="si-sub">Приём · задания · статус</div></div>
+        <div class="si-badge" title="Приём: отмечено 2 из 4">2 из 4</div>
       </div>
       <div class="si" id="si2" onclick="go(2)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
@@ -401,11 +438,6 @@ textarea.diary:focus{border-color:var(--sage)}
       <div class="si" id="si3" onclick="go(3)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <div><div class="si-name">Самочувствие</div><div class="si-sub">Отметить симптомы</div></div>
-      </div>
-      <div class="si" id="si7" onclick="go(7)">
-        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <div><div class="si-name">Задания</div><div class="si-sub">От Натальи</div></div>
-        <div class="si-badge">2</div>
       </div>
       <div class="sb-cap">Моя программа</div>
       <div class="si active" id="si0" onclick="go(0)">
@@ -458,8 +490,8 @@ textarea.diary:focus{border-color:var(--sage)}
         </div>
       </div>
       <div class="grid2">
-        <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен · 1 задание к сроку.</div><button class="btn btn-o" onclick="go(1)">К схеме приёма</button></div>
-        <div class="card"><div class="card-h">Воскресный отчёт</div><div class="card-d">До отчёта 4 дня. Дневник заполнен 5 из 7 дней — Наталья увидит полную неделю.</div><button class="btn btn-o" onclick="go(2)">К дневнику</button></div>
+        <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен · 1 задание к сроку.</div><button class="btn btn-o" onclick="go(1)">К моему дню</button></div>
+        <div class="card"><div class="card-h">Воскресный отчёт</div><div class="card-d">Отчёт — завтра. Дневник заполнен 5 из 7 дней — допишите субботу, останется только воскресенье.</div><button class="btn btn-o" onclick="go(2)">К дневнику</button></div>
       </div>
       <div class="card idea">
         <span class="idea-tag">Идея · эскиз, не в прототипе</span>
@@ -468,7 +500,7 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="streak"><i class="on">Пн</i><i class="on">Вт</i><i class="on">Ср</i><i class="on">Чт</i><i class="on">Пт</i><i class="today">Сб</i><i>Вс</i></div>
       </div>
       <div class="card">
-        <div class="card-h">Последняя корректировка Натальи <span class="pill ok">вс, 29 июня</span> <span class="pill terra">пример, не реальная рекомендация</span></div>
+        <div class="card-h">Последняя корректировка Натальи <span class="pill ok">пн, 29 июня</span> <span class="pill terra">пример, не реальная рекомендация</span></div>
         <div class="card-d">«Магний переносим на вечер, к ужину. По дневнику вижу поздние углеводы — добавила в рецепты 3 варианта лёгкого ужина. Отличная динамика по сну, продолжаем.»</div>
       </div>
     </div></div>
@@ -476,8 +508,8 @@ textarea.diary:focus{border-color:var(--sage)}
     <!-- 1 Нутрицевтики -->
     <div class="sv" id="sv1"><div class="wrap">
       <div class="page-tag">Каждый день</div>
-      <div class="page-h">Схема приёма · сегодня</div>
-      <div class="page-d">Ваша персональная схема от Натальи. Отмечайте приём — так она видит реальную картину при воскресном разборе. <span class="pill terra">демо — пример, не рекомендация</span></div>
+      <div class="page-h">Мой день</div>
+      <div class="page-d">Всё на сегодня в одном месте: схема приёма от Натальи, задания и статус дня. Отмечайте — так Наталья видит реальную картину при воскресном разборе. <span class="pill terra">демо — пример, не рекомендация</span></div>
       <div class="sched">
         <div class="sched-hd"><span>Время</span><span>Нутрицевтик</span><span>Дозировка</span><span>Количество</span><span>Приём и еда</span><span title="Уведомление">🔔</span><span title="Отметка приёма">✓</span></div>
         <div class="tg"><div class="tg-time"><b>08:00</b><span>утро</span></div><div class="tg-rows">
@@ -492,7 +524,37 @@ textarea.diary:focus{border-color:var(--sage)}
         </div></div>
         <div class="sched-sum"><b>Итого на день:</b><span class="sum-pill">Омега-3 — 2 капс.</span><span class="sum-pill">Витамин D3 — 1 капс.</span><span class="sum-pill">Цинк — 1 капс.</span><span class="sum-pill">Магний — 1 табл.</span><span style="color:var(--muted)">всего 5 единиц</span></div>
       </div>
-      <div class="card"><div class="card-h">Напоминания <span class="pill ok">включены</span></div><div class="card-d">Пуш придёт в момент приёма — 08:00, 14:00, 21:00 — ничего не держать в голове. Колокольчик в строке выключает уведомление по отдельной добавке. Заметили реакцию на приём — отметьте в «Самочувствии», сигнал уйдёт Наталье с приоритетом.</div><button class="btn btn-o" onclick="toggleNotif()">Показать напоминания</button></div>
+      <div class="card">
+        <div class="card-h">Задания от Натальи <span class="pill wait">2 активных</span></div>
+        <div class="task">
+          <button class="task-chk" onclick="toggleTask(this)">✓</button>
+          <div class="task-body">
+            <div class="task-name">Посмотреть видео «Как читать состав на этикетке»</div>
+            <div class="task-meta"><span class="task-due soon">до 6 июля</span> <span>материал в разделе «Рецепты и таблицы»</span></div>
+          </div>
+        </div>
+        <div class="task">
+          <button class="task-chk" onclick="toggleTask(this)">✓</button>
+          <div class="task-body">
+            <div class="task-name">Сдать контрольные анализы (ферритин, витамин D)</div>
+            <div class="task-meta"><span class="task-due">до 10 августа</span> <span>к неделе 8 · сравним «до / после»</span></div>
+          </div>
+        </div>
+        <div class="task done">
+          <button class="task-chk" onclick="toggleTask(this)">✓</button>
+          <div class="task-body">
+            <div class="task-name">Заполнить опросник по пищеварению</div>
+            <div class="task-meta"><span>выполнено 30 июня</span></div>
+          </div>
+        </div>
+        <div class="card-d" style="margin-top:10px">Не поняли задание или не успеваете — <a href="#" onclick="openComposer('task');return false" style="color:var(--herbal);font-weight:600">напишите Наталье</a>, она подскажет.</div>
+      </div>
+      <div class="card">
+        <div class="card-h">Ещё сегодня</div>
+        <div class="card-d">Дневник за субботу пока пуст — заполните вечером: завтра неделя уйдёт в воскресный отчёт Наталье.</div>
+        <button class="btn btn-o" onclick="go(2)">В дневник питания</button>
+      </div>
+      <div class="card"><div class="card-h">Напоминания <span class="pill ok">включены</span></div><div class="card-d">Пуш придёт в момент приёма — 08:00, 14:00, 21:00 — ничего не держать в голове. Колокольчик в строке выключает уведомление по отдельной добавке. Заметили реакцию на приём — отметьте в «Самочувствии», сигнал уйдёт Наталье с приоритетом.</div><button class="btn btn-o bell-open" onclick="toggleNotif()">Показать напоминания</button></div>
     </div></div>
 
     <!-- 2 Дневник -->
@@ -686,43 +748,12 @@ textarea.diary:focus{border-color:var(--sage)}
       <div class="card"><div class="card-h">Зачем это</div><div class="card-d">Реакция на новый нутрицевтик или продукт важна сразу, а не в конце недели. Ваши отметки — ранний сигнал для Натальи скорректировать схему.<br><br><b>Важно:</b> при остром или тревожащем состоянии обращайтесь к врачу — программа корректирует питание и образ жизни, она не заменяет медицинскую помощь.</div></div>
     </div></div>
 
-    <!-- 7 Задания -->
-    <div class="sv" id="sv7"><div class="wrap">
-      <div class="page-tag">Каждый день</div>
-      <div class="page-h">Задания от Натальи</div>
-      <div class="page-d">Небольшие шаги между воскресными разборами. Отмечайте выполненное — Наталья видит прогресс.</div>
-      <div class="card">
-        <div class="card-h">К выполнению <span class="pill wait">2 активных</span></div>
-        <div class="task">
-          <button class="task-chk" onclick="toggleTask(this)">✓</button>
-          <div class="task-body">
-            <div class="task-name">Сдать контрольные анализы (ферритин, витамин D)</div>
-            <div class="task-meta"><span class="task-due soon">до 12 июля</span> <span>к неделе 8 · сравним «до / после»</span></div>
-          </div>
-        </div>
-        <div class="task">
-          <button class="task-chk" onclick="toggleTask(this)">✓</button>
-          <div class="task-body">
-            <div class="task-name">Посмотреть видео «Как читать состав на этикетке»</div>
-            <div class="task-meta"><span class="task-due">до 6 июля</span> <span>материал в разделе «Рецепты и таблицы»</span></div>
-          </div>
-        </div>
-        <div class="task done">
-          <button class="task-chk" onclick="toggleTask(this)">✓</button>
-          <div class="task-body">
-            <div class="task-name">Заполнить опросник по пищеварению</div>
-            <div class="task-meta"><span>выполнено 30 июня</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="card"><div class="card-h">Вопрос по заданию?</div><div class="card-d">Не поняли, что нужно, или не успеваете — напишите Наталье, она подскажет.</div><button class="btn btn-o" onclick="openComposer('task')">Написать Наталье</button></div>
-    </div></div>
 
     <!-- 8 Календарь -->
     <div class="sv" id="sv8"><div class="wrap">
       <div class="page-tag">Моя программа</div>
       <div class="page-h">Календарь</div>
-      <div class="page-d">Всё в одном месте: дни приёма, воскресные отчёты, сроки заданий и напоминания.</div>
+      <div class="page-d">Всё в одном месте: дни приёма, воскресные отчёты, сроки заданий — и свои напоминания: выберите день и добавьте внизу.</div>
       <div class="card">
         <div class="cal-head">
           <div class="cal-title" id="calTitle">Июль 2026</div>
@@ -731,14 +762,20 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="cal-grid" id="calGrid"></div>
         <div class="cal-legend">
           <span><i style="background:#7C9070"></i>Приём отмечен</span>
-          <span><i style="background:#2F4A3C"></i>Дневник</span>
-          <span><i style="background:#C9A24B"></i>Отчёт / встреча</span>
+          <span><i style="background:#2F4A3C"></i>Дневник заполнен</span>
+          <span><i style="background:#C9A24B"></i>Воскресный отчёт</span>
           <span><i style="background:#E8A87C"></i>Задание</span>
+          <span><i style="background:transparent;border:1.5px solid #C9A24B;box-sizing:border-box"></i>Моё напоминание</span>
         </div>
       </div>
       <div class="card">
         <div class="card-h" id="agTitle">Суббота, 4 июля</div>
         <div class="cal-agenda" id="calAgenda"></div>
+        <div class="cal-add">
+          <input type="text" id="remIn" placeholder="Своё напоминание на этот день — например, «записаться на массаж»…" onkeydown="if(event.key==='Enter')addRem()">
+          <button class="btn btn-o" onclick="addRem()">+ Добавить</button>
+        </div>
+        <div class="acc-note" style="margin-top:8px">Напоминание видно только вам (Наталье не уходит). В эскизе живёт до перезагрузки страницы.</div>
       </div>
     </div></div>
 
@@ -819,8 +856,8 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="card-h">Ваш тариф <span class="pill ok">оплачено</span></div>
         <div class="mrow"><span>Программа</span><b>Коррекция · 2 месяца</b></div>
         <div class="mrow"><span>Стоимость</span><b>45 000 ₽</b></div>
-        <div class="mrow"><span>Оплачено</span><b>20 июня · СБП</b></div>
-        <div class="mrow"><span>Программа активна до</span><b>20 августа</b></div>
+        <div class="mrow"><span>Оплачено</span><b>12 июня · СБП</b></div>
+        <div class="mrow"><span>Программа активна до</span><b>12 августа</b></div>
         <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь скачивается чек по 54-ФЗ')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Скачать чек (54-ФЗ)</button>
       </div>
       <div class="card">
@@ -848,7 +885,7 @@ textarea.diary:focus{border-color:var(--sage)}
   <div class="notif-list" id="notifList">
     <div class="notif-item unread"><div class="notif-ic" style="background:rgba(124,144,112,.16);color:#5C7050">⏰</div><div class="notif-tx"><b>Приём в 14:00 — Цинк</b><span>1 капсула после обеда, не с кофе</span><time>через 40 минут</time></div><div class="notif-unreaddot"></div></div>
     <div class="notif-item unread"><div class="notif-ic" style="background:rgba(201,162,75,.18);color:#9A7A2E">📤</div><div class="notif-tx"><b>Воскресный отчёт завтра</b><span>Дневник заполнен 5 из 7 дней — допишите субботу и воскресенье</span><time>сегодня, 09:12</time></div><div class="notif-unreaddot"></div></div>
-    <div class="notif-item unread"><div class="notif-ic" style="background:rgba(232,168,124,.2);color:#B06A38">✎</div><div class="notif-tx"><b>Новая корректировка от Натальи</b><span>«Магний переносим на вечер…» — смотрите в «Программа»</span><time>вс, 29 июня</time></div><div class="notif-unreaddot"></div></div>
+    <div class="notif-item unread"><div class="notif-ic" style="background:rgba(232,168,124,.2);color:#B06A38">✎</div><div class="notif-tx"><b>Новая корректировка от Натальи</b><span>«Магний переносим на вечер…» — смотрите в «Программа»</span><time>пн, 29 июня</time></div><div class="notif-unreaddot"></div></div>
     <div class="notif-item"><div class="notif-ic" style="background:rgba(124,144,112,.14);color:var(--sage)">✓</div><div class="notif-tx"><b>Задание выполнено</b><span>Опросник по пищеварению принят</span><time>30 июня</time></div></div>
   </div>
 </div>
@@ -928,7 +965,31 @@ function dFilter(){
 }
 dFilter();
 /* Чат: при входе в раздел прокручиваем к последним сообщениям */
-var _goChat=go; go=function(n){_goChat(n); if(n===6){var cb=document.querySelector('.chat-body'); if(cb)cb.scrollTop=cb.scrollHeight;}};
+var _goChat=go; go=function(n){_goChat(n); if(n===6){var cb=document.querySelector('.chat-body'); if(cb)cb.scrollTop=cb.scrollHeight;} if(document.body.classList.contains('app'))setTab(n);};
+/* Miniapp-режим (?app=1): оболочка TG/MAX — нижний таб-бар вместо сайдбара.
+   ?lite=1 — TG-витрина: разделы с данными о здоровье скрыты (граница 152-ФЗ, согласуем с юристом) */
+if(/[?&]app=1/.test(location.search)){
+  document.body.classList.add('app');
+  var LITE=/[?&]lite=1/.test(location.search);
+  if(LITE) document.body.classList.add('lite');
+  go(LITE?0:1);
+}
+function setTab(n){
+  var main=[1,2,6,8];
+  document.querySelectorAll('.tb').forEach(function(b){
+    var v=b.getAttribute('data-v');
+    b.classList.toggle('on', v===String(n) || (v==='more'&&main.indexOf(n)===-1));
+  });
+}
+function toggleMore(force){
+  var s=document.getElementById('moreSheet');
+  var show=(typeof force==='boolean')?force:!s.classList.contains('show');
+  s.classList.toggle('show',show);
+}
+document.addEventListener('click',function(e){
+  var s=document.getElementById('moreSheet');
+  if(s&&s.classList.contains('show')&&!s.contains(e.target)&&!e.target.closest('.tb[data-v="more"]')) s.classList.remove('show');
+});
 /* Чат: вложение — плашка-пояснение по клику (toggle, вложение не исчезает) */
 function chatAtt(el,txt){
   var nx=el.nextElementSibling;
@@ -967,7 +1028,7 @@ function markAllRead(){
 }
 document.addEventListener('click',function(e){
   var p=document.getElementById('notifPanel');
-  if(p.classList.contains('show') && !p.contains(e.target) && !e.target.closest('.bell')) p.classList.remove('show');
+  if(p.classList.contains('show') && !p.contains(e.target) && !e.target.closest('.bell,.bell-open')) p.classList.remove('show');
 });
 
 /* Композер */
@@ -1024,17 +1085,22 @@ function stopRec(){
 var calY=2026, calM=6; // 0-indexed июль
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 var events={ // день: типы
-  1:['take','diary'],2:['take','diary'],3:['take','diary'],4:['take'],5:['take','diary','report'],
-  6:['task'],7:['take','diary'],8:['take','diary'],9:['take','diary'],10:['take'],12:['task','report'],
-  13:['report'],20:['report'],27:['report']
+  1:['take','diary'],2:['take','diary'],3:['take','diary'],4:['take'],5:['report'],
+  6:['tsk'],12:['report'],
+  19:['report'],26:['report'] // отчёты — воскресенья (5,12,19,26 июля 2026); отметки приёма/дневника — только на прошедших днях
 };
 var agendas={
   4:[['⏰','#7C9070','Приём: Омега-3, D3 (08:00) · Цинк (14:00) · Магний (21:00)'],['✎','#8A8578','Дневник питания за субботу — не заполнен']],
   5:[['📤','#C9A24B','Воскресный отчёт уходит Наталье'],['⏰','#7C9070','Приём по схеме']],
   6:[['✓','#E8A87C','Задание: посмотреть видео «Как читать состав»']],
-  12:[['🧪','#C9A24B','Срок: сдать контрольные анализы'],['✓','#E8A87C','Задание к неделе 8']]
+  12:[['📤','#C9A24B','Воскресный отчёт уходит Наталье']],
+  19:[['📤','#C9A24B','Воскресный отчёт уходит Наталье']],
+  26:[['📤','#C9A24B','Воскресный отчёт уходит Наталье']]
 };
-function calMove(d){ calM+=d; if(calM<0){calM=11;calY--;} if(calM>11){calM=0;calY++;} buildCal(); }
+var myRem={}; myRem['2026-6-11']=['Купить магний — упаковка заканчивается']; // ключ Y-M-D, M 0-indexed: '2026-6-11' = 11 ИЮЛЯ 2026
+var selD=4;
+function remKey(d){return calY+'-'+calM+'-'+d;}
+function calMove(d){ calM+=d; if(calM<0){calM=11;calY--;} if(calM>11){calM=0;calY++;} selD=1; var ri=document.getElementById('remIn'); if(ri)ri.value=''; buildCal(); }
 function buildCal(){
   document.getElementById('calTitle').textContent=MN[calM]+' '+calY;
   var grid=document.getElementById('calGrid');
@@ -1043,6 +1109,7 @@ function buildCal(){
   var first=new Date(calY,calM,1).getDay(); first=first===0?6:first-1; // Пн=0
   var days=new Date(calY,calM+1,0).getDate();
   var isJul=(calM===6&&calY===2026);
+  var selCell=null;
   for(var i=0;i<first;i++){var e=document.createElement('div');e.className='cal-cell out';grid.appendChild(e);}
   for(var d=1;d<=days;d++){
     var cell=document.createElement('div');
@@ -1051,25 +1118,39 @@ function buildCal(){
     if(isJul && d===4) cell.className+=' today';
     var dots='';
     if(isJul && events[d]) events[d].forEach(function(t){dots+='<span class="cal-dot '+t+'"></span>';});
+    if(myRem[remKey(d)]&&myRem[remKey(d)].length) dots+='<span class="cal-dot mine"></span>';
     cell.innerHTML='<div class="cal-num">'+d+'</div><div class="cal-dots">'+dots+'</div>';
     (function(dd){cell.onclick=function(){selDay(dd,cell);};})(d);
+    if(d===selD) selCell=cell;
     grid.appendChild(cell);
   }
-  selDay(4,null);
+  selDay(selD,selCell);
 }
 function selDay(d,cell){
+  selD=d;
   document.querySelectorAll('.cal-cell').forEach(function(c){c.classList.remove('sel')});
   if(cell) cell.classList.add('sel');
   var dow=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'][new Date(calY,calM,d).getDay()];
   document.getElementById('agTitle').textContent=dow.charAt(0).toUpperCase()+dow.slice(1)+', '+d+' '+MN[calM].toLowerCase();
   var ag=document.getElementById('calAgenda'); ag.innerHTML='';
-  var items=(calM===6&&calY===2026)?agendas[d]:null;
-  if(!items){ag.innerHTML='<div class="card-d">На этот день ничего не запланировано.</div>';return;}
+  var items=((calM===6&&calY===2026)?agendas[d]:null)||[];
+  var mine=(myRem[remKey(d)]||[]).map(function(t){return ['🔔','#C9A24B','Моё напоминание: '+t];});
+  items=items.concat(mine);
+  if(!items.length){ag.innerHTML='<div class="card-d">На этот день ничего не запланировано — можно добавить своё напоминание ниже.</div>';return;}
   items.forEach(function(it){
     var row=document.createElement('div');row.className='cal-ag-item';
     row.innerHTML='<div class="cal-ag-ic" style="background:'+it[1]+'22;color:'+it[1]+'">'+it[0]+'</div><div class="card-d" style="padding-top:4px">'+it[2]+'</div>';
     ag.appendChild(row);
   });
+}
+function addRem(){
+  var inp=document.getElementById('remIn');
+  var v=(inp.value||'').trim().replace(/[<>&"]/g,'');
+  if(!v) return;
+  var k=remKey(selD);
+  (myRem[k]=myRem[k]||[]).push(v);
+  inp.value='';
+  buildCal();
 }
 /* показать колокол в десктоп-сайдбаре */
 function syncBell(){ document.getElementById('bellDesk').style.display = window.innerWidth>760?'flex':'none'; }
@@ -1096,6 +1177,7 @@ window.SIM_HOOK_LABEL='Крючок';
 window.SIM_LAUNCH_LABEL='Путь клиента — по шагам';
 window.SIM_NEXT={label:'Продолжить: день Натальи →',href:'admin.html?sim=1'};
 window.simCleanup=function(){
+  if(!document.body.classList.contains('app') && window.innerWidth<=760 && typeof toggleSb==='function') toggleSb(false);
   ['simNotif','simFileRow','simFoodChips'].forEach(function(id){var n=document.getElementById(id); if(n) n.remove();});
   var p=document.getElementById('notifPanel'); if(p){p.classList.remove('show'); p.style.zIndex='';}
   ['bellDotM','bellDotD'].forEach(function(id){var b=document.getElementById(id); if(b) b.textContent='3';});
@@ -1106,8 +1188,8 @@ window.SIM_SCENES=[
  {chap:'Вечер · день 0', html:'<div class="simd-tag">Действие 1 · один клик</div><div class="simd-h">Марина читает пост — и нажимает кнопку</div><div class="simd-row"><div class="simd-ic">📖</div><div>Марина, 38 (демо-персонаж) прочитала пост Натальи в канале и прожила страницу «Один день из жизни с программой».</div></div><div class="simd-row"><div class="simd-ic">👆</div><div>Внизу страницы — одна кнопка:</div></div><div class="simd-btnrow"><span class="simd-btn">Начать с бесплатного первого наблюдения →</span></div><div class="simd-note">Никаких установок и регистраций — кабинет открылся в браузере по ссылке. Это прототип: так система будет работать после сборки.</div>',
   title:'Пост → лендинг → кабинет', text:'Одно действие — нажала кнопку — и Марина уже в своём кабинете. Дальше идём строго по её шагам.',
   hook:'Вход в один клик, начало — бесплатно. Порог почти нулевой.'},
- {chap:'Вечер · день 0', view:0, sel:'.sb', run:function(){ if(window.innerWidth<=760 && typeof toggleSb==='function') toggleSb(true); },
-  title:'Первый взгляд — всё подписано', text:'Слева — вся программа: приём и дневник на каждый день, задания, анализы, материалы, связь с Натальей и оплата. Один дом вместо мессенджера, папок и Excel.',
+ {chap:'Вечер · день 0', view:0, sel:function(){return document.body.classList.contains('app')?'.tabbar':'.sb';}, run:function(){ if(!document.body.classList.contains('app') && window.innerWidth<=760 && typeof toggleSb==='function') toggleSb(true); },
+  title:'Первый взгляд — всё подписано', text: document.body.classList.contains('app') ? 'Внизу — главные разделы дня: Мой день, Дневник, Чат, Календарь; остальное — под кнопкой «Ещё». Один дом вместо мессенджера, папок и Excel.' : 'Слева — вся программа: приём и дневник на каждый день, задания, анализы, материалы, связь с Натальей и оплата. Один дом вместо мессенджера, папок и Excel.',
   hook:'С первой секунды понятно, где что. Разбираться не нужно — просто идти сверху вниз.'},
  {chap:'Первые 15 минут', html:'<div class="simd-tag">Действие 2 · согласие</div><div class="simd-h">Прежде чем рассказать о здоровье</div><div class="simd-chk"><div class="box">✓</div><div>Согласен(на) на обработку данных о здоровье: <b>что храним, где (в России) и зачем</b> — только для работы нутрициолога по моей программе.</div></div><div class="simd-note">Без галочки дальше не пустит: рассказ о здоровье начинается только после согласия. Данные о здоровье — особая категория: контур хранения строим под 152-ФЗ (хранение в России) и согласуем с юристом до запуска.</div>',
   title:'Сначала согласие — потом рассказ', text:'Марина видит, что и зачем сохраняется, ДО того как что-то рассказала. Это не формальность — это часть доверия к Наталье.',
@@ -1138,7 +1220,7 @@ window.SIM_SCENES=[
  {chap:'День 1 · вечер', html:'<div class="simd-tag">Марина ничего не делает</div><div class="simd-h">Данные ушли Наталье</div><div class="simd-row"><div class="simd-ic">📥</div><div>Анкета, анализы и дневник Марины собрались в одну карточку у Натальи.</div></div><div class="simd-row"><div class="simd-ic">🧾</div><div>Система собрала цифры из анализов в таблицу — Наталье не разбирать фото бланков. <span class="simd-pill">подготовка, не вывод</span></div></div><div class="simd-row"><div class="simd-ic">👩‍⚕️</div><div>Вывод сделает Наталья — не автомат. Марина видит статус: <b>«на разборе у Натальи»</b>.</div></div>',
   title:'Статус: на разборе', text:'Марина просто живёт. В кабинете виден честный статус — данные у Натальи, идёт разбор.',
   hook:'Не тишина и не «куда всё делось»: статус всегда на виду.'},
- {chap:'День 2', view:0, sel:function(){return window.innerWidth>760?'#bellDesk':'.hdr .bell';}, run:function(){
+ {chap:'День 2', view:0, sel:function(){return (document.body.classList.contains('app')||window.innerWidth<=760)?'.hdr .bell':'#bellDesk';}, run:function(){
     if(!document.getElementById('simNotif')){
       var list=document.getElementById('notifList');
       var d=document.createElement('div'); d.className='notif-item unread'; d.id='simNotif';
@@ -1191,5 +1273,24 @@ window.SIM_SCENES=[
 ];
 </script>
 <script src="sim_engine.js"></script>
+<!-- Miniapp: нижний таб-бар (?app=1); lite=1 — TG-витрина без health -->
+<div class="lite-note">Дневник, схема приёма и анализы откроются в защищённом контуре — MAX или веб-версия</div>
+<div class="tabbar" id="tabbar">
+  <button class="tb lite-only" data-v="0" onclick="go(0)"><span class="tb-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></span>Программа</button>
+  <button class="tb on" data-v="1" onclick="go(1)"><span class="tb-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>Мой день</button>
+  <button class="tb" data-v="2" onclick="go(2)"><span class="tb-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>Дневник</button>
+  <button class="tb" data-v="6" onclick="go(6)"><span class="tb-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Чат</button>
+  <button class="tb" data-v="8" onclick="go(8)"><span class="tb-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>Календарь</button>
+  <button class="tb" data-v="more" onclick="toggleMore()"><span class="tb-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></span>Ещё</button>
+</div>
+<div class="moresheet" id="moreSheet">
+  <div class="ms-grab"></div>
+  <div class="ms-item" onclick="go(0);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>Программа<span>неделя 3 из 8</span></div>
+  <div class="ms-item" onclick="go(3);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Самочувствие</div>
+  <div class="ms-item" onclick="go(4);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Анализы</div>
+  <div class="ms-item" onclick="go(5);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Рецепты и таблицы</div>
+  <div class="ms-item" onclick="go(9);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Оплата и чек</div>
+</div>
+<script>if(document.body.classList.contains('app')){setTab(document.body.classList.contains('lite')?0:1);}</script>
 </body>
 </html>

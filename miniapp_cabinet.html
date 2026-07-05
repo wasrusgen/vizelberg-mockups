@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>VIZELBERG · Кабинет клиента в мини-приложении — Telegram и MAX</title>
+<style>
+:root{--sage:#7C9070;--herbal:#2F4A3C;--cream:#F5EFE6;--terra:#E8A87C;--gold:#C9A24B;--ink:#23302a;--muted:#8a978d;--border:rgba(47,74,60,.14);--white:#fff;--subtle:#F7F3EC}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',-apple-system,Roboto,sans-serif;background:#ede6db;color:var(--ink);line-height:1.55;padding:34px 20px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+.tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--sage)}
+h1{font-family:Georgia,serif;font-size:30px;color:var(--herbal);margin:6px 0 8px}
+.sub{font-size:14.5px;color:var(--muted);max-width:760px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:100px;background:rgba(232,168,124,.2);color:#A8632F;vertical-align:middle}
+.phones{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.ph-col{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:420px}
+.phone{width:390px;max-width:92vw;background:#0d0d0f;border-radius:44px;padding:10px;box-shadow:0 30px 70px rgba(20,30,24,.35)}
+.scr{border-radius:34px;overflow:hidden;background:var(--cream);display:flex;flex-direction:column;height:760px}
+.mh{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:10px 14px;color:#fff;font-size:13px}
+.mh.tg{background:#1c93e3}
+.mh.max{background:#2447E0}
+.mh b{font-size:13.5px}
+.mh .sub2{font-size:10.5px;opacity:.8;font-weight:400}
+.mh .x{margin-left:auto;display:flex;gap:14px;align-items:center;opacity:.9;font-size:16px}
+.mh .mono{width:26px;height:26px;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700}
+iframe{border:none;width:100%;flex:1;background:var(--cream)}
+.cap{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:14px 18px;font-size:12.5px;color:var(--muted);width:100%}
+.cap b{color:var(--herbal);display:block;font-size:13px;margin-bottom:3px}
+.cap .ok{color:#5C7050;font-weight:600}
+.note{max-width:1180px;margin:38px auto 0;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px 22px}
+.note h2{font-family:Georgia,serif;font-size:17px;color:var(--herbal);margin-bottom:8px}
+.note p{font-size:13px;color:var(--muted);margin-bottom:8px}
+.note b{color:var(--herbal)}
+@media(max-width:900px){.phones{gap:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">Клиентская часть · мини-приложение</div>
+  <h1>Кабинет клиента — в Telegram и MAX <span class="pill">демо · прототип</span></h1>
+  <div class="sub">Тот же кабинет, что и в веб-версии, — один и тот же «мозг», два «кузова». Внутри рамок ниже — живой прототип, всё нажимается. Слева (Telegram) — витрина без данных о здоровье; справа (MAX) — полный кабинет: Мой день · Дневник · Чат · Календарь · Ещё.</div>
+
+  <div class="phones">
+    <div class="ph-col">
+      <div class="phone"><div class="scr">
+        <div class="mh tg"><div class="mono">V</div><div><b>AMRITA · Кабинет</b><div class="sub2">мини-приложение</div></div><div class="x"><span>⋮</span><span>✕</span></div></div>
+        <iframe src="cabinet.html?app=1&amp;lite=1" title="Кабинет в Telegram — витрина без данных о здоровье (прототип)"></iframe>
+      </div></div>
+      <div class="cap"><b>Telegram — вход, витрина и уведомления</b>
+        Здесь живёт её канал (~630 подписчиков): контент, напоминания, быстрый вход в программу. Данные о здоровье (анкета, дневники, анализы) в Telegram <b>не будут храниться</b> — по плану 152-ФЗ они остаются в российском контуре. Это видно прямо в рамке: вкладок дневника и схемы здесь нет, только программа, чат и вход. Точную границу согласуем с юристом.</div>
+    </div>
+    <div class="ph-col">
+      <div class="phone"><div class="scr">
+        <div class="mh max"><div class="mono">V</div><div><b>AMRITA · Кабинет</b><div class="sub2">мини-приложение</div></div><div class="x"><span>⋮</span><span>✕</span></div></div>
+        <iframe src="cabinet.html?app=1" title="Кабинет в MAX (прототип)"></iframe>
+      </div></div>
+      <div class="cap"><b>MAX — полный кабинет</b>
+        Российская платформа: рассчитываем, что полный кабинет с данными о здоровье будет жить здесь; оплата — через платёжный сервис (СБП). Возможности мини-приложений MAX ещё проверяем; запасной путь готов — веб-версия (PWA): тот же кабинет по ссылке, без установки. Внутри: схема приёма от Натальи, дневник, самочувствие, анализы, чат.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <h2>Как это устроено</h2>
+    <p><b>Один кабинет — три двери.</b> Веб-версия (по ссылке, работает уже как прототип), мини-приложение в MAX и вход из Telegram — это одна и та же система, не три разных. Клиент выбирает, где ему удобно; Наталья видит всех в одном пульте.</p>
+    <p><b>Почему полные данные — не в Telegram.</b> Данные о здоровье — особая категория по 152-ФЗ: храним их в российском контуре. Telegram остаётся тем, чем он силён: канал, прогрев, уведомления, вход. Границу «что можно в Telegram» фиксируем с юристом до запуска.</p>
+    <p style="margin-bottom:0"><span class="pill">демо</span> Обе рамки — один живой прототип: слева он в режиме витрины (health-разделы скрыты), справа — полный. Оплата, пуши и авторизация в мессенджерах — в рабочей версии, здесь показан интерфейс.</p>
+  </div>
+</div>
+</body>
+</html>
