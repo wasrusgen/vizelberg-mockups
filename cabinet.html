@@ -132,6 +132,13 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .sl.taken .sl-name{text-decoration:line-through;color:var(--muted)}
 .sched-sum{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding:10px 14px;background:var(--subtle);border-top:1px solid var(--border);font-size:12.5px}
 .sched-sum b{font-family:Georgia;color:var(--herbal)}
+.dlog{border:1px solid var(--border);border-radius:11px;padding:12px 14px;margin-top:10px;background:var(--subtle)}
+.dlog-hd{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.dlog-day{font-weight:700;font-size:13px;font-family:Georgia;color:var(--herbal)}
+.dlog-tx{font-size:12.5px;color:var(--muted);line-height:1.55}
+.dlog-tx b{color:var(--herbal);font-weight:600}
+.dlog-reply{margin-top:8px;padding:8px 10px;border-left:2px solid var(--gold);background:#fff;border-radius:0 8px 8px 0;font-size:12px;color:var(--muted)}
+.dlog-reply b{color:var(--herbal)}
 .sum-pill{background:#fff;border:1px solid var(--border);border-radius:100px;padding:3px 10px;font-size:11.5px}
 @media(max-width:760px){
   .sched-hd{display:none}
@@ -431,6 +438,18 @@ textarea.diary:focus{border-color:var(--sage)}
         </div>
         <div class="card-d" style="margin-top:12px">Воскресенье — день отчёта: неделя уходит Наталье на разбор, в ответ придёт корректировка.</div>
       </div>
+      <div class="card">
+        <div class="card-h">Последние записи</div>
+        <div class="dlog">
+          <div class="dlog-hd"><span class="dlog-day">Пятница</span><span class="pill ok">заполнено ✓</span></div>
+          <div class="dlog-tx"><b>Завтрак:</b> овсянка на воде, черника, грецкий орех · чай без сахара<br><b>Обед:</b> гречка, индейка, салат с оливковым маслом<br><b>Перекус:</b> яблоко, горсть миндаля<br><b>Ужин (19:30):</b> треска на пару, брокколи, киноа<br><b>Вода:</b> ~1,9 л · спалось хорошо</div>
+        </div>
+        <div class="dlog">
+          <div class="dlog-hd"><span class="dlog-day">Четверг</span><span class="pill ok">заполнено ✓</span></div>
+          <div class="dlog-tx"><b>Завтрак:</b> омлет из 2 яиц, цельнозерновой тост, огурец<br><b>Обед:</b> тыквенный суп-пюре, курица, зелень<br><b>Ужин (22:10, поздно — после работы):</b> паста с сыром<br><b>Вода:</b> ~1,2 л — меньше обычного</div>
+          <div class="dlog-reply"><b>Заметка системы для отчёта:</b> поздний ужин с углеводами и мало воды — попадёт в воскресный разбор, выводы сделает Наталья.</div>
+        </div>
+      </div>
       <div class="card idea">
         <span class="idea-tag">Идея · эскиз, не в прототипе</span>
         <div class="card-h">Фото блюда → расчёт состава</div>
@@ -471,6 +490,22 @@ textarea.diary:focus{border-color:var(--sage)}
         </div>
         <textarea class="diary" style="min-height:70px" placeholder="Подробнее своими словами (необязательно)"></textarea>
         <button class="btn btn-p">Отправить</button>
+      </div>
+      <div class="card">
+        <div class="card-h">Ранее отмечали</div>
+        <div class="dlog">
+          <div class="dlog-hd"><span class="dlog-day">Четверг</span><span class="pill wait">войдёт в воскресный отчёт</span></div>
+          <div class="dlog-tx">Отмечено: <b>тяжесть после еды</b>. Комментарий: «ужин был поздно, около 22:00».</div>
+        </div>
+        <div class="dlog">
+          <div class="dlog-hd"><span class="dlog-day">Вторник</span><span class="pill terra">ушло Наталье с приоритетом</span></div>
+          <div class="dlog-tx">Отмечено: <b>дискомфорт ЖКТ</b>. Комментарий: «приняла цинк до еды, забыла про правило».</div>
+          <div class="dlog-reply"><b>Наталья ответила в тот же день:</b> «Цинк — строго после еды, натощак он часто даёт дискомфорт. Если повторится и после еды — напишите, заменим форму».</div>
+        </div>
+        <div class="dlog">
+          <div class="dlog-hd"><span class="dlog-day">Воскресенье</span><span class="pill ok">отмечено</span></div>
+          <div class="dlog-tx">Отмечено: <b>всё отлично</b>. Комментарий: «энергии заметно больше, чем неделю назад».</div>
+        </div>
       </div>
       <div class="card"><div class="card-h">Зачем это</div><div class="card-d">Реакция на новый нутрицевтик или продукт важна сразу, а не в конце недели. Ваши отметки — ранний сигнал для Натальи скорректировать схему.<br><br><b>Важно:</b> при остром или тревожащем состоянии обращайтесь к врачу — программа корректирует питание и образ жизни, она не заменяет медицинскую помощь.</div></div>
     </div></div>
