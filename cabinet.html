@@ -113,10 +113,13 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 
 /* Нутрицевтики: расписание дня */
 .sched{margin-top:14px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
-.sched-hd,.sl{display:grid;grid-template-columns:60px 1.5fr .7fr .9fr 38px 42px;gap:10px;align-items:center;padding:10px 14px}
+.sched-hd,.sl{display:grid;grid-template-columns:1.1fr .7fr .8fr 1.3fr 38px 42px;gap:10px;align-items:center;padding:10px 14px}
+.sched-grp{padding:7px 14px;background:var(--subtle);border-bottom:1px solid var(--border);font-family:Georgia;font-size:12.5px;font-weight:700;color:var(--herbal)}
+.sched-grp span{font-family:Inter,sans-serif;font-size:11px;font-weight:600;color:var(--muted);margin-left:8px;text-transform:uppercase;letter-spacing:.06em}
+.sl-how{font-size:12px;color:var(--muted)}
+.sl-how b{color:inherit;font-weight:600}
 .sched-hd{background:var(--subtle);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1px solid var(--border)}
 .sl{border-bottom:1px solid var(--border)}
-.sl-time{font-family:Georgia;font-size:14px;font-weight:700;color:var(--herbal)}
 .sl-body{min-width:0}
 .sl-name{font-size:13.5px;font-weight:600}
 .sl-dose{font-size:11.5px;color:var(--muted);margin-top:1px}
@@ -132,8 +135,8 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .sum-pill{background:#fff;border:1px solid var(--border);border-radius:100px;padding:3px 10px;font-size:11.5px}
 @media(max-width:760px){
   .sched-hd{display:none}
-  .sl{grid-template-columns:52px 1fr 34px 38px}
-  .sl-d,.sl-q{display:none}
+  .sl{grid-template-columns:1fr 34px 38px}
+  .sl-d,.sl-q,.sl-how{display:none}
   .sl-dose .mi{display:inline}
 }
 
@@ -403,14 +406,16 @@ textarea.diary:focus{border-color:var(--sage)}
       <div class="page-h">Схема приёма · сегодня</div>
       <div class="page-d">Ваша персональная схема от Натальи. Отмечайте приём — так она видит реальную картину при воскресном разборе. <span class="pill terra">демо — пример, не рекомендация</span></div>
       <div class="sched">
-        <div class="sched-hd"><span>Время</span><span>Нутрицевтик</span><span>Дозировка</span><span>Количество</span><span title="Уведомление">🔔</span><span title="Отметка приёма">✓</span></div>
-        <div class="sl taken"><div class="sl-time">08:00</div><div class="sl-body"><div class="sl-name">Омега-3</div><div class="sl-dose"><span class="mi">1000 мг/капс · 2 капсулы · </span>с завтраком</div></div><div class="sl-d">1000 мг/капс</div><div class="sl-q">2 капсулы</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
-        <div class="sl taken"><div class="sl-time">08:00</div><div class="sl-body"><div class="sl-name">Витамин D3</div><div class="sl-dose"><span class="mi">2000 МЕ/капс · 1 капсула · </span>с жирной пищей</div></div><div class="sl-d">2000 МЕ/капс</div><div class="sl-q">1 капсула</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
-        <div class="sl" id="slZinc"><div class="sl-time">14:00</div><div class="sl-body"><div class="sl-name">Цинк</div><div class="sl-dose"><span class="mi">22 мг/капс · 1 капсула · </span>после обеда, не с кофе</div></div><div class="sl-d">22 мг/капс</div><div class="sl-q">1 капсула</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
-        <div class="sl"><div class="sl-time">21:00</div><div class="sl-body"><div class="sl-name">Магний цитрат</div><div class="sl-dose"><span class="mi">350 мг/табл · 1 таблетка · </span>за час до сна</div></div><div class="sl-d">350 мг/табл</div><div class="sl-q">1 таблетка</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+        <div class="sched-hd"><span>Нутрицевтик</span><span>Дозировка</span><span>Количество</span><span>Приём и еда</span><span title="Уведомление">🔔</span><span title="Отметка приёма">✓</span></div>
+        <div class="sched-grp">08:00<span>утро</span></div>
+        <div class="sl taken"><div class="sl-body"><div class="sl-name">Омега-3</div><div class="sl-dose"><span class="mi">1000 мг/капс · 2 капсулы · во время завтрака</span></div></div><div class="sl-d">1000 мг/капс</div><div class="sl-q">2 капсулы</div><div class="sl-how"><b>во время еды</b> — завтрак</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+        <div class="sl taken"><div class="sl-body"><div class="sl-name">Витамин D3</div><div class="sl-dose"><span class="mi">2000 МЕ/капс · 1 капсула · во время еды, с жирной пищей</span></div></div><div class="sl-d">2000 МЕ/капс</div><div class="sl-q">1 капсула</div><div class="sl-how"><b>во время еды</b> — с жирной пищей</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+        <div class="sched-grp">14:00<span>день</span></div>
+        <div class="sl" id="slZinc"><div class="sl-body"><div class="sl-name">Цинк</div><div class="sl-dose"><span class="mi">22 мг/капс · 1 капсула · после еды, не с кофе</span></div></div><div class="sl-d">22 мг/капс</div><div class="sl-q">1 капсула</div><div class="sl-how"><b>после еды</b> — не с кофе</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
+        <div class="sched-grp">21:00<span>вечер</span></div>
+        <div class="sl"><div class="sl-body"><div class="sl-name">Магний цитрат</div><div class="sl-dose"><span class="mi">350 мг/табл · 1 таблетка · без привязки к еде, за час до сна</span></div></div><div class="sl-d">350 мг/табл</div><div class="sl-q">1 таблетка</div><div class="sl-how"><b>без привязки к еде</b> — за час до сна</div><button class="sl-bell on" onclick="toggleBell(this)" title="Уведомление включено">🔔</button><button class="sl-chk" onclick="toggleTake(this)">✓</button></div>
         <div class="sched-sum"><b>Итого на день:</b><span class="sum-pill">Омега-3 — 2 капс.</span><span class="sum-pill">Витамин D3 — 1 капс.</span><span class="sum-pill">Цинк — 1 капс.</span><span class="sum-pill">Магний — 1 табл.</span><span style="color:var(--muted)">всего 5 единиц</span></div>
       </div>
-      <div class="card"><div class="card-h">С собой на день <span class="pill">если день вне дома</span></div><div class="card-d">Утренние — Омега-3 и D3 — дома за завтраком. Днём вне дома — возьмите с собой <b>Цинк, 1 капсулу</b> (приём в 14:00). Магний — вечером дома. Сводка пересчитывается сама, когда Наталья меняет схему.</div></div>
       <div class="card"><div class="card-h">Напоминания <span class="pill ok">включены</span></div><div class="card-d">Пуш придёт в момент приёма — 08:00, 14:00, 21:00 — ничего не держать в голове. Колокольчик в строке выключает уведомление по отдельной добавке. Заметили реакцию на приём — отметьте в «Самочувствии», сигнал уйдёт Наталье с приоритетом.</div><button class="btn btn-o" onclick="toggleNotif()">Показать напоминания</button></div>
     </div></div>
 
@@ -870,7 +875,7 @@ window.SIM_SCENES=[
   title:'Марина видит весь маршрут — и остаётся', text:'Программа на 2 месяца: этапы, «где вы сейчас», что дальше. Понятная дорога — и понятно, за что платить.',
   hook:'Решение об оплате принимается на понятной карте, а не «поверьте на слово».'},
  {chap:'Каждый день', view:1, sel:'.sched',
-  title:'Утро: схема сама напоминает', text:'Таблица на день: что, сколько, когда и с чем принимать, внизу — итог на день. Карточка под таблицей подскажет, что взять с собой, если день вне дома. Напоминания кабинет поставил сам — в 08:00, 14:00 и 21:00 телефон подскажет.',
+  title:'Утро: схема сама напоминает', text:'Таблица сгруппирована по времени: что, сколько и как принимать — до еды, во время, после или без привязки. Внизу — итог: сколько чего нужно на день. Напоминания кабинет поставил сам — в 08:00, 14:00 и 21:00 телефон подскажет.',
   hook:'Ничего не держать в голове — программа сама ведёт по дню.'},
  {chap:'Каждый день', view:1, sel:'#slZinc', run:function(){
     var sl=document.getElementById('slZinc'); if(sl) sl.classList.add('taken');
