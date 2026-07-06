@@ -387,8 +387,9 @@ textarea.diary:focus{border-color:var(--sage)}
 .disc-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .disc-chip{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:100px;background:rgba(124,144,112,.13);color:#5C7050}
 .disc-chip.part{background:rgba(201,162,75,.14);color:#9A7A2E}
-/* выполненность дня в календаре — крупная цифра % (зелёная — день целиком, золотая — с пропуском) */
-.cal-pct{font-size:17px;font-weight:700;line-height:1;letter-spacing:-.02em;color:#5C7050;margin-top:3px}
+/* выполненность дня в календаре — крупная цифра % в правом-верхнем углу (зелёная — день целиком, золотая — с пропуском) */
+.cal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:4px}
+.cal-pct{font-size:17px;font-weight:700;line-height:1;letter-spacing:-.02em;color:#5C7050}
 .cal-pct i{font-style:normal;font-size:10px;font-weight:600;margin-left:1px;opacity:.7}
 .cal-pct.part{color:#9A7A2E}
 .cal-legend .lg-pct{font-size:12.5px;font-weight:700;letter-spacing:-.02em;color:#5C7050}
@@ -413,6 +414,7 @@ textarea.diary:focus{border-color:var(--sage)}
 @media(max-width:760px){
   .stab-hd{display:none}
   .srow{grid-template-columns:1fr;gap:4px;align-items:start;padding:10px 12px}
+  .cal-top{flex-direction:column;gap:0} /* на узкой ячейке % падает под число, а не в строку */
   .cal-pct{font-size:12.5px;margin-top:2px}
   .cal-pct i{display:none} /* на узкой ячейке значок % не влезает — легенда объясняет */
 }
@@ -1198,7 +1200,7 @@ function buildCal(){
     // выполненность: только прошедшие дни с данными (сегодня — золотой кружок, будущее — пусто)
     var dayP = (isJul && DISC[d]!=null && d<4) ? DISC[d] : (isJun && DISCJ[d]!=null ? DISCJ[d] : null);
     var pct = (dayP!=null) ? '<div class="cal-pct'+(dayP<100?' part':'')+'">'+dayP+'<i>%</i></div>' : '';
-    cell.innerHTML='<div class="cal-num">'+d+'</div>'+pct+'<div class="cal-dots">'+dots+'</div>';
+    cell.innerHTML='<div class="cal-top"><div class="cal-num">'+d+'</div>'+pct+'</div><div class="cal-dots">'+dots+'</div>';
     (function(dd){cell.onclick=function(){selDay(dd,cell);};})(d);
     if(d===selD) selCell=cell;
     grid.appendChild(cell);
