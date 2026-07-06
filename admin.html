@@ -293,9 +293,33 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .ai-msg.bot .src{display:block;margin-top:5px;font-size:10.5px;color:#5C7050;font-weight:600}
 .ai-note{font-size:11px;color:var(--muted);line-height:1.5;padding:10px 16px;border-top:1px solid var(--border);background:var(--subtle)}
 @media(max-width:560px),(max-height:760px){.ai-fab{padding:12px 14px}.ai-fab .lb{display:none}}
+
+/* Miniapp-режим (?app=1): нативный кузов TG/MAX — постоянный нижний таб-бар вместо
+   сайдбара. Тот же кабинет («один мозг, два кузова»), что и веб-версия. admin.html уже
+   адаптивен (≤760 — off-canvas); режим переносит навигацию вниз и делает её постоянной. */
+body.app .hdr{display:flex!important}
+body.app .hdr-menu{display:none}
+body.app .sb{position:fixed;inset:0 auto 0 0;z-index:35;width:256px;max-width:82vw;height:100%;transform:translateX(-100%);transition:transform .22s}
+body.app .sb.open{transform:translateX(0)}
+body.app .sb-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:34}
+body.app .sb-backdrop.show{display:block}
+body.app .wrap{padding-bottom:96px}
+body.app .ai-fab{bottom:82px}
+body.app .ai-panel{bottom:140px}
+body.app .sim-launch{bottom:120px}
+body.app .demo-tag{display:none}
+.tabbar{display:none}
+body.app .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:31;background:var(--white);border-top:1px solid var(--border);box-shadow:0 -4px 18px rgba(30,40,32,.07);padding:5px 4px 7px}
+.tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;cursor:pointer;color:var(--muted);position:relative}
+.tabbar a.on{color:var(--herbal)}
+.tabbar a svg{width:22px;height:22px}
+.tabbar a.on svg{color:var(--gold)}
+.tabbar .tb-l{font-size:10px;font-weight:600;letter-spacing:.01em}
+.tabbar .tb-b{position:absolute;top:1px;left:calc(50% + 5px);background:var(--terra);color:var(--herbal);font-size:8px;font-weight:800;border-radius:100px;min-width:14px;height:14px;padding:0 3px;display:flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
+<script>if(/[?&]app=1/.test(location.search))document.body.classList.add('app');</script>
 
 <div class="hdr">
   <div class="hdr-ic">V</div>
@@ -775,6 +799,15 @@ table.tbl tbody tr:hover{background:var(--subtle)}
   <div class="ai-note">Эскиз, не в прототипе. Ассистент уровня эксперта: клиенты, программа, корпус, фабрика контента. Отвечает по вашим материалам и данным кабинета; решение и подпись — всегда ваши.</div>
 </div>
 
+<!-- Miniapp: нижний таб-бар (?app=1) — тот же кабинет, кузов TG/MAX. «Ещё» открывает полный список разделов. -->
+<nav class="tabbar" id="tabbar">
+  <a data-go="0" class="on" onclick="go(0)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg><span class="tb-l">Пульт</span></a>
+  <a data-go="1" onclick="go(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span class="tb-l">Разбор</span><span class="tb-b">3</span></a>
+  <a data-go="2" onclick="go(2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="tb-l">Клиенты</span></a>
+  <a data-go="4" onclick="go(4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="tb-l">Чат</span><span class="tb-b">2</span></a>
+  <a data-go="more" onclick="toggleSb(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="tb-l">Ещё</span></a>
+</nav>
+
 <script>
 function go(n){
   document.querySelectorAll('.si').forEach(function(el){el.classList.remove('active')});
@@ -783,7 +816,9 @@ function go(n){
   if(si) si.classList.add('active');
   if(sv) sv.classList.add('active');
   if(n===2) closeClient();
-  if(window.innerWidth<=760) toggleSb(false);
+  var _direct=['0','1','2','4'];
+  document.querySelectorAll('.tabbar a').forEach(function(a){var g=a.dataset.go;a.classList.toggle('on', g===String(n)||(g==='more'&&_direct.indexOf(String(n))<0));});
+  if(window.innerWidth<=760 || document.body.classList.contains('app')) toggleSb(false);
 }
 function toggleSb(force){
   var sb=document.getElementById('sb'), bd=document.getElementById('sbBackdrop');
