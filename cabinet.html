@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Моя программа · VIZELBERG AMRITA</title>
+<title>Моя программа · vizelberg</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -19,6 +19,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .hdr{height:54px;background:var(--herbal);display:flex;align-items:center;padding:0 18px;gap:10px;flex-shrink:0}
 @media(min-width:761px){.hdr{display:none}}
 .hdr-ic{width:30px;height:30px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:15px;color:var(--herbal)}
+.hdr-logo{flex-shrink:0}
 .hdr-t{font-family:Georgia;font-weight:700;font-size:14px;color:rgba(255,255,255,.85)}
 .hdr-r{margin-left:auto;display:flex;align-items:center;gap:6px}
 .hdr-menu{width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer}
@@ -39,6 +40,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .sb-brand{padding:14px 18px 10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .sb-brand-ic{width:34px;height:34px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:16px;color:var(--herbal);flex-shrink:0}
 .sb-brand-t{font-family:Georgia;font-weight:700;font-size:14.5px;color:#fff;line-height:1.25;flex:1}
+.sb-logo{flex:1;min-width:0;height:34px}
 .sb-nav{flex:1;padding:6px 0;overflow-y:auto}
 .sb-cap{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.28);padding:8px 18px 3px}
 .si{display:flex;align-items:center;gap:11px;padding:5px 18px;cursor:pointer;border-left:2px solid transparent;transition:background .12s}
@@ -211,7 +213,7 @@ body.app .sim-launch{bottom:128px}
 body.lite .tb.lite-only{display:flex}
 body.lite .tb[data-v="1"],body.lite .tb[data-v="2"],body.lite .tb[data-v="8"],body.lite .tb[data-v="more"]{display:none}
 body.lite #sv0 .btn[onclick*="go(1)"],body.lite #sv0 .btn[onclick*="go(2)"]{display:none}
-body.lite #discCard,body.lite #stageCard{display:none} /* дисциплина/итог этапа несут health-детали — в TG-витрине скрыты целиком (152-ФЗ граница) */
+body.lite #discCard,body.lite #stageCard,body.lite #lastCorrCard,body.lite #sv0 .grid2{display:none} /* дисциплина/итог этапа/корректировка Натальи/счётчики приёма — health-детали, в TG-витрине скрыты целиком (152-ФЗ граница) */
 .lite-note{display:none}
 body.lite .lite-note{display:block;position:fixed;left:10px;right:10px;bottom:58px;z-index:29;background:rgba(201,162,75,.16);border:1px solid var(--gold);border-radius:10px;padding:7px 11px;font-size:10.5px;color:var(--herbal);text-align:center}
 .moresheet{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18);z-index:40;transform:translateY(100%);transition:transform .22s;padding:10px 14px 70px}
@@ -401,19 +403,26 @@ textarea.diary:focus{border-color:var(--sage)}
 .res-fact span{font-size:11px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
 /* таблица самочувствия */
 .stab{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:12px}
-.stab-hd{display:grid;grid-template-columns:82px .9fr 1.4fr 176px;gap:10px;padding:10px 14px;background:var(--subtle);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1px solid var(--border)}
-.srow{display:grid;grid-template-columns:82px .9fr 1.4fr 176px;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--white)}
+.stab-hd{display:grid;grid-template-columns:50px 40px .9fr 1.3fr 46px 116px 116px;gap:9px;padding:10px 14px;background:var(--subtle);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border)}
+.srow{display:grid;grid-template-columns:50px 40px .9fr 1.3fr 46px 116px 116px;gap:9px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--white)}
 .stab>*:last-child{border-bottom:none}
 .srow.click{cursor:pointer}
 .srow.click:hover{background:var(--subtle)}
-.sr-day{font-weight:700;font-size:12.5px;font-family:Georgia,serif;color:var(--herbal)}
+.sr-date{font-weight:700;font-size:12.5px;font-family:Georgia,serif;color:var(--herbal)}
+.sr-dow{font-size:12px;font-weight:600;color:var(--sage)}
 .sr-what{font-size:12.5px;color:var(--herbal);font-weight:600}
 .sr-com{font-size:12px;color:var(--muted)}
+.sr-proc{font-size:12px}
+.sr-thumb{width:34px;height:34px;border-radius:8px;border:none;cursor:pointer;background:linear-gradient(135deg,#E8A87C,#C9A24B);display:flex;align-items:center;justify-content:center;font-size:15px;padding:0;line-height:1}
+.sr-nophoto{color:var(--muted);opacity:.45;font-size:13px;text-align:center}
+.pill.muted{background:var(--subtle);color:var(--muted)}
 .sr-note{display:none;padding:10px 14px;background:#fff;border-bottom:1px solid var(--border)}
 .sr-note.show{display:block}
 @media(max-width:760px){
   .stab-hd{display:none}
-  .srow{grid-template-columns:1fr;gap:4px;align-items:start;padding:10px 12px}
+  .srow{grid-template-columns:1fr;gap:4px;align-items:start;padding:11px 13px}
+  .srow>[data-label]::before{content:attr(data-label);display:inline-block;min-width:96px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  .srow .sr-thumb{display:inline-flex;vertical-align:middle;margin-left:2px}
   .cal-top{flex-direction:column;gap:0} /* на узкой ячейке % падает под число, а не в строку */
   .cal-pct{font-size:12.5px;margin-top:2px}
   .cal-pct i{display:none} /* на узкой ячейке значок % не влезает — легенда объясняет */
@@ -437,12 +446,31 @@ textarea.diary:focus{border-color:var(--sage)}
 .ai-msg.bot .src{display:block;margin-top:5px;font-size:10.5px;color:#5C7050;font-weight:600}
 .ai-note{font-size:11px;color:var(--muted);line-height:1.5;padding:10px 16px;border-top:1px solid var(--border);background:var(--subtle)}
 @media(max-width:560px),(max-height:760px){.ai-fab{padding:12px 14px}.ai-fab .lb{display:none}}
+/* Экспорт вкладки (Excel/PDF/HTML) */
+.exp-fab{position:fixed;top:16px;right:22px;z-index:25;display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:8px 13px;font:600 12.5px 'Segoe UI',system-ui,sans-serif;color:var(--herbal);cursor:pointer;box-shadow:0 4px 14px rgba(30,40,32,.10)}
+.exp-fab:hover{border-color:var(--sage);background:var(--subtle)}
+.exp-fab svg{color:var(--sage)}
+.exp-menu{position:fixed;top:56px;right:22px;z-index:26;min-width:196px;background:var(--white);border:1px solid var(--border);border-radius:11px;box-shadow:0 14px 36px rgba(30,40,32,.20);overflow:hidden;display:none}
+.exp-menu.show{display:block}
+.exp-menu button{display:flex;align-items:center;gap:10px;width:100%;border:none;background:transparent;padding:11px 15px;font:600 13px 'Segoe UI',system-ui,sans-serif;color:var(--text);cursor:pointer;text-align:left}
+.exp-menu button:hover{background:var(--subtle)}
+.exp-menu button+button{border-top:1px solid var(--border)}
+.exp-menu .xi{width:20px;text-align:center;font-size:14px}
+@media(max-width:760px){.exp-fab{top:62px;right:12px;padding:7px 11px}.exp-menu{top:104px;right:12px}}
+body.lite .exp-fab,body.lite .exp-menu{display:none!important}
+@media print{
+  .exp-fab,.exp-menu{display:none!important}
+  body.exp-printing .sb,body.exp-printing .sb-backdrop,body.exp-printing .hdr,body.exp-printing .tabbar,body.exp-printing .ai-fab,body.exp-printing .ai-panel,body.exp-printing .sim-launch,body.exp-printing .bell,body.exp-printing .demo-tag,body.exp-printing .lite-note,body.exp-printing .moresheet,body.exp-printing .ovl,body.exp-printing .notif-panel{display:none!important}
+  body.exp-printing .sv:not(.exp-print-target){display:none!important}
+  body.exp-printing .exp-print-target{display:flex!important;overflow:visible!important}
+  html,body,body.exp-printing .layout,body.exp-printing .main{overflow:visible!important;height:auto!important;display:block!important}
+}
 </style>
 </head>
 <body>
 
 <div class="hdr">
-  <div class="hdr-ic">V</div>
+  <svg class="hdr-logo" width="30" height="30" viewBox="0 0 56 56" role="img" aria-label="vizelberg"><circle cx="28" cy="28" r="20" fill="#C9A24B"/><path d="M16 22 C16 13 24 6 35 6 C31 19 25 25 16 28 Z" fill="#2F4A3C"/></svg>
   <div class="hdr-t">Моя программа</div>
   <span class="pill terra" style="margin-left:8px">демо</span>
   <div class="hdr-r">
@@ -457,8 +485,7 @@ textarea.diary:focus{border-color:var(--sage)}
   <div class="sb-backdrop" id="sbBackdrop" onclick="toggleSb()"></div>
   <div class="sb" id="sb">
     <div class="sb-brand">
-      <div class="sb-brand-ic">V</div>
-      <div class="sb-brand-t">VIZELBERG<br>AMRITA</div>
+      <svg class="sb-logo" width="170" height="34" viewBox="0 0 182 44" role="img" aria-label="vizelberg — нутрициология здоровья"><circle cx="22" cy="22" r="15" fill="#C9A24B"/><path d="M13 18 C13 11 19 5 27 5 C24 15 20 20 13 22 Z" fill="#2F4A3C"/><text x="46" y="30" font-family="'Segoe UI',sans-serif" font-weight="600" font-size="25" fill="#F5EFE6">vizelberg</text></svg>
       <div class="bell" onclick="toggleNotif()" style="display:none" id="bellDesk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-dot" id="bellDotD">3</span></div>
     </div>
     <div class="sb-nav">
@@ -554,7 +581,7 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="dlog-reply" style="margin-top:12px"><b>Вывод Натальи:</b> «Первые две недели — про вход в ритм, и вы вошли уверенно. По дневнику вижу поздние углеводы — забрала это в корректировку: лёгкие ужины, магний на вечер. Сон уже отвечает. Остальную схему не трогаем».</div>
         <div class="card-d" style="margin-top:10px">Факты собирает система, вывод по ним — всегда Наталья. Следующий итог — после недели 4; финальный, со сравнением анализов «до / после», — к неделе 8.</div>
       </div>
-      <div class="card">
+      <div class="card" id="lastCorrCard">
         <div class="card-h">Последняя корректировка Натальи <span class="pill ok">пн, 29 июня</span> <span class="pill terra">пример, не реальная рекомендация</span></div>
         <div class="card-d">«Магний переносим на вечер, к ужину. По дневнику вижу поздние углеводы — добавила в рецепты 3 варианта лёгкого ужина. Отличная динамика по сну, продолжаем.»</div>
       </div>
@@ -640,8 +667,8 @@ textarea.diary:focus{border-color:var(--sage)}
         <div class="tool-row">
           <button class="tool-btn" onclick="openComposer('diary')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>Фото блюда</button>
           <button class="tool-btn" onclick="openComposer('diary')">🎤 Наговорить голосом</button>
+          <button class="btn btn-p" style="margin-top:0;margin-left:auto" onclick="openComposer('diary')">Добавить в дневник</button>
         </div>
-        <button class="btn btn-p">Добавить в дневник</button>
       </div>
       <div class="card" id="weekCard">
         <div class="card-h">Эта неделя</div>
@@ -782,28 +809,50 @@ textarea.diary:focus{border-color:var(--sage)}
           <button class="sym" onclick="this.classList.toggle('on')">Всё отлично</button>
         </div>
         <textarea class="diary" style="min-height:70px" placeholder="Подробнее своими словами (необязательно)"></textarea>
-        <button class="btn btn-p">Отправить</button>
+        <div class="tool-row">
+          <button class="tool-btn" onclick="openComposer('feel')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Фото симптома</button>
+          <button class="tool-btn" onclick="openComposer('feel')">🎤 Наговорить голосом</button>
+          <button class="btn btn-p" style="margin-top:0;margin-left:auto" onclick="openComposer('feel')">Отправить</button>
+        </div>
       </div>
       <div class="card">
         <div class="card-h">Ранее отмечали</div>
-        <div class="card-d">Все отметки — таблицей. Строка с 💬 нажимается: раскрывается ответ Натальи.</div>
+        <div class="card-d">Все отметки — таблицей: дата, день недели, что отметили, ваш комментарий, фото, статус и отметка Натальи о проработке. Строка с 💬 или 📷 нажимается — раскрываются детали.</div>
         <div class="stab">
-          <div class="stab-hd"><span>День</span><span>Отмечено</span><span>Комментарий</span><span>Статус</span></div>
+          <div class="stab-hd"><span>Дата</span><span>День</span><span>Отмечено</span><span>Комментарий</span><span>Фото</span><span>Статус</span><span>Проработка</span></div>
+          <div class="srow click" onclick="document.getElementById('srp0').classList.toggle('show')">
+            <span class="sr-date" data-label="Дата">04.07</span><span class="sr-dow" data-label="День">Сб</span>
+            <span class="sr-what" data-label="Отмечено">Высыпания</span>
+            <span class="sr-com" data-label="Комментарий">«на предплечье, чешется к вечеру»</span>
+            <span data-label="Фото"><button class="sr-thumb" title="Фото симптома">📷</button></span>
+            <span data-label="Статус"><span class="pill terra">ушло Наталье</span></span>
+            <span class="sr-proc" data-label="Проработка"><span class="pill wait">в работе</span></span>
+          </div>
+          <div class="sr-note" id="srp0"><div class="dlog-reply" style="margin-top:0"><b>📷 Фото симптома.</b> В готовой версии здесь открывается снимок. Фото хранится в защищённом российском контуре (152-ФЗ) и в Telegram-витрину не передаётся. В демо реальное фото не показываем.</div></div>
           <div class="srow">
-            <span class="sr-day">Чт 02.07</span><span class="sr-what">Тяжесть после еды</span>
-            <span class="sr-com">«ужин был поздно, около 22:00»</span>
-            <span><span class="pill wait">войдёт в воскресный отчёт</span></span>
+            <span class="sr-date" data-label="Дата">02.07</span><span class="sr-dow" data-label="День">Чт</span>
+            <span class="sr-what" data-label="Отмечено">Тяжесть после еды</span>
+            <span class="sr-com" data-label="Комментарий">«ужин был поздно, около 22:00»</span>
+            <span data-label="Фото" class="sr-nophoto">—</span>
+            <span data-label="Статус"><span class="pill wait">войдёт в отчёт</span></span>
+            <span class="sr-proc" data-label="Проработка"><span class="pill muted">ждёт разбора</span></span>
           </div>
           <div class="srow click" onclick="document.getElementById('srn1').classList.toggle('show')">
-            <span class="sr-day">Вт 30.06</span><span class="sr-what">Дискомфорт ЖКТ 💬</span>
-            <span class="sr-com">«приняла цинк до еды, забыла про правило»</span>
-            <span><span class="pill terra">ушло Наталье с приоритетом</span></span>
+            <span class="sr-date" data-label="Дата">30.06</span><span class="sr-dow" data-label="День">Вт</span>
+            <span class="sr-what" data-label="Отмечено">Дискомфорт ЖКТ 💬</span>
+            <span class="sr-com" data-label="Комментарий">«приняла цинк до еды, забыла про правило»</span>
+            <span data-label="Фото" class="sr-nophoto">—</span>
+            <span data-label="Статус"><span class="pill terra">ушло Наталье</span></span>
+            <span class="sr-proc" data-label="Проработка"><span class="pill ok">проработано</span></span>
           </div>
           <div class="sr-note" id="srn1"><div class="dlog-reply" style="margin-top:0"><b>Наталья ответила в тот же день:</b> «Цинк — строго после еды, натощак он часто даёт дискомфорт. Если повторится и после еды — напишите, заменим форму».</div></div>
           <div class="srow">
-            <span class="sr-day">Вс 28.06</span><span class="sr-what">Всё отлично</span>
-            <span class="sr-com">«энергии заметно больше, чем неделю назад»</span>
-            <span><span class="pill ok">отмечено</span></span>
+            <span class="sr-date" data-label="Дата">28.06</span><span class="sr-dow" data-label="День">Вс</span>
+            <span class="sr-what" data-label="Отмечено">Всё отлично</span>
+            <span class="sr-com" data-label="Комментарий">«энергии заметно больше, чем неделю назад»</span>
+            <span data-label="Фото" class="sr-nophoto">—</span>
+            <span data-label="Статус"><span class="pill ok">отмечено</span></span>
+            <span class="sr-proc" data-label="Проработка">—</span>
           </div>
         </div>
       </div>
@@ -981,6 +1030,8 @@ textarea.diary:focus{border-color:var(--sage)}
 
 <script>
 function go(n){
+  /* 152-ФЗ: в TG-витрине (body.lite) навигация к health-разделам заблокирована в самом роутере — не только сокрытием входов */
+  if(document.body.classList.contains('lite') && [1,2,3,4,5,8,9].indexOf(n)>-1) return;
   var si=document.getElementById('si'+n), sv=document.getElementById('sv'+n);
   if(si && si.classList.contains('locked')) return;
   document.querySelectorAll('.si').forEach(function(el){el.classList.remove('active')});
@@ -1099,7 +1150,8 @@ var composerCfg={
   msg:{title:'Написать Наталье',ph:'Ваше сообщение…',hint:'Ответит лично Наталья'},
   task:{title:'Вопрос по заданию',ph:'Что именно непонятно по заданию?',hint:'Наталья подскажет по заданию'},
   file:{title:'Загрузить анализ',ph:'Комментарий к файлу (необязательно)…',hint:'Файл увидит только Наталья'},
-  diary:{title:'Добавить к дневнику',ph:'Что сегодня ели, самочувствие…',hint:'Попадёт в воскресный отчёт'}
+  diary:{title:'Добавить к дневнику',ph:'Что сегодня ели, самочувствие…',hint:'Попадёт в воскресный отчёт'},
+  feel:{title:'Отметить самочувствие',ph:'Что беспокоит? Опишите словами — фото и голос можно приложить ниже…',hint:'Тревожащий сигнал уйдёт Наталье сразу, не дожидаясь воскресенья'}
 };
 function openComposer(kind){
   composerKind=kind;
@@ -1373,5 +1425,43 @@ window.SIM_SCENES=[
   <div class="ms-item" onclick="go(9);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Оплата и чек</div>
 </div>
 <script>if(document.body.classList.contains('app')){setTab(document.body.classList.contains('lite')?0:1);}</script>
+<button class="exp-fab" onclick="toggleExp(event)" title="Экспорт текущей вкладки"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Экспорт</button>
+<div class="exp-menu" id="expMenu">
+  <button onclick="exportView('xls')"><span class="xi">📊</span>Excel (.xls)</button>
+  <button onclick="exportView('pdf')"><span class="xi">🖨️</span>PDF (для печати)</button>
+  <button onclick="exportView('html')"><span class="xi">🌐</span>HTML-страница</button>
+</div>
+<script>
+/* Экспорт активной вкладки — реальные файлы (Blob), без сервера. В TG-витрине (body.lite) скрыт: health-выгрузка недоступна. */
+function toggleExp(e){if(e)e.stopPropagation();var m=document.getElementById('expMenu');if(m)m.classList.toggle('show');}
+function closeExpMenu(){var m=document.getElementById('expMenu');if(m)m.classList.remove('show');}
+document.addEventListener('click',function(e){if(!e.target.closest('.exp-menu')&&!e.target.closest('.exp-fab'))closeExpMenu();});
+function _expView(){return document.querySelector('.sv.active')||document.querySelector('.sv');}
+function _expName(v){var h=v.querySelector('.page-h');var n=(h?h.textContent:'Выгрузка').replace(/[\\/:*?"<>|\n]+/g,' ').replace(/\s+/g,' ').trim().slice(0,42);return n||'Выгрузка';}
+function _expDL(c,t,f){var b=new Blob([c],{type:t}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);}
+function _c(el){return (el?el.textContent:'').replace(/\s+/g,' ').trim();}
+function _vis(el){return !!(el.offsetWidth||el.offsetHeight||el.getClientRects().length);}
+function _expGrid(v){
+  var out='',had=false;
+  v.querySelectorAll('table').forEach(function(t){if(!_vis(t))return;t.querySelectorAll('tr').forEach(function(tr){out+='<tr>';tr.querySelectorAll('th,td').forEach(function(cc){out+='<td>'+_c(cc)+'</td>';});out+='</tr>';had=true;});});
+  if(had)return out;
+  v.querySelectorAll('.stab').forEach(function(t){if(!_vis(t))return;var hd=t.querySelector('.stab-hd');if(hd){out+='<tr>';hd.querySelectorAll('span').forEach(function(s){out+='<th>'+_c(s)+'</th>';});out+='</tr>';}t.querySelectorAll('.srow').forEach(function(r){out+='<tr>';r.querySelectorAll(':scope>span').forEach(function(cc){out+='<td>'+_c(cc)+'</td>';});out+='</tr>';had=true;});});
+  v.querySelectorAll('.dtab').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Дата</th><th>Время</th><th>Приём</th><th>Описание</th><th>Ккал</th></tr>';t.querySelectorAll('.dg').forEach(function(g){var day=_c(g.querySelector('.dg-day'));g.querySelectorAll('.dr').forEach(function(r){out+='<tr><td>'+day+'</td><td>'+_c(r.querySelector('.dr-t'))+'</td><td>'+_c(r.querySelector('.dr-meal'))+'</td><td>'+_c(r.querySelector('.dr-tx'))+'</td><td>'+_c(r.querySelector('.dr-kcal'))+'</td></tr>';had=true;});});});
+  v.querySelectorAll('.sched').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Время</th><th>Нутрицевтик</th><th>Дозировка</th></tr>';t.querySelectorAll('.tg').forEach(function(g){var tm=_c(g.querySelector('.tg-time'));g.querySelectorAll('.sl').forEach(function(r){out+='<tr><td>'+tm+'</td><td>'+_c(r.querySelector('.sl-name'))+'</td><td>'+_c(r.querySelector('.sl-dose'))+'</td></tr>';had=true;});});});
+  if(had)return out;
+  v.querySelectorAll('.mrow,.mark-row,.pulse-row').forEach(function(r){if(!_vis(r))return;var b=r.querySelector('b');var lab=_c(r);var val=b?_c(b):'';if(val)lab=lab.slice(0,lab.length-val.length).trim();out+='<tr><td>'+lab+'</td><td>'+val+'</td></tr>';had=true;});
+  if(had)return out;
+  out+='<tr><th>'+_expName(v)+'</th></tr>';v.querySelectorAll('.card-h,.res-fact,.task-name,.file-name').forEach(function(e){out+='<tr><td>'+_c(e)+'</td></tr>';});
+  return out;
+}
+function exportView(fmt){
+  closeExpMenu();
+  if(document.body.classList.contains('lite'))return; /* 152-ФЗ: в TG-витрине health-выгрузка запрещена и логикой, не только видом */
+  var v=_expView();if(!v)return;var name=_expName(v);
+  if(fmt==='pdf'){document.body.classList.add('exp-printing');v.classList.add('exp-print-target');window.print();setTimeout(function(){document.body.classList.remove('exp-printing');v.classList.remove('exp-print-target');},400);return;}
+  if(fmt==='html'){var css='';document.querySelectorAll('style').forEach(function(s){css+=s.textContent+'\n';});var wrap=v.querySelector('.wrap')||v;var doc='<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>'+name+' · vizelberg</title><style>'+css+'\nhtml,body{overflow:auto;height:auto;background:var(--cream)}.sv{display:flex}</style></head><body><div class="sv active">'+wrap.outerHTML+'</div><div style="max-width:900px;margin:6px auto 28px;padding:0 26px;font:12px \'Segoe UI\',sans-serif;color:#8A8578">Выгрузка из кабинета vizelberg · демо · '+name+'</div></body></html>';_expDL(doc,'text/html;charset=utf-8',name+'.html');return;}
+  if(fmt==='xls'){var body=_expGrid(v);var html='<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1"><tr><td colspan="5" style="font-weight:bold">'+name+' · vizelberg · демо</td></tr>'+body+'</table></body></html>';_expDL('﻿'+html,'application/vnd.ms-excel',name+'.xls');return;}
+}
+</script>
 </body>
 </html>

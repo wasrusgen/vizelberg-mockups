@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Кабинет Натальи · VIZELBERG AMRITA</title>
+<title>Кабинет Натальи · vizelberg</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -18,6 +18,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .hdr{height:54px;background:var(--herbal);display:flex;align-items:center;padding:0 18px;gap:10px;flex-shrink:0}
 @media(min-width:761px){.hdr{display:none}}
 .hdr-ic{width:30px;height:30px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:15px;color:var(--herbal)}
+.hdr-logo{flex-shrink:0}
 .hdr-t{font-family:Georgia;font-weight:700;font-size:14px;color:rgba(255,255,255,.85)}
 .hdr-r{margin-left:auto;display:flex;align-items:center;gap:6px}
 .hdr-menu{width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer}
@@ -34,6 +35,8 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .sb-brand{padding:20px 18px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .sb-brand-ic{width:34px;height:34px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:16px;color:var(--herbal);flex-shrink:0}
 .sb-brand-t{font-family:Georgia;font-weight:700;font-size:14.5px;color:#fff;line-height:1.25;flex:1}
+.sb-logo-stack{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.sb-logo{height:30px;max-width:100%}
 .sb-brand-sub{font-size:10.5px;color:rgba(255,255,255,.4);font-weight:400;display:block;margin-top:1px}
 .sb-nav{flex:1;padding:12px 0;overflow-y:auto}
 .sb-cap{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.28);padding:12px 18px 6px}
@@ -316,13 +319,32 @@ body.app .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:31;
 .tabbar a.on svg{color:var(--gold)}
 .tabbar .tb-l{font-size:10px;font-weight:600;letter-spacing:.01em}
 .tabbar .tb-b{position:absolute;top:1px;left:calc(50% + 5px);background:var(--terra);color:var(--herbal);font-size:8px;font-weight:800;border-radius:100px;min-width:14px;height:14px;padding:0 3px;display:flex;align-items:center;justify-content:center}
+/* Экспорт вкладки (Excel/PDF/HTML) */
+.exp-fab{position:fixed;top:16px;right:22px;z-index:25;display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:8px 13px;font:600 12.5px 'Segoe UI',system-ui,sans-serif;color:var(--herbal);cursor:pointer;box-shadow:0 4px 14px rgba(30,40,32,.10)}
+.exp-fab:hover{border-color:var(--sage);background:var(--subtle)}
+.exp-fab svg{color:var(--sage)}
+.exp-menu{position:fixed;top:56px;right:22px;z-index:26;min-width:196px;background:var(--white);border:1px solid var(--border);border-radius:11px;box-shadow:0 14px 36px rgba(30,40,32,.20);overflow:hidden;display:none}
+.exp-menu.show{display:block}
+.exp-menu button{display:flex;align-items:center;gap:10px;width:100%;border:none;background:transparent;padding:11px 15px;font:600 13px 'Segoe UI',system-ui,sans-serif;color:var(--text);cursor:pointer;text-align:left}
+.exp-menu button:hover{background:var(--subtle)}
+.exp-menu button+button{border-top:1px solid var(--border)}
+.exp-menu .xi{width:20px;text-align:center;font-size:14px}
+@media(max-width:760px){.exp-fab{top:62px;right:12px;padding:7px 11px}.exp-menu{top:104px;right:12px}}
+body.lite .exp-fab,body.lite .exp-menu{display:none!important}
+@media print{
+  .exp-fab,.exp-menu{display:none!important}
+  body.exp-printing .sb,body.exp-printing .sb-backdrop,body.exp-printing .hdr,body.exp-printing .tabbar,body.exp-printing .ai-fab,body.exp-printing .ai-panel,body.exp-printing .sim-launch,body.exp-printing .bell,body.exp-printing .demo-tag,body.exp-printing .lite-note,body.exp-printing .moresheet,body.exp-printing .ovl,body.exp-printing .notif-panel{display:none!important}
+  body.exp-printing .sv:not(.exp-print-target){display:none!important}
+  body.exp-printing .exp-print-target{display:flex!important;overflow:visible!important}
+  html,body,body.exp-printing .layout,body.exp-printing .main{overflow:visible!important;height:auto!important;display:block!important}
+}
 </style>
 </head>
 <body>
 <script>if(/[?&]app=1/.test(location.search))document.body.classList.add('app');</script>
 
 <div class="hdr">
-  <div class="hdr-ic">V</div>
+  <svg class="hdr-logo" width="30" height="30" viewBox="0 0 56 56" role="img" aria-label="vizelberg"><circle cx="28" cy="28" r="20" fill="#C9A24B"/><path d="M16 22 C16 13 24 6 35 6 C31 19 25 25 16 28 Z" fill="#2F4A3C"/></svg>
   <div class="hdr-t">Кабинет Натальи</div>
   <div class="hdr-r">
     <div class="bell" onclick="toggleNotif()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-dot">4</span></div>
@@ -334,8 +356,10 @@ body.app .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:31;
   <div class="sb-backdrop" id="sbBackdrop" onclick="toggleSb()"></div>
   <div class="sb" id="sb">
     <div class="sb-brand">
-      <div class="sb-brand-ic">V</div>
-      <div class="sb-brand-t">VIZELBERG AMRITA<span class="sb-brand-sub">Кабинет нутрициолога</span></div>
+      <div class="sb-logo-stack">
+        <svg class="sb-logo" width="152" height="30" viewBox="0 0 182 44" role="img" aria-label="vizelberg — нутрициология здоровья"><circle cx="22" cy="22" r="15" fill="#C9A24B"/><path d="M13 18 C13 11 19 5 27 5 C24 15 20 20 13 22 Z" fill="#2F4A3C"/><text x="46" y="30" font-family="'Segoe UI',sans-serif" font-weight="600" font-size="25" fill="#F5EFE6">vizelberg</text></svg>
+        <span class="sb-brand-sub">Кабинет нутрициолога</span>
+      </div>
       <div class="bell" onclick="toggleNotif()" id="bellDesk" style="display:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-dot">4</span></div>
     </div>
     <div class="sb-nav">
@@ -975,5 +999,43 @@ window.SIM_SCENES=[
 ];
 </script>
 <script src="sim_engine.js"></script>
+<button class="exp-fab" onclick="toggleExp(event)" title="Экспорт текущей вкладки"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Экспорт</button>
+<div class="exp-menu" id="expMenu">
+  <button onclick="exportView('xls')"><span class="xi">📊</span>Excel (.xls)</button>
+  <button onclick="exportView('pdf')"><span class="xi">🖨️</span>PDF (для печати)</button>
+  <button onclick="exportView('html')"><span class="xi">🌐</span>HTML-страница</button>
+</div>
+<script>
+/* Экспорт активной вкладки — реальные файлы (Blob), без сервера. */
+function toggleExp(e){if(e)e.stopPropagation();var m=document.getElementById('expMenu');if(m)m.classList.toggle('show');}
+function closeExpMenu(){var m=document.getElementById('expMenu');if(m)m.classList.remove('show');}
+document.addEventListener('click',function(e){if(!e.target.closest('.exp-menu')&&!e.target.closest('.exp-fab'))closeExpMenu();});
+function _expView(){return document.querySelector('.sv.active')||document.querySelector('.sv');}
+function _expName(v){var h=v.querySelector('.page-h');var n=(h?h.textContent:'Выгрузка').replace(/[\\/:*?"<>|\n]+/g,' ').replace(/\s+/g,' ').trim().slice(0,42);return n||'Выгрузка';}
+function _expDL(c,t,f){var b=new Blob([c],{type:t}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);}
+function _c(el){return (el?el.textContent:'').replace(/\s+/g,' ').trim();}
+function _vis(el){return !!(el.offsetWidth||el.offsetHeight||el.getClientRects().length);}
+function _expGrid(v){
+  var out='',had=false;
+  v.querySelectorAll('table').forEach(function(t){if(!_vis(t))return;t.querySelectorAll('tr').forEach(function(tr){out+='<tr>';tr.querySelectorAll('th,td').forEach(function(cc){out+='<td>'+_c(cc)+'</td>';});out+='</tr>';had=true;});});
+  if(had)return out;
+  v.querySelectorAll('.stab').forEach(function(t){if(!_vis(t))return;var hd=t.querySelector('.stab-hd');if(hd){out+='<tr>';hd.querySelectorAll('span').forEach(function(s){out+='<th>'+_c(s)+'</th>';});out+='</tr>';}t.querySelectorAll('.srow').forEach(function(r){out+='<tr>';r.querySelectorAll(':scope>span').forEach(function(cc){out+='<td>'+_c(cc)+'</td>';});out+='</tr>';had=true;});});
+  v.querySelectorAll('.dtab').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Дата</th><th>Время</th><th>Приём</th><th>Описание</th><th>Ккал</th></tr>';t.querySelectorAll('.dg').forEach(function(g){var day=_c(g.querySelector('.dg-day'));g.querySelectorAll('.dr').forEach(function(r){out+='<tr><td>'+day+'</td><td>'+_c(r.querySelector('.dr-t'))+'</td><td>'+_c(r.querySelector('.dr-meal'))+'</td><td>'+_c(r.querySelector('.dr-tx'))+'</td><td>'+_c(r.querySelector('.dr-kcal'))+'</td></tr>';had=true;});});});
+  v.querySelectorAll('.sched').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Время</th><th>Нутрицевтик</th><th>Дозировка</th></tr>';t.querySelectorAll('.tg').forEach(function(g){var tm=_c(g.querySelector('.tg-time'));g.querySelectorAll('.sl').forEach(function(r){out+='<tr><td>'+tm+'</td><td>'+_c(r.querySelector('.sl-name'))+'</td><td>'+_c(r.querySelector('.sl-dose'))+'</td></tr>';had=true;});});});
+  if(had)return out;
+  v.querySelectorAll('.mrow,.mark-row,.pulse-row').forEach(function(r){if(!_vis(r))return;var b=r.querySelector('b');var lab=_c(r);var val=b?_c(b):'';if(val)lab=lab.slice(0,lab.length-val.length).trim();out+='<tr><td>'+lab+'</td><td>'+val+'</td></tr>';had=true;});
+  if(had)return out;
+  out+='<tr><th>'+_expName(v)+'</th></tr>';v.querySelectorAll('.card-h,.res-fact,.task-name,.file-name').forEach(function(e){out+='<tr><td>'+_c(e)+'</td></tr>';});
+  return out;
+}
+function exportView(fmt){
+  closeExpMenu();
+  if(document.body.classList.contains('lite'))return; /* 152-ФЗ: health-выгрузка запрещена логикой, не только видом */
+  var v=_expView();if(!v)return;var name=_expName(v);
+  if(fmt==='pdf'){document.body.classList.add('exp-printing');v.classList.add('exp-print-target');window.print();setTimeout(function(){document.body.classList.remove('exp-printing');v.classList.remove('exp-print-target');},400);return;}
+  if(fmt==='html'){var css='';document.querySelectorAll('style').forEach(function(s){css+=s.textContent+'\n';});var wrap=v.querySelector('.wrap')||v;var doc='<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>'+name+' · vizelberg</title><style>'+css+'\nhtml,body{overflow:auto;height:auto;background:var(--cream)}.sv{display:flex}</style></head><body><div class="sv active">'+wrap.outerHTML+'</div><div style="max-width:900px;margin:6px auto 28px;padding:0 26px;font:12px \'Segoe UI\',sans-serif;color:#8A8578">Выгрузка из кабинета vizelberg · демо · '+name+'</div></body></html>';_expDL(doc,'text/html;charset=utf-8',name+'.html');return;}
+  if(fmt==='xls'){var body=_expGrid(v);var html='<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1"><tr><td colspan="5" style="font-weight:bold">'+name+' · vizelberg · демо</td></tr>'+body+'</table></body></html>';_expDL('﻿'+html,'application/vnd.ms-excel',name+'.xls');return;}
+}
+</script>
 </body>
 </html>
