@@ -127,6 +127,26 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .mini-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--gold))}
 .dot-s{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
 
+/* Дисциплина — зеркало кабинета клиента (то же число, что видит клиент) */
+.disc-cell{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.disc-pct{font-weight:700;font-size:13px;color:#5C7050}
+.disc-pct.care{color:#9A7A2E}
+.disc-flag{font-size:10px;font-weight:700;color:#9A7A2E;background:rgba(201,162,75,.16);border-radius:100px;padding:2px 8px}
+.mini-bar.care i{background:linear-gradient(90deg,var(--gold),var(--terra))}
+.pulse-sum{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:2px 0 4px}
+.pulse-row{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)}
+.pulse-row:last-child{border-bottom:none}
+.pulse-row.care{background:rgba(201,162,75,.07);border:1px solid rgba(201,162,75,.35);border-radius:11px;padding:12px;margin:4px 0;border-bottom:1px solid rgba(201,162,75,.35)}
+.pulse-nm{font-size:13.5px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.pulse-sub{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
+.pulse-bars{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+.pulse-bars .mini-bar{width:74px}
+@media(max-width:760px){
+  .pulse-bars .mini-bar{display:none}
+  .pulse-row.care{flex-wrap:wrap}
+  .pulse-row.care > button{flex:1 1 100%;margin:9px 0 0;justify-content:center}
+}
+
 /* Карточка клиента */
 .back{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--sage);cursor:pointer;font-weight:600;margin-bottom:10px}
 .cc-hd{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -368,6 +388,45 @@ table.tbl tbody tr:hover{background:var(--subtle)}
         </div>
       </div>
       <div class="card">
+        <div class="card-h">Пульс дисциплины · эта неделя <span class="pill ok">5 из 6 держат ритм</span></div>
+        <div class="card-d" style="margin-bottom:4px">То же число выполненности, что клиент видит у себя в кабинете — только собранное по всем сразу. Просадка — повод потянуться и поддержать, а не отчитать. Дисциплина — это про сделанные шаги, здоровье идёт отдельным сигналом.</div>
+        <div class="pulse-row care">
+          <div class="q-ava" style="background:var(--gold);color:var(--herbal)">Е</div>
+          <div style="flex:1;min-width:0">
+            <div class="pulse-nm">Елена П. <span class="disc-flag">просела</span></div>
+            <div class="pulse-sub">неделя 1 · вход в ритм — первая неделя всегда самая рыхлая. Одно тёплое сообщение сейчас держит человека в программе.</div>
+          </div>
+          <div class="pulse-bars"><span class="mini-bar care"><i style="width:61%"></i></span><span class="disc-pct care">61%</span></div>
+          <button class="btn btn-p btn-sm" onclick="openMsg('Елена П.')">Поддержать</button>
+        </div>
+        <div class="pulse-row">
+          <div class="q-ava red" style="width:34px;height:34px;font-size:13px">М</div>
+          <div style="flex:1;min-width:0"><div class="pulse-nm">Марина К.</div><div class="pulse-sub">неделя 3 · держит ритм. Здоровье — отдельно: ранний сигнал ЖКТ ждёт вашего разбора.</div></div>
+          <div class="pulse-bars"><span class="mini-bar"><i style="width:96%"></i></span><span class="disc-pct">96%</span></div>
+        </div>
+        <div class="pulse-row">
+          <div class="q-ava" style="width:34px;height:34px;font-size:13px">А</div>
+          <div style="flex:1;min-width:0"><div class="pulse-nm">Анна С.</div><div class="pulse-sub">неделя 5 · держит ритм ровно с первого дня</div></div>
+          <div class="pulse-bars"><span class="mini-bar"><i style="width:98%"></i></span><span class="disc-pct">98%</span></div>
+        </div>
+        <div class="pulse-row">
+          <div class="q-ava" style="width:34px;height:34px;font-size:13px">О</div>
+          <div style="flex:1;min-width:0"><div class="pulse-nm">Ольга В.</div><div class="pulse-sub">неделя 4 · держит ритм</div></div>
+          <div class="pulse-bars"><span class="mini-bar"><i style="width:93%"></i></span><span class="disc-pct">93%</span></div>
+        </div>
+        <div class="pulse-row">
+          <div class="q-ava" style="width:34px;height:34px;font-size:13px;background:var(--gold);color:var(--herbal)">Ф</div>
+          <div style="flex:1;min-width:0"><div class="pulse-nm">Фёдор Р.</div><div class="pulse-sub">неделя 8 — финал · держит ритм, ждёт контрольных анализов</div></div>
+          <div class="pulse-bars"><span class="mini-bar"><i style="width:88%"></i></span><span class="disc-pct">88%</span></div>
+        </div>
+        <div class="pulse-row">
+          <div class="q-ava" style="width:34px;height:34px;font-size:13px">Д</div>
+          <div style="flex:1;min-width:0"><div class="pulse-nm">Дарья М.</div><div class="pulse-sub">неделя 3 · держит ритм сама — тариф без сопровождения, вы не на связи по плану</div></div>
+          <div class="pulse-bars"><span class="mini-bar"><i style="width:82%"></i></span><span class="disc-pct">82%</span></div>
+        </div>
+        <div class="card-d" style="margin-top:12px;font-size:11.5px">Ирина Л. — на диагностике, программы ещё нет, поэтому в пульсе её нет. Числа — из отметок клиентов в кабинете (демо-данные).</div>
+      </div>
+      <div class="card">
         <div class="card-h">Ваши задачи на сегодня</div>
         <div class="q-item"><div class="q-ava" style="background:var(--gold);color:var(--herbal)">✎</div><div class="q-body"><div class="q-name">Собрать пост для канала (вторник)</div><div class="q-meta"><span>черновик готов системой — осталось утвердить экспертную часть</span></div><div class="q-act"><button class="btn btn-o btn-sm" onclick="go(5)">К контент-плану</button></div></div></div>
         <div class="q-item"><div class="q-ava" style="background:var(--sage)">Ф</div><div class="q-body"><div class="q-name">Проверить контрольные анализы — Фёдор Р.</div><div class="q-meta"><span>загрузил вчера, неделя 8, сравнить «до / после»</span></div></div></div>
@@ -389,8 +448,8 @@ table.tbl tbody tr:hover{background:var(--subtle)}
           <div class="q-ava red">М</div>
           <div class="q-body">
             <div class="q-name">Марина К. · неделя 3 <span class="pill red">сигнал</span></div>
-            <div class="q-meta"><span>дневник 6/7</span><span>приём 82%</span><span>2 отметки самочувствия</span></div>
-            <div class="q-note flag"><b>Сводка системы:</b> дискомфорт ЖКТ после старта цинка (2 дня, совпадение по времени — оценка за вами). Приём стабилен. Поздние ужины 3 из 6 дней.</div>
+            <div class="q-meta"><span>дневник 5 из 7</span><span>приём 19 из 20</span><span>2 отметки самочувствия</span></div>
+            <div class="q-note flag"><b>Сводка системы:</b> дискомфорт ЖКТ после старта цинка (2 дня, совпадение по времени — оценка за вами). Приём стабилен. Поздние ужины 3 из 5 дней.</div>
             <div class="q-note"><b>Черновик корректировки:</b> «Цинк переносим на вечер с едой — частая причина дискомфорта. По ужинам добавлю 3 лёгких варианта…» <span class="pill wait">черновик — на ваше утверждение</span> <span class="pill terra">демо-пример, не реальное назначение</span></div>
             <div class="q-act"><button class="btn btn-p btn-sm" onclick="openReview('Марина К.')">Разобрать и утвердить</button><button class="btn btn-o btn-sm" onclick="go(2)">Карточка</button></div>
           </div>
@@ -422,7 +481,7 @@ table.tbl tbody tr:hover{background:var(--subtle)}
       <div id="clientsList">
         <div class="page-tag">Клиенты</div>
         <div class="page-h">Клиенты</div>
-        <div class="page-d">Все клиенты в одной таблице — программа, где идёт, заполняемость дневника и последний сигнал. Клик по строке — карточка.</div>
+        <div class="page-d">Все клиенты в одной таблице — программа, где идёт, дисциплина недели (то же число, что клиент видит в своём кабинете) и последний сигнал. Клик по строке — карточка.</div>
         <div class="tbl-wrap">
           <div class="tbl-tools">
             <input class="tbl-search" placeholder="Поиск по имени…">
@@ -432,15 +491,15 @@ table.tbl tbody tr:hover{background:var(--subtle)}
           </div>
           <div class="tbl-scroll">
             <table class="tbl">
-              <thead><tr><th>Клиент</th><th>Программа</th><th>Неделя</th><th>Дневник</th><th>Приём</th><th>Последний сигнал</th></tr></thead>
+              <thead><tr><th>Клиент</th><th>Программа</th><th>Неделя</th><th>Дисциплина недели</th><th>Последний сигнал</th></tr></thead>
               <tbody>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava red">М</span>Марина К.</span></td><td>Коррекция 2 мес</td><td>3 / 8</td><td><span class="mini-bar"><i style="width:86%"></i></span></td><td>82%</td><td><span class="dot-s" style="background:var(--red)"></span>реакция ЖКТ</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">А</span>Анна С.</span></td><td>Коррекция 2 мес</td><td>5 / 8</td><td><span class="mini-bar"><i style="width:100%"></i></span></td><td>95%</td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Е</span>Елена П.</span></td><td>Коррекция 2 мес</td><td>1 / 8</td><td><span class="mini-bar"><i style="width:57%"></i></span></td><td>70%</td><td><span class="dot-s" style="background:var(--gold)"></span>дневник неполный</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Ф</span>Фёдор Р.</span></td><td>Коррекция 2 мес</td><td>8 / 8</td><td><span class="mini-bar"><i style="width:93%"></i></span></td><td>90%</td><td><span class="dot-s" style="background:var(--gold)"></span>контрольные анализы</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">И</span>Ирина Л.</span></td><td>Диагностика</td><td>—</td><td><span class="mini-bar"><i style="width:40%"></i></span></td><td>—</td><td><span class="dot-s" style="background:var(--sage)"></span>ждёт разбора</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">О</span>Ольга В.</span></td><td>Коррекция 2 мес</td><td>4 / 8</td><td><span class="mini-bar"><i style="width:100%"></i></span></td><td>88%</td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Д</span>Дарья М.</span></td><td>Продвинутые (без сопр.)</td><td>3 / 6</td><td><span class="mini-bar"><i style="width:71%"></i></span></td><td>—</td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava red">М</span>Марина К.</span></td><td>Коррекция 2 мес</td><td>3 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:96%"></i></span><span class="disc-pct">96%</span></span></td><td><span class="dot-s" style="background:var(--red)"></span>реакция ЖКТ</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">А</span>Анна С.</span></td><td>Коррекция 2 мес</td><td>5 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:98%"></i></span><span class="disc-pct">98%</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Е</span>Елена П.</span></td><td>Коррекция 2 мес</td><td>1 / 8</td><td><span class="disc-cell"><span class="mini-bar care"><i style="width:61%"></i></span><span class="disc-pct care">61%</span><span class="disc-flag">просела</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>первая неделя</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Ф</span>Фёдор Р.</span></td><td>Коррекция 2 мес</td><td>8 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:88%"></i></span><span class="disc-pct">88%</span></span></td><td><span class="dot-s" style="background:var(--gold)"></span>контрольные анализы</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">И</span>Ирина Л.</span></td><td>Диагностика</td><td>—</td><td><span class="disc-pct" style="color:var(--muted);font-weight:600">— <span style="font-weight:400;font-size:11.5px">программы нет</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>ждёт разбора</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">О</span>Ольга В.</span></td><td>Коррекция 2 мес</td><td>4 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:93%"></i></span><span class="disc-pct">93%</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Д</span>Дарья М.</span></td><td>Продвинутые (без сопр.)</td><td>3 / 6</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:82%"></i></span><span class="disc-pct">82%</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>без сопровождения</td></tr>
               </tbody>
             </table>
           </div>
@@ -452,7 +511,7 @@ table.tbl tbody tr:hover{background:var(--subtle)}
         <div class="back" onclick="closeClient()">‹ К списку клиентов</div>
         <div class="cc-hd">
           <div class="cc-ava red">М</div>
-          <div style="flex:1"><div class="page-h" style="font-size:21px">Марина К.</div><div class="page-d" style="margin-top:2px">Коррекция 2 месяца · неделя 3 из 8 · старт 20 июня</div></div>
+          <div style="flex:1"><div class="page-h" style="font-size:21px">Марина К.</div><div class="page-d" style="margin-top:2px">Коррекция 2 месяца · неделя 3 из 8 · старт 15 июня</div></div>
           <span class="pill red">сигнал: реакция ЖКТ</span>
         </div>
         <div class="cc-grid">
@@ -473,15 +532,23 @@ table.tbl tbody tr:hover{background:var(--subtle)}
             </div>
             <div class="card">
               <div class="card-h">Дневник питания · неделя</div>
-              <div class="card-d">Заполнено 6 из 7 дней. Повтор: поздние углеводные ужины (чт, пт, сб). Вода в норме.</div>
+              <div class="card-d">Заполнено 5 дней (пн–пт); суббота — сегодня, воскресенье впереди. Повтор: поздние углеводные ужины (чт, пт). Вода в норме.</div>
               <button class="btn btn-o btn-sm" style="margin-top:12px">Открыть полный дневник</button>
             </div>
           </div>
           <div>
             <div class="card">
+              <div class="card-h">Дисциплина недели <span class="pill ok">96% · держит ритм</span></div>
+              <div class="card-d" style="margin-bottom:10px">То же число, что Марина видит у себя в кабинете — вы и клиент смотрите на одну картину.</div>
+              <div class="mrow"><span>Приём нутрицевтиков</span><b>19 из 20 · пн–пт</b></div>
+              <div class="mrow"><span>Дневник питания</span><b>5 дней</b></div>
+              <div class="mrow"><span>Задания в срок</span><b>1 из 1</b></div>
+              <div class="mrow"><span>Этап 1–2 (недели 1–2)</span><b>89%</b></div>
+              <div class="card-d" style="margin-top:10px;font-size:11.5px">Пятница — без вечернего магния; серия не сгорает. Дисциплина — мера усилия, не оценка здоровья: реакция ЖКТ идёт отдельным сигналом (в шапке).</div>
+            </div>
+            <div class="card">
               <div class="card-h">Программа</div>
               <div class="mrow"><span>Приём нутрицевтиков</span><b>4 позиции</b></div>
-              <div class="mrow"><span>Соблюдение приёма</span><b>82%</b></div>
               <div class="mrow"><span>Анализы</span><b>2 файла</b></div>
               <div class="mrow"><span>Задания</span><b>1 активное</b></div>
             </div>
@@ -653,7 +720,7 @@ table.tbl tbody tr:hover{background:var(--subtle)}
           <table class="tbl">
             <thead><tr><th>Клиент</th><th>Продукт</th><th>Сумма</th><th>Дата</th><th>Способ</th><th>Статус</th></tr></thead>
             <tbody>
-              <tr><td><span class="tc-name"><span class="tc-ava red">М</span>Марина К.</span></td><td>Коррекция 2 мес</td><td><span class="money">45 000 ₽</span></td><td>20 июня</td><td>СБП</td><td><span class="pill ok">оплачено</span></td></tr>
+              <tr><td><span class="tc-name"><span class="tc-ava red">М</span>Марина К.</span></td><td>Коррекция 2 мес</td><td><span class="money">45 000 ₽</span></td><td>12 июня</td><td>СБП</td><td><span class="pill ok">оплачено</span></td></tr>
               <tr><td><span class="tc-name"><span class="tc-ava">А</span>Анна С.</span></td><td>Коррекция 2 мес</td><td><span class="money">45 000 ₽</span></td><td>3 июня</td><td>Карта</td><td><span class="pill ok">оплачено</span></td></tr>
               <tr><td><span class="tc-name"><span class="tc-ava">Ф</span>Фёдор Р.</span></td><td>Коррекция 2 мес</td><td><span class="money">45 000 ₽</span></td><td>10 мая</td><td>СБП</td><td><span class="pill ok">оплачено</span></td></tr>
               <tr><td><span class="tc-name"><span class="tc-ava">Д</span>Дарья М.</span></td><td>Продвинутые (без сопр.)</td><td><span class="money">19 000 ₽</span></td><td>15 июня</td><td>Карта</td><td><span class="pill ok">оплачено</span></td></tr>
@@ -701,7 +768,7 @@ table.tbl tbody tr:hover{background:var(--subtle)}
   <div class="ai-hd"><span style="color:var(--gold)">✦</span><b>Ассистент-эксперт</b><span class="idea-tag">Идея · эскиз</span></div>
   <div class="ai-chat">
     <div class="ai-msg me">Что изменилось у Марины за две недели?</div>
-    <div class="ai-msg bot">Приём 82%, сон лучше по её отметкам, два сигнала ЖКТ после старта цинка. Открыть карточку?<span class="src">из данных кабинета</span></div>
+    <div class="ai-msg bot">Дисциплина 96% (приём 19 из 20), сон лучше по её отметкам, два сигнала ЖКТ после старта цинка. Открыть карточку?<span class="src">из данных кабинета</span></div>
     <div class="ai-msg me">Собери черновик поста из моего гайда по магнию</div>
     <div class="ai-msg bot">Готово: черновик «Магний и сон» в Фабрике контента — ваш тон, ссылка на источник. Ждёт вашей правки.<span class="src">ваш гайд + научный слой</span></div>
   </div>
@@ -835,12 +902,12 @@ window.SIM_SCENES=[
   title:'Разбор недели — одна очередь', text:'Все отчёты недели в одном месте, отсортированы: где сигналы — те сверху. Не «листать 7 переписок», а пройти очередь сверху вниз.',
   hook:'Следующий шаг всегда очевиден: просто идёте по очереди сверху вниз.'},
  {chap:'Воскресенье', view:1, sel:'#sv1 .q-item:first-child', run:function(){ if(typeof closeModal==='function') closeModal(); document.getElementById('ovl').style.zIndex=''; },
-  title:'По каждому — сводка и черновик', text:'Приём 82%, дневник 6/7, сигнал по ЖКТ — и черновик корректировки на вашем языке, из ваших методик. Осталось поправить и утвердить.',
+  title:'По каждому — сводка и черновик', text:'Приём 19 из 20, дневник 5 из 7, сигнал по ЖКТ — и черновик корректировки на вашем языке, из ваших методик. Осталось поправить и утвердить.',
   hook:'Черновик уже написан вашим языком: вы правите, а не сочиняете с нуля.'},
  {chap:'Воскресенье', view:1, sel:'.modal', run:function(){ if(typeof openReview==='function') openReview('Марина К.'); document.getElementById('ovl').style.zIndex='1000'; /* модалка поверх sim-затемнения — черновик должен быть читаем */ },
   title:'4 минуты, не 40', text:'Вы правите одну строку — и утверждаете. Марина получает корректировку в кабинет. Раньше один такой разбор занимал до часа переписки.',
   hook:'Воскресенье перестаёт съедать день: 7 разборов — меньше часа.'},
- {chap:'Под рукой всегда', run:function(){ if(typeof closeModal==='function') closeModal(); var o=document.getElementById('ovl'); if(o) o.style.zIndex=''; }, html:'<div class="simd-tag">Ассистент · идея-слой из мониторинга рынка</div><div class="simd-h">Спросили словами — получили ответ</div><div class="simd-row"><div class="simd-ic">💬</div><div><b>Вы:</b> «Что изменилось у Марины за две недели?»</div></div><div class="simd-row"><div class="simd-ic">✦</div><div><b>Ассистент:</b> «Приём 82%, сон лучше по отметкам, два сигнала ЖКТ после старта цинка. Открыть карточку?» <span class="simd-pill ok">из данных кабинета</span></div></div><div class="simd-row"><div class="simd-ic">💬</div><div><b>Вы:</b> «Собери черновик поста из моего гайда по магнию»</div></div><div class="simd-row"><div class="simd-ic">✦</div><div><b>Ассистент:</b> «Черновик в Фабрике контента — ваш тон, ссылка на источник. Ждёт вашей правки».</div></div><div class="simd-note">Ассистент уровня эксперта: программа, корпус, фабрика контента. Отвечает по вашим материалам и данным кабинета; решение и подпись — всегда ваши. Эскиз — добавляем в модель по итогам мониторинга рынка.</div>',
+ {chap:'Под рукой всегда', run:function(){ if(typeof closeModal==='function') closeModal(); var o=document.getElementById('ovl'); if(o) o.style.zIndex=''; }, html:'<div class="simd-tag">Ассистент · идея-слой из мониторинга рынка</div><div class="simd-h">Спросили словами — получили ответ</div><div class="simd-row"><div class="simd-ic">💬</div><div><b>Вы:</b> «Что изменилось у Марины за две недели?»</div></div><div class="simd-row"><div class="simd-ic">✦</div><div><b>Ассистент:</b> «Дисциплина 96% (приём 19 из 20), сон лучше по отметкам, два сигнала ЖКТ после старта цинка. Открыть карточку?» <span class="simd-pill ok">из данных кабинета</span></div></div><div class="simd-row"><div class="simd-ic">💬</div><div><b>Вы:</b> «Собери черновик поста из моего гайда по магнию»</div></div><div class="simd-row"><div class="simd-ic">✦</div><div><b>Ассистент:</b> «Черновик в Фабрике контента — ваш тон, ссылка на источник. Ждёт вашей правки».</div></div><div class="simd-note">Ассистент уровня эксперта: программа, корпус, фабрика контента. Отвечает по вашим материалам и данным кабинета; решение и подпись — всегда ваши. Эскиз — добавляем в модель по итогам мониторинга рынка.</div>',
   title:'Ассистент-эксперт рядом', text:'Любой вопрос к системе — словами: про клиента, программу, корпус или контент. Не нужно знать, «где это лежит».',
   hook:'Кабинет отвечает на вопросы, как коллега, — интерфейс перестаёт быть барьером.'},
  {chap:'Корпус', view:7, sel:'#sv7 .card', run:function(){ if(typeof closeModal==='function') closeModal(); document.getElementById('ovl').style.zIndex=''; },
