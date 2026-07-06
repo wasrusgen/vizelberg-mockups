@@ -135,6 +135,14 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .disc-pct{font-weight:700;font-size:13px;color:#5C7050}
 .disc-pct.care{color:#9A7A2E}
 .disc-flag{font-size:10px;font-weight:700;color:#9A7A2E;background:rgba(201,162,75,.16);border-radius:100px;padding:2px 8px}
+.cl-per{font-size:12px;color:var(--text);white-space:nowrap}
+.cl-per .to{color:var(--muted);margin:0 2px}
+.cl-per.none{color:var(--muted)}
+/* Оплата — деньги НЕ красным: красный зарезервирован под здоровье/сигналы (правило бренда) */
+.pay-b{display:inline-block;font-size:11px;font-weight:700;border-radius:100px;padding:2px 9px;white-space:nowrap}
+.pay-b.paid{background:rgba(124,144,112,.16);color:#5C7050}
+.pay-b.part{background:rgba(201,162,75,.18);color:#9A7A2E}
+.pay-b.due{background:rgba(232,168,124,.22);color:#B06A38}
 .mini-bar.care i{background:linear-gradient(90deg,var(--gold),var(--terra))}
 .pulse-sum{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:2px 0 4px}
 .pulse-row{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)}
@@ -354,6 +362,10 @@ body.app .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:31;
 .exp-menu .xi{width:20px;text-align:center;font-size:14px}
 @media(max-width:760px){.exp-fab{top:62px;right:12px;padding:7px 11px}.exp-menu{top:104px;right:12px}}
 body.lite .exp-fab,body.lite .exp-menu{display:none!important}
+/* 152-ФЗ fail-closed: операторская консоль с ПДн клиентов НЕ показывается в витрине (lite). Второй слой поверх деплой-контроля «admin только РФ, не TG». */
+.lite-note{display:none}
+body.lite .main,body.lite .sb,body.lite .sb-backdrop,body.lite .tabbar,body.lite .ai-fab,body.lite .ai-panel,body.lite .sim-launch,body.lite .bell,body.lite .notif-panel,body.lite .moresheet,body.lite .ovl{display:none!important}
+body.lite .lite-note{display:flex;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:32px;background:var(--cream);text-align:center}
 @media print{
   .exp-fab,.exp-menu{display:none!important}
   body.exp-printing .sb,body.exp-printing .sb-backdrop,body.exp-printing .hdr,body.exp-printing .tabbar,body.exp-printing .ai-fab,body.exp-printing .ai-panel,body.exp-printing .sim-launch,body.exp-printing .bell,body.exp-printing .demo-tag,body.exp-printing .lite-note,body.exp-printing .moresheet,body.exp-printing .ovl,body.exp-printing .notif-panel{display:none!important}
@@ -364,7 +376,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
 </style>
 </head>
 <body>
-<script>if(/[?&]app=1/.test(location.search))document.body.classList.add('app');</script>
+<script>(function(){var q=location.search;if(/[?&]app=1/.test(q))document.body.classList.add('app');if(/[?&]lite=1/.test(q)){document.body.classList.add('lite');addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sv.active,.si.active').forEach(function(e){e.classList.remove('active')});});}})();</script>
 
 <div class="hdr">
   <svg class="hdr-logo" width="30" height="30" viewBox="0 0 56 56" role="img" aria-label="vizelberg"><circle cx="28" cy="28" r="20" fill="#C9A24B"/><path d="M16 22 C16 13 24 6 35 6 C31 19 25 25 16 28 Z" fill="#2F4A3C"/></svg>
@@ -433,6 +445,10 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
     </div>
   </div>
 
+  <div class="lite-note"><div>
+    <div style="font-family:Georgia;font-size:20px;color:var(--herbal);margin-bottom:8px">Консоль недоступна здесь</div>
+    <div style="font-size:13.5px;color:var(--muted);max-width:380px;line-height:1.55">Рабочее место с данными клиентов открывается только в защищённом РФ-контуре, не в витрине. Это требование 152-ФЗ.</div>
+  </div></div>
   <div class="main">
 
     <!-- 0 Пульт -->
@@ -562,15 +578,15 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
           </div>
           <div class="tbl-scroll">
             <table class="tbl">
-              <thead><tr><th>Клиент</th><th>Программа</th><th>Неделя</th><th>Дисциплина недели</th><th>Последний сигнал</th></tr></thead>
+              <thead><tr><th>Клиент</th><th>Программа</th><th>Период</th><th>Неделя</th><th>Дисциплина недели</th><th>Оплата</th><th>Последний сигнал</th></tr></thead>
               <tbody>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava red">М</span>Марина К.</span></td><td>Коррекция 2 мес</td><td>3 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:96%"></i></span><span class="disc-pct">96%</span></span></td><td><span class="dot-s" style="background:var(--red)"></span>реакция ЖКТ</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">А</span>Анна С.</span></td><td>Коррекция 2 мес</td><td>5 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:98%"></i></span><span class="disc-pct">98%</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Е</span>Елена П.</span></td><td>Коррекция 2 мес</td><td>1 / 8</td><td><span class="disc-cell"><span class="mini-bar care"><i style="width:61%"></i></span><span class="disc-pct care">61%</span><span class="disc-flag">просела</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>первая неделя</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Ф</span>Фёдор Р.</span></td><td>Коррекция 2 мес</td><td>8 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:88%"></i></span><span class="disc-pct">88%</span></span></td><td><span class="dot-s" style="background:var(--gold)"></span>контрольные анализы</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">И</span>Ирина Л.</span></td><td>Диагностика</td><td>—</td><td><span class="disc-pct" style="color:var(--muted);font-weight:600">— <span style="font-weight:400;font-size:11.5px">программы нет</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>ждёт разбора</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">О</span>Ольга В.</span></td><td>Коррекция 2 мес</td><td>4 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:93%"></i></span><span class="disc-pct">93%</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
-                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Д</span>Дарья М.</span></td><td>Продвинутые (без сопр.)</td><td>3 / 6</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:82%"></i></span><span class="disc-pct">82%</span></span></td><td><span class="dot-s" style="background:var(--sage)"></span>без сопровождения</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava red">М</span>Марина К.</span></td><td>Коррекция 2 мес</td><td><span class="cl-per">15 июн <span class="to">→</span> 10 авг</span></td><td>3 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:96%"></i></span><span class="disc-pct">96%</span></span></td><td><span class="pay-b paid">Оплачено</span></td><td><span class="dot-s" style="background:var(--red)"></span>реакция ЖКТ</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">А</span>Анна С.</span></td><td>Коррекция 2 мес</td><td><span class="cl-per">2 июн <span class="to">→</span> 28 июл</span></td><td>5 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:98%"></i></span><span class="disc-pct">98%</span></span></td><td><span class="pay-b paid">Оплачено</span></td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Е</span>Елена П.</span></td><td>Коррекция 2 мес</td><td><span class="cl-per">30 июн <span class="to">→</span> 25 авг</span></td><td>1 / 8</td><td><span class="disc-cell"><span class="mini-bar care"><i style="width:61%"></i></span><span class="disc-pct care">61%</span><span class="disc-flag">просела</span></span></td><td><span class="pay-b part">Рассрочка 2/3</span></td><td><span class="dot-s" style="background:var(--sage)"></span>первая неделя</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Ф</span>Фёдор Р.</span></td><td>Коррекция 2 мес</td><td><span class="cl-per">16 мая <span class="to">→</span> 11 июл</span></td><td>8 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:88%"></i></span><span class="disc-pct">88%</span></span></td><td><span class="pay-b paid">Оплачено</span></td><td><span class="dot-s" style="background:var(--gold)"></span>контрольные анализы</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">И</span>Ирина Л.</span></td><td>Диагностика</td><td><span class="cl-per none">— <span style="font-size:11px">разовая</span></span></td><td>—</td><td><span class="disc-pct" style="color:var(--muted);font-weight:600">— <span style="font-weight:400;font-size:11.5px">программы нет</span></span></td><td><span class="pay-b paid">Оплачено</span></td><td><span class="dot-s" style="background:var(--sage)"></span>ждёт разбора</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">О</span>Ольга В.</span></td><td>Коррекция 2 мес</td><td><span class="cl-per">10 июн <span class="to">→</span> 5 авг</span></td><td>4 / 8</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:93%"></i></span><span class="disc-pct">93%</span></span></td><td><span class="pay-b paid">Оплачено</span></td><td><span class="dot-s" style="background:var(--sage)"></span>норма</td></tr>
+                <tr onclick="openClient()"><td><span class="tc-name"><span class="tc-ava">Д</span>Дарья М.</span></td><td>Продвинутые (без сопр.)</td><td><span class="cl-per">18 июн <span class="to">→</span> 30 июл</span></td><td>3 / 6</td><td><span class="disc-cell"><span class="mini-bar"><i style="width:82%"></i></span><span class="disc-pct">82%</span></span></td><td><span class="pay-b paid">Оплачено</span></td><td><span class="dot-s" style="background:var(--sage)"></span>без сопровождения</td></tr>
               </tbody>
             </table>
           </div>
@@ -582,7 +598,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="back" onclick="closeClient()">‹ К списку клиентов</div>
         <div class="cc-hd">
           <div class="cc-ava red">М</div>
-          <div style="flex:1"><div class="page-h" style="font-size:21px">Марина К.</div><div class="page-d" style="margin-top:2px">Коррекция 2 месяца · неделя 3 из 8 · старт 15 июня</div></div>
+          <div style="flex:1"><div class="page-h" style="font-size:21px">Марина К.</div><div class="page-d" style="margin-top:2px">Коррекция 2 месяца · неделя 3 из 8 · старт 15 июня · финиш 10 августа</div></div>
           <span class="pill red">сигнал: реакция ЖКТ</span>
         </div>
         <div class="cc-grid">
@@ -873,6 +889,8 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
 
 <script>
 function go(n){
+  /* 152-ФЗ fail-closed: в витрине (lite) консоль оператора с ПДн не рендерится — не только CSS-слой, но и роутер не активирует секции */
+  if(document.body.classList.contains('lite')){document.querySelectorAll('.sv.active,.si.active').forEach(function(el){el.classList.remove('active')});return;}
   document.querySelectorAll('.si').forEach(function(el){el.classList.remove('active')});
   document.querySelectorAll('.sv').forEach(function(el){el.classList.remove('active')});
   var si=document.getElementById('si'+n), sv=document.getElementById('sv'+n);
@@ -1151,7 +1169,7 @@ function exportView(fmt){
   var v=_expView();if(!v)return;var name=_expName(v);
   if(fmt==='pdf'){document.body.classList.add('exp-printing');v.classList.add('exp-print-target');window.print();setTimeout(function(){document.body.classList.remove('exp-printing');v.classList.remove('exp-print-target');},400);return;}
   if(fmt==='html'){var css='';document.querySelectorAll('style').forEach(function(s){css+=s.textContent+'\n';});var wrap=v.querySelector('.wrap')||v;var doc='<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>'+name+' · vizelberg</title><style>'+css+'\nhtml,body{overflow:auto;height:auto;background:var(--cream)}.sv{display:flex}</style></head><body><div class="sv active">'+wrap.outerHTML+'</div><div style="max-width:900px;margin:6px auto 28px;padding:0 26px;font:12px \'Segoe UI\',sans-serif;color:#8A8578">Выгрузка из кабинета vizelberg · демо · '+name+'</div></body></html>';_expDL(doc,'text/html;charset=utf-8',name+'.html');return;}
-  if(fmt==='xls'){var body=_expGrid(v);var html='<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1"><tr><td colspan="5" style="font-weight:bold">'+name+' · vizelberg · демо</td></tr>'+body+'</table></body></html>';_expDL('﻿'+html,'application/vnd.ms-excel',name+'.xls');return;}
+  if(fmt==='xls'){var body=_expGrid(v);var html='<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1"><tr><td colspan="7" style="font-weight:bold">'+name+' · vizelberg · демо</td></tr>'+body+'</table></body></html>';_expDL('﻿'+html,'application/vnd.ms-excel',name+'.xls');return;}
 }
 </script>
 </body>
