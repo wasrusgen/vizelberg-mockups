@@ -316,6 +316,14 @@ textarea.diary:focus{border-color:var(--sage)}
 .task-meta{font-size:12px;color:var(--muted);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .task-due{font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;background:rgba(201,162,75,.15);color:#9A7A2E}
 .task-due.soon{background:rgba(232,168,124,.2);color:#B06A38}
+.task-due.over{background:rgba(232,168,124,.32);color:#A34A1E} /* просрочено — дисциплина, терра/янтарь, НЕ красный (красный только health) */
+.task-type{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:rgba(124,144,112,.16);color:#5C7050}
+.task-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.tf-chip{font-size:12px;font-weight:600;padding:5px 13px;border-radius:100px;border:1px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;transition:all .15s}
+.tf-chip.on{background:var(--herbal);border-color:var(--herbal);color:#fff}
+.tf-chip .tf-n{opacity:.6;margin-left:3px;font-weight:700}
+.task-empty{font-size:12.5px;color:var(--muted);padding:16px 0;text-align:center}
+.task-link{color:var(--herbal);font-weight:600;text-decoration:none;border-bottom:1px dashed rgba(47,74,60,.35)}
 
 /* Модалка — уведомления */
 .ovl{position:fixed;inset:0;background:rgba(30,40,32,.42);z-index:40;display:none;align-items:flex-start;justify-content:center;padding:70px 16px 16px}
@@ -607,29 +615,14 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="sched-sum"><b>Итого на день:</b><span class="sum-pill">Омега-3 — 2 капс.</span><span class="sum-pill">Витамин D3 — 1 капс.</span><span class="sum-pill">Цинк — 1 капс.</span><span class="sum-pill">Магний — 1 табл.</span><span style="color:var(--muted)">всего 5 единиц</span></div>
       </div>
       <div class="card">
-        <div class="card-h">Задания от Натальи <span class="pill wait">2 активных</span></div>
-        <div class="task">
-          <button class="task-chk" onclick="toggleTask(this)">✓</button>
-          <div class="task-body">
-            <div class="task-name">Посмотреть видео «Как читать состав на этикетке»</div>
-            <div class="task-meta"><span class="task-due soon">до 6 июля</span> <span>материал в разделе «Рецепты и таблицы»</span></div>
-          </div>
+        <div class="card-h">Задания от Натальи <span class="pill wait" id="tasksActiveN">2 активных</span></div>
+        <div class="task-filters">
+          <button class="tf-chip on" data-tf="all" onclick="setTaskFilter('all')">Все<span class="tf-n" id="tfnAll">3</span></button>
+          <button class="tf-chip" data-tf="active" onclick="setTaskFilter('active')">Активные<span class="tf-n" id="tfnActive">2</span></button>
+          <button class="tf-chip" data-tf="done" onclick="setTaskFilter('done')">Выполненные<span class="tf-n" id="tfnDone">1</span></button>
         </div>
-        <div class="task">
-          <button class="task-chk" onclick="toggleTask(this)">✓</button>
-          <div class="task-body">
-            <div class="task-name">Сдать контрольные анализы (ферритин, витамин D)</div>
-            <div class="task-meta"><span class="task-due">до 10 августа</span> <span>к неделе 8 · сравним «до / после»</span></div>
-          </div>
-        </div>
-        <div class="task done">
-          <button class="task-chk" onclick="toggleTask(this)">✓</button>
-          <div class="task-body">
-            <div class="task-name">Заполнить опросник по пищеварению</div>
-            <div class="task-meta"><span>до 4 июля · выполнено 30 июня</span></div>
-          </div>
-        </div>
-        <div class="card-d" style="margin-top:10px">Не поняли задание или не успеваете — <a href="#" onclick="openComposer('task');return false" style="color:var(--herbal);font-weight:600">напишите Наталье</a>, она подскажет.</div>
+        <div id="taskList"></div>
+        <div class="card-d" style="margin-top:10px">Не поняли задание или не успеваете — <a href="#" onclick="openComposer('task');return false" style="color:var(--herbal);font-weight:600">напишите Наталье</a>, она подскажет. Ничего не «сгорает»: просроченное просто ждёт.</div>
       </div>
       <div class="card">
         <div class="card-h">Ещё сегодня</div>
@@ -1127,7 +1120,40 @@ function sendComposer(){
   }
   closeComposer();
 }
-function toggleTask(btn){ btn.closest('.task').classList.toggle('done'); }
+/* Задания — модель + рендер (демо, вид Марины). Мир заморожен: «сегодня» = сб 4 июля 2026. */
+var TASK_TODAY=[2026,7,4];
+var _MNR=['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+var TASKS=[
+  {t:'Посмотреть видео «Как читать состав на этикетке»',type:'видео',due:[2026,7,6],mat:'Рецепты и таблицы',status:'active'},
+  {t:'Сдать контрольные анализы (ферритин, витамин D)',type:'анализы',due:[2026,8,10],note:'к неделе 8 · сравним «до / после»',status:'active'},
+  {t:'Заполнить опросник по пищеварению',type:'опросник',due:[2026,7,4],status:'done',doneTxt:'выполнено 30 июня'}
+];
+var taskFilter='all';
+function _dLess(a,b){return a[0]!==b[0]?a[0]<b[0]:a[1]!==b[1]?a[1]<b[1]:a[2]<b[2];}
+function _isOver(x){return x.status!=='done'&&_dLess(x.due,TASK_TODAY);}
+function _dueTxt(x){return 'до '+x.due[2]+' '+_MNR[x.due[1]];}
+function setTaskFilter(f){taskFilter=f;document.querySelectorAll('.tf-chip').forEach(function(c){c.classList.toggle('on',c.dataset.tf===f);});renderTasks();}
+function toggleTask(i){var x=TASKS[i];if(!x)return;if(x.status==='done'){x.status='active';delete x.doneTxt;}else{x.status='done';x.doneTxt='отмечено сегодня';}renderTasks();}
+function renderTasks(){
+  var box=document.getElementById('taskList');if(!box)return;
+  var nAll=TASKS.length,nDone=0;TASKS.forEach(function(x){if(x.status==='done')nDone++;});var nActive=nAll-nDone;
+  var e;e=document.getElementById('tfnAll');if(e)e.textContent=nAll;e=document.getElementById('tfnActive');if(e)e.textContent=nActive;e=document.getElementById('tfnDone');if(e)e.textContent=nDone;
+  e=document.getElementById('tasksActiveN');if(e)e.textContent=nActive+' активных';
+  var list=[];TASKS.forEach(function(x,i){var pass=taskFilter==='all'?true:taskFilter==='done'?x.status==='done':x.status!=='done';if(pass)list.push({x:x,i:i});});
+  if(!list.length){box.innerHTML='<div class="task-empty">Здесь пусто — в этом фильтре заданий нет. <a href="#" class="task-link" onclick="setTaskFilter(\'all\');return false">Показать все</a></div>';return;}
+  box.innerHTML=list.map(function(o){
+    var x=o.x,over=_isOver(x),done=x.status==='done';
+    var meta=[];
+    if(x.type)meta.push('<span class="task-type">'+x.type+'</span>');
+    if(done){meta.push('<span>'+_dueTxt(x)+' · '+(x.doneTxt||'выполнено')+'</span>');}
+    else if(over){meta.push('<span class="task-due over">просрочено · было '+_dueTxt(x)+'</span>');}
+    else{var soon=_dLess(x.due,[TASK_TODAY[0],TASK_TODAY[1],TASK_TODAY[2]+3]);meta.push('<span class="task-due'+(soon?' soon':'')+'">'+_dueTxt(x)+'</span>');}
+    if(!done&&x.mat)meta.push('<span>материал в разделе «<a href="#" class="task-link" onclick="go(5);return false">'+x.mat+'</a>»</span>');
+    else if(!done&&x.note)meta.push('<span>'+x.note+'</span>');
+    return '<div class="task'+(done?' done':'')+'"><button class="task-chk" onclick="toggleTask('+o.i+')">✓</button><div class="task-body"><div class="task-name">'+x.t+'</div><div class="task-meta">'+meta.join(' ')+'</div></div></div>';
+  }).join('');
+}
+renderTasks();
 function demoNote(btn,txt){ var s=document.createElement('span'); s.className='pill wait'; s.textContent='демо — '+txt; btn.replaceWith(s); }
 
 /* Уведомления */
@@ -1448,6 +1474,7 @@ function _expGrid(v){
   v.querySelectorAll('.stab').forEach(function(t){if(!_vis(t))return;var hd=t.querySelector('.stab-hd');if(hd){out+='<tr>';hd.querySelectorAll('span').forEach(function(s){out+='<th>'+_c(s)+'</th>';});out+='</tr>';}t.querySelectorAll('.srow').forEach(function(r){out+='<tr>';r.querySelectorAll(':scope>span').forEach(function(cc){out+='<td>'+_c(cc)+'</td>';});out+='</tr>';had=true;});});
   v.querySelectorAll('.dtab').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Дата</th><th>Время</th><th>Приём</th><th>Описание</th><th>Ккал</th></tr>';t.querySelectorAll('.dg').forEach(function(g){var day=_c(g.querySelector('.dg-day'));g.querySelectorAll('.dr').forEach(function(r){out+='<tr><td>'+day+'</td><td>'+_c(r.querySelector('.dr-t'))+'</td><td>'+_c(r.querySelector('.dr-meal'))+'</td><td>'+_c(r.querySelector('.dr-tx'))+'</td><td>'+_c(r.querySelector('.dr-kcal'))+'</td></tr>';had=true;});});});
   v.querySelectorAll('.sched').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Время</th><th>Нутрицевтик</th><th>Дозировка</th></tr>';t.querySelectorAll('.tg').forEach(function(g){var tm=_c(g.querySelector('.tg-time'));g.querySelectorAll('.sl').forEach(function(r){out+='<tr><td>'+tm+'</td><td>'+_c(r.querySelector('.sl-name'))+'</td><td>'+_c(r.querySelector('.sl-dose'))+'</td></tr>';had=true;});});});
+  var _tkH=false;v.querySelectorAll('.task').forEach(function(r){if(!_vis(r))return;if(!_tkH){out+='<tr><td colspan="4" style="font-weight:bold">Задания</td></tr><tr><th>Задание</th><th>Тип</th><th>Срок</th><th>Статус</th></tr>';_tkH=true;}var st=r.classList.contains('done')?'выполнено':(r.querySelector('.task-due.over')?'просрочено':'активно');out+='<tr><td>'+_c(r.querySelector('.task-name'))+'</td><td>'+_c(r.querySelector('.task-type'))+'</td><td>'+_c(r.querySelector('.task-due'))+'</td><td>'+st+'</td></tr>';had=true;});
   if(had)return out;
   v.querySelectorAll('.mrow,.mark-row,.pulse-row').forEach(function(r){if(!_vis(r))return;var b=r.querySelector('b');var lab=_c(r);var val=b?_c(b):'';if(val)lab=lab.slice(0,lab.length-val.length).trim();out+='<tr><td>'+lab+'</td><td>'+val+'</td></tr>';had=true;});
   if(had)return out;

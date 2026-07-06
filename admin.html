@@ -196,6 +196,13 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .kb-card-m{font-size:11.5px;color:var(--muted);margin-top:5px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
 .kb-who{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(124,144,112,.15);color:#5C7050}
 .kb-who.self{background:rgba(201,162,75,.18);color:#9A7A2E}
+.kb-card-t{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.kb-move{border:none;background:transparent;color:var(--sage);cursor:pointer;font-size:19px;line-height:.9;padding:0 4px;border-radius:6px;flex-shrink:0}
+.kb-move:hover{background:rgba(124,144,112,.18)}
+.kb-over{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:100px;background:rgba(232,168,124,.30);color:#A34A1E} /* просрочено — терра/янтарь, НЕ красный (красный только health) */
+.kb-card.over{border-color:rgba(232,168,124,.6)}
+.kb-col.drop-hint{outline:2px dashed var(--sage);outline-offset:-3px}
+.kb-card.dragging{opacity:.45}
 
 /* Инбокс */
 .inbox-item{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--border);cursor:pointer}
@@ -598,7 +605,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
               <div class="card-h">Программа</div>
               <div class="mrow"><span>Приём нутрицевтиков</span><b>4 позиции</b></div>
               <div class="mrow"><span>Анализы</span><b>2 файла</b></div>
-              <div class="mrow"><span>Задания</span><b>1 активное</b></div>
+              <div class="mrow"><span>Задания</span><b>2 активных</b></div>
             </div>
             <div class="card idea">
               <span class="idea-tag">Идея · эскиз, не в прототипе</span>
@@ -624,24 +631,25 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
     <div class="sv" id="sv3"><div class="wrap">
       <div class="page-tag">Клиенты</div>
       <div class="page-h">Задания</div>
-      <div class="page-d">Что назначено клиентам и что нужно сделать вам. Перетаскивайте по мере выполнения.</div>
+      <div class="page-d">Что назначено клиентам и что нужно сделать вам. Перетаскивайте карточки между колонками — или кнопкой «›». Просроченные подсвечены (это дисциплина, не тревога).</div>
       <button class="btn btn-p" onclick="openTask('')">+ Новое задание</button>
-      <div class="kb">
-        <div class="kb-col">
-          <div class="kb-h"><span>Назначено</span><span>3</span></div>
-          <div class="kb-card"><div class="kb-card-t">Сдать контрольные анализы</div><div class="kb-card-m"><span class="kb-who">Марина К.</span><span>до 12 июля</span></div></div>
-          <div class="kb-card"><div class="kb-card-t">Посмотреть видео об этикетках</div><div class="kb-card-m"><span class="kb-who">Елена П.</span><span>до 6 июля</span></div></div>
-          <div class="kb-card"><div class="kb-card-t">Собрать пост «сезонные овощи»</div><div class="kb-card-m"><span class="kb-who self">себе</span><span>до 8 июля</span></div></div>
+      <div class="kb" id="kb">
+        <div class="kb-col" data-col="Назначено" ondragover="kbOver(event)" ondragleave="kbLeave(event)" ondrop="kbDrop(event)">
+          <div class="kb-h"><span>Назначено</span><span class="kb-n">4</span></div>
+          <div class="kb-card" draggable="true" data-due="2026-08-10"><div class="kb-card-t"><span>Сдать контрольные анализы</span><button class="kb-move" onclick="kbAdvance(this)" title="Передвинуть →">›</button></div><div class="kb-card-m"><span class="kb-who">Марина К.</span><span>до 10 августа</span></div></div>
+          <div class="kb-card" draggable="true" data-due="2026-07-06"><div class="kb-card-t"><span>Посмотреть видео об этикетках</span><button class="kb-move" onclick="kbAdvance(this)" title="Передвинуть →">›</button></div><div class="kb-card-m"><span class="kb-who">Марина К.</span><span>до 6 июля</span></div></div>
+          <div class="kb-card" draggable="true" data-due="2026-07-02"><div class="kb-card-t"><span>Прислать контрольное фото порции</span><button class="kb-move" onclick="kbAdvance(this)" title="Передвинуть →">›</button></div><div class="kb-card-m"><span class="kb-who">Ольга В.</span><span>до 2 июля</span></div></div>
+          <div class="kb-card" draggable="true" data-due="2026-07-08"><div class="kb-card-t"><span>Собрать пост «сезонные овощи»</span><button class="kb-move" onclick="kbAdvance(this)" title="Передвинуть →">›</button></div><div class="kb-card-m"><span class="kb-who self">себе</span><span>до 8 июля</span></div></div>
         </div>
-        <div class="kb-col">
-          <div class="kb-h"><span>В работе</span><span>2</span></div>
-          <div class="kb-card"><div class="kb-card-t">Заполняет опросник ЖКТ</div><div class="kb-card-m"><span class="kb-who">Анна С.</span><span>начато вчера</span></div></div>
-          <div class="kb-card"><div class="kb-card-t">Оцифровать таблицу сочетаемости</div><div class="kb-card-m"><span class="kb-who self">себе</span><span>для базы материалов</span></div></div>
+        <div class="kb-col" data-col="В работе" ondragover="kbOver(event)" ondragleave="kbLeave(event)" ondrop="kbDrop(event)">
+          <div class="kb-h"><span>В работе</span><span class="kb-n">2</span></div>
+          <div class="kb-card" draggable="true"><div class="kb-card-t"><span>Заполняет опросник ЖКТ</span><button class="kb-move" onclick="kbAdvance(this)" title="Передвинуть →">›</button></div><div class="kb-card-m"><span class="kb-who">Анна С.</span><span>начато вчера</span></div></div>
+          <div class="kb-card" draggable="true"><div class="kb-card-t"><span>Оцифровать таблицу сочетаемости</span><button class="kb-move" onclick="kbAdvance(this)" title="Передвинуть →">›</button></div><div class="kb-card-m"><span class="kb-who self">себе</span><span>для базы материалов</span></div></div>
         </div>
-        <div class="kb-col">
-          <div class="kb-h"><span>Готово</span><span>2</span></div>
-          <div class="kb-card"><div class="kb-card-t">Опросник по пищеварению</div><div class="kb-card-m"><span class="kb-who">Марина К.</span><span>30 июня</span></div></div>
-          <div class="kb-card"><div class="kb-card-t">Загрузил анализы</div><div class="kb-card-m"><span class="kb-who">Фёдор Р.</span><span>3 июля</span></div></div>
+        <div class="kb-col" data-col="Готово" ondragover="kbOver(event)" ondragleave="kbLeave(event)" ondrop="kbDrop(event)">
+          <div class="kb-h"><span>Готово</span><span class="kb-n">2</span></div>
+          <div class="kb-card" draggable="true"><div class="kb-card-t"><span>Опросник по пищеварению</span></div><div class="kb-card-m"><span class="kb-who">Марина К.</span><span>30 июня</span></div></div>
+          <div class="kb-card" draggable="true"><div class="kb-card-t"><span>Загрузил анализы</span></div><div class="kb-card-m"><span class="kb-who">Фёдор Р.</span><span>3 июля</span></div></div>
         </div>
       </div>
     </div></div>
@@ -867,6 +875,7 @@ function openModal(title,bodyHTML,sendLabel){
   document.getElementById('mTitle').textContent=title;
   document.getElementById('mBody').innerHTML=bodyHTML;
   document.getElementById('mSend').textContent=sendLabel||'Отправить';
+  document.getElementById('mSend').onclick=closeModal; /* дефолт — сброс, чтобы обработчик «Назначить» не протекал в другие модалки */
   document.getElementById('ovl').classList.add('show');
 }
 function closeModal(){ stopRec(); document.getElementById('ovl').classList.remove('show'); }
@@ -876,12 +885,71 @@ function openMsg(who){
   openModal('Написать сообщение', to+'<textarea class="modal-ta" placeholder="Текст сообщения…"></textarea>'+toolRowHTML,'Отправить');
 }
 function openTask(who){
+  var cl=['Себе','Марина К.','Анна С.','Елена П.','Ольга В.'];
+  if(who&&cl.indexOf(who)<0)cl.splice(1,0,who); /* незнакомый клиент — без дубля */
+  var sel=who||'Себе';
+  var opts=cl.map(function(c){return '<option'+(c===sel?' selected':'')+'>'+c+'</option>';}).join('');
   openModal('Назначить задание',
-    '<div class="fld"><label>Кому</label><select><option'+(who?'':' selected')+'>Себе</option>'+(who?'<option selected>'+who+'</option>':'')+'<option>Марина К.</option><option>Анна С.</option><option>Елена П.</option></select></div>'+
-    '<div class="fld"><label>Задание</label><input placeholder="Например: сдать контрольные анализы"></div>'+
-    '<div class="fld"><label>Срок</label><input type="date" value="2026-07-12"></div>'+
+    '<div class="fld"><label>Кому</label><select id="tkWho">'+opts+'</select></div>'+
+    '<div class="fld"><label>Задание</label><input id="tkTitle" placeholder="Например: сдать контрольные анализы"></div>'+
+    '<div class="fld"><label>Срок</label><input id="tkDue" type="date" value="2026-07-15"></div>'+
     '<textarea class="modal-ta" style="min-height:70px" placeholder="Детали (необязательно)…"></textarea>'+toolRowHTML,'Назначить');
+  document.getElementById('mSend').onclick=addTaskFromModal;
 }
+function addTaskFromModal(){
+  var w=document.getElementById('tkWho'),ti=document.getElementById('tkTitle'),du=document.getElementById('tkDue');
+  var who=w?w.value:'Себе',title=(ti?ti.value:'').trim(),due=du?du.value:'';
+  if(title)kbAdd(title,who,due);
+  closeModal();
+}
+
+/* Канбан заданий — интерактив (демо, без сервера). Мир заморожен: «сегодня» = сб 4 июля 2026. */
+var KB_TODAY=[2026,7,4];
+var _KBMN=['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+function _kbEsc(s){return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function _kbDueTxt(iso){var p=(iso||'').split('-');if(p.length<3)return iso||'';return parseInt(p[2],10)+' '+_KBMN[parseInt(p[1],10)];}
+function _kbOver(iso){if(!iso)return false;var p=iso.split('-').map(function(n){return parseInt(n,10);});return p[0]<KB_TODAY[0]||(p[0]===KB_TODAY[0]&&(p[1]<KB_TODAY[1]||(p[1]===KB_TODAY[1]&&p[2]<KB_TODAY[2])));}
+function kbRefresh(){
+  var cols=document.querySelectorAll('#kb .kb-col');
+  cols.forEach(function(col,ci){
+    var last=(ci===cols.length-1);
+    var cards=col.querySelectorAll('.kb-card');
+    var n=col.querySelector('.kb-n');if(n)n.textContent=cards.length;
+    cards.forEach(function(c){
+      var mv=c.querySelector('.kb-move');if(mv)mv.style.display=last?'none':'';
+      var old=c.querySelector('.kb-over');if(old)old.remove();
+      c.classList.remove('over');
+      var due=c.getAttribute('data-due');
+      if(!last&&_kbOver(due)){c.classList.add('over');var m=c.querySelector('.kb-card-m');if(m){var chip=document.createElement('span');chip.className='kb-over';chip.textContent='просрочено';m.insertBefore(chip,m.firstChild);}}
+    });
+  });
+}
+function _kbBind(card){
+  card.addEventListener('dragstart',function(e){_kbDrag=card;card.classList.add('dragging');if(e.dataTransfer){e.dataTransfer.effectAllowed='move';try{e.dataTransfer.setData('text/plain','x');}catch(_){}}});
+  card.addEventListener('dragend',function(){card.classList.remove('dragging');_kbDrag=null;document.querySelectorAll('#kb .kb-col').forEach(function(col){col.classList.remove('drop-hint');});});
+}
+var _kbDrag=null;
+function kbAdvance(btn){
+  var card=btn.closest('.kb-card'),col=card.closest('.kb-col');
+  var cols=Array.prototype.slice.call(document.querySelectorAll('#kb .kb-col'));
+  var i=cols.indexOf(col);if(i<0||i>=cols.length-1)return;
+  cols[i+1].appendChild(card);kbRefresh();
+}
+function kbAdd(title,who,dueISO){
+  var col=document.querySelector('#kb .kb-col');if(!col)return;
+  var self=(who==='Себе'||who==='себе');
+  var card=document.createElement('div');card.className='kb-card';card.setAttribute('draggable','true');
+  if(dueISO)card.setAttribute('data-due',dueISO);
+  var dueTxt=dueISO?('до '+_kbDueTxt(dueISO)):'без срока';
+  card.innerHTML='<div class="kb-card-t"><span>'+_kbEsc(title)+'</span><button class="kb-move" onclick="kbAdvance(this)" title="Передвинуть →">›</button></div><div class="kb-card-m"><span class="kb-who'+(self?' self':'')+'">'+(self?'себе':_kbEsc(who))+'</span><span>'+dueTxt+'</span></div>';
+  var first=col.querySelector('.kb-card');if(first)col.insertBefore(card,first);else col.appendChild(card);
+  _kbBind(card);kbRefresh();
+}
+function kbOver(e){e.preventDefault();e.currentTarget.classList.add('drop-hint');if(e.dataTransfer)e.dataTransfer.dropEffect='move';}
+function kbLeave(e){e.currentTarget.classList.remove('drop-hint');}
+function kbDrop(e){e.preventDefault();var col=e.currentTarget;col.classList.remove('drop-hint');if(_kbDrag){col.appendChild(_kbDrag);kbRefresh();}}
+function initKanban(){document.querySelectorAll('#kb .kb-card').forEach(_kbBind);kbRefresh();}
+window.addEventListener('load',initKanban);
 function openReview(who){
   openModal('Разбор недели · '+who,
     '<div class="ai-draft"><div class="ai-draft-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>Черновик корректировки · система <span class="pill terra" style="margin-left:auto">демо-пример, не реальное назначение</span></div><div class="ai-draft-tx">«Цинк переносим на вечер с едой — частая причина дискомфорта ЖКТ в первые дни. По дневнику вижу поздние углеводные ужины — добавила 3 варианта лёгкого ужина в рецепты. Динамика по сну хорошая, продолжаем.»</div></div>'+
@@ -1022,6 +1090,7 @@ function _expGrid(v){
   v.querySelectorAll('.stab').forEach(function(t){if(!_vis(t))return;var hd=t.querySelector('.stab-hd');if(hd){out+='<tr>';hd.querySelectorAll('span').forEach(function(s){out+='<th>'+_c(s)+'</th>';});out+='</tr>';}t.querySelectorAll('.srow').forEach(function(r){out+='<tr>';r.querySelectorAll(':scope>span').forEach(function(cc){out+='<td>'+_c(cc)+'</td>';});out+='</tr>';had=true;});});
   v.querySelectorAll('.dtab').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Дата</th><th>Время</th><th>Приём</th><th>Описание</th><th>Ккал</th></tr>';t.querySelectorAll('.dg').forEach(function(g){var day=_c(g.querySelector('.dg-day'));g.querySelectorAll('.dr').forEach(function(r){out+='<tr><td>'+day+'</td><td>'+_c(r.querySelector('.dr-t'))+'</td><td>'+_c(r.querySelector('.dr-meal'))+'</td><td>'+_c(r.querySelector('.dr-tx'))+'</td><td>'+_c(r.querySelector('.dr-kcal'))+'</td></tr>';had=true;});});});
   v.querySelectorAll('.sched').forEach(function(t){if(!_vis(t))return;out+='<tr><th>Время</th><th>Нутрицевтик</th><th>Дозировка</th></tr>';t.querySelectorAll('.tg').forEach(function(g){var tm=_c(g.querySelector('.tg-time'));g.querySelectorAll('.sl').forEach(function(r){out+='<tr><td>'+tm+'</td><td>'+_c(r.querySelector('.sl-name'))+'</td><td>'+_c(r.querySelector('.sl-dose'))+'</td></tr>';had=true;});});});
+  var _kbH=false;v.querySelectorAll('.kb-col').forEach(function(col){var cn=_c(col.querySelector('.kb-h span'));col.querySelectorAll('.kb-card').forEach(function(c){if(!_vis(c))return;if(!_kbH){out+='<tr><th>Колонка</th><th>Задание</th><th>Кому</th><th>Срок</th></tr>';_kbH=true;}var t=_c(c.querySelector('.kb-card-t span'));var who=_c(c.querySelector('.kb-who'));var due=_c(c.querySelector('.kb-card-m span:last-child'));if(c.classList.contains('over'))due+=' · просрочено';out+='<tr><td>'+cn+'</td><td>'+t+'</td><td>'+who+'</td><td>'+due+'</td></tr>';had=true;});});
   if(had)return out;
   v.querySelectorAll('.mrow,.mark-row,.pulse-row').forEach(function(r){if(!_vis(r))return;var b=r.querySelector('b');var lab=_c(r);var val=b?_c(b):'';if(val)lab=lab.slice(0,lab.length-val.length).trim();out+='<tr><td>'+lab+'</td><td>'+val+'</td></tr>';had=true;});
   if(had)return out;
