@@ -203,6 +203,22 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .kb-card.over{border-color:rgba(232,168,124,.6)}
 .kb-col.drop-hint{outline:2px dashed var(--sage);outline-offset:-3px}
 .kb-card.dragging{opacity:.45}
+/* Аналитика для Натальи — decision-support (всё через неё, клиенту напрямую ничего) */
+.an-card{border:1px solid var(--gold);border-left:3px solid var(--gold)}
+.an-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.an-lab{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#9A7A2E;background:rgba(201,162,75,.16);padding:2px 9px;border-radius:100px}
+.an-sec{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:13px 0 6px}
+.an-row{display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border)}
+.an-row:last-child{border-bottom:none}
+.an-row>b{margin-left:auto}
+.an-ref{font-size:11px;color:var(--muted)}
+.an-flag{font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:100px;background:rgba(192,88,79,.14);color:#B0463C} /* вне референса = HEALTH-сигнал → красный допустим (не дисциплина) */
+.an-ok{font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:100px;background:rgba(124,144,112,.16);color:#5C7050}
+.an-hyp{font-size:12.5px;color:var(--text);padding:7px 0;border-bottom:1px dashed var(--border);line-height:1.45}
+.an-hyp:last-child{border-bottom:none}
+.an-hyp .tag{font-size:9.5px;font-weight:700;text-transform:uppercase;color:#9A7A2E;background:rgba(201,162,75,.16);padding:1px 6px;border-radius:5px;margin-right:6px;letter-spacing:.03em}
+.an-src{font-size:12.5px;color:var(--herbal);text-decoration:none;border-bottom:1px dashed rgba(47,74,60,.35)}
+.an-note{font-size:11.5px;color:var(--muted);margin-top:11px;line-height:1.5}
 
 /* Инбокс */
 .inbox-item{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--border);cursor:pointer}
@@ -484,7 +500,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
       <div class="card">
         <div class="card-h">Ваши задачи на сегодня</div>
         <div class="q-item"><div class="q-ava" style="background:var(--gold);color:var(--herbal)">✎</div><div class="q-body"><div class="q-name">Собрать пост для канала (вторник)</div><div class="q-meta"><span>черновик готов системой — осталось утвердить экспертную часть</span></div><div class="q-act"><button class="btn btn-o btn-sm" onclick="go(5)">К контент-плану</button></div></div></div>
-        <div class="q-item"><div class="q-ava" style="background:var(--sage)">Ф</div><div class="q-body"><div class="q-name">Проверить контрольные анализы — Фёдор Р.</div><div class="q-meta"><span>загрузил вчера, неделя 8, сравнить «до / после»</span></div></div></div>
+        <div class="q-item" onclick="openAnalysis('Фёдор Р.')" style="cursor:pointer"><div class="q-ava" style="background:var(--sage)">Ф</div><div class="q-body"><div class="q-name">Проверить контрольные анализы — Фёдор Р.</div><div class="q-meta"><span>система оцифровала и сравнила «до / после» — проверьте и согласуйте</span></div></div></div>
       </div>
       <div class="card idea">
         <span class="idea-tag">Идея · эскиз, не в прототипе</span>
@@ -607,14 +623,29 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
               <div class="mrow"><span>Анализы</span><b>2 файла</b></div>
               <div class="mrow"><span>Задания</span><b>2 активных</b></div>
             </div>
-            <div class="card idea">
-              <span class="idea-tag">Идея · эскиз, не в прототипе</span>
-              <div class="card-h">Анализы из бланка — в таблицу</div>
-              <div class="card-d" style="margin-bottom:8px">Система переносит показатели из PDF или фото бланка в аккуратную таблицу — не нужно перепечатывать вручную. Только цифры, рядом с прошлыми замерами.</div>
-              <div class="mark-row">Витамин D <b>42 нг/мл</b></div>
-              <div class="mark-row">Ферритин <b>18 нг/мл</b></div>
-              <div class="mark-row">Витамин B12 <b>305 пг/мл</b></div>
-              <div class="card-d" style="margin-top:8px;font-size:11.5px">Система не оценивает анализы — только собирает цифры в одно место. Клиническая трактовка анализов — область врача; вы работаете с питанием и образом жизни.</div>
+            <div class="card an-card">
+              <div class="an-h"><span class="an-lab">✦ на ваше согласование</span><span class="pill terra">демо-пример</span></div>
+              <div class="card-h" style="margin-top:9px">Аналитика анализов — проект для проверки</div>
+              <div class="card-d" style="font-size:12px">Система оцифровала бланк, сверила с референсом лаборатории, сопоставила с жалобой клиента и вашим корпусом. Это <b>проект на ваше решение</b> — трактовка и слова клиенту остаются за вами.</div>
+
+              <div class="an-sec">Оцифровано из бланка</div>
+              <div class="an-row">Витамин D <span class="an-ref">реф. 30–100</span><b>42 нг/мл</b><span class="an-ok">в норме</span></div>
+              <div class="an-row">Ферритин <span class="an-ref">реф. 30–150</span><b>18 нг/мл</b><span class="an-flag">ниже референса</span></div>
+              <div class="an-row">Витамин B12 <span class="an-ref">реф. 200–900</span><b>305 пг/мл</b><span class="an-ok">в норме</span></div>
+
+              <div class="an-sec">Сопоставлено с жалобой клиента</div>
+              <div class="card-d" style="font-size:12.5px;margin:0">На входе в программу: <b>утомляемость, снижение энергии</b>. За 3 недели по отметкам стало легче, но ферритин ещё ниже нормы. Отдельно отметила <b>дискомфорт ЖКТ</b> после старта цинка.</div>
+
+              <div class="an-sec">Гипотезы системы · требуют вашего решения</div>
+              <div class="an-hyp"><span class="tag">гипотеза</span>Ферритин 18 (ниже референса) рядом с жалобой на утомляемость на входе — по отметкам сейчас легче, но железо ещё не добрано; стоит рассмотреть как возможную причину и проследить.</div>
+              <div class="an-hyp"><span class="tag">из дневника</span>Дискомфорт ЖКТ совпал по времени со стартом цинка; по дневнику цинк принимался натощак — частый механический триггер.</div>
+
+              <div class="an-sec">Из вашего корпуса</div>
+              <div class="an-row"><a href="#" class="an-src" onclick="return false">Протокол питания при низком ферритине</a><b style="font-weight:400;font-size:11px;color:var(--muted)">ваш сборник, гл. 4</b></div>
+              <div class="an-row"><a href="#" class="an-src" onclick="return false">Цинк: правила приёма (с едой)</a><b style="font-weight:400;font-size:11px;color:var(--muted)">ваш гайд по минералам</b></div>
+
+              <button class="btn btn-p" style="width:100%;justify-content:center;margin-top:12px" onclick="openAnalysis('Марина К.')">Проверить и согласовать</button>
+              <div class="an-note">Проект собран системой. Решение, трактовка и формулировка клиенту — ваши; клиенту ничего не уходит без вашего согласования. При острых отклонениях — направить к врачу.</div>
             </div>
             <div class="card">
               <div class="card-h">Действия</div>
@@ -954,6 +985,23 @@ function openReview(who){
   openModal('Разбор недели · '+who,
     '<div class="ai-draft"><div class="ai-draft-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>Черновик корректировки · система <span class="pill terra" style="margin-left:auto">демо-пример, не реальное назначение</span></div><div class="ai-draft-tx">«Цинк переносим на вечер с едой — частая причина дискомфорта ЖКТ в первые дни. По дневнику вижу поздние углеводные ужины — добавила 3 варианта лёгкого ужина в рецепты. Динамика по сну хорошая, продолжаем.»</div></div>'+
     '<div class="fld"><label>Ваша корректировка (правьте экспертную часть)</label><textarea class="modal-ta">Цинк переносим на вечер с едой — частая причина дискомфорта ЖКТ в первые дни. По дневнику вижу поздние углеводные ужины — добавила 3 варианта лёгкого ужина в рецепты. Динамика по сну хорошая, продолжаем.</textarea></div>'+toolRowHTML,'Утвердить и отправить');
+}
+function openAnalysis(who){
+  var A={
+    'Марина К.':{
+      draft:'Ферритин 18 нг/мл — ниже референса; рядом с жалобой на утомляемость стоит рассмотреть как возможную причину сниженной энергии. Из вашего корпуса — протокол питания при низком ферритине (сборник, гл. 4). Дискомфорт ЖКТ — вероятно цинк натощак; правило приёма с едой (ваш гайд). Витамин D и B12 — в референсе. Это гипотезы, не назначение.',
+      sol:'Добавляю в рацион продукты, богатые железом (протокол, гл. 4). Цинк переносим на приём с едой. Рекомендую развёрнутый анализ по обмену железа; при сохранении утомляемости — очная консультация врача.'
+    },
+    'Фёдор Р.':{
+      draft:'Контрольные к неделе 8 против старта: ферритин 22 → 41 нг/мл (в референсе), витамин D 28 → 46 нг/мл. Динамика положительная по обоим маркерам. Гипотеза: если подтвердите — можно обсудить переход на поддерживающий режим. Это проект на ваш разбор, не назначение.',
+      sol:'Отличная динамика по железу и витамину D. Предлагаю перейти на поддерживающий режим питания, контроль через 3 месяца. К завершению программы — при желании корректирующая консультация.'
+    }
+  };
+  var d=A[who]||A['Марина К.'];
+  openModal('Аналитика анализов · '+who,
+    '<div class="ai-draft"><div class="ai-draft-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>Проект системы · на ваше согласование <span class="pill terra" style="margin-left:auto">демо-пример, не назначение</span></div><div class="ai-draft-tx">'+d.draft+'</div></div>'+
+    '<div class="fld"><label>Ваше решение и формулировка клиенту (правьте — уйдёт только это)</label><textarea class="modal-ta" style="min-height:96px">'+d.sol+'</textarea></div>'+
+    '<label style="display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted);margin-bottom:2px"><input type="checkbox" checked> Приложить оцифрованную таблицу анализов</label>'+toolRowHTML,'Согласовать и отправить клиенту');
 }
 function openPost(){
   openModal('Публикация',
