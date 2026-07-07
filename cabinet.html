@@ -58,7 +58,7 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .pw-lbl{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.45);margin-bottom:5px}
 .pw-lbl b{color:var(--gold)}
 .pw-track{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
-.pw-fill{height:100%;width:37%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:2px}
+.pw-fill{height:100%;width:38%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:2px}
 .sb-foot-sub{font-size:10.5px;color:rgba(255,255,255,.35);margin-top:8px}
 /* невысокие экраны (ноутбук): сайдбар без прокрутки — подписи пунктов сворачиваются */
 @media(max-height:760px){
@@ -109,6 +109,34 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .step.done .step-dot{background:var(--sage);color:#fff}
 .step.now .step-dot{background:var(--gold);color:var(--herbal);box-shadow:0 0 0 4px rgba(201,162,75,.2)}
 .step.next .step-dot{background:var(--cream);border:1.5px solid var(--border);color:var(--muted)}
+
+/* Ф1 — маршрут клиента (путь к результату, видимая вершина) */
+.route{background:linear-gradient(180deg,rgba(124,144,112,.07),transparent)}
+.route-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:4px}
+.route-title{font-family:Georgia;font-size:18px;color:var(--herbal);font-weight:700}
+.route-sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.route-pct{text-align:right;font-family:Georgia;font-size:26px;font-weight:700;color:var(--sage);line-height:1;flex-shrink:0}
+.route-pct span{display:block;font-family:'Inter',sans-serif;font-size:10.5px;font-weight:400;color:var(--muted);margin-top:3px}
+.route-bar{position:relative;height:8px;background:var(--border);border-radius:100px;margin:26px 0 18px}
+.route-bar i{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,var(--sage),var(--herbal))}
+.route-peak{position:absolute;right:0;top:0;transform:translateY(-125%);font-size:11px;font-weight:700;color:var(--herbal);white-space:nowrap}
+.route-stages{display:flex;flex-direction:column}
+.route-stg{display:flex;gap:13px;padding:12px 0;border-bottom:1px solid var(--border)}
+.route-stg:last-child{border-bottom:none}
+.route-dot{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:Georgia}
+.route-stg.done .route-dot{background:var(--sage);color:#fff}
+.route-stg.now .route-dot{background:var(--herbal);color:#fff;box-shadow:0 0 0 4px rgba(47,74,60,.12)}
+.route-stg.summit .route-dot{background:var(--gold)}
+.route-nm{font-size:14px;font-weight:700;color:var(--text)}
+.route-nm .wk{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+.route-ds{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.45}
+.route-here{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;color:#fff;background:var(--herbal);border-radius:100px;padding:2px 10px}
+.route-summit{margin-top:14px;padding:14px;border-radius:12px;background:rgba(201,162,75,.1);border:1px solid rgba(201,162,75,.35)}
+.route-summit-h{font-size:13.5px;font-weight:700;color:#8A6D1F;margin-bottom:5px}
+.route-summit-d{font-size:12.5px;color:var(--text);line-height:1.5}
+.route-next{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--text)}
+.route-next b{color:var(--herbal)}
+.route-next .btn{margin-left:auto}
 .step-name{font-size:13.5px;font-weight:600}
 .step.now .step-name{color:var(--herbal)}
 .step-sub{font-size:12px;color:var(--muted);margin-top:1px}
@@ -553,13 +581,23 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
       <div class="page-tag">Моя программа</div>
       <div class="page-h">Программа коррекции · неделя 3 из 8</div>
       <div class="page-d">Персональная программа Натальи: диагностика, схема нутрицевтиков, питание. Ниже — где вы сейчас.</div>
-      <div class="card">
-        <div class="steps">
-          <div class="step done"><div class="step-dot">✓</div><div><div class="step-name">Подготовка</div><div class="step-sub">Анализы, опросники и дневник питания получены</div></div></div>
-          <div class="step done"><div class="step-dot">✓</div><div><div class="step-name">Диагностика</div><div class="step-sub">Наталья изучила данные и собрала вашу программу</div></div></div>
-          <div class="step now"><div class="step-dot">3</div><div><div class="step-name">Сопровождение · недели 1–8</div><div class="step-sub">Ежедневно: схема приёма + дневник. Каждое воскресенье — отчёт, Наталья разбирает и корректирует</div></div></div>
-          <div class="step next"><div class="step-dot">4</div><div><div class="step-name">Завершение программы <span class="pill wait" style="margin-left:6px">формат уточним у Натальи</span></div><div class="step-sub">Как закрывается программа (итоговая встреча? контрольные анализы?) — согласуем с Натальей, это её решение</div></div></div>
+      <div class="card route">
+        <div class="route-top" style="flex-wrap:wrap">
+          <div><div class="route-title">Ваш путь к результату <span class="pill terra" style="font-size:10px;vertical-align:middle">пример</span></div><div class="route-sub">Этап 3 из 4 · неделя 3 из 8</div></div>
+          <div class="route-pct">38%<span>пути пройдено</span></div>
         </div>
+        <div class="route-bar"><i style="width:38%"></i><span class="route-peak">🏔 Результат</span></div>
+        <div class="route-stages">
+          <div class="route-stg done"><div class="route-dot">✓</div><div><div class="route-nm">Диагностика <span class="wk">неделя 1</span></div><div class="route-ds">Анализы, опросники и дневник получены. Наталья изучила данные — на них строится ваша программа.</div></div></div>
+          <div class="route-stg done"><div class="route-dot">✓</div><div><div class="route-nm">Программа <span class="wk">неделя 2</span></div><div class="route-ds">Наталья собрала персональную схему: питание, нутрицевтики, задания.</div></div></div>
+          <div class="route-stg now"><div class="route-dot">3</div><div><div class="route-nm">Сопровождение <span class="wk">недели 3–7</span></div><div class="route-ds">Ежедневно: приём + дневник. Каждое воскресенье — отчёт, Наталья разбирает и корректирует.</div><span class="route-here">вы здесь</span></div></div>
+          <div class="route-stg summit"><div class="route-dot">🏁</div><div><div class="route-nm">Результат <span class="wk">неделя 8</span></div><div class="route-ds">Контрольные анализы и итог «что изменилось» за 8 недель.</div></div></div>
+        </div>
+        <div class="route-summit">
+          <div class="route-summit-h">Ваша вершина — что ждёт на финише</div>
+          <div class="route-summit-d">Контрольные анализы «после» рядом с «до», разбор Натальи «что изменилось» — и <b>ваш выбор</b>: закрепить достигнутое или продолжить со следующей целью. Решение всегда за вами.</div>
+        </div>
+        <div class="route-next">Следующий шаг: <b>дозаполнить дневник за субботу</b> <button class="btn btn-o" onclick="go(2)">Перейти</button></div>
       </div>
       <div class="grid2">
         <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен · 1 задание к сроку.</div><button class="btn btn-o" onclick="go(1)">К моему дню</button></div>
