@@ -929,12 +929,25 @@ function openModal(title,bodyHTML,sendLabel){
 }
 function closeModal(){ stopRec(); document.getElementById('ovl').classList.remove('show'); }
 
+/* Единая база адресатов (тот же ростер, что таблица «Клиенты») — источник для сообщений и заданий */
+var CLIENTS=['Марина К.','Анна С.','Елена П.','Фёдор Р.','Ирина Л.','Ольга В.','Дарья М.'];
 function openMsg(who){
-  var to=who?('<div class="fld"><label>Кому</label><input value="'+who+'" '+(who==='новый клиент'||who===''?'placeholder="Имя клиента"':'')+'></div>'):'';
+  var to;
+  if(who==='новый клиент'){
+    /* приглашение — новый человек, не из базы */
+    to='<div class="fld"><label>Кому</label><input id="msgTo" placeholder="Имя или контакт нового клиента"></div>';
+  } else {
+    var list=CLIENTS.slice();
+    if(who&&list.indexOf(who)<0)list.unshift(who); /* незнакомое имя — без дубля */
+    var sel=who||'';
+    var opts='<option value=""'+(sel===''?' selected':'')+' disabled>Выберите клиента…</option>'+
+      list.map(function(c){return '<option'+(c===sel?' selected':'')+'>'+c+'</option>';}).join('');
+    to='<div class="fld"><label>Кому</label><select id="msgTo">'+opts+'</select></div>';
+  }
   openModal('Написать сообщение', to+'<textarea class="modal-ta" placeholder="Текст сообщения…"></textarea>'+toolRowHTML,'Отправить');
 }
 function openTask(who){
-  var cl=['Себе','Марина К.','Анна С.','Елена П.','Ольга В.'];
+  var cl=['Себе'].concat(CLIENTS);
   if(who&&cl.indexOf(who)<0)cl.splice(1,0,who); /* незнакомый клиент — без дубля */
   var sel=who||'Себе';
   var opts=cl.map(function(c){return '<option'+(c===sel?' selected':'')+'>'+c+'</option>';}).join('');
