@@ -290,6 +290,32 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 @media(max-width:520px){.thread{width:100vw}}
 body.thread-open .ai-fab,body.thread-open .sim-launch,body.thread-open .bell,body.thread-open .exp-fab{display:none!important}
 
+/* Модель работы — раздел «Ваша услуга» */
+.model-flow{display:flex;flex-direction:column;margin:6px 0 4px}
+.model-step{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid var(--border)}
+.model-step:last-child{border-bottom:none}
+.model-num{width:30px;height:30px;border-radius:9px;background:var(--herbal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:14px;flex-shrink:0}
+.model-step:nth-child(2) .model-num{background:var(--sage)}
+.model-step:nth-child(3) .model-num{background:var(--gold);color:var(--herbal)}
+.model-step:nth-child(4) .model-num{background:var(--terra);color:var(--herbal)}
+.model-b{flex:1;min-width:0}
+.model-t{font-size:13.5px;font-weight:700;color:var(--text)}
+.model-t span{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+.model-d{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.45}
+.model-hook{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;color:#5C7050;background:rgba(124,144,112,.14);border-radius:100px;padding:2px 9px}
+.model-ul{margin:4px 0 0;padding-left:0;list-style:none}
+.model-ul li{position:relative;padding:7px 0 7px 22px;font-size:13px;color:var(--text);line-height:1.45;border-bottom:1px solid var(--border)}
+.model-ul li:last-child{border-bottom:none}
+.model-ul li::before{content:"";position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--sage)}
+.model-links{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:2px}
+@media(max-width:560px){.model-links{grid-template-columns:1fr}}
+.model-link{display:flex;align-items:center;gap:11px;padding:13px;border:1px solid var(--border);border-radius:12px;text-decoration:none;background:var(--white)}
+.model-link:hover{background:var(--subtle)}
+.model-link .mi{width:38px;height:38px;border-radius:10px;background:rgba(47,74,60,.09);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.model-link .ml-t{display:block;font-size:13px;font-weight:700;color:var(--text)}
+.model-link .ml-s{display:block;font-size:11.5px;color:var(--muted);margin-top:1px}
+.model-talk{background:linear-gradient(180deg,rgba(124,144,112,.09),transparent);border:1px solid rgba(124,144,112,.32)}
+
 /* Панель уведомлений + модалка (общие) */
 .notif-panel{position:fixed;top:60px;right:16px;width:340px;max-width:calc(100vw - 32px);max-height:70vh;background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 50px rgba(30,40,32,.22);z-index:41;display:none;flex-direction:column;overflow:hidden}
 .notif-panel.show{display:flex}
@@ -449,6 +475,11 @@ body.lite .lite-note{display:flex;position:fixed;inset:0;z-index:99999;align-ite
       <div class="bell" onclick="toggleNotif()" id="bellDesk" style="display:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-dot">4</span></div>
     </div>
     <div class="sb-nav">
+      <div class="sb-cap">Ваша услуга</div>
+      <div class="si" id="si8" onclick="go(8)">
+        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <div><div class="si-name">Модель работы</div><div class="si-sub">Как устроена услуга</div></div>
+      </div>
       <div class="sb-cap">Работа дня</div>
       <div class="si active" id="si0" onclick="go(0)">
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
@@ -501,6 +532,49 @@ body.lite .lite-note{display:flex;position:fixed;inset:0;z-index:99999;align-ite
     <div style="font-size:13.5px;color:var(--muted);max-width:380px;line-height:1.55">Рабочее место с данными клиентов открывается только в защищённом РФ-контуре, не в витрине. Это требование 152-ФЗ.</div>
   </div></div>
   <div class="main">
+
+    <!-- 8 Модель работы (Ваша услуга) -->
+    <div class="sv" id="sv8"><div class="wrap">
+      <div class="page-tag">Ваша услуга</div>
+      <div class="page-h">Модель работы</div>
+      <div class="page-d">Как устроена услуга, которую вы ведёте через этот кабинет. Клиент проходит путь по шагам; система готовит черновики — вы утверждаете и правите; к клиенту ничего не уходит без вас.</div>
+
+      <div class="card">
+        <div class="card-h">Маршрут клиента — 4 этапа</div>
+        <div class="model-flow">
+          <div class="model-step"><div class="model-num">1</div><div class="model-b"><div class="model-t">Диагностика <span>неделя 1</span></div><div class="model-d">Анкета, анализы и дневник — система сводит в полную картину. Гипотезы и план ставите вы.</div><span class="model-hook">крючок: первая находка</span></div></div>
+          <div class="model-step"><div class="model-num">2</div><div class="model-b"><div class="model-t">Программа <span>неделя 2</span></div><div class="model-d">Персональный план: питание, нутрицевтики, первые задания. Система готовит черновик — вы адаптируете под клиента.</div><span class="model-hook">крючок: ваш план готов</span></div></div>
+          <div class="model-step"><div class="model-num">3</div><div class="model-b"><div class="model-t">Сопровождение <span>недели 3–7</span></div><div class="model-d">Неделя за неделей: разборы, корректировки, ответы в диалоге, отметки самочувствия.</div><span class="model-hook">крючок: прогресс + ваше присутствие</span></div></div>
+          <div class="model-step"><div class="model-num">4</div><div class="model-b"><div class="model-t">Результат <span>неделя 8</span></div><div class="model-d">Контрольные анализы и итог: что изменилось. Дальше — закрепление или продление.</div><span class="model-hook">крючок: клиент дошёл до результата</span></div></div>
+        </div>
+        <div class="card-d" style="margin-top:10px">Этапы наложены на срок программы. Клиент всегда видит: где он сейчас, что следующий шаг, что уже закрыто — путь без тупиков.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-h">Что удерживает клиента до конца</div>
+        <ul class="model-ul">
+          <li>Клиент всегда видит, где он на пути и что делать дальше — никаких тупиков.</li>
+          <li>Система подсвечивает находки в его данных — это повод обсудить с вами.</li>
+          <li>Ваш диалог с клиентом идёт прямо в кабинете — это часть системы, а не переписка на стороне.</li>
+          <li>Незакрытый шаг напоминает о себе — клиент доводит работу до конца.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-h">Посмотреть вживую</div>
+        <div class="card-d" style="margin-bottom:12px">Ваш кабинет — этот, вы в нём сейчас. Ниже — две другие точки услуги:</div>
+        <div class="model-links">
+          <a class="model-link" href="cabinet.html" target="_blank" rel="noopener"><span class="mi">👤</span><span><span class="ml-t">Кабинет клиента</span><span class="ml-s">Пройдите путь глазами клиента</span></span></a>
+          <a class="model-link" href="landing_odin_den.html" target="_blank" rel="noopener"><span class="mi">🌿</span><span><span class="ml-t">Лендинг</span><span class="ml-s">Как клиент попадает к вам</span></span></a>
+        </div>
+      </div>
+
+      <div class="card model-talk">
+        <div class="card-h">Обсудим здесь же</div>
+        <div class="card-d">Вопросы и правки по модели пишите нам прямо в кабинете — в вашем канале с командой. Отвечаем там же.</div>
+        <button class="btn btn-p btn-sm" style="margin-top:12px" onclick="go(4);openThread('Команда Визельберг')">Написать команде</button>
+      </div>
+    </div></div>
 
     <!-- 0 Пульт -->
     <div class="sv active" id="sv0"><div class="wrap">
@@ -758,6 +832,7 @@ body.lite .lite-note{display:flex;position:fixed;inset:0;z-index:99999;align-ite
       <div class="page-h">Сообщения</div>
       <div class="page-d">Вопросы клиентов. Срочные отметки самочувствия помечены — они наверху.</div>
       <div class="card">
+        <div class="inbox-item" onclick="openThread('Команда Визельберг')"><div class="ib-ava" style="background:var(--herbal)">К</div><div class="inbox-body"><div class="inbox-name">Команда Визельберг <span class="pill" style="background:rgba(47,74,60,.1);color:var(--herbal);margin-left:6px">команда</span></div><div class="inbox-prev">Модель работы вашей услуги — вопросы и правки пишите сюда</div></div><div class="inbox-time">сегодня</div></div>
         <div class="inbox-item unread" onclick="openThread('Марина К.')"><div class="ib-ava red">М</div><div class="inbox-body"><div class="inbox-name">Марина К. <span class="pill red" style="margin-left:6px">самочувствие</span></div><div class="inbox-prev">Отметила дискомфорт ЖКТ после цинка — приложила описание<span class="inbox-att">· 📄 2 · 📷 3</span></div></div><div class="inbox-time">1 ч</div></div>
         <div class="inbox-item unread" onclick="openThread('Ольга В.')"><div class="ib-ava">О</div><div class="inbox-body"><div class="inbox-name">Ольга В.</div><div class="inbox-prev">Можно ли заменить рыбу на этой неделе? Прикладываю ссылку на рецепт<span class="inbox-att">· 🔗 2</span></div></div><div class="inbox-time">3 ч</div></div>
         <div class="inbox-item" onclick="openThread('Анна С.')"><div class="ib-ava">А</div><div class="inbox-body"><div class="inbox-name">Анна С.</div><div class="inbox-prev">Спасибо за корректировку! Сон правда лучше 🙏</div></div><div class="inbox-time">вчера</div></div>
@@ -968,6 +1043,12 @@ function closeClient(){ document.getElementById('clientsList').style.display='bl
    Файлы/фото/ссылки — то, чем клиент делится: анализы, фото тарелки, рецепты.
    152-ФЗ: это ПДн+здоровье → в витрине (lite) диалог не открывается. */
 var THREADS={
+ 'Команда Визельберг':{ava:'К',sub:'Поддержка · платформа',day:'Сегодня, 4 июля',
+  msgs:[
+   {tx:'Наталья, здесь — модель работы вашей услуги. Откройте раздел «Модель работы», пройдите кабинет клиента и лендинг.',t:'9:00'},
+   {tx:'Вопросы и правки по модели пишите прямо сюда — это ваш канал с нами, в том же кабинете. Отвечаем здесь же.',t:'9:00'}
+  ],
+  files:[],photos:[],links:[]},
  'Марина К.':{ava:'М',health:true,sub:'Коррекция 2 мес · неделя 3 из 8',day:'Сегодня, 4 июля',
   msgs:[
    {tx:'Здравствуйте! Третий день после старта цинка — дискомфорт в животе и тяжесть после обеда.',t:'9:41'},
