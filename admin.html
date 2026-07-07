@@ -238,6 +238,57 @@ table.tbl tbody tr:hover{background:var(--subtle)}
 .inbox-name{font-size:13.5px;color:var(--text)}
 .inbox-prev{font-size:12.5px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .inbox-time{font-size:11px;color:var(--sage);flex-shrink:0}
+.inbox-att{display:inline-flex;align-items:center;gap:3px;color:var(--sage);font-size:11px;margin-left:4px}
+
+/* Диалог с клиентом (мессенджер) — drill-in slide-over */
+.thread-backdrop{position:fixed;inset:0;background:rgba(30,40,32,.42);z-index:43;display:none}
+.thread-backdrop.show{display:block}
+.thread{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100vw;background:var(--white);z-index:44;display:none;flex-direction:column;box-shadow:-18px 0 50px rgba(30,40,32,.18)}
+.thread.show{display:flex;animation:thslide .2s ease}
+@keyframes thslide{from{transform:translateX(34px);opacity:.3}to{transform:none;opacity:1}}
+.th-hd{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--border);flex-shrink:0}
+.th-back{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--herbal);font-size:22px;line-height:1;font-family:Georgia}
+.th-back:hover{background:var(--subtle)}
+.th-ava{width:40px;height:40px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia;font-weight:700;font-size:15px;flex-shrink:0}
+.th-ava.red{background:var(--red)}
+.th-id{flex:1;min-width:0}
+.th-name{font-size:14.5px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px}
+.th-sub{font-size:11.5px;color:var(--muted);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.th-open{border:1px solid var(--border);background:var(--white);border-radius:8px;font-size:11.5px;font-weight:600;color:var(--herbal);padding:6px 10px;cursor:pointer;flex-shrink:0}
+.th-open:hover{background:var(--subtle)}
+.th-seg{display:flex;gap:2px;padding:8px 11px;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto}
+.th-seg button{flex:1;white-space:nowrap;border:none;background:transparent;font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);padding:7px 8px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.th-seg button.on{background:var(--subtle);color:var(--herbal)}
+.th-cnt{font-size:10px;font-weight:700;background:var(--border);color:var(--muted);border-radius:100px;padding:0 5px;min-width:16px;text-align:center}
+.th-seg button.on .th-cnt{background:var(--sage);color:#fff}
+.th-body{flex:1;overflow-y:auto;padding:16px}
+.th-pane{display:none}
+.th-pane.on{display:block}
+.th-day{text-align:center;font-size:11px;color:var(--muted);margin:2px 0 13px}
+.bub{max-width:82%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.45;margin-bottom:9px}
+.bub .t{display:block;font-size:10px;margin-top:4px;opacity:.65}
+.bub.them{background:var(--subtle);color:var(--text);border-bottom-left-radius:4px;margin-right:auto}
+.bub.me{background:var(--herbal);color:#fff;border-bottom-right-radius:4px;margin-left:auto}
+.bub.me .t{color:rgba(255,255,255,.8)}
+.bub-att{display:flex;align-items:center;gap:8px;margin-top:7px;padding:7px 9px;background:rgba(255,255,255,.55);border-radius:9px;font-size:11.5px}
+.bub.me .bub-att{background:rgba(255,255,255,.15)}
+.th-comp{display:flex;gap:8px;align-items:flex-end;padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0;background:var(--white)}
+.th-comp textarea{flex:1;border:1.5px solid var(--border);border-radius:12px;padding:9px 12px;font:inherit;font-size:13px;resize:none;min-height:40px;max-height:120px;outline:none}
+.th-comp textarea:focus{border-color:var(--sage)}
+.th-send{width:40px;height:40px;border-radius:11px;border:none;background:var(--herbal);color:#fff;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.th-file{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.th-file:last-child{border-bottom:none}
+.th-fic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.th-fic.doc{background:rgba(47,74,60,.1)}
+.th-fic.link{background:rgba(201,162,75,.16)}
+.th-fmeta{flex:1;min-width:0}
+.th-fname{font-size:13px;color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.th-fsub{font-size:11.5px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.th-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.th-photo{aspect-ratio:1;border-radius:10px;position:relative;cursor:pointer;display:flex;align-items:flex-end;padding:7px;color:#fff;font-size:10.5px;font-weight:600;line-height:1.2;text-shadow:0 1px 4px rgba(0,0,0,.45)}
+.th-empty{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 16px;line-height:1.55}
+@media(max-width:520px){.thread{width:100vw}}
+body.thread-open .ai-fab,body.thread-open .sim-launch,body.thread-open .bell,body.thread-open .exp-fab{display:none!important}
 
 /* Панель уведомлений + модалка (общие) */
 .notif-panel{position:fixed;top:60px;right:16px;width:340px;max-width:calc(100vw - 32px);max-height:70vh;background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 50px rgba(30,40,32,.22);z-index:41;display:none;flex-direction:column;overflow:hidden}
@@ -364,7 +415,7 @@ body.app .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:31;
 body.lite .exp-fab,body.lite .exp-menu{display:none!important}
 /* 152-ФЗ fail-closed: операторская консоль с ПДн клиентов НЕ показывается в витрине (lite). Второй слой поверх деплой-контроля «admin только РФ, не TG». */
 .lite-note{display:none}
-body.lite .main,body.lite .sb,body.lite .sb-backdrop,body.lite .tabbar,body.lite .ai-fab,body.lite .ai-panel,body.lite .sim-launch,body.lite .bell,body.lite .notif-panel,body.lite .moresheet,body.lite .ovl{display:none!important}
+body.lite .main,body.lite .sb,body.lite .sb-backdrop,body.lite .tabbar,body.lite .ai-fab,body.lite .ai-panel,body.lite .sim-launch,body.lite .bell,body.lite .notif-panel,body.lite .moresheet,body.lite .ovl,body.lite .thread,body.lite .thread-backdrop{display:none!important}
 body.lite .lite-note{display:flex;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:32px;background:var(--cream);text-align:center}
 @media print{
   .exp-fab,.exp-menu{display:none!important}
@@ -707,10 +758,10 @@ body.lite .lite-note{display:flex;position:fixed;inset:0;z-index:99999;align-ite
       <div class="page-h">Сообщения</div>
       <div class="page-d">Вопросы клиентов. Срочные отметки самочувствия помечены — они наверху.</div>
       <div class="card">
-        <div class="inbox-item unread"><div class="ib-ava red">М</div><div class="inbox-body"><div class="inbox-name">Марина К. <span class="pill red" style="margin-left:6px">самочувствие</span></div><div class="inbox-prev">Отметила дискомфорт ЖКТ после цинка — приложила описание…</div></div><div class="inbox-time">1 ч</div></div>
-        <div class="inbox-item unread"><div class="ib-ava">О</div><div class="inbox-body"><div class="inbox-name">Ольга В.</div><div class="inbox-prev">Можно ли заменить рыбу на этой неделе? Прикладываю ссылку на рецепт…</div></div><div class="inbox-time">3 ч</div></div>
-        <div class="inbox-item"><div class="ib-ava">А</div><div class="inbox-body"><div class="inbox-name">Анна С.</div><div class="inbox-prev">Спасибо за корректировку! Сон правда лучше 🙏</div></div><div class="inbox-time">вчера</div></div>
-        <div class="inbox-item"><div class="ib-ava">Ф</div><div class="inbox-body"><div class="inbox-name">Фёдор Р.</div><div class="inbox-prev">Загрузил контрольные анализы в кабинет</div></div><div class="inbox-time">вчера</div></div>
+        <div class="inbox-item unread" onclick="openThread('Марина К.')"><div class="ib-ava red">М</div><div class="inbox-body"><div class="inbox-name">Марина К. <span class="pill red" style="margin-left:6px">самочувствие</span></div><div class="inbox-prev">Отметила дискомфорт ЖКТ после цинка — приложила описание<span class="inbox-att">· 📄 2 · 📷 3</span></div></div><div class="inbox-time">1 ч</div></div>
+        <div class="inbox-item unread" onclick="openThread('Ольга В.')"><div class="ib-ava">О</div><div class="inbox-body"><div class="inbox-name">Ольга В.</div><div class="inbox-prev">Можно ли заменить рыбу на этой неделе? Прикладываю ссылку на рецепт<span class="inbox-att">· 🔗 2</span></div></div><div class="inbox-time">3 ч</div></div>
+        <div class="inbox-item" onclick="openThread('Анна С.')"><div class="ib-ava">А</div><div class="inbox-body"><div class="inbox-name">Анна С.</div><div class="inbox-prev">Спасибо за корректировку! Сон правда лучше 🙏</div></div><div class="inbox-time">вчера</div></div>
+        <div class="inbox-item" onclick="openThread('Фёдор Р.')"><div class="ib-ava">Ф</div><div class="inbox-body"><div class="inbox-name">Фёдор Р.</div><div class="inbox-prev">Загрузил контрольные анализы в кабинет<span class="inbox-att">· 📄 3</span></div></div><div class="inbox-time">вчера</div></div>
       </div>
       <button class="btn btn-p" onclick="openMsg('')">+ Новое сообщение</button>
     </div></div>
@@ -863,6 +914,10 @@ body.lite .lite-note{display:flex;position:fixed;inset:0;z-index:99999;align-ite
   </div>
 </div>
 
+<!-- Диалог с клиентом (мессенджер) — наполняется из THREADS в openThread() -->
+<div class="thread-backdrop" id="threadBd" onclick="closeThread()"></div>
+<div class="thread" id="thread" aria-hidden="true"></div>
+
 <div class="demo-tag">Демо · тестовые данные, не реальные клиенты</div>
 
 <!-- AI-ассистент Натальи — идея·эскиз (трек G, мониторинг рынка 04.07). НЕ в рабочем прототипе -->
@@ -908,6 +963,100 @@ function toggleSb(force){
 }
 function openClient(){ document.getElementById('clientsList').style.display='none'; document.getElementById('clientCard').style.display='block'; document.querySelector('#sv2').scrollTop=0; }
 function closeClient(){ document.getElementById('clientsList').style.display='block'; document.getElementById('clientCard').style.display='none'; }
+
+/* ── Диалог с клиентом (мессенджер, демо) ─────────────────────────────
+   Файлы/фото/ссылки — то, чем клиент делится: анализы, фото тарелки, рецепты.
+   152-ФЗ: это ПДн+здоровье → в витрине (lite) диалог не открывается. */
+var THREADS={
+ 'Марина К.':{ava:'М',health:true,sub:'Коррекция 2 мес · неделя 3 из 8',day:'Сегодня, 4 июля',
+  msgs:[
+   {tx:'Здравствуйте! Третий день после старта цинка — дискомфорт в животе и тяжесть после обеда.',t:'9:41'},
+   {tx:'Приложила описание и фото добавки.',t:'9:42',att:{n:'Дискомфорт ЖКТ — описание.pdf'}},
+   {me:1,tx:'Марина, спасибо, что сразу отметили. Перенесём цинк на вечер и уменьшим дозу — понаблюдаем 3 дня. Резко ничего не меняем.',t:'10:05'},
+   {me:1,tx:'И пришлите, пожалуйста, фото сегодняшнего обеда — свяжем с самочувствием.',t:'10:06'},
+   {tx:'Хорошо, уже прислала. Спасибо — когда есть план, спокойнее 🙏',t:'10:20',att:{n:'Обед · фото',ic:'📷'}}
+  ],
+  files:[{n:'Дискомфорт ЖКТ — описание.pdf',s:'PDF · 214 КБ · сегодня'},{n:'Анализ крови (базовый).pdf',s:'PDF · 480 КБ · 12 июня'}],
+  photos:[{n:'Обед · тарелка',bg:'linear-gradient(135deg,#8ba07a,#566d4c)'},{n:'Этикетка · цинк',bg:'linear-gradient(135deg,#c9a24b,#8f6f26)'},{n:'Ужин',bg:'linear-gradient(135deg,#d7b6a0,#a86f49)'}],
+  links:[{n:'Рецепт: тёплый салат с киноа',u:'eda.ru'}]},
+ 'Ольга В.':{ava:'О',sub:'Коррекция 2 мес · неделя 4 из 8',day:'Сегодня, 4 июля',
+  msgs:[
+   {tx:'Наталья, можно на этой неделе заменить рыбу? Не успеваю купить свежую.',t:'12:03'},
+   {tx:'Вот рецепт, который присмотрела.',t:'12:04',att:{n:'Рецепт с нутом',ic:'🔗'}},
+   {me:1,tx:'Да, конечно. Замените на нут и яйца — белок и железо сохраним. Рецепт подходит, только уберите соевый соус, он лишний по натрию.',t:'12:40'}
+  ],
+  files:[{n:'Меню · неделя 5.pdf',s:'PDF · 190 КБ · 30 июня'}],
+  photos:[{n:'Завтрак',bg:'linear-gradient(135deg,#9fb185,#6b7f57)'}],
+  links:[{n:'Рецепт с нутом и овощами',u:'gastronom.ru'},{n:'Разбор этикеток соусов',u:'ваш гайд · Telegram'}]},
+ 'Анна С.':{ava:'А',sub:'Коррекция 2 мес · неделя 5 из 8',day:'Вчера, 3 июля',
+  msgs:[
+   {tx:'Спасибо за корректировку! Сон правда лучше — засыпаю быстрее 🙏',t:'19:12'},
+   {me:1,tx:'Рада, Анна. Держим магний вечером ещё неделю, потом обсудим снижение.',t:'20:03'}
+  ],
+  files:[],photos:[],links:[]},
+ 'Фёдор Р.':{ava:'Ф',sub:'Коррекция 2 мес · неделя 8 из 8 · к завершению',day:'Вчера, 3 июля',
+  msgs:[
+   {tx:'Загрузил контрольные анализы в кабинет. Посмотрите, пожалуйста.',t:'15:20',att:{n:'Контрольные анализы.pdf'}},
+   {me:1,tx:'Фёдор, вижу, спасибо. Липиды заметно лучше стартовых — подготовлю итоговый разбор к пятнице.',t:'16:05'}
+  ],
+  files:[{n:'Контрольные анализы.pdf',s:'PDF · 620 КБ · вчера'},{n:'Липидный профиль.pdf',s:'PDF · 310 КБ · вчера'},{n:'Стартовые анализы.pdf',s:'PDF · 590 КБ · 12 мая'}],
+  photos:[],links:[]}
+};
+function _thEsc(s){return _kbEsc(s);}
+function _thAtt(a){ return a?'<div class="bub-att"><span>'+(a.ic||'📄')+'</span><span>'+_thEsc(a.n)+'</span></div>':''; }
+function openThread(name){
+  if(document.body.classList.contains('lite'))return; /* 152-ФЗ: витрина не открывает диалог с ПДн */
+  var d=THREADS[name]||{ava:(name||'?').charAt(0),sub:'диалог',msgs:[],files:[],photos:[],links:[]};
+  var chat=(d.msgs||[]).map(function(m){return '<div class="bub '+(m.me?'me':'them')+'">'+_thEsc(m.tx)+_thAtt(m.att)+'<span class="t">'+_thEsc(m.t||'')+'</span></div>';}).join('')
+    || '<div class="th-empty">Переписка ещё не начата.<br>Напишите первым — сообщение уйдёт в кабинет клиента.</div>';
+  var files=(d.files||[]).map(function(f){return '<div class="th-file"><div class="th-fic doc">📄</div><div class="th-fmeta"><div class="th-fname">'+_thEsc(f.n)+'</div><div class="th-fsub">'+_thEsc(f.s||'')+'</div></div></div>';}).join('')
+    || '<div class="th-empty">Файлов пока нет.</div>';
+  var photos=(d.photos||[]).map(function(p){var bg=(p.bg||'linear-gradient(135deg,#8ba07a,#566d4c)').replace(/["'<>]/g,'');return '<div class="th-photo" style="background:'+bg+'">'+_thEsc(p.n||'')+'</div>';}).join('');
+  photos=photos?'<div class="th-photos">'+photos+'</div>':'<div class="th-empty">Фотографий пока нет.</div>';
+  var links=(d.links||[]).map(function(l){return '<div class="th-file"><div class="th-fic link">🔗</div><div class="th-fmeta"><div class="th-fname">'+_thEsc(l.n)+'</div><div class="th-fsub">'+_thEsc(l.u||'')+'</div></div></div>';}).join('')
+    || '<div class="th-empty">Ссылок пока нет.</div>';
+  var nf=(d.files||[]).length, np=(d.photos||[]).length, nl=(d.links||[]).length;
+  var health=d.health?'<span class="pill red">самочувствие</span>':'';
+  var html='<div class="th-hd"><button class="th-back" onclick="closeThread()" aria-label="Назад">‹</button>'
+   +'<div class="th-ava'+(d.health?' red':'')+'">'+_thEsc(d.ava||name.charAt(0))+'</div>'
+   +'<div class="th-id"><div class="th-name">'+_thEsc(name)+' '+health+'</div><div class="th-sub">'+_thEsc(d.sub||'')+'</div></div>'
+   +'<button class="th-open" onclick="closeThread();go(2);openClient()">Карточка</button></div>'
+   +'<div class="th-seg">'
+     +'<button class="on" onclick="threadTab(this,\'chat\')">Чат</button>'
+     +'<button onclick="threadTab(this,\'files\')">Файлы <span class="th-cnt">'+nf+'</span></button>'
+     +'<button onclick="threadTab(this,\'photos\')">Фото <span class="th-cnt">'+np+'</span></button>'
+     +'<button onclick="threadTab(this,\'links\')">Ссылки <span class="th-cnt">'+nl+'</span></button>'
+   +'</div>'
+   +'<div class="th-body">'
+     +'<div class="th-pane on" id="tp-chat">'+(d.day?'<div class="th-day">'+_thEsc(d.day)+'</div>':'')+chat+'</div>'
+     +'<div class="th-pane" id="tp-files">'+files+'</div>'
+     +'<div class="th-pane" id="tp-photos">'+photos+'</div>'
+     +'<div class="th-pane" id="tp-links">'+links+'</div>'
+   +'</div>'
+   +'<div class="th-comp" id="thComp"><textarea id="thInput" placeholder="Сообщение клиенту…" oninput="thGrow(this)"></textarea>'
+     +'<button class="th-send" onclick="thSend()" aria-label="Отправить"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>';
+  var t=document.getElementById('thread'); t.innerHTML=html; t.classList.add('show'); t.setAttribute('aria-hidden','false');
+  document.getElementById('threadBd').classList.add('show');
+  document.body.classList.add('thread-open');
+  var b=t.querySelector('.th-body'); if(b)b.scrollTop=b.scrollHeight;
+}
+function threadTab(btn,tp){
+  document.querySelectorAll('#thread .th-seg button').forEach(function(b){b.classList.remove('on')});
+  btn.classList.add('on');
+  document.querySelectorAll('#thread .th-pane').forEach(function(p){p.classList.remove('on')});
+  var pane=document.getElementById('tp-'+tp); if(pane)pane.classList.add('on');
+  var c=document.getElementById('thComp'); if(c)c.style.display=(tp==='chat')?'flex':'none';
+  var b=document.querySelector('#thread .th-body'); if(b)b.scrollTop=(tp==='chat')?b.scrollHeight:0;
+}
+function closeThread(){ var t=document.getElementById('thread'); t.classList.remove('show'); t.setAttribute('aria-hidden','true'); document.getElementById('threadBd').classList.remove('show'); document.body.classList.remove('thread-open'); }
+function thGrow(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
+function thSend(){
+  var i=document.getElementById('thInput'); if(!i)return; var v=(i.value||'').trim(); if(!v)return;
+  var pane=document.getElementById('tp-chat'); if(!pane)return;
+  var b=document.createElement('div'); b.className='bub me'; b.innerHTML=_thEsc(v)+'<span class="t">только что · демо</span>';
+  pane.appendChild(b); i.value=''; thGrow(i);
+  var body=document.querySelector('#thread .th-body'); if(body)body.scrollTop=body.scrollHeight;
+}
 
 /* Уведомления */
 function toggleNotif(){ document.getElementById('notifPanel').classList.toggle('show'); }
