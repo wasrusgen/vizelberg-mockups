@@ -29,6 +29,31 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .bell:hover{background:rgba(255,255,255,.16)}
 .bell-dot{position:absolute;top:6px;right:7px;min-width:15px;height:15px;padding:0 3px;background:var(--terra);color:var(--herbal);border-radius:100px;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--herbal)}
 .sb .bell{background:rgba(255,255,255,.06)}
+/* профиль-аккаунт: аватар + вход + экран */
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--herbal);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;border:none}
+.hdr .avatar{width:34px;height:34px}
+.sb-user{display:flex;align-items:center;gap:10px;width:100%;background:rgba(255,255,255,.06);border:none;border-radius:10px;padding:8px 10px;cursor:pointer;color:#fff;text-align:left;margin-bottom:10px;font-family:inherit}
+.sb-user:hover{background:rgba(255,255,255,.12)}
+.sb-user .avatar{width:30px;height:30px}
+.sb-user-n{font-size:12.5px;font-weight:700;line-height:1.2}
+.sb-user-s{font-size:10.5px;color:rgba(255,255,255,.5)}
+.prof-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.prof-chip{border:1.5px solid var(--border);background:var(--white);border-radius:100px;padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--herbal);cursor:pointer;text-decoration:none}
+.prof-chip:hover{background:var(--subtle)}
+.prof-head{display:flex;align-items:center;gap:14px}
+.prof-head .avatar{width:54px;height:54px;font-size:21px}
+.prof-sec-h{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--sage);margin:26px 0 10px;scroll-margin-top:16px}
+.tgl{width:40px;height:23px;border-radius:100px;background:var(--border);position:relative;cursor:pointer;flex-shrink:0;transition:background .15s;border:none}
+.tgl.on{background:var(--herbal)}
+.tgl::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;background:#fff;transition:left .15s}
+.tgl.on::after{left:19px}
+.tgl-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.tgl-row:last-child{border-bottom:none}
+.tr-t{font-size:13.5px;font-weight:600;color:var(--text)}
+.tr-d{font-size:12px;color:var(--muted)}
+.data-btn{display:flex;align-items:center;gap:9px;border:1.5px solid var(--border);background:var(--white);border-radius:10px;padding:11px 15px;font:inherit;font-size:13px;font-weight:600;color:var(--herbal);cursor:pointer;width:100%;margin-top:8px}
+.data-btn.danger{color:#C0584F;border-color:rgba(192,88,79,.4)}
+.data-btn:hover{background:var(--subtle)}
 
 /* Layout */
 .layout{flex:1;display:flex;overflow:hidden}
@@ -522,6 +547,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
   <div class="hdr-t">Моя программа</div>
   <span class="pill terra" style="margin-left:8px">демо</span>
   <div class="hdr-r">
+    <div class="avatar" onclick="go(9)" title="Личный кабинет">М</div>
     <div class="bell" onclick="toggleNotif()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-dot" id="bellDotM">3</span></div>
     <div class="hdr-menu" onclick="toggleSb()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -573,13 +599,12 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div><div class="si-name">Написать Наталье</div><div class="si-sub">Вопрос по программе</div></div>
       </div>
-      <div class="sb-cap">Оплата</div>
-      <div class="si" id="si9" onclick="go(9)">
-        <div class="si-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
-        <div><div class="si-name">Оплата и чек</div><div class="si-sub">Тариф · подписка</div></div>
-      </div>
     </div>
     <div class="sb-foot">
+      <button class="sb-user" onclick="go(9)" title="Личный кабинет">
+        <div class="avatar">М</div>
+        <div><div class="sb-user-n">Марина</div><div class="sb-user-s">Личный кабинет · оплата</div></div>
+      </button>
       <div class="pw-lbl"><span>Программа · 2 месяца</span><b>Неделя 3</b></div>
       <div class="pw-track"><div class="pw-fill"></div></div>
       <div class="sb-foot-sub">Демо · тестовые данные, не реальный клиент</div>
@@ -1003,11 +1028,32 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
       <div class="card"><div class="card-h">После программы</div><div class="card-d">Завершили 8 недель и хотите продолжить? Корректирующая консультация — обновление схемы под новые анализы и цели.</div><button class="btn btn-o btn-cta" onclick="go(9)">Узнать о корректирующей <span class="ar">→</span></button></div>
     </div></div>
 
-    <!-- 9 Оплата -->
+    <!-- 9 Личный кабинет (профиль + оплата + данные) -->
     <div class="sv" id="sv9"><div class="wrap">
-      <div class="page-tag">Оплата</div>
-      <div class="page-h">Оплата и чек</div>
-      <div class="page-d">Ваш тариф, статус оплаты и чеки — всё в одном месте. Оплата — через защищённый платёжный сервис: данные карты видит только банк, не Наталья.</div>
+      <div class="page-tag">Личный кабинет</div>
+      <div class="page-h">Профиль</div>
+      <div class="page-d">Ваши данные, тариф и оплата, уведомления и управление личными данными — в одном месте.</div>
+
+      <div class="prof-nav">
+        <a class="prof-chip" href="#profSec">Профиль</a>
+        <a class="prof-chip" href="#paySec">Тариф и оплата</a>
+        <a class="prof-chip" href="#notifSec">Уведомления</a>
+        <a class="prof-chip" href="#dataSec">Мои данные</a>
+      </div>
+
+      <div class="card" id="profSec" style="margin-top:16px;scroll-margin-top:16px">
+        <div class="prof-head">
+          <div class="avatar">М</div>
+          <div><div class="card-h" style="margin:0">Марина</div><div class="card-d">Программа коррекции · неделя 3 из 8</div></div>
+        </div>
+        <div class="mrow" style="margin-top:14px"><span>Имя</span><b>Марина (пример)</b></div>
+        <div class="mrow"><span>E-mail</span><b>primer@example.ru</b></div>
+        <div class="mrow"><span>Телефон</span><b>+7 900 000-00-00</b></div>
+        <div class="mrow"><span>Ведёт программу</span><b>Наталья Визельберг</b></div>
+        <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь редактируются контактные данные')">Изменить данные</button>
+      </div>
+
+      <div class="prof-sec-h" id="paySec">Тариф и оплата</div>
       <div class="card">
         <div class="card-h">Ваш тариф <span class="pill ok">оплачено</span></div>
         <div class="mrow"><span>Программа</span><b>Коррекция · 2 месяца</b></div>
@@ -1016,7 +1062,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="mrow"><span>Программа активна до</span><b>12 августа</b></div>
         <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь скачивается чек по 54-ФЗ')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Скачать чек (54-ФЗ)</button>
       </div>
-      <div class="card">
+      <div class="card" id="subCard">
         <div class="card-h">Подписка на рецепты <span class="pill wait">опция</span></div>
         <div class="card-d">Новые сезонные рецепты и таблицы под вашу программу каждый месяц. Можно подключить или отключить в любой момент.</div>
         <div class="mrow" style="margin-top:10px"><span>Стоимость</span><b>990 ₽ / мес</b></div>
@@ -1029,7 +1075,27 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="mrow" style="margin-top:10px"><span>Стоимость</span><b>6 000 ₽</b></div>
         <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь оформляется запись на корректирующую')">Записаться позже</button>
       </div>
-      <div class="card"><div class="card-d">Демо · суммы и даты для примера. В рабочей версии оплата пройдёт через платёжный сервис с чеком по 54-ФЗ, платёжные данные — с хранением в РФ (152-ФЗ). Сейчас это не подключено.</div></div>
+
+      <div class="prof-sec-h" id="notifSec">Уведомления</div>
+      <div class="card">
+        <div class="tgl-row"><div style="flex:1"><div class="tr-t">Напоминания о приёме</div><div class="tr-d">Пуш в 08:00, 14:00, 21:00</div></div><button class="tgl on" onclick="this.classList.toggle('on')" aria-label="Напоминания о приёме"></button></div>
+        <div class="tgl-row"><div style="flex:1"><div class="tr-t">Воскресный отчёт</div><div class="tr-d">Напоминание собрать неделю</div></div><button class="tgl on" onclick="this.classList.toggle('on')" aria-label="Воскресный отчёт"></button></div>
+        <div class="tgl-row"><div style="flex:1"><div class="tr-t">Сообщения от Натальи</div><div class="tr-d">Пуш при новом ответе</div></div><button class="tgl on" onclick="this.classList.toggle('on')" aria-label="Сообщения от Натальи"></button></div>
+        <div class="tgl-row"><div style="flex:1"><div class="tr-t">Новости и рецепты</div><div class="tr-d">Не чаще раза в неделю</div></div><button class="tgl" onclick="this.classList.toggle('on')" aria-label="Новости и рецепты"></button></div>
+      </div>
+
+      <div class="prof-sec-h" id="dataSec">Мои данные · 152-ФЗ <span class="pill terra" style="text-transform:none;letter-spacing:0">демо · план</span></div>
+      <div class="card">
+        <div class="card-d">Данные о вашем здоровье будут храниться на серверах в России и видны только вам и Наталье — вы управляете ими в любой момент. Точную схему хранения согласуем с юристом при запуске.</div>
+        <div class="mrow" style="margin-top:12px"><span>Согласие на обработку</span><b>дано 12 июня</b></div>
+        <button class="data-btn" onclick="demoNote(this,'В рабочей версии выгрузит все ваши данные одним архивом')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Скачать мои данные</button>
+        <button class="data-btn" onclick="demoNote(this,'В рабочей версии откроет текст согласия на обработку персональных данных')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Посмотреть согласие</button>
+        <button class="data-btn danger" onclick="demoNote(this,'В рабочей версии запросит удаление аккаунта и всех данных')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Удалить мои данные</button>
+      </div>
+
+      <button class="btn btn-o" style="margin-top:22px" onclick="demoNote(this,'В рабочей версии здесь выход из личного кабинета')">Выйти</button>
+
+      <div class="card" style="margin-top:16px"><div class="card-d">Демо · суммы, даты и контакты — для примера, не реальный клиент. В рабочей версии оплата пройдёт через платёжный сервис с чеком по 54-ФЗ; персональные данные — с планируемым хранением в РФ (152-ФЗ), схему согласуем с юристом.</div></div>
     </div></div>
 
   </div>
@@ -1137,7 +1203,7 @@ if(/[?&]app=1/.test(location.search)){
 (function(){
   var m=/[?&]view=([^&]+)/.exec(location.search); if(!m) return;
   var v=decodeURIComponent(m[1]).toLowerCase().trim();
-  var map={'0':0,program:0,программа:0,'1':1,day:1,den:1,'2':2,diary:2,dnevnik:2,'3':3,feel:3,'4':4,analyses:4,analyzy:4,'5':5,recipes:5,'6':6,chat:6,svyaz:6,'8':8,calendar:8,'9':9,pay:9,oplata:9};
+  var map={'0':0,program:0,программа:0,'1':1,day:1,den:1,'2':2,diary:2,dnevnik:2,'3':3,feel:3,'4':4,analyses:4,analyzy:4,'5':5,recipes:5,'6':6,chat:6,svyaz:6,'8':8,calendar:8,'9':9,pay:9,oplata:9,profile:9,profil:9,профиль:9,account:9,lk:9};
   if(Object.prototype.hasOwnProperty.call(map,v)) go(map[v]);
 })();
 function setTab(n){
@@ -1485,7 +1551,7 @@ window.SIM_SCENES=[
  {chap:'Неделя 6', html:'<div class="simd-tag">Экран «Мой прогресс» · демо-пример</div><div class="simd-h">Прогресс — не ощущение, а картинка</div><div class="simd-bars"><i style="height:26%"></i><i style="height:32%"></i><i style="height:30%"></i><i style="height:46%"></i><i style="height:58%"></i><i style="height:72%"></i></div><div style="display:flex;font-size:10px;color:#8A8578"><div style="flex:1;text-align:center">нед 1</div><div style="flex:1;text-align:center">2</div><div style="flex:1;text-align:center">3</div><div style="flex:1;text-align:center">4</div><div style="flex:1;text-align:center">5</div><div style="flex:1;text-align:center">6</div></div><table class="simd-tbl"><tr><th>Показатель</th><th>Старт</th><th>Контроль · неделя 8</th><th>Референс из бланка</th></tr><tr><td>Ферритин</td><td>16 нг/мл</td><td>—</td><td>10–120</td></tr><tr><td>Витамин D</td><td>21 нг/мл</td><td>—</td><td>30–100</td></tr></table><div class="simd-note">Самочувствие по неделям + контрольные анализы рядом с первичными — только цифры и референс из бланка, динамику оценивает Наталья. Демо-цифры, не гарантия результата.</div>',
   title:'Марина видит движение', text:'График самочувствия, пройденные этапы, анализы «до / после» рядом.',
   hook:'Виден прогресс — главный довод продолжать и рекомендовать подругам.'},
- {chap:'Финал · неделя 8', view:9, sel:'#sv9 .card:nth-child(5)',
+ {chap:'Финал · неделя 8', view:9, sel:'#subCard',
   title:'Не «выпала», а осталась', text:'Программа завершена — и два пути дальше: подписка на рецепты (подсвечена) или корректирующая программа в карточке ниже (цены — демо). Дальше — та же неделя глазами Натальи.',
   hook:'Финал программы — не прощание, а следующая ступень. Клиент остаётся в орбите.'}
 ];
@@ -1507,7 +1573,7 @@ window.SIM_SCENES=[
   <div class="ms-item" onclick="go(3);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Самочувствие</div>
   <div class="ms-item" onclick="go(4);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Анализы</div>
   <div class="ms-item" onclick="go(5);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Рецепты и таблицы</div>
-  <div class="ms-item" onclick="go(9);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Оплата и чек</div>
+  <div class="ms-item" onclick="go(9);toggleMore(false)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Личный кабинет<span>оплата · данные</span></div>
 </div>
 <script>if(document.body.classList.contains('app')){setTab(document.body.classList.contains('lite')?0:1);}</script>
 <button class="exp-fab" onclick="toggleExp(event)" title="Экспорт текущей вкладки"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Экспорт</button>
