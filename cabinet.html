@@ -85,11 +85,23 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-top:18px}
 .card-h{font-family:Georgia;font-size:15.5px;font-weight:700;color:var(--herbal);margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .card-d{font-size:13px;color:var(--muted);line-height:1.55}
-.btn{font-family:inherit;font-weight:600;border:none;cursor:pointer;border-radius:10px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;margin-top:14px}
+.btn{font-family:inherit;font-weight:600;border:none;cursor:pointer;border-radius:10px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;margin-top:14px;position:relative;overflow:hidden}
 .btn-p{background:var(--herbal);color:#fff;font-size:13.5px;padding:11px 20px}
 .btn-p:hover{background:#243B30}
 .btn-o{background:transparent;color:var(--herbal);border:1.5px solid var(--sage);font-size:13px;padding:9px 17px}
 .btn-o:hover{background:var(--subtle)}
+/* ведущая кнопка «следующий шаг» — комбо: кольцо-пульс + блик + нудж-стрелка (по 1 на экран) */
+.btn .ar{display:inline-block;transition:transform .3s}
+.btn-cta{box-shadow:0 4px 14px rgba(30,40,32,.14),0 0 0 0 rgba(201,162,75,.5);animation:ctaRing 2.6s infinite}
+.btn-cta::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,248,230,.5),transparent);transform:skewX(-18deg);animation:ctaSheen 4.7s infinite;pointer-events:none}
+/* на светлой кнопке (.btn-o) белый блик над кремовым фоном невиден — тонируем в цвет шрифта (herbal) */
+.btn-o.btn-cta::after{background:linear-gradient(100deg,transparent,rgba(47,74,60,.22),transparent)}
+.btn-cta .ar{animation:ctaNudge 1.6s ease-in-out infinite}
+.btn-cta:hover,.btn-cta:hover::after,.btn-cta:hover .ar{animation-play-state:paused}
+@keyframes ctaRing{0%{box-shadow:0 4px 14px rgba(30,40,32,.14),0 0 0 0 rgba(201,162,75,.5)}70%{box-shadow:0 4px 14px rgba(30,40,32,.14),0 0 0 11px rgba(201,162,75,0)}100%{box-shadow:0 4px 14px rgba(30,40,32,.14),0 0 0 0 rgba(201,162,75,0)}}
+@keyframes ctaSheen{0%,55%{left:-60%}80%,100%{left:130%}}
+@keyframes ctaNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+@media(prefers-reduced-motion:reduce){.btn-cta,.btn-cta::after,.btn-cta .ar{animation:none}}
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:100px}
 .pill.ok{background:rgba(124,144,112,.15);color:#5C7050}
 .pill.wait{background:rgba(201,162,75,.18);color:#9A7A2E}
@@ -597,7 +609,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
           <div class="route-summit-h">Ваша вершина — что ждёт на финише</div>
           <div class="route-summit-d">Контрольные анализы «после» рядом с «до», разбор Натальи «что изменилось» — и <b>ваш выбор</b>: закрепить достигнутое или продолжить со следующей целью. Решение всегда за вами.</div>
         </div>
-        <div class="route-next">Следующий шаг: <b>дозаполнить дневник за субботу</b> <button class="btn btn-o" onclick="go(2)">Перейти</button></div>
+        <div class="route-next">Следующий шаг: <b>дозаполнить дневник за субботу</b> <button class="btn btn-o btn-cta" onclick="go(2)">Перейти <span class="ar">→</span></button></div>
       </div>
       <div class="grid2">
         <div class="card"><div class="card-h">Сегодня</div><div class="card-d">Приём: 2 из 4 отмечено · дневник за сегодня не заполнен · 1 задание к сроку.</div><button class="btn btn-o" onclick="go(1)">К моему дню</button></div>
@@ -665,7 +677,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
       <div class="card">
         <div class="card-h">Ещё сегодня</div>
         <div class="card-d">Дневник за субботу пока пуст — заполните вечером: завтра неделя уйдёт в воскресный отчёт Наталье.</div>
-        <button class="btn btn-o" onclick="go(2)">В дневник питания</button>
+        <button class="btn btn-o btn-cta" onclick="go(2)">В дневник питания <span class="ar">→</span></button>
       </div>
       <div class="card"><div class="card-h">Напоминания <span class="pill ok">включены</span></div><div class="card-d">Пуш придёт в момент приёма — 08:00, 14:00, 21:00 — ничего не держать в голове. Колокольчик в строке выключает уведомление по отдельной добавке. Заметили реакцию на приём — отметьте в «Самочувствии», сигнал уйдёт Наталье с приоритетом.</div><button class="btn btn-o bell-open" onclick="toggleNotif()">Показать напоминания</button></div>
     </div></div>
@@ -698,7 +710,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="tool-row">
           <button class="tool-btn" onclick="openComposer('diary')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>Фото блюда</button>
           <button class="tool-btn" onclick="openComposer('diary')">🎤 Наговорить голосом</button>
-          <button class="btn btn-p" style="margin-top:0;margin-left:auto" onclick="openComposer('diary')">Добавить в дневник</button>
+          <button class="btn btn-p btn-cta" style="margin-top:0;margin-left:auto" onclick="openComposer('diary')">Добавить в дневник <span class="ar">→</span></button>
         </div>
       </div>
       <div class="card" id="weekCard">
@@ -843,7 +855,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="tool-row">
           <button class="tool-btn" onclick="openComposer('feel')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Фото симптома</button>
           <button class="tool-btn" onclick="openComposer('feel')">🎤 Наговорить голосом</button>
-          <button class="btn btn-p" style="margin-top:0;margin-left:auto" onclick="openComposer('feel')">Отправить</button>
+          <button class="btn btn-p btn-cta" style="margin-top:0;margin-left:auto" onclick="openComposer('feel')">Отправить <span class="ar">→</span></button>
         </div>
       </div>
       <div class="card">
@@ -932,7 +944,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="file-row"><div class="file-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="file-name">Витамин D, ферритин · апрель</div><div class="file-sub">Загружено при подготовке</div></div></div>
       </div>
       <div class="card" style="background:var(--subtle)"><div class="card-d" style="margin:0;font-size:12.5px">Разбор анализов делает <b>Наталья</b>. Система помогает ей собрать цифры и историю, но выводы и рекомендации приходят к вам <b>её словами</b>, после её проверки — автоматических «диагнозов» кабинет не показывает.</div></div>
-      <div class="card"><div class="card-h">Контрольные анализы <span class="pill wait">неделя 8</span></div><div class="card-d">В конце программы Наталья попросит контрольный список — загрузите сюда, и на итоговой встрече сравните «до / после».</div><button class="btn btn-o" onclick="openComposer('file')">Загрузить файл</button></div>
+      <div class="card"><div class="card-h">Контрольные анализы <span class="pill wait">неделя 8</span></div><div class="card-d">В конце программы Наталья попросит контрольный список — загрузите сюда, и на итоговой встрече сравните «до / после».</div><button class="btn btn-o btn-cta" onclick="openComposer('file')">Загрузить файл</button></div>
       <div class="card idea">
         <span class="idea-tag">Идея · эскиз, не в прототипе</span>
         <div class="card-h">Анализы сами из лаборатории</div>
@@ -988,7 +1000,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="card-h">Помощник — для быстрых вопросов</div>
         <div class="card-d">Мелкий вопрос по программе («можно ли кофе после цинка?») — помощник отвечает сразу, по материалам Натальи. Всё про самочувствие и всё важное — уходит Наталье, помощник только связывает. Кнопка <b>✦ Помощник</b> — справа внизу, это эскиз.</div>
       </div>
-      <div class="card"><div class="card-h">После программы</div><div class="card-d">Завершили 8 недель и хотите продолжить? Корректирующая консультация — обновление схемы под новые анализы и цели.</div><button class="btn btn-o" onclick="go(9)">Узнать о корректирующей</button></div>
+      <div class="card"><div class="card-h">После программы</div><div class="card-d">Завершили 8 недель и хотите продолжить? Корректирующая консультация — обновление схемы под новые анализы и цели.</div><button class="btn btn-o btn-cta" onclick="go(9)">Узнать о корректирующей <span class="ar">→</span></button></div>
     </div></div>
 
     <!-- 9 Оплата -->
@@ -1009,7 +1021,7 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="card-d">Новые сезонные рецепты и таблицы под вашу программу каждый месяц. Можно подключить или отключить в любой момент.</div>
         <div class="mrow" style="margin-top:10px"><span>Стоимость</span><b>990 ₽ / мес</b></div>
         <div class="mrow"><span>Статус</span><b>не подключена</b></div>
-        <button class="btn btn-p" onclick="demoNote(this,'В рабочей версии здесь подключается подписка через платёжный сервис')">Подключить подписку</button>
+        <button class="btn btn-p btn-cta" onclick="demoNote(this,'В рабочей версии здесь подключается подписка через платёжный сервис')">Подключить подписку <span class="ar">→</span></button>
       </div>
       <div class="card">
         <div class="card-h">После программы</div>
