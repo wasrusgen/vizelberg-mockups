@@ -1132,6 +1132,14 @@ if(/[?&]app=1/.test(location.search)){
   if(LITE) document.body.classList.add('lite');
   go(LITE?0:1);
 }
+/* deep-link ?view=N|имя — открыть кабинет сразу на нужном экране (снимки/ссылки Наталье).
+   Идёт ПОСЛЕ ?app=1, чтобы перекрыть стартовый экран витрины; в lite go() сам блокирует health-разделы (152-ФЗ). */
+(function(){
+  var m=/[?&]view=([^&]+)/.exec(location.search); if(!m) return;
+  var v=decodeURIComponent(m[1]).toLowerCase().trim();
+  var map={'0':0,program:0,программа:0,'1':1,day:1,den:1,'2':2,diary:2,dnevnik:2,'3':3,feel:3,'4':4,analyses:4,analyzy:4,'5':5,recipes:5,'6':6,chat:6,svyaz:6,'8':8,calendar:8,'9':9,pay:9,oplata:9};
+  if(Object.prototype.hasOwnProperty.call(map,v)) go(map[v]);
+})();
 function setTab(n){
   var main=[1,2,6,8];
   document.querySelectorAll('.tb').forEach(function(b){
