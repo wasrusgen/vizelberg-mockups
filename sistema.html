@@ -66,11 +66,12 @@ h1 .accent{color:var(--sage);border-bottom:3px solid var(--gold)}
 .lever p{font-size:13.5px;color:var(--muted)}
 
 /* Секции */
-section{padding:44px 0 8px}
-.sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
-.sec-h .idx{font-family:'Prata',serif;font-size:15px;color:var(--gold);letter-spacing:.08em}
-h2{font-family:'Prata',serif;font-weight:400;font-size:clamp(23px,2.6vw,30px);color:var(--forest)}
-.sec-sub{font-size:14.5px;color:var(--muted);max-width:720px;margin-bottom:26px}
+section{padding:52px 0 8px;border-top:1px solid var(--line)}
+.sec-h{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.sec-h .idx{display:inline-flex;align-items:center;gap:9px;font-family:'Manrope',sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);width:max-content}
+.sec-h .idx::before{content:"";width:26px;height:2px;background:var(--gold);border-radius:2px}
+h2{font-family:'Prata',serif;font-weight:400;font-size:clamp(26px,2.9vw,34px);color:var(--deep);line-height:1.14}
+.sec-sub{font-size:14.5px;color:var(--muted);max-width:none;margin-bottom:26px}
 
 /* Карточка модуля: было→станет */
 .mod{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 28px;margin-bottom:20px}
