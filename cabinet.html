@@ -43,6 +43,17 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .prof-head{display:flex;align-items:center;gap:14px}
 .prof-head .avatar{width:54px;height:54px;font-size:21px}
 .prof-sec-h{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--sage);margin:26px 0 10px;scroll-margin-top:16px}
+.ptiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.ptile{background:var(--white);border:1px solid var(--border);border-radius:13px;padding:15px 15px;display:flex;flex-direction:column}
+.ptile.here{border:2px solid var(--herbal);background:linear-gradient(180deg,rgba(124,144,112,.10),transparent);padding:14px 14px}
+.ptile-tt{font-family:Georgia,serif;font-size:14.5px;font-weight:700;color:var(--herbal);line-height:1.2}
+.ptile-ds{font-size:12px;color:var(--muted);margin:8px 0 12px;line-height:1.5;flex:1}
+.ptile-pr{font-family:Georgia,serif;font-size:16.5px;font-weight:700;color:var(--herbal)}
+.ptile-sub{font-size:11px;color:#9A917E;margin-top:2px}
+.ptile-b{margin-top:12px;text-align:center;font-weight:700;font-size:12px;border-radius:9px;padding:9px;border:1.5px solid var(--sage);color:var(--herbal);background:transparent;cursor:pointer;font-family:inherit}
+.ptile-b.d{background:var(--herbal);color:#fff;border-color:var(--herbal)}
+.ptile-b.ghost{border-style:dashed;border-color:var(--border);color:#9A917E;cursor:default}
+@media(max-width:640px){.ptiles{grid-template-columns:1fr}}
 .tgl{width:40px;height:23px;border-radius:100px;background:var(--border);position:relative;cursor:pointer;flex-shrink:0;transition:background .15s;border:none}
 .tgl.on{background:var(--herbal)}
 .tgl::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;background:#fff;transition:left .15s}
@@ -136,6 +147,19 @@ h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif}
 .mrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px}
 .mrow:last-child{border-bottom:none}
 .mrow b{color:var(--herbal);text-align:right}
+/* Лестница продуктов «вы здесь» (ориентир, не каталог) */
+.plad{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.plad-item{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border:1px solid var(--border);border-radius:12px;background:var(--white)}
+.plad-item.here{border-color:var(--herbal);background:linear-gradient(180deg,rgba(124,144,112,.10),transparent);box-shadow:inset 0 0 0 1px var(--herbal)}
+.plad-mark{flex:0 0 auto;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;background:var(--cream);color:var(--sage)}
+.plad-item.here .plad-mark{background:var(--herbal);color:#fff}
+.plad-bd{flex:1;min-width:0}
+.plad-nm{font-family:Georgia;font-size:14.5px;font-weight:700;color:var(--herbal);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.plad-ds{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+.plad-act{margin-top:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.plad-pr{font-weight:700;color:var(--herbal);white-space:nowrap;font-size:13px}
+.plad-lk{font-size:12.5px;font-weight:600;color:var(--sage);background:none;border:none;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.plad-note{font-size:12px;color:var(--muted);margin-top:12px;font-style:italic}
 
 /* Программа: этапы */
 .steps{display:flex;flex-direction:column;gap:0;margin-top:16px}
@@ -1062,18 +1086,36 @@ body.lite .exp-fab,body.lite .exp-menu{display:none!important}
         <div class="mrow"><span>Программа активна до</span><b>12 августа</b></div>
         <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь скачивается чек по 54-ФЗ')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Скачать чек (54-ФЗ)</button>
       </div>
-      <div class="card" id="subCard">
-        <div class="card-h">Подписка на рецепты <span class="pill wait">опция</span></div>
-        <div class="card-d">Новые сезонные рецепты и таблицы под вашу программу каждый месяц. Можно подключить или отключить в любой момент.</div>
-        <div class="mrow" style="margin-top:10px"><span>Стоимость</span><b>990 ₽ / мес</b></div>
-        <div class="mrow"><span>Статус</span><b>не подключена</b></div>
-        <button class="btn btn-p btn-cta" onclick="demoNote(this,'В рабочей версии здесь подключается подписка через платёжный сервис')">Подключить подписку <span class="ar">→</span></button>
-      </div>
+      <div class="prof-sec-h">Ваш маршрут у Натальи</div>
       <div class="card">
-        <div class="card-h">После программы</div>
-        <div class="card-d">Корректирующая консультация — обновление схемы под новые анализы и цели после завершения 8 недель.</div>
-        <div class="mrow" style="margin-top:10px"><span>Стоимость</span><b>6 000 ₽</b></div>
-        <button class="btn btn-o" onclick="demoNote(this,'В рабочей версии здесь оформляется запись на корректирующую')">Записаться позже</button>
+        <div class="card-h">Где вы в программах <span class="pill terra">ориентир, не продажа</span></div>
+        <div class="card-d">Вы сейчас здесь. Что дальше — ваш выбор и без спешки.</div>
+        <div class="ptiles">
+          <div class="ptile">
+            <div class="ptile-tt">Стартовая диагностика</div>
+            <div class="ptile-ds">Анкета, разбор питания и анализов, план на 2 месяца.</div>
+            <div class="ptile-pr">пройдено</div>
+            <div class="ptile-sub">завершена 10 июня</div>
+            <div class="ptile-b ghost">Этап закрыт</div>
+          </div>
+          <div class="ptile here">
+            <div style="margin-bottom:7px"><span class="pill ok">вы здесь</span></div>
+            <div class="ptile-tt">Коррекция · 2 месяца</div>
+            <div class="ptile-ds">Неделя 3 из 8. Дневник, сопровождение, коррекция схемы.</div>
+            <div class="ptile-pr">45 000 ₽</div>
+            <div class="ptile-sub">оплачено · активна до 12 августа</div>
+            <button class="ptile-b d" onclick="go(0)">Открыть программу</button>
+          </div>
+          <div class="ptile">
+            <div style="margin-bottom:7px"><span class="pill wait">далее, по желанию</span></div>
+            <div class="ptile-tt">Поддержка</div>
+            <div class="ptile-ds">Корректирующая консультация или подписка на рецепты между программами.</div>
+            <div class="ptile-pr">от 990 ₽<span style="font-size:11px;font-weight:400"> / мес</span></div>
+            <div class="ptile-sub">консультация — 6 000 ₽</div>
+            <button class="ptile-b" onclick="demoNote(this,'В рабочей версии здесь оформляется консультация или подписка через платёжный сервис')">Посмотреть</button>
+          </div>
+        </div>
+        <div class="plad-note">Ничего подключать сейчас не нужно — это карта вашего пути, выбор всегда за вами.</div>
       </div>
 
       <div class="prof-sec-h" id="notifSec">Уведомления</div>
